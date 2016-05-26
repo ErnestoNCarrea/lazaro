@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Component>
+
+  <DisabledMenuItem name="Servidor fiscal" position="Varios" function="RUN ServidorFiscal.ServidorFiscal" />
+  
+  <Function name="ServidorFiscal" />
+
+</Component>

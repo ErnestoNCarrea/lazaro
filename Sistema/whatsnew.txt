@@ -1,0 +1,62 @@
+﻿*** 2010-02-02
+
+* El menú "Cuentas" ahora se llama "Cajas". Todas las referencias a la palabra "Cuenta" fueron cambiadas por la palabra "Caja".
+
+*** 2010-02-05
+
+* Ahora se puede adjuntar una imágen a una persona.
+* Captura de imágenes desde dispositivos WIA, como una cámara de fotos o un escáner.
+* Se agregó una opción de recorte al incorporar imágenes.
+
+*** 2010-02-06
+
+* Se incorporó un sistema de notificación de novedades.
+* Numerosas mejoras de velocidad. Especialmente en conexiones lentas.
+
+*** 2010-02-17
+
+* Se incorporaron las tarjetas Nativa y Actual.
+
+*** 2010-04-30
+
+* Se agregó la opción de cobrar parte de una factura con un Comprobante de Retención de Impuestos.
+* Se agregó la opcion de pagar con cheques de terceros o con Comprobantes de Retención de Impuestos.
+
+*** 2010-05-10
+
+* Ahora se puede restringir el tipo de documento que se imprime en cada Punto de Venta.
+
+*** 2010-05-19
+
+* Las Notas de Crédito ahora también controlan el saldo impago (como lo hacen las Notas de Débito y Facturas).
+
+*** 2010-05-08
+
+* El sistema va a instalar Microsoft .NET Framework 3.5 en los equipos que no lo tengan. Éste es un componente requisitorio para futuras actualizaciones.
+
+*** 2010-10-14
+
+* Rediseño interno del manejo de formularios de edición y listado de elementos.
+* Rediseño interno del manejo de permisos.
+* Mejoras cosméticas en todos los formularios de listado y cajas.
+* Mejoras de funcionalidad en todos los formularios de edición.
+* Implementación interna de más elementos de datos en Lbl.
+* Ya no se admite el acceso mediante MyODBC. Se siguen admitiendo MySQL Connector/NET y ODBC. Las conexiones configuradas como MyODBC se tratan como MySQL Connector/NET.
+* Se actualizó la versión de desino de Microsoft .NET Framework de 2.0 a 3.5 Client Profile.
+
+*** 2010-12-17
+
+Lázaro tiene un nuevo ícono. Algunas ubicaciones aun pueden mostrar el ícono antiguo.
+
+*** 2011-01-14
+
+* Las cuentas corrientes de los clientes ahora aparecen en orden inverso (los movimientos más nuevos arriba).
+
+*** 2011-03-01
+
+* Los artículos ahora incorporan seguimiento por "Variaciones" (por ejemplo, Talles y Colores).
+
+*** 2011-08-24
+
+* Se mejoró la seguridad en el almacenamiento de contraseñas. Se recomienda que cambie su contraseña desde el menú Sistema.
+

@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VersionInfo>
+  <Package name="ServidorFiscal">
+    <File name="ServidorFiscal.dll" version="2011-10-18 15:28:02" size="188416" compsize="41480" compression="bz2" />
+    <File name="ServidorFiscal.pdb" version="2011-10-18 15:28:02" size="38400" compsize="9353" compression="bz2" />
+  </Package>
+</VersionInfo>

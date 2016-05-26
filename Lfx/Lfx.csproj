@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>Lazaro.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Lfx</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Lfx</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <CodePage>65001</CodePage>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ReleaseVersion>2.0</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\rel\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>Lfx.xml</DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <NoWarn>0168,0169,0649,1591</NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\dev\</OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <DocumentationFile>bin\dev\Lfx.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Backups\BackupInfo.cs" />
+    <Compile Include="Backups\BackupReader.cs" />
+    <Compile Include="Backups\BackupWriter.cs" />
+    <Compile Include="Backups\Manager.cs" />
+    <Compile Include="Components\Action.cs" />
+    <Compile Include="Components\ActionCollection.cs" />
+    <Compile Include="Components\RegisterFunction.cs" />
+    <Compile Include="Components\FunctionInfo.cs" />
+    <Compile Include="Components\FunctionTypes.cs" />
+    <Compile Include="Components\GetTypesFunction.cs" />
+    <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Components\IRegisteredType.cs" />
+    <Compile Include="Components\MenuEntry.cs" />
+    <Compile Include="Components\FunctionInfoCollection.cs" />
+    <Compile Include="Components\RegisteredType.cs" />
+    <Compile Include="Components\RegisteredTypeCollection.cs" />
+    <Compile Include="Components\TryFunction.cs" />
+    <Compile Include="Data\Aggregate.cs" />
+    <Compile Include="Data\Grouping.cs" />
+    <Compile Include="Data\InputFieldTypes.cs" />
+    <Compile Include="Data\Providers\AnsiSettings.cs" />
+    <Compile Include="Data\Providers\IProvider.cs" />
+    <Compile Include="Data\Providers\MySqlSettings.cs" />
+    <Compile Include="Data\Providers\NpgsqlSettings.cs" />
+    <Compile Include="Data\Providers\ProviderSettings.cs" />
+    <Compile Include="Data\Providers\SQLite.cs" />
+    <Compile Include="Data\qGen\BeginTransactionCommand.cs" />
+    <Compile Include="Data\qGen\CommitCommand.cs" />
+    <Compile Include="Data\qGen\ICommand.cs" />
+    <Compile Include="Data\qGen\ITableCommand.cs" />
+    <Compile Include="Data\qGen\JoinCollection.cs" />
+    <Compile Include="Data\qGen\RollBackCommand.cs" />
+    <Compile Include="Data\qGen\SetCommand.cs" />
+    <Compile Include="Data\qGen\TextCommand.cs" />
+    <Compile Include="Data\Structure.cs" />
+    <Compile Include="Data\Transaction.cs" />
+    <Compile Include="RuntimeServices.cs" />
+    <Compile Include="Types\DomainException.cs" />
+    <Compile Include="Types\Exceptions\Exception.cs" />
+    <Compile Include="Types\Exceptions\AccessDeniedException.cs" />
+    <Compile Include="Types\Ini.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\StringAlignment.cs" />
+    <Compile Include="Updates\CompressionFormats.cs" />
+    <Compile Include="Updates\File.cs" />
+    <Compile Include="Updates\FileCollection.cs" />
+    <Compile Include="Updates\Package.cs" />
+    <Compile Include="Updates\PackageCollection.cs" />
+    <Compile Include="Updates\Updater.cs" />
+    <Compile Include="Components\Function.cs" />
+    <Compile Include="Components\Manager.cs" />
+    <Compile Include="Config\CompanyConfig.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="Config\CurrencyConfig.cs" />
+    <Compile Include="Config\ProductsConfig.cs" />
+    <Compile Include="Cpx\CommandList.cs" />
+    <Compile Include="Cpx\CommandResponse.cs" />
+    <Compile Include="Cpx\Commands.cs" />
+    <Compile Include="Cpx\Printer.cs" />
+    <Compile Include="Data\ColumnDefinition.cs" />
+    <Compile Include="Data\ConstraintDefinition.cs" />
+    <Compile Include="Data\DataBaseCache.cs" />
+    <Compile Include="Data\Field.cs" />
+    <Compile Include="Data\AggregationFunctions.cs" />
+    <Compile Include="Data\IndexDefinition.cs" />
+    <Compile Include="Data\Providers\Npgsql.cs" />
+    <Compile Include="Data\qGen\BuilkInsert.cs" />
+    <Compile Include="Data\qGen\Command.cs" />
+    <Compile Include="Data\qGen\Condition.cs" />
+    <Compile Include="Data\qGen\Delete.cs" />
+    <Compile Include="Data\qGen\Enums.cs" />
+    <Compile Include="Data\qGen\Expression.cs" />
+    <Compile Include="Data\qGen\Insert.cs" />
+    <Compile Include="Data\qGen\Join.cs" />
+    <Compile Include="Data\qGen\Select.cs" />
+    <Compile Include="Data\qGen\TableCommand.cs" />
+    <Compile Include="Data\qGen\Update.cs" />
+    <Compile Include="Data\qGen\Where.cs" />
+    <Compile Include="Data\qGen\Window.cs" />
+    <Compile Include="Data\Relation.cs" />
+    <Compile Include="Data\Row.cs" />
+    <Compile Include="Data\RowCollection.cs" />
+    <Compile Include="Data\Table.cs" />
+    <Compile Include="Data\TableCollection.cs" />
+    <Compile Include="Data\TableStructure.cs" />
+    <Compile Include="Data\Tag.cs" />
+    <Compile Include="FileFormats\Compression\Archive.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\Connection.cs" />
+    <Compile Include="Environment\Folders.cs" />
+    <Compile Include="Environment\Shell.cs" />
+    <Compile Include="Environment\SystemInformation.cs" />
+    <Compile Include="Services\Scheduler.cs" />
+    <Compile Include="Services\Task.cs" />
+    <Compile Include="Types\DateRange.cs" />
+    <Compile Include="Types\Extensions.cs" />
+    <Compile Include="Types\Evaluator.cs" />
+    <Compile Include="Types\Currency.cs" />
+    <Compile Include="Types\Formatting.cs" />
+    <Compile Include="Types\NullableDateTime.cs" />
+    <Compile Include="Types\Object.cs" />
+    <Compile Include="Types\OperationProgress.cs" />
+    <Compile Include="Types\OperationResult.cs" />
+    <Compile Include="Types\Parsing.cs" />
+    <Compile Include="Types\Strings.cs" />
+    <Compile Include="Types\Type.cs" />
+    <Compile Include="Types\Types.cs" />
+    <Compile Include="Workspace.cs" />
+    <EmbeddedResource Include="Data\Struct\dbstruct.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Data\TagCollection.cs" />
+    <Compile Include="Data\FieldCollection.cs" />
+    <Compile Include="Data\Providers\MySql.cs" />
+    <Compile Include="Data\Providers\Odbc.cs" />
+    <Compile Include="Data\Providers\Provider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Struct\db_upd_post.sql" />
+    <EmbeddedResource Include="Data\Struct\dbdata.sql" />
+    <EmbeddedResource Include="Data\Struct\db_upd_pre.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Struct\db_upd26_pre.sql" />
+    <EmbeddedResource Include="Data\Struct\db_upd27_post.sql" />
+    <EmbeddedResource Include="Data\Struct\db_upd27_pre.sql" />
+    <EmbeddedResource Include="Data\Struct\db_upd26_post.sql" />
+    <Content Include="Lazaro.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <ProjectGuid>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</ProjectGuid>
+    <RootNamespace>Lfx</RootNamespace>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio />
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData generatePcFile="false" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

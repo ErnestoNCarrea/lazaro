@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Component>
+
+  <MenuItem name="Mensajería" position="Varios" />
+  <MenuItem name="Mensaje instantáneo" position="Varios.Mensajería" function="RUN Lazaro.Mensajeria.Show" />
+
+  <Function name="Notify" />
+  <Function name="Show" />
+  
+</Component>

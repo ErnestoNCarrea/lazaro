@@ -1,0 +1,7 @@
+﻿<Component>
+  
+  <MenuItem name="Servidor Fiscal" function="ServidorFiscal" />
+  
+  <Function name="ServidorFiscal" autorun="0" />
+  
+</Component>

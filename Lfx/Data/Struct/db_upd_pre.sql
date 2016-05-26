@@ -1,0 +1,1 @@
+UPDATE sys_log SET usuario=NULL WHERE usuario=0;

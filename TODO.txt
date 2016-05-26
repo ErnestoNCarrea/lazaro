@@ -1,0 +1,15 @@
+﻿Lázaro versión 1.0
+
+Tareas pendientes (sin orden particular)
+
+* Mejorar Lui.ListingForm para que puedan personalizarse las columnas. -- Parcialmente hecho
+* Al quitar imagen de un elemento de datos, la imagen queda en caché
+* Al exportar a HTML, también exportar grupos y subtotales
+
+* Renombrar los campos "impresa" y "anulada" en comprob a "impreso" y "anulado" para que coincida
+  con el nombre de la tabla y con los mismos campos en "recibos"
+
+* Opción de hacer copias de resguardo consistentes (con LOCK TABLES o BEGIN TRANSACTION).
+
+* Unit-tests
+* Documentación

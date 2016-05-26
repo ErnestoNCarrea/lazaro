@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{56F39851-6542-405C-9F47-E8414B757EF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lbl</RootNamespace>
+    <AssemblyName>Lbl</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>Lazaro.ico</ApplicationIcon>
+    <CodePage>65001</CodePage>
+    <ReleaseVersion>1.0</ReleaseVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\rel\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GenerateDocumentation>true</GenerateDocumentation>
+    <RunWithWarnings>false</RunWithWarnings>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591,0219</NoWarn>
+    <DebugSymbols>true</DebugSymbols>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>Lbl.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\dev\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DebugType>full</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+    <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>bin\dev\Lbl.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DebugType>none</DebugType>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archivos\Archivo.cs" />
+    <Compile Include="Archivos\ArchivoConComprobantesFacturables.cs" />
+    <Compile Include="Archivos\Registro.cs" />
+    <Compile Include="Archivos\Salida\ArchivoSalida.cs" />
+    <Compile Include="Archivos\Salida\ArchivoSalidaCompras.cs" />
+    <Compile Include="Archivos\Salida\ArchivoSalidaConComprobanteFacturable.cs" />
+    <Compile Include="Archivos\Salida\ArchivoSalidaVentas.cs" />
+    <Compile Include="Archivos\Salida\CitiCompras.cs" />
+    <Compile Include="Archivos\Salida\CitiComprasAlicuotas.cs" />
+    <Compile Include="Archivos\Salida\CitiTablas.cs" />
+    <Compile Include="Archivos\Salida\CitiVentas.cs" />
+    <Compile Include="Archivos\Salida\CitiVentasAlicuotas.cs" />
+    <Compile Include="Archivos\Salida\IArchivoSalida.cs" />
+    <Compile Include="Articulos\ColeccionDatosSeguimiento.cs" />
+    <Compile Include="Articulos\DatosSeguimiento.cs" />
+    <Compile Include="Articulos\ItemReceta.cs" />
+    <Compile Include="Articulos\Periodicidad.cs" />
+    <Compile Include="Atributos\Datos.cs" />
+    <Compile Include="Atributos\Nomenclatura.cs" />
+    <Compile Include="Atributos\Presentacion.cs" />
+    <Compile Include="Bancos\ChequeEmitido.cs" />
+    <Compile Include="Bancos\ChequeRecibido.cs" />
+    <Compile Include="Bancos\Claves\Cbu.cs" />
+    <Compile Include="Bancos\Claves\Ccc.cs" />
+    <Compile Include="Bancos\Claves\Clabe.cs" />
+    <Compile Include="Bancos\Claves\Iban.cs" />
+    <Compile Include="Cajas\Movimiento.cs" />
+    <Compile Include="ColeccionCodigoDetalle.cs" />
+    <Compile Include="Componentes\Cargador.cs" />
+    <Compile Include="Componentes\Componente.cs" />
+    <Compile Include="Comprobantes\ColeccionComprobanteImporte.cs" />
+    <Compile Include="Comprobantes\ComprobanteImporte.cs" />
+    <Compile Include="Comprobantes\Factura.cs" />
+    <Compile Include="Comprobantes\Lote.cs" />
+    <Compile Include="Consultas\Consulta.cs" />
+    <Compile Include="Consultas\Parametro.cs" />
+    <Compile Include="CuentasCorrientes\Movimiento.cs" />
+    <Compile Include="Entidades\ClaveUnica.cs" />
+    <Compile Include="Notificaciones\Administrador.cs" />
+    <Compile Include="Notificaciones\ColeccionUsuarioConectado.cs" />
+    <Compile Include="Notificaciones\INotificacion.cs" />
+    <Compile Include="Notificaciones\NotificacionMemoria.cs" />
+    <Compile Include="Notificaciones\NotificacionRegistro.cs" />
+    <Compile Include="Entidades\Pais.cs" />
+    <Compile Include="Estados.cs" />
+    <Compile Include="IEstadosEstandar.cs" />
+    <Compile Include="IMarcas.cs" />
+    <Compile Include="ICuenta.cs" />
+    <Compile Include="IElementoDeDatos.cs" />
+    <Compile Include="Impresion\Campo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Impresion\CargasPapel.cs" />
+    <Compile Include="Impresion\ClasesImpresora.cs" />
+    <Compile Include="Impresion\Impresora.cs" />
+    <Compile Include="Impresion\ModelosFiscales.cs" />
+    <Compile Include="Impresion\TipoImpresora.cs" />
+    <Compile Include="Impresion\TipoPlantilla.cs" />
+    <Compile Include="Impuestos\CondicionesFrenteAlIva.cs" />
+    <Compile Include="Impuestos\SituacionIva.cs" />
+    <Compile Include="ListaIds.cs" />
+    <Compile Include="Notificaciones\UsuarioConectado.cs" />
+    <Compile Include="Pagos\Cupon.cs" />
+    <Compile Include="Pagos\EstadosCupones.cs" />
+    <Compile Include="Pagos\FormaDePago.cs" />
+    <Compile Include="Pagos\Plan.cs" />
+    <Compile Include="Pagos\TiposFormasDePago.cs" />
+    <Compile Include="Pagos\Valor.cs" />
+    <Compile Include="Personas\Claves\Cpf.cs" />
+    <Compile Include="Personas\Claves\Cuit.cs" />
+    <Compile Include="IdentificadorUnico.cs" />
+    <Compile Include="IIdentificadorUnico.cs" />
+    <Compile Include="Personas\Claves\Nif.cs" />
+    <Compile Include="Personas\Claves\Ruc.cs" />
+    <Compile Include="Personas\Claves\Rut.cs" />
+    <Compile Include="Personas\Tipo.cs" />
+    <Compile Include="Personas\TiposCuenta.cs" />
+    <Compile Include="Personas\Usuario.cs" />
+    <Compile Include="Servicios\Importar\ColeccionMapaDeTablas.cs" />
+    <Compile Include="Servicios\Importar\Opciones.cs" />
+    <Compile Include="Sys\Configuracion\Articulos.cs" />
+    <Compile Include="Sys\Configuracion\Comprobantes.cs" />
+    <Compile Include="Sys\Configuracion\Formatos.cs" />
+    <Compile Include="Sys\Configuracion\Impresion.cs" />
+    <Compile Include="Sys\Configuracion\UsuarioConectado.cs" />
+    <Compile Include="Sys\Log\Acciones.cs" />
+    <Compile Include="Sys\Permisos\Operaciones.cs" />
+    <Compile Include="Sys\Permisos\Objeto.cs" />
+    <Compile Include="Sys\Permisos\Permiso.cs" />
+    <Compile Include="Sys\Permisos\ListaDePermisos.cs" />
+    <Compile Include="Articulos\ArticulosItem.cs" />
+    <Compile Include="Articulos\Categoria.cs" />
+    <Compile Include="Articulos\Enums.cs" />
+    <Compile Include="Articulos\Marca.cs" />
+    <Compile Include="Articulos\Margen.cs" />
+    <Compile Include="Articulos\Receta.cs" />
+    <Compile Include="Articulos\Rubro.cs" />
+    <Compile Include="Articulos\Situacion.cs" />
+    <Compile Include="Articulos\Stock.cs" />
+    <Compile Include="Articulos\TiposDeArticulo.cs" />
+    <Compile Include="Bancos\Cheque.cs" />
+    <Compile Include="Bancos\Chequera.cs" />
+    <Compile Include="Cajas\TiposDeCaja.cs" />
+    <Compile Include="ColeccionGenerica.cs" />
+    <Compile Include="Comprobantes\ComprobanteDeCompra.cs" />
+    <Compile Include="Comprobantes\ComprobanteFacturable.cs" />
+    <Compile Include="Comprobantes\NotaDeCredito.cs" />
+    <Compile Include="Comprobantes\NotaDeDebito.cs" />
+    <Compile Include="Comprobantes\Presupuesto.cs" />
+    <Compile Include="Comprobantes\PuntoDeVenta.cs" />
+    <Compile Include="Comprobantes\Ticket.cs" />
+    <Compile Include="Entidades\Moneda.cs" />
+    <Compile Include="ICamposBaseEstandar.cs" />
+    <Compile Include="IElementoConImagen.cs" />
+    <Compile Include="Impuestos\Alicuota.cs" />
+    <Compile Include="Instanciador.cs" />
+    <Compile Include="Personas\Proveedor.cs" />
+    <Compile Include="Servicios\Desduplicador.cs" />
+    <Compile Include="Servicios\Importar\Filtro.cs" />
+    <Compile Include="Servicios\Importar\FiltroOdbc.cs" />
+    <Compile Include="Servicios\Importar\FiltroEscorpion.cs" />
+    <Compile Include="Servicios\Importar\FiltroLazaro.cs" />
+    <Compile Include="Servicios\Importar\MapaDeColumnas.cs" />
+    <Compile Include="Servicios\Importar\MapaDeTabla.cs" />
+    <Compile Include="Servicios\Importar\Reemplazo.cs" />
+    <Compile Include="Comprobantes\ColeccionComprobanteConArticulos.cs" />
+    <Compile Include="Comprobantes\ColeccionRecibos.cs" />
+    <Compile Include="Comprobantes\ColeccionDetalleArticulo.cs" />
+    <Compile Include="Comprobantes\DetalleArticulo.cs" />
+    <Compile Include="Comprobantes\Comprobante.cs" />
+    <Compile Include="Comprobantes\ComprobanteConArticulos.cs" />
+    <Compile Include="Comprobantes\Numerador.cs" />
+    <Compile Include="Comprobantes\Cobro.cs" />
+    <Compile Include="Comprobantes\Pago.cs" />
+    <Compile Include="Comprobantes\Recibo.cs" />
+    <Compile Include="Comprobantes\ReciboDeCobro.cs" />
+    <Compile Include="Comprobantes\ReciboDePago.cs" />
+    <Compile Include="Comprobantes\Remito.cs" />
+    <Compile Include="Comprobantes\Tipo.cs" />
+    <Compile Include="Cajas\Concepto.cs" />
+    <Compile Include="CuentasCorrientes\CuentaCorriente.cs" />
+    <Compile Include="Cajas\Caja.cs" />
+    <Compile Include="Vencimientos\Frecuencias.cs" />
+    <Compile Include="Vencimientos\Vencimiento.cs" />
+    <Compile Include="ElementoDeDatos.cs" />
+    <Compile Include="Bancos\Banco.cs" />
+    <Compile Include="Entidades\Localidad.cs" />
+    <Compile Include="Entidades\Sucursal.cs" />
+    <Compile Include="Etiqueta.cs" />
+    <Compile Include="Personas\EstadoCredito.cs" />
+    <Compile Include="Personas\Grupo.cs" />
+    <Compile Include="Impuestos\SituacionTributaria.cs" />
+    <Compile Include="Charts\Charts.cs" />
+    <Compile Include="Reportes\Reporte2.cs" />
+    <Compile Include="Sys\Config.cs" />
+    <Compile Include="Sys\Configuracion\Empresa.cs" />
+    <Compile Include="Sys\Configuracion\Global.cs" />
+    <Compile Include="Sys\Configuracion\Moneda.cs" />
+    <Compile Include="Sys\Configuracion\SeccionConfiguracion.cs" />
+    <Compile Include="Sys\Log\Entrada.cs" />
+    <Compile Include="Tareas\Estado.cs" />
+    <Compile Include="Tareas\Novedad.cs" />
+    <Compile Include="Tareas\Tarea.cs" />
+    <Compile Include="Tareas\Tipo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Articulos\Articulo.cs" />
+    <Compile Include="Personas\Persona.cs" />
+    <Compile Include="Impresion\Plantilla.cs" />
+    <Compile Include="Servicios\Verificador.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lfx\Lfx.csproj">
+      <Project>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</Project>
+      <Name>Lfx</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Pres\Pres.csproj">
+      <Project>{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}</Project>
+      <Name>Pres</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>
+      </ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lazaro.ico" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio />
+  </ProjectExtensions>
+</Project>

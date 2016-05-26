@@ -1,0 +1,583 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lfx</name>
+    </assembly>
+    <members>
+        <member name="M:Lfx.Backups.Manager.ExportBlobs(qGen.Select,System.String)">
+            <summary>
+            Exporta los campos binarios de una tabla en archivos.
+            </summary>
+        </member>
+        <member name="M:Lfx.Backups.Manager.ExportTableBin(System.String,Lfx.Backups.BackupWriter)">
+            <summary>
+            Exporta una tabla en un formato binario propietario, incluyendo BLOBs.
+            </summary>
+        </member>
+        <member name="M:Lfx.Backups.Manager.ExportTable(qGen.Select,System.Boolean,System.IO.StreamWriter)">
+            <summary>
+            Exporta una tabla a un archivo de texto con una secuencia de comandos SQL.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.RegisterFunction">
+            <summary>
+            Esta función debe ser implementada por todos los componentes, y se utiliza para registrar (incializar) el componente.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.FunctionTypes">
+            <summary>
+            Enumera los tipos de componentes.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.GetTypesFunction">
+            <summary>
+            Esta función debe ser implementada por todos los componentes, y se utiliza para obtener una lista de los tipos que registra el componente.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.TryFunction">
+            <summary>
+            Esta función debe ser implementada por todos los componentes, y se utiliza para decidir si el componente se carga o no al inicio de la aplicación.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.Function">
+            <summary>
+            Esqueleto del componente.
+            </summary>
+        </member>
+        <member name="T:Lfx.Components.Manager">
+            <summary>
+            Infraestructura para el manejo de componentes.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Serial">
+            <summary>
+            Número entero que indica un identificador de registro autonumérico.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Relation">
+            <summary>
+            Número entero que indica un identificador de registro relacionado con otra tabla.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Integer">
+            <summary>
+            Numero entero de 32 bits.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Numeric">
+            <summary>
+            Numero de doble precisión.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Currency">
+            <summary>
+            Numero que indica un valor monetario.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Text">
+            <summary>
+            Texto de largo variable de hasta 200 caracteres.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Set">
+            <summary>
+            Número entero dentro de una serie
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Memo">
+            <summary>
+            Texto de largo variable de largo extendido.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.YearMonth">
+            <summary>
+            Año y mes.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Date">
+            <summary>
+            Fecha.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.DateTime">
+            <summary>
+            Fecha y hora.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Image">
+            <summary>
+            Imagen (normalmente JPEG).
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Binary">
+            <summary>
+            Datos binarios.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.Bool">
+            <summary>
+            Valor booleano que indica si/no (normalmente se traduce a un entero pequeño 1/0).
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.NumericSet">
+            <summary>
+            Número entero comprendido dentro un conjunto determinado, cada uno asociado con una etiqueta.
+            </summary>
+        </member>
+        <member name="F:Lfx.Data.InputFieldTypes.AlphanumericSet">
+            <summary>
+            Valor alfanumérico comprendido dentro un conjunto determinado, cada uno asociado con una etiqueta.
+            </summary>
+        </member>
+        <member name="T:Lfx.Data.Structure">
+            <summary>
+            Describe la estructura de una base de datos.
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Structure.Constraints">
+            <summary>
+            Obtiene las claves foráneas desde dbstruct.xml (puede no coincidir con el contenido actual de la base de datos)
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Structure.Tables">
+            <summary>
+            Obtiene las estructuras de las tablas desde dbstruct.xml (puede no coincidir con el contenido actual de la base de datos)
+            </summary>
+        </member>
+        <member name="M:Lfx.Data.Structure.LoadFromFile(System.String)">
+            <summary>
+            Carga la información de las estructuras de las tablas de datos desde un archivo XML.
+            </summary>
+            <param name="nombreArchivo">La ruta completa del archivo.</param>
+        </member>
+        <member name="M:Lfx.Data.Structure.LoadBuiltIn">
+            <summary>
+            Carga la información de las estructuras de las tablas de datos predeterminadas del sistema.
+            </summary>
+        </member>
+        <member name="M:Lfx.Data.Structure.AddFromXml(System.Xml.XmlDocument)">
+            <summary>
+            Carga lee la información de la estructura de las tablas de datos desde un documento XML.
+            </summary>
+            <param name="xmlDoc">El documento desde el cual cargar la información de la estructura.</param>
+        </member>
+        <member name="P:Lfx.Data.DataBaseCache.Tables">
+            <summary>
+            Devuelve una colección con las tablas de datos.
+            </summary>
+        </member>
+        <member name="M:Lfx.Data.DataBaseCache.GetTableNames">
+            <summary>
+            Obtiene una lista de tablas actualmente presente en la base de datos (puede no coincidir con dbstruct.xml)
+            </summary>
+        </member>
+        <member name="M:Lfx.Data.Field.GetNameOnly(System.String)">
+            <summary>
+            Devuelve de una expresión SQL el nombre del alias o el campo.
+            Para "tabla.campo" devulve "campo", para "tabla.campo AS alias" devuelve "alias",
+            para "funcion() AS alias" devuelve "alias".
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Relation.Column">
+            <summary>
+            Obtiene o establece el nombre de la columna en la en la tabla de origen.
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Relation.ReferenceTable">
+            <summary>
+            Obtiene o establece el nombre de la tabla de destino (de la cual se obtienen los detalles).
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Relation.ReferenceColumn">
+            <summary>
+            Obtiene o establece el nombre de la columna de clave mediante la cual obtener el detalle en la tabla de destino.
+            </summary>
+        </member>
+        <member name="P:Lfx.Data.Relation.DetailColumn">
+            <summary>
+            Obtiene o establece el nombre de la columna que contiene los detalles en la tabla de destino.
+            </summary>
+        </member>
+        <member name="T:Lfx.Data.Connection">
+            <summary>
+            Proporciona una conexión a la base de datos y acceso de bajo nivel (sin abstracción) a los datos. Se utiliza normalmente para ejecutar consultas.
+            Vea Lbl.* para para acceso de alto nivel a los datos.
+            </summary>
+        </member>
+        <member name="M:Lfx.Data.Connection.GetNextCommand(System.String@)">
+            <summary>
+            Obtiene el primer comando SQL en una lista separada por punto y coma. Elimina el comando de la lista.
+            </summary>
+            <param name="comandos">La lista de comandos.</param>
+            <returns>El primer comando de la lista.</returns>
+        </member>
+        <member name="T:Lfx.RunTimeServices">
+            <summary>
+            Proporciona servicios de comunicación inter-proceso (entre el Lfx, la aplicación principal y los componentes)
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.DomainException">
+            <summary>
+            Describe una excepción en el dominio de la lógica de negocio, para diferenciarlas de las excepciones de la aplicación.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.DateRange.From">
+            <summary>
+            Devuelve la fecha inicial del rango, con hora 00:00:00.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.DateRange.To">
+            <summary>
+            Devuelve la fecha final del rango, con hora 23:59:59.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.DateRange.InternalFrom">
+            <summary>
+            Devuelve lo mismo que this.From, pero sin tener cuidado de la hora.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.DateRange.InternalTo">
+            <summary>
+            Devuelve lo mismo que this.To, pero sin tener cuidado de la hora.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Formatting.FormatSmartDateAndTime(System.DateTime)">
+            <summary>
+            Devuelve una fecha en un formato inteligente, como "hoy", "jueves 14", "12 de mayo" o "3 de febrero de 2009".
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Formatting.FormatShortSmartDateAndTime(System.DateTime)">
+            <summary>
+            Devuelve una fecha en un formato inteligente, como "hoy", "12/abr" o "3/feb/09".
+            Lo hace en el formato más compacto posible, a diferencia de FormatSmartDateAndTime que lo hace en un formato más legible.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Object.CompareByValue(System.Object,System.Object)">
+            <summary>
+            Intenta comparar dos objetos en cuanto a su valor, de manera felxible e independiente del tipo.
+            Ejemplos: (int)3 == (decimal)3, (int)0 == null, true == (int)1, (int)0 == "0", etc.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.OperationProgress">
+            <summary>
+            Describe el progreso de una operación larga.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Name">
+            <summary>
+            El nombre de la operación, por ejemplo "Imprimiendo...".
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Description">
+            <summary>
+            La descripción larga de la operación, por ejemplo "Se están imprimiendo 250 comprobantes en la impresora predeterminada".
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Modal">
+            <summary>
+            Indica si la operación debe bloquear el uso de la interfaz.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Cancelable">
+            <summary>
+            Indica si la operación puede ser cancelada.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Cancelar">
+            <summary>
+            Indica si hay una solicitud de cancelar esta operación.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Advertise">
+            <summary>
+            Indica si se debe mostrar un indicador de progreso.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Status">
+            <summary>
+            El estado actual de la operación, por ejemplo "Cargando datos".
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Value">
+            <summary>
+            Obtiene o establece un valor que indica la cantidad de elementos que fuero procesados (el progreso de la operación, entre 0 y Max).
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.Max">
+            <summary>
+            Obtiene o establece un valor que indica la cantidad de elementos que se van a procesar.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.IsRunning">
+            <summary>
+            Indica si la operación está en ejecución. Es Falso si la operación aun no ha iniciado o ya ha terminado.
+            </summary>
+        </member>
+        <member name="P:Lfx.Types.OperationProgress.IsDone">
+            <summary>
+            Indica si la operación ya finalizó.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.OperationResult">
+            <summary>
+            Representa el resultado de una operación.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.SuccessOperationResult">
+            <summary>
+            Representa el resultado exitoso de una operación.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.CancelOperationResult">
+            <summary>
+            Representa la cancelación de una operación, pero sin un error.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.FailureOperationResult">
+            <summary>
+            Representa un error en una operación.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseSqlDateTime(System.String)">
+            <summary>
+            Interpreta un valor de fecha en varios formatos diferentes.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseDate(System.String)">
+            <summary>
+            Interpreta un valor de fecha en varios formatos diferentes. Devuelve null para cadenas vacías o fechas inválidas.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.IsNumeric(System.String)">
+            <summary>
+            Devuelve true si la cadena tiene formato numérico.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseDecimal(System.String)">
+            <summary>
+            Interpreta un valor de punto flotante. Devuelve cero para cualquier valor desconocido.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseStock(System.String)">
+            <summary>
+            Interpreta una cantidad de stock (actualmente un decimal). Devuelve cero para cualquier valor desconocido.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseCurrency(System.String)">
+            <summary>
+            Interpreta un valor monetario (actualemente un decimal). Devuelve cero para cualquier valor desconocido.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseBool(System.String)">
+            <summary>
+            Interpreta un valor booleano. Devuelve falso para cualquier valor desconocido.
+            </summary>
+        </member>
+        <member name="M:Lfx.Types.Parsing.ParseInt(System.String)">
+            <summary>
+            Interpreta un valor entero. Devuelve cero para cualquier valor desconocido.
+            </summary>
+        </member>
+        <member name="T:Lfx.Types.ControlChars">
+            <summary>
+            Clases referentes al manejo de tipos.
+            </summary>
+        </member>
+        <member name="P:Lfx.Updates.Package.RelativePath">
+            <summary>
+            Ruta de destino relativa a la ruta del actualizador.
+            </summary>
+        </member>
+        <member name="P:Lfx.Updates.Updater.TempPath">
+            <summary>
+            Path to store temporary files.
+            </summary>
+        </member>
+        <member name="P:Lfx.Updates.Updater.Path">
+            <summary>
+            Destination path for the downloaded files.
+            </summary>
+        </member>
+        <member name="F:Lfx.Updates.Updater.Interval">
+            <summary>
+            Interval between checks, in minutes.
+            </summary>
+        </member>
+        <member name="T:Lfx.Config.ConfigManager">
+            <summary>
+            Maneja los parámetros de configuración
+            </summary>
+        </member>
+        <member name="T:Lfx.Cpx.DataMatchCompareCommand">
+            <summary>
+            Matches the data on the magnetic stripe before writing.
+            </summary>
+        </member>
+        <member name="T:Lfx.Cpx.EmbossAndEncodeCommand1">
+            <summary>
+            150i CPX Protocol/Setup Manual, 2-14 en adelante
+            </summary>
+        </member>
+        <member name="T:Lfx.Cpx.EmbossAndEncodeCommand2">
+            <summary>
+            150i CPX Protocol/Setup Manual, 2-14 en adelante
+            </summary>
+        </member>
+        <member name="T:Lfx.Lic">
+            <summary>
+            Agrega la licencia GPL como encabezado a todos los archivos de código fuente.
+            </summary>
+        </member>
+        <member name="T:Lfx.Environment.Folders">
+            <summary>
+            Summary description for Folders.
+            </summary>
+        </member>
+        <member name="T:Lfx.Environment.Shell">
+            <summary>
+            Provee acceso al shell.
+            </summary>
+        </member>
+        <member name="T:Lfx.Environment.SystemInformation">
+            <summary>
+            Provee información sobre el sistema
+            </summary>
+        </member>
+        <member name="P:Lfx.Environment.SystemInformation.MachineName">
+            <summary>
+            Devuelve el nombre del equipo, pero siempre en mayúsculas.
+            </summary>
+        </member>
+        <member name="T:Lfx.Services.Scheduler">
+            <summary>
+            Programador de tareas
+            </summary>
+        </member>
+        <member name="T:Lfx.Workspace">
+            <summary>
+            Proporciona un espacio de trabajo que incluye acceso a los datos y a la configuración.
+            </summary>
+        </member>
+        <member name="M:Lfx.Workspace.DebugLog(System.Int32,System.String)">
+            <summary>
+            Log de comandos SQL (normalmente a la consola). Sólo para depuración.
+            </summary>
+        </member>
+        <member name="M:Lfx.Workspace.NotifyTableChange(System.String,System.Int32)">
+            <summary>
+            Notifica sobre un cambio de una tabla de datos
+            </summary>
+        </member>
+        <member name="M:Lfx.Workspace.CheckAndUpdateDataBaseVersion(System.Boolean,System.Boolean)">
+            <summary>
+            Verifica la versión de la base de datos y si es necesario actualiza.
+            </summary>
+            <param name="ignorarFecha">Ignorar la fecha y actualizar siempre.</param>
+            <param name="noTocarDatos">Actualizar sólo la estructura. No incorpora ni modifica datos.</param>
+        </member>
+        <member name="M:Lfx.Workspace.IsPrepared">
+            <summary>
+            Devuelve Verdadero si la base de datos está lista para ser utilizaza.
+            Si devuelve Falso, significa que el servidor debe prepararse antes (con Prepare)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lfx.Workspace.Prepare(Lfx.Types.OperationProgress)">
+            <summary>
+            Prepara un servidor para ser utilizado por Lázaro. Crea estructuras y realiza una carga inicial de datos.
+            </summary>
+        </member>
+        <member name="M:Lfx.Workspace.ObtenerRecurso(System.String)">
+            <summary>
+            Obtiene un stream a un recurso.
+            </summary>
+            <param name="nombre">Nombre del recurso, incluyendo la ruta.</param>
+        </member>
+        <member name="M:Lfx.Workspace.CheckAndUpdateDataBaseStructure(Lfx.Data.Connection,System.Boolean,Lfx.Types.OperationProgress)">
+            <summary>
+            Verifica la estructura de la base de datos actual y si es necesario modifica para que esté conforme
+            al diseño de referencia.
+            </summary>
+            <param name="dataBase">PrintDataBase mediante el cual se accede a la base de datos.</param>
+            <param name="omitPreAndPostSql">Omitir la ejecución de comandos Pre- y Post-actualización de estructura. Esto es útil cuando se actualiza una estructura vacía, por ejemplo al crear una base de datos nueva.</param>
+            /// <param name="progreso">El objeto sobre el cual reportar el progreso.</param>
+        </member>
+        <member name="T:qGen.Providers.SQLite">
+            <summary>
+            Proveedor compatible con SQLite. Requiere la presencia de System.Data.SQLite.dll en el directorio del programa.
+            </summary>
+        </member>
+        <member name="T:qGen.Providers.Npgsql">
+            <summary>
+            Proveedor compatible con Npgsql versión 2. Requiere la presencia de Npgsql.dll en el directorio del programa.
+            </summary>
+        </member>
+        <member name="T:qGen.Providers.MySql">
+            <summary>
+            Proveedor compatible con MySql Connector/NET versión 6. Requiere la presencia de MySql.Data.dll en el directorio del programa.
+            </summary>
+        </member>
+        <member name="T:qGen.Providers.Odbc">
+            <summary>
+            Proveedor compatible ODBC. Este es el único proveedor que está enlazado estáticamente y no trabaja por reflexión.
+            </summary>
+        </member>
+        <member name="T:qGen.Providers.Provider">
+            <summary>
+            Representa un proveedor ADO.NET, el cual se carga en tiempo de ejecución a través de System.Reflection para no
+            agregar dependencias en tiempo de diseño. La única dependencia en tiempo de diseño es System.Data.Odbc.
+            </summary>
+        </member>
+        <member name="T:qGen.Command">
+            <summary>
+            Esta clase y sus derivadas se utilizan para evitar escribir los comandos SQL como literales de texto.
+            Permite la creación de un objeto y asignación de propiedades que luego puede convertirse para su ejecución
+            en texto SQL (mediante el método ToString()) o en un OdbcCommand (mediante el método ToOdbcCommand()).
+            Se utilizan principalmente con dos objetivos:
+              1.- Solucionar problemas de léxico SQL.
+              2.- Agregar extensibilidad al acceso a datos. Así como hoy se implementa ToOdbcCommand() para acceso mediante ODBC, luego se
+                  pueden implementar otros métodos para acceso mediante otros adaptadores (p. ej. MySQL Connector/Net).
+            </summary>
+        </member>
+        <member name="T:qGen.Select">
+            <summary>
+            Comando SELECT
+            </summary>
+        </member>
+        <member name="T:qGen.TableCommand">
+            <summary>
+            Comandos que operan sobre una o más tablas (SELECT, UPDATE, INSERT, DELETE, TRUNCATE, etc.)
+            </summary>
+        </member>
+        <member name="T:System.StringExtensions">
+            <summary>
+            Métodos de extension para el tipo string.
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ParseSqlDateTime(System.String)">
+            <summary>
+            Toma una fecha YYYY-MM-DD HH:MM:SS y devuelve un DateTime
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.ToTitleCase(System.String)">
+            <summary>
+            Cambia una cadena a mayúsculas tipo título (mayúscula en la primera letra de cada palabra).
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.StrReverse(System.String)">
+            <summary>
+            Invierte una cadena, caracter por caracter
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.UnixToWindows(System.String)">
+            <summary>
+            Convierte o unifica fines de línea en formato Windows (CR+LF).
+            </summary>
+        </member>
+        <member name="M:System.StringExtensions.QuitarAcentos(System.String,System.Boolean)">
+            <summary>
+            Quita acentos y otros caracteres no estándar. Convierte espacios a subguiones.
+            </summary>
+        </member>
+    </members>
+</doc>

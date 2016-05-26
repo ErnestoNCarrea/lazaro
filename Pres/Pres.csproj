@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lazaro.Pres</RootNamespace>
+    <AssemblyName>Lazaro.Pres</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <ReleaseVersion>2.0</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\rel\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\dev\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\dev\Lazaro.Pres.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DisplayStyles\Articulos.cs" />
+    <Compile Include="DisplayStyles\Blue.cs" />
+    <Compile Include="DisplayStyles\Comprobantes.cs" />
+    <Compile Include="DisplayStyles\Brown.cs" />
+    <Compile Include="DisplayStyles\Personas.cs" />
+    <Compile Include="DisplayStyles\Orange.cs" />
+    <Compile Include="DisplayStyles\LightColors.cs" />
+    <Compile Include="DisplayStyles\Red.cs" />
+    <Compile Include="DisplayStyles\DarkColors.cs" />
+    <Compile Include="DisplayStyles\Template.cs" />
+    <Compile Include="DisplayStyles\TextStyles.cs" />
+    <Compile Include="DisplayStyles\White.cs" />
+    <Compile Include="DisplayStyles\IDisplayStyle.cs" />
+    <Compile Include="DisplayStyles\Green.cs" />
+    <Compile Include="DisplayStyles\OldStyle.cs" />
+    <Compile Include="Filters\DateRangeFilter.cs" />
+    <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\FilterCollection.cs" />
+    <Compile Include="Filters\IFilter.cs" />
+    <Compile Include="Filters\NumericRangeFilter.cs" />
+    <Compile Include="Filters\RelationFilter.cs" />
+    <Compile Include="Filters\SerFilter.cs" />
+    <Compile Include="Forms\FormAction.cs" />
+    <Compile Include="FieldCollection.cs" />
+    <Compile Include="Forms\FormActionCollection.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\FormCaption.cs" />
+    <Compile Include="Forms\Section.cs" />
+    <Compile Include="Forms\SectionCollection.cs" />
+    <Compile Include="Field.cs" />
+    <Compile Include="Listings\Listing.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\SidePanel.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Spreadsheet\AggregationRow.cs" />
+    <Compile Include="Spreadsheet\Cell.cs" />
+    <Compile Include="Spreadsheet\CellCollection.cs" />
+    <Compile Include="Spreadsheet\ColumnHeader.cs" />
+    <Compile Include="Spreadsheet\ColumnHeaderCollection.cs" />
+    <Compile Include="Spreadsheet\ExternalPrograms.cs" />
+    <Compile Include="Spreadsheet\Formula.cs" />
+    <Compile Include="Spreadsheet\HeaderRow.cs" />
+    <Compile Include="Spreadsheet\PrintModes.cs" />
+    <Compile Include="Spreadsheet\QuickFunctions.cs" />
+    <Compile Include="Spreadsheet\Row.cs" />
+    <Compile Include="Spreadsheet\RowCollection.cs" />
+    <Compile Include="Spreadsheet\SaveFormats.cs" />
+    <Compile Include="Spreadsheet\Sheet.cs" />
+    <Compile Include="Spreadsheet\Workbook.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lfx\Lfx.csproj">
+      <Project>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</Project>
+      <Name>Lfx</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\add-item.png" />
+    <Content Include="Resources\addressbook.png" />
+    <Content Include="Resources\agent.png" />
+    <Content Include="Resources\calculator.png" />
+    <Content Include="Resources\container.png" />
+    <Content Include="Resources\copy-item.png" />
+    <Content Include="Resources\delete-item.png" />
+    <Content Include="Resources\dollar.png" />
+    <Content Include="Resources\edit.png" />
+    <Content Include="Resources\form.png" />
+    <Content Include="Resources\home.png" />
+    <Content Include="Resources\lock.png" />
+    <Content Include="Resources\recycle-full.png" />
+    <Content Include="Resources\save.png" />
+    <Content Include="Resources\search.png" />
+    <Content Include="Resources\star.png" />
+    <Content Include="Resources\tag.png" />
+    <Content Include="Resources\unlock.png" />
+    <Content Include="Resources\van.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
