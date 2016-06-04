@@ -61,12 +61,12 @@ namespace Lazaro.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon Icon {
+        internal static System.Drawing.Bitmap ajax_loader {
             get {
-                object obj = ResourceManager.GetObject("Icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("ajax_loader", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -77,6 +77,16 @@ namespace Lazaro.Properties {
             get {
                 object obj = ResourceManager.GetObject("icon64", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon lazaro {
+            get {
+                object obj = ResourceManager.GetObject("lazaro", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

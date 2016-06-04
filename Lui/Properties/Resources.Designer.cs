@@ -205,7 +205,7 @@ namespace Lui.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap lazaro_120_v {
             get {
-                object obj = ResourceManager.GetObject("lazaro-120-v", resourceCulture);
+                object obj = ResourceManager.GetObject("lazaro_120_v", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
