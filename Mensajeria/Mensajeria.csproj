@@ -85,9 +85,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Chat\ChatControl.resx">
       <DependentUpon>ChatControl.cs</DependentUpon>
     </EmbeddedResource>

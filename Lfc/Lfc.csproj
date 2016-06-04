@@ -1138,7 +1138,6 @@
   <ItemGroup>
     <None Include="Resources\contact-new.png" />
     <None Include="Resources\edit-copy.png" />
-    <None Include="app.config" />
     <None Include="Resources\edit-undo.png" />
   </ItemGroup>
   <ItemGroup>

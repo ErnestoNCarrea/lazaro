@@ -310,9 +310,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Forms\ActionsPanel.resx">
       <DependentUpon>ActionsPanel.cs</DependentUpon>
     </EmbeddedResource>

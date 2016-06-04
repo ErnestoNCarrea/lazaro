@@ -282,7 +282,6 @@
       <DependentUpon>Ingreso.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config" />
     <EmbeddedResource Include="Principal\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
       <SubType>Designer</SubType>
