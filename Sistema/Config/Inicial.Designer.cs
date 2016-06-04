@@ -329,7 +329,6 @@ namespace Lazaro.WinMain.Config
                         // BotonSalir
                         // 
                         this.BotonSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.BotonSalir.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonSalir.Image = null;
                         this.BotonSalir.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonSalir.Location = new System.Drawing.Point(502, 12);
@@ -349,7 +348,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonSiguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonSiguiente.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonSiguiente.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonSiguiente.Image = null;
                         this.BotonSiguiente.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonSiguiente.Location = new System.Drawing.Point(388, 12);
@@ -369,7 +367,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonAnterior.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonAnterior.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonAnterior.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonAnterior.Image = null;
                         this.BotonAnterior.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAnterior.Location = new System.Drawing.Point(274, 12);
@@ -398,10 +395,10 @@ namespace Lazaro.WinMain.Config
                         // pictureBox2
                         // 
                         this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+                        this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
                         this.pictureBox2.Location = new System.Drawing.Point(20, 218);
                         this.pictureBox2.Name = "pictureBox2";
-                        this.pictureBox2.Size = new System.Drawing.Size(37, 120);
+                        this.pictureBox2.Size = new System.Drawing.Size(35, 120);
                         this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.pictureBox2.TabIndex = 51;
                         this.pictureBox2.TabStop = false;
@@ -425,7 +422,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonDetectar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonDetectar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonDetectar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonDetectar.Image = null;
                         this.BotonDetectar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonDetectar.Location = new System.Drawing.Point(352, 96);
@@ -749,7 +745,6 @@ namespace Lazaro.WinMain.Config
                         // BotonInstalar
                         // 
                         this.BotonInstalar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.BotonInstalar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonInstalar.Image = null;
                         this.BotonInstalar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonInstalar.Location = new System.Drawing.Point(40, 136);

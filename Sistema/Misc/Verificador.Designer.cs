@@ -99,7 +99,6 @@ namespace Lazaro.WinMain.Misc
                         // 
                         this.CancelCommandButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.CancelCommandButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.CancelCommandButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.CancelCommandButton.Image = null;
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(418, 12);
@@ -118,7 +117,6 @@ namespace Lazaro.WinMain.Misc
                         // 
                         this.OkButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.OkButton.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.OkButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.OkButton.Image = null;
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(308, 12);
@@ -157,6 +155,7 @@ namespace Lazaro.WinMain.Misc
                         this.Controls.Add(this.ProgressBar);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "Verificador";
                         this.Text = "Verificar Integridad de los Datos";
                         ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();

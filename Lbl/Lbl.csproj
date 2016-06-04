@@ -13,7 +13,7 @@
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -34,6 +34,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,14 +95,14 @@
     <Compile Include="Archivos\ArchivoConComprobantesFacturables.cs" />
     <Compile Include="Archivos\Registro.cs" />
     <Compile Include="Archivos\Salida\ArchivoSalida.cs" />
-    <Compile Include="Archivos\Salida\ArchivoSalidaCompras.cs" />
     <Compile Include="Archivos\Salida\ArchivoSalidaConComprobanteFacturable.cs" />
+    <Compile Include="Archivos\Salida\ArchivoSalidaCompras.cs" />
     <Compile Include="Archivos\Salida\ArchivoSalidaVentas.cs" />
-    <Compile Include="Archivos\Salida\CitiCompras.cs" />
     <Compile Include="Archivos\Salida\CitiComprasAlicuotas.cs" />
+    <Compile Include="Archivos\Salida\CitiVentasAlicuotas.cs" />
     <Compile Include="Archivos\Salida\CitiTablas.cs" />
     <Compile Include="Archivos\Salida\CitiVentas.cs" />
-    <Compile Include="Archivos\Salida\CitiVentasAlicuotas.cs" />
+    <Compile Include="Archivos\Salida\CitiCompras.cs" />
     <Compile Include="Archivos\Salida\IArchivoSalida.cs" />
     <Compile Include="Articulos\ColeccionDatosSeguimiento.cs" />
     <Compile Include="Articulos\DatosSeguimiento.cs" />

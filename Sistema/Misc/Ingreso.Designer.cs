@@ -87,7 +87,6 @@ namespace Lazaro.WinMain.Misc
                         // 
                         this.CancelCommandButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.CancelCommandButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.CancelCommandButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.CancelCommandButton.Image = null;
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(419, 12);
@@ -108,7 +107,6 @@ namespace Lazaro.WinMain.Misc
                         this.OkButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.OkButton.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.OkButton.Enabled = false;
-                        this.OkButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.OkButton.Image = null;
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(309, 12);
@@ -167,10 +165,10 @@ namespace Lazaro.WinMain.Misc
                         // PictureBox1
                         // 
                         this.PictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
+                        this.PictureBox1.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
                         this.PictureBox1.Location = new System.Drawing.Point(20, 108);
                         this.PictureBox1.Name = "PictureBox1";
-                        this.PictureBox1.Size = new System.Drawing.Size(37, 120);
+                        this.PictureBox1.Size = new System.Drawing.Size(35, 120);
                         this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.PictureBox1.TabIndex = 51;
                         this.PictureBox1.TabStop = false;

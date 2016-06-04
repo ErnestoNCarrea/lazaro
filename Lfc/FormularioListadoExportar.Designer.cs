@@ -44,7 +44,6 @@ namespace Lfc
                         // BotonCancelar
                         // 
                         this.BotonCancelar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.BotonCancelar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonCancelar.Image = null;
                         this.BotonCancelar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCancelar.Location = new System.Drawing.Point(24, 376);
@@ -68,7 +67,6 @@ namespace Lfc
                         // BotonImprimirAvanzado
                         // 
                         this.BotonImprimirAvanzado.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonImprimirAvanzado.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonImprimirAvanzado.Image = ((System.Drawing.Image)(resources.GetObject("BotonImprimirAvanzado.Image")));
                         this.BotonImprimirAvanzado.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonImprimirAvanzado.Location = new System.Drawing.Point(208, 160);
@@ -83,7 +81,6 @@ namespace Lfc
                         // BotonImprimir
                         // 
                         this.BotonImprimir.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonImprimir.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonImprimir.Image = ((System.Drawing.Image)(resources.GetObject("BotonImprimir.Image")));
                         this.BotonImprimir.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonImprimir.Location = new System.Drawing.Point(208, 72);
@@ -98,7 +95,6 @@ namespace Lfc
                         // BotonExcel
                         // 
                         this.BotonExcel.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonExcel.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonExcel.Image = ((System.Drawing.Image)(resources.GetObject("BotonExcel.Image")));
                         this.BotonExcel.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonExcel.Location = new System.Drawing.Point(208, 336);
@@ -114,7 +110,6 @@ namespace Lfc
                         // BotonHtml
                         // 
                         this.BotonHtml.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonHtml.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonHtml.Image = ((System.Drawing.Image)(resources.GetObject("BotonHtml.Image")));
                         this.BotonHtml.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonHtml.Location = new System.Drawing.Point(208, 248);
@@ -140,6 +135,7 @@ namespace Lfc
                         this.Controls.Add(this.BotonExcel);
                         this.Controls.Add(this.BotonHtml);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "FormularioListadoExportar";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
                         this.Text = "Imprimir o exportar";

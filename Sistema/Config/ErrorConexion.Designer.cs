@@ -52,7 +52,6 @@ namespace Lazaro.WinMain.Config
                         // BotonConfigurar
                         // 
                         this.BotonConfigurar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonConfigurar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonConfigurar.Image = null;
                         this.BotonConfigurar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonConfigurar.Location = new System.Drawing.Point(400, 12);
@@ -70,7 +69,6 @@ namespace Lazaro.WinMain.Config
                         // BotonReintentar
                         // 
                         this.BotonReintentar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonReintentar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonReintentar.Image = null;
                         this.BotonReintentar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonReintentar.Location = new System.Drawing.Point(286, 12);
@@ -89,7 +87,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonSalir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonSalir.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonSalir.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonSalir.Image = null;
                         this.BotonSalir.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonSalir.Location = new System.Drawing.Point(514, 12);
@@ -138,10 +135,10 @@ namespace Lazaro.WinMain.Config
                         // pictureBox2
                         // 
                         this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+                        this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
                         this.pictureBox2.Location = new System.Drawing.Point(20, 168);
                         this.pictureBox2.Name = "pictureBox2";
-                        this.pictureBox2.Size = new System.Drawing.Size(37, 120);
+                        this.pictureBox2.Size = new System.Drawing.Size(35, 120);
                         this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.pictureBox2.TabIndex = 51;
                         this.pictureBox2.TabStop = false;
@@ -178,6 +175,7 @@ namespace Lazaro.WinMain.Config
                         this.Controls.Add(this.EtiquetaEncab);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "ErrorConexion";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Lázaro";

@@ -59,10 +59,10 @@ namespace Lazaro.WinMain.Misc
                         // pictureBox2
                         // 
                         this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+                        this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
                         this.pictureBox2.Location = new System.Drawing.Point(20, 166);
                         this.pictureBox2.Name = "pictureBox2";
-                        this.pictureBox2.Size = new System.Drawing.Size(37, 120);
+                        this.pictureBox2.Size = new System.Drawing.Size(35, 120);
                         this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.pictureBox2.TabIndex = 51;
                         this.pictureBox2.TabStop = false;
@@ -107,7 +107,6 @@ namespace Lazaro.WinMain.Misc
                         // BotonInstalar
                         // 
                         this.BotonInstalar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonInstalar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonInstalar.Image = null;
                         this.BotonInstalar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonInstalar.Location = new System.Drawing.Point(480, 248);
@@ -149,6 +148,7 @@ namespace Lazaro.WinMain.Misc
                         this.Controls.Add(this.BarraProgreso);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "ActualizarAhora";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Actualizador";

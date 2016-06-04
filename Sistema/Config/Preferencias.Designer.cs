@@ -22,6 +22,7 @@ namespace Lazaro.WinMain.Config
 
 		private void InitializeComponent()
 		{
+                        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Preferencias));
                         this.BotonAceptar = new Lui.Forms.Button();
                         this.CancelCommandButton = new Lui.Forms.Button();
                         this.EntradaEmpresaSituacion = new Lcc.Entrada.CodigoDetalle();
@@ -31,6 +32,8 @@ namespace Lazaro.WinMain.Config
                         this.EntradaEmpresaNombre = new Lui.Forms.TextBox();
                         this.Label17 = new Lui.Forms.Label();
                         this.FrmGeneral = new Lui.Forms.Frame();
+                        this.label36 = new Lui.Forms.Label();
+                        this.EntradaSucursal = new Lcc.Entrada.CodigoDetalle();
                         this.BotonCambiarPais = new Lui.Forms.Button();
                         this.label33 = new Lui.Forms.Label();
                         this.EntradaEmpresaId = new Lui.Forms.TextBox();
@@ -99,8 +102,6 @@ namespace Lazaro.WinMain.Config
                         this.label12 = new Lui.Forms.Label();
                         this.FrmAvanzado = new Lui.Forms.Frame();
                         this.buttonPanel1 = new Lui.Forms.ButtonPanel();
-                        this.label36 = new Lui.Forms.Label();
-                        this.EntradaSucursal = new Lcc.Entrada.CodigoDetalle();
                         this.FrmGeneral.SuspendLayout();
                         this.FrmArticulos.SuspendLayout();
                         this.FrmComprobantes.SuspendLayout();
@@ -112,7 +113,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonAceptar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonAceptar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonAceptar.Image = null;
                         this.BotonAceptar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAceptar.Location = new System.Drawing.Point(388, 12);
@@ -131,7 +131,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.CancelCommandButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.CancelCommandButton.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.CancelCommandButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.CancelCommandButton.Image = null;
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(502, 12);
@@ -237,10 +236,33 @@ namespace Lazaro.WinMain.Config
                         this.FrmGeneral.TabIndex = 0;
                         this.FrmGeneral.Text = "Datos de la empresa";
                         // 
+                        // label36
+                        // 
+                        this.label36.Location = new System.Drawing.Point(24, 336);
+                        this.label36.Name = "label36";
+                        this.label36.Size = new System.Drawing.Size(184, 24);
+                        this.label36.TabIndex = 19;
+                        this.label36.Text = "Sucursal";
+                        this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        // 
+                        // EntradaSucursal
+                        // 
+                        this.EntradaSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaSucursal.AutoTab = true;
+                        this.EntradaSucursal.CanCreate = false;
+                        this.EntradaSucursal.Location = new System.Drawing.Point(208, 336);
+                        this.EntradaSucursal.MaxLength = 200;
+                        this.EntradaSucursal.Name = "EntradaSucursal";
+                        this.EntradaSucursal.NombreTipo = "Lbl.Entidades.Sucursal";
+                        this.EntradaSucursal.Required = true;
+                        this.EntradaSucursal.Size = new System.Drawing.Size(296, 24);
+                        this.EntradaSucursal.TabIndex = 20;
+                        this.EntradaSucursal.Text = "0";
+                        // 
                         // BotonCambiarPais
                         // 
                         this.BotonCambiarPais.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCambiarPais.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonCambiarPais.Image = null;
                         this.BotonCambiarPais.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCambiarPais.Location = new System.Drawing.Point(496, 40);
@@ -730,7 +752,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.BotonSiguiente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.BotonSiguiente.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonSiguiente.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonSiguiente.Image = null;
                         this.BotonSiguiente.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonSiguiente.Location = new System.Drawing.Point(274, 12);
@@ -973,7 +994,6 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaCambiaPrecioComprob
                         // 
-                        this.EntradaCambiaPrecioComprob.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaCambiaPrecioComprob.Location = new System.Drawing.Point(416, 284);
                         this.EntradaCambiaPrecioComprob.Name = "EntradaCambiaPrecioComprob";
                         this.EntradaCambiaPrecioComprob.Size = new System.Drawing.Size(64, 24);
@@ -1037,30 +1057,6 @@ namespace Lazaro.WinMain.Config
                         this.buttonPanel1.Size = new System.Drawing.Size(634, 64);
                         this.buttonPanel1.TabIndex = 100;
                         // 
-                        // label36
-                        // 
-                        this.label36.Location = new System.Drawing.Point(24, 336);
-                        this.label36.Name = "label36";
-                        this.label36.Size = new System.Drawing.Size(184, 24);
-                        this.label36.TabIndex = 19;
-                        this.label36.Text = "Sucursal";
-                        this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                        // 
-                        // EntradaSucursal
-                        // 
-                        this.EntradaSucursal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaSucursal.AutoTab = true;
-                        this.EntradaSucursal.CanCreate = false;
-                        this.EntradaSucursal.Location = new System.Drawing.Point(208, 336);
-                        this.EntradaSucursal.MaxLength = 200;
-                        this.EntradaSucursal.Name = "EntradaSucursal";
-                        this.EntradaSucursal.NombreTipo = "Lbl.Entidades.Sucursal";
-                        this.EntradaSucursal.Required = true;
-                        this.EntradaSucursal.Size = new System.Drawing.Size(296, 24);
-                        this.EntradaSucursal.TabIndex = 20;
-                        this.EntradaSucursal.Text = "0";
-                        // 
                         // Preferencias
                         // 
                         this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1072,6 +1068,7 @@ namespace Lazaro.WinMain.Config
                         this.Controls.Add(this.FrmAvanzado);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "Preferencias";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Preferencias";

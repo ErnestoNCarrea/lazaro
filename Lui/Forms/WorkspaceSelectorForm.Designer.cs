@@ -32,13 +32,13 @@ namespace Lui.Forms
                         // 
                         this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         this.label1.Location = new System.Drawing.Point(124, 24);
                         this.label1.Name = "label1";
                         this.label1.Size = new System.Drawing.Size(400, 32);
                         this.label1.TabIndex = 0;
                         this.label1.Text = "Seleccione el espacio de trabajo";
                         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         // 
                         // Espacios
                         // 
@@ -68,10 +68,10 @@ namespace Lui.Forms
                         // 
                         // PictureBox1
                         // 
-                        this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
+                        this.PictureBox1.Image = global::Lui.Properties.Resources.lazaro_120_v;
                         this.PictureBox1.Location = new System.Drawing.Point(20, 112);
                         this.PictureBox1.Name = "PictureBox1";
-                        this.PictureBox1.Size = new System.Drawing.Size(37, 120);
+                        this.PictureBox1.Size = new System.Drawing.Size(35, 120);
                         this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.PictureBox1.TabIndex = 51;
                         this.PictureBox1.TabStop = false;

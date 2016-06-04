@@ -48,13 +48,14 @@ namespace Lfc
                         // 
                         this.BotonCrear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.BotonCrear.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCrear.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonCrear.Image = null;
                         this.BotonCrear.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonCrear.Location = new System.Drawing.Point(180, 137);
+                        this.BotonCrear.Location = new System.Drawing.Point(152, 137);
                         this.BotonCrear.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+                        this.BotonCrear.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonCrear.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonCrear.Name = "BotonCrear";
-                        this.BotonCrear.Size = new System.Drawing.Size(136, 40);
+                        this.BotonCrear.Size = new System.Drawing.Size(108, 40);
                         this.BotonCrear.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonCrear.Subtext = "F6";
                         this.BotonCrear.TabIndex = 3;
@@ -71,7 +72,6 @@ namespace Lfc
                         this.EtiquetaListadoVacio.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EtiquetaListadoVacio.AutoEllipsis = true;
-                        this.EtiquetaListadoVacio.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Info;
                         this.EtiquetaListadoVacio.Location = new System.Drawing.Point(332, 192);
                         this.EtiquetaListadoVacio.Margin = new System.Windows.Forms.Padding(0);
                         this.EtiquetaListadoVacio.Name = "EtiquetaListadoVacio";
@@ -80,15 +80,16 @@ namespace Lfc
                         this.EtiquetaListadoVacio.Text = "El listado no contiene datos.\r\nHaga clic en el botón \'Crear\' para añadir nuevos e" +
     "lementos.";
                         this.EtiquetaListadoVacio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        this.EtiquetaListadoVacio.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Info;
                         this.EtiquetaListadoVacio.UseMnemonic = false;
                         this.EtiquetaListadoVacio.Visible = false;
                         this.EtiquetaListadoVacio.Click += new System.EventHandler(this.EtiquetaListadoVacio_Click);
                         // 
                         // FormularioListado
                         // 
+                        this.ClientSize = new System.Drawing.Size(864, 441);
                         this.Controls.Add(this.EtiquetaListadoVacio);
                         this.Controls.Add(this.EntradaBuscar);
-                        this.PanelAcciones.Controls.Add(BotonCrear);
                         this.Name = "FormularioListado";
                         this.Text = "Listado";
                         this.Controls.SetChildIndex(this.PanelContadores, 0);
@@ -100,6 +101,7 @@ namespace Lfc
                         this.PanelContadores.ResumeLayout(false);
                         ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
                         this.ResumeLayout(false);
+
                 }
 
                 #endregion
