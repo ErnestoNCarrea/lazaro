@@ -644,16 +644,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Lui.Forms.YesNoDialog Pregunta = new Lui.Forms.YesNoDialog("¡Hola! ¿Le gustaría ver una página sencilla con un poco de información sobre cómo utilizar Lázaro?", "Primeros pasos");
                                         Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                         if (Pregunta.ShowDialog() == DialogResult.OK)
-                                                Help.ShowHelp(Aplicacion.FormularioPrincipal, "http://www.lazarogestion.com/?q=node/44");
-                                } else {
-                                        string RunTimeName = Lfx.Environment.SystemInformation.RuntimeName;
-                                        // Verifico la presencia de .NET Framework 3.5
-                                        if (Lfx.Environment.SystemInformation.RunTime == Lfx.Environment.SystemInformation.RunTimes.DotNet && RunTimeName.IndexOf("3.5") < 0) {
-                                                Lui.Forms.YesNoDialog Pregunta = new Lui.Forms.YesNoDialog("Es necesario instalar un componente para el correcto funcionamiento de Lázaro. El componente es Microsoft .NET Framework versión 3.5. ¿Desea ir a la página de descarga para instalarlo ahora?", "Advertencia");
-                                                Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
-                                                if (Pregunta.ShowDialog() == DialogResult.OK)
-                                                        Help.ShowHelp(Aplicacion.FormularioPrincipal, "http://download.microsoft.com/download/5/3/4/5347CEDC-6A83-49F5-9347-BCD58A9AAE25/DotNetFx35ClientSetup.exe");
-                                        }
+                                                Help.ShowHelp(Aplicacion.FormularioPrincipal, "http://www.lazarogestion.com/ayuda/descripcion-general");
                                 }
                                 Application.Run(Aplicacion.FormularioPrincipal);
                         }
