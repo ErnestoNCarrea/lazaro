@@ -90,7 +90,8 @@ namespace Lfc.Comprobantes.Facturas
 
                 private void ProcesarReimpresion(string tipo, int pv, int desde, int hasta)
                 {
-                        using (Lfx.Data.Connection Conn = Lfx.Workspace.Master.GetNewConnection("Reimpresión de comprobantes")) {
+                        using (Lfx.Data.Connection Conn = Lfx.Workspace.Master.GetNewConnection("Reimpresión de comprobantes"))
+                        using (System.Data.IDbTransaction Trans = Conn.BeginTransaction()) {
                                 int Cantidad = Math.Abs(hasta - desde);
                                 Lfx.Types.OperationProgress Progreso = new Lfx.Types.OperationProgress("Reimprimiendo", "Se están reimprimiendo " + Cantidad.ToString() + " comprobantes.");
                                 Progreso.Cancelable = true;
@@ -136,8 +137,9 @@ namespace Lfc.Comprobantes.Facturas
                                         } else {
                                                 Lbl.Comprobantes.ComprobanteFacturable Fac = new Lbl.Comprobantes.ComprobanteFacturable(Conn, IdFactura);
                                                 Progreso.ChangeStatus("Imprimiendo " + Fac.ToString());
-                                                Lazaro.Impresion.Comprobantes.ImpresorComprobanteConArticulos Impr = new Lazaro.Impresion.Comprobantes.ImpresorComprobanteConArticulos(Fac, null);
-                                                Impr.Imprimir();
+
+                                                var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
+                                                Controlador.Imprimir(Fac, null);
                                         }
                                         Progreso.Advance(1);
 
@@ -146,6 +148,7 @@ namespace Lfc.Comprobantes.Facturas
                                 }
 
                                 Progreso.End();
+                                Trans.Commit();
                         }
                 }
 

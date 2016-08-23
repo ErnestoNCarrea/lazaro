@@ -21,13 +21,13 @@ namespace ServidorFiscal
         /// </summary>
         public class ServidorFiscal : Lfx.Components.Function
         {
-                public Lazaro.Impresion.Comprobantes.Fiscal.Impresora Impresora;
+                public Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Impresora Impresora;
                 private Lbl.Comprobantes.PuntoDeVenta m_PuntoDeVenta = null;
                 private System.Timers.Timer Programador;
                 private System.Timers.Timer Watchdog;
                 private System.DateTime Watchdog_LastOp = System.DateTime.Now;
                 private Forms.Estado FormEstado = null;
-                public Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs UltimoEvento;
+                public Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs UltimoEvento;
 
                 public ServidorFiscal()
                 {
@@ -60,10 +60,10 @@ namespace ServidorFiscal
                                 //No es crítico, así que continúo sin problema
                         }
 
-                        Impresora = new Lazaro.Impresion.Comprobantes.Fiscal.Impresora(Lfx.Workspace.Master);
+                        Impresora = new Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Impresora(Lfx.Workspace.Master);
 
                         Lfx.Workspace.Master.RunTime.IpcEvent += new Lfx.RunTimeServices.IpcEventHandler(Componente_IpcEvent);
-                        Impresora.Notificacion += new Lazaro.Impresion.Comprobantes.Fiscal.NotificacionEventHandler(ConFiscal_EventoConexion);
+                        Impresora.Notificacion += new Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.NotificacionEventHandler(ConFiscal_EventoConexion);
 
                         Programador = new System.Timers.Timer(1000);
                         Programador.Elapsed += new System.Timers.ElapsedEventHandler(EventoProgramador);
@@ -74,15 +74,15 @@ namespace ServidorFiscal
                         Watchdog.Start();
 
                         if (wait) {
-                                while (Impresora.EstadoServidor != Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando
-                                        && Impresora.EstadoServidor != Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando) {
+                                while (Impresora.EstadoServidor != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando
+                                        && Impresora.EstadoServidor != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando) {
                                         System.Threading.Thread.Sleep(100);
                                         System.Windows.Forms.Application.DoEvents();
                                 }
 
-                                if (Impresora.EstadoServidor == Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando)
+                                if (Impresora.EstadoServidor == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando)
                                         this.End(true);
-                                else if (Impresora.EstadoServidor == Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando)
+                                else if (Impresora.EstadoServidor == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando)
                                         this.End(false);
                         }
 
@@ -113,20 +113,20 @@ namespace ServidorFiscal
                 }
 
 
-                public void ConFiscal_EventoConexion(object sender, Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs e)
+                public void ConFiscal_EventoConexion(object sender, Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs e)
                 {
                         UltimoEvento = e;
                         switch (e.EventType) {
-                                case Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.Inicializada:
+                                case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.Inicializada:
                                         FormEstado.MostrarEstado("Inicializado");
                                         break;
-                                case Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.Estado:
+                                case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.Estado:
                                         FormEstado.MostrarEstado(e.MensajeEstado);
                                         break;
-                                case Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.InicioImpresion:
+                                case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.InicioImpresion:
                                         FormEstado.MostrarEstado("Se inició el proceso de impresión");
                                         break;
-                                case Lazaro.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.FinImpresion:
+                                case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs.EventTypes.FinImpresion:
                                         FormEstado.MostrarEstado("Finalizó el proceso de impresión");
                                         break;
                         }
@@ -137,11 +137,11 @@ namespace ServidorFiscal
                         if (e.Destination == "servidorfiscal") {
                                 switch (e.Verb) {
                                         case "END":
-                                                Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
+                                                Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
                                                 break;
 
                                         case "REBOOT":
-                                                Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
+                                                Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
                                                 break;
                                 }
                         }
@@ -156,7 +156,7 @@ namespace ServidorFiscal
                                 wr.Write("ServidorFiscal: REBOOT " + System.DateTime.Now.ToString() + System.Environment.NewLine);
                                 wr.Close();
 
-                                Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
+                                Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
                         }
                 }
 
@@ -210,17 +210,17 @@ namespace ServidorFiscal
                                 string Comando = ProximaTarea.Command;
                                 string SubComando = Lfx.Types.Strings.GetNextToken(ref Comando, " ").Trim().ToUpper();
 
-                                Lazaro.Impresion.Comprobantes.Fiscal.Respuesta Res;
+                                Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Respuesta Res;
                                 switch (SubComando) {
                                         case "REBOOT":
                                                 FormEstado.MostrarEstado("Reiniciando...");
-                                                Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
+                                                Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
                                                 //this.End(true);
                                                 break;
 
                                         case "END":
                                                 FormEstado.MostrarEstado("Cerrando...");
-                                                Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
+                                                Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
                                                 //this.End(false);
                                                 break;
 
@@ -230,10 +230,10 @@ namespace ServidorFiscal
                                                 if (Res.EstadoFiscal.DocumentoFiscalAbierto) {
                                                         Res = Impresora.CancelarDocumentoFiscal();
                                                         System.Threading.Thread.Sleep(500);
-                                                } else if (Res.Error == Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
+                                                } else if (Res.Error == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
                                                         string SubComandoCierre = Lfx.Types.Strings.GetNextToken(ref Comando, " ").Trim().ToUpper();
-                                                        Lazaro.Impresion.Comprobantes.Fiscal.Respuesta ResultadoCierre = Impresora.Cierre(SubComandoCierre, true);
-                                                        if (SubComandoCierre == "Z" && ResultadoCierre.Error == Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
+                                                        Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Respuesta ResultadoCierre = Impresora.Cierre(SubComandoCierre, true);
+                                                        if (SubComandoCierre == "Z" && ResultadoCierre.Error == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
                                                                 //Si hizo un cierre Z correctamente, actualizo la variable LCZ
                                                                 using (IDbTransaction Trans = this.Impresora.DataBase.BeginTransaction()) {
                                                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
@@ -242,7 +242,7 @@ namespace ServidorFiscal
                                                                         Trans.Commit();
                                                                 }
                                                         }
-                                                        if (ResultadoCierre.Error != Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
+                                                        if (ResultadoCierre.Error != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
                                                                 MostrarErrorFiscal(ResultadoCierre);
                                                         }
                                                         System.Threading.Thread.Sleep(100);
@@ -286,10 +286,10 @@ namespace ServidorFiscal
                                                         }
                                                 }
 
-                                                if (Res.Error == Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok)
+                                                if (Res.Error == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok)
                                                         Res = Impresora.ImprimirComprobante(IdFactura);
 
-                                                if (Res.Error != Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
+                                                if (Res.Error != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
                                                         MostrarErrorFiscal(Res);
                                                         FormEstado.MostrarEstado("Cancelando documento...");
                                                         if (Res.EstadoFiscal.DocumentoFiscalAbierto)
@@ -305,7 +305,7 @@ namespace ServidorFiscal
                         Watchdog.Start();
                 }
 
-                private void MostrarErrorFiscal(Lazaro.Impresion.Comprobantes.Fiscal.Respuesta Res)
+                private void MostrarErrorFiscal(Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Respuesta Res)
                 {
                         FormError FormFiscalError = new FormError();
                         FormFiscalError.Mostrar(Res);

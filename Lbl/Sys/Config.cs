@@ -184,6 +184,7 @@ namespace Lbl.Sys
                                         if (!System.IO.Directory.Exists(m_CarpetaEmpresa)) {
                                                 Lfx.Environment.Folders.EnsurePathExists(m_CarpetaEmpresa);
                                                 Lfx.Environment.Folders.EnsurePathExists(System.IO.Path.Combine(m_CarpetaEmpresa, "Copias de seguridad"));
+                                                Lfx.Environment.Folders.EnsurePathExists(System.IO.Path.Combine(m_CarpetaEmpresa, "AFIP"));
                                         }
                                 }
                                 return m_CarpetaEmpresa;

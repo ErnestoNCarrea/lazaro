@@ -23,7 +23,7 @@ namespace Lbl.Archivos.Salida
                         //Formato CITI Ventas
 
                         Renglon += ComprobanteFacturable.Fecha.ToString("yyyyMMdd");  // Fecha del comprobante 
-                        Renglon += CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante
+                        Renglon += ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante
                         Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 
                         Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0');   // Numero de comrpbante
                         Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0');   // Numero de comrpbante hasta

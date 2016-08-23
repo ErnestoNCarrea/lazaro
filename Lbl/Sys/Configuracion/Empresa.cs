@@ -57,6 +57,38 @@ namespace Lbl.Sys
                         }
 
 
+                        /// <summary>
+                        /// El número de inscripción en ingresos brutos.
+                        /// </summary>
+                        public static string NumeroIngresosBrutos
+                        {
+                                get
+                                {
+                                        return Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Empresa.NumeroIngresosBrutos", "");
+                                }
+                                set
+                                {
+                                        Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Empresa.NumeroIngresosBrutos", value.Trim());
+                                }
+                        }
+
+
+                        /// <summary>
+                        /// La fecha de inicio de actividades.
+                        /// </summary>
+                        public static NullableDateTime InicioDeActividades
+                        {
+                                get
+                                {
+                                        return Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<NullableDateTime>("Sistema.Empresa.InicioDeActividades", null);
+                                }
+                                set
+                                {
+                                        Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Empresa.InicioDeActividades", value);
+                                }
+                        }
+
+
                         public static int Id
                         {
                                 get

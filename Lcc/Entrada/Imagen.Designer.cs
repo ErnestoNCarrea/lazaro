@@ -85,11 +85,11 @@ namespace Lcc.Entrada
                         this.BotonQuitarImagen.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonQuitarImagen.Location = new System.Drawing.Point(144, 128);
                         this.BotonQuitarImagen.Name = "BotonQuitarImagen";
-                        this.BotonQuitarImagen.Size = new System.Drawing.Size(96, 36);
+                        this.BotonQuitarImagen.Size = new System.Drawing.Size(96, 32);
                         this.BotonQuitarImagen.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonQuitarImagen.Subtext = "";
                         this.BotonQuitarImagen.TabIndex = 2;
-                        this.BotonQuitarImagen.Text = "Sin Imagen";
+                        this.BotonQuitarImagen.Text = "Sin imagen";
                         this.BotonQuitarImagen.Click += new System.EventHandler(this.BotonQuitarImagen_Click);
                         // 
                         // BotonSeleccionarImagen
@@ -100,11 +100,11 @@ namespace Lcc.Entrada
                         this.BotonSeleccionarImagen.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonSeleccionarImagen.Location = new System.Drawing.Point(144, 80);
                         this.BotonSeleccionarImagen.Name = "BotonSeleccionarImagen";
-                        this.BotonSeleccionarImagen.Size = new System.Drawing.Size(96, 40);
+                        this.BotonSeleccionarImagen.Size = new System.Drawing.Size(96, 42);
                         this.BotonSeleccionarImagen.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonSeleccionarImagen.Subtext = "";
                         this.BotonSeleccionarImagen.TabIndex = 1;
-                        this.BotonSeleccionarImagen.Text = "Desde archivo";
+                        this.BotonSeleccionarImagen.Text = "Seleccionar un archivo";
                         this.BotonSeleccionarImagen.Click += new System.EventHandler(this.BotonSeleccionarImagen_Click);
                         // 
                         // BotonCapturarImagen
@@ -115,11 +115,11 @@ namespace Lcc.Entrada
                         this.BotonCapturarImagen.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCapturarImagen.Location = new System.Drawing.Point(144, 32);
                         this.BotonCapturarImagen.Name = "BotonCapturarImagen";
-                        this.BotonCapturarImagen.Size = new System.Drawing.Size(96, 40);
+                        this.BotonCapturarImagen.Size = new System.Drawing.Size(96, 42);
                         this.BotonCapturarImagen.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonCapturarImagen.Subtext = "";
                         this.BotonCapturarImagen.TabIndex = 0;
-                        this.BotonCapturarImagen.Text = "Desde dispositivo";
+                        this.BotonCapturarImagen.Text = "Usar un escáner";
                         this.BotonCapturarImagen.Click += new System.EventHandler(this.BotonCapturarImagen_Click);
                         // 
                         // GroupLabel

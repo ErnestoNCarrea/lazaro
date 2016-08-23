@@ -30,7 +30,7 @@ namespace Lbl.Archivos.Salida
 
                                 string Renglon = "";
 
-                                Renglon += CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
+                                Renglon += ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
                                 Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 4-8
                                 Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0'); // Numero de comprobante 9-28
                                 Renglon += Lfx.Types.Formatting.FormatCurrency(ImporteGravado, 2).Replace(".", "").PadLeft(15, '0'); // Neto Gravado 29-43
@@ -45,7 +45,7 @@ namespace Lbl.Archivos.Salida
 
                                         string Renglon = "";
 
-                                        Renglon += CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
+                                        Renglon += ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
                                         Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 4-8
                                         Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0'); // Numero de comprobante 9-28
                                         Renglon += Lfx.Types.Formatting.FormatCurrency(ImporteGravado, 2).Replace(".", "").PadLeft(15, '0'); // Neto Gravado 29-43

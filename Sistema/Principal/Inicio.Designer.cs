@@ -50,7 +50,7 @@ namespace Lazaro.WinMain.Principal
                         this.BarraTareas.Location = new System.Drawing.Point(0, 0);
                         this.BarraTareas.Name = "BarraTareas";
                         this.BarraTareas.Padding = new System.Windows.Forms.Padding(4);
-                        this.BarraTareas.Size = new System.Drawing.Size(1024, 27);
+                        this.BarraTareas.Size = new System.Drawing.Size(1024, 25);
                         this.BarraTareas.TabIndex = 17;
                         this.BarraTareas.Text = "Tareas";
                         this.BarraTareas.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.BarraTareas_ItemClicked);

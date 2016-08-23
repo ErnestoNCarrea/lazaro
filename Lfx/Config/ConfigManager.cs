@@ -171,16 +171,23 @@ namespace Lfx.Config
                                 return defaultValue;
 
                         object Res;
-                        if (typeof(T) == typeof(string))
+                        if (typeof(T) == typeof(string)) {
                                 Res = Val;
-                        else if (typeof(T) == typeof(int))
+                        } else if (typeof(T) == typeof(int)) {
                                 Res = Lfx.Types.Parsing.ParseInt(Val);
-                        else if (typeof(T) == typeof(decimal))
+                        } else if (typeof(T) == typeof(decimal)) {
                                 Res = Lfx.Types.Parsing.ParseDecimal(Val);
-                        else if (typeof(T) == typeof(DateTime))
+                        } else if (typeof(T) == typeof(DateTime)) {
                                 Res = Lfx.Types.Parsing.ParseSqlDateTime(Val);
-                        else
+                        } else if (typeof(T) == typeof(NullableDateTime)) {
+                                if (string.IsNullOrWhiteSpace(Val)) {
+                                        Res = null;
+                                } else {
+                                        Res = new NullableDateTime(Lfx.Types.Parsing.ParseSqlDateTime(Val));
+                                }
+                        } else {
                                 Res = null;
+                        }
 
                         return (T)Res;
                 }
@@ -295,6 +302,14 @@ namespace Lfx.Config
                         return WriteGlobalSetting(settingName, intValue.ToString());
                 }
 
+                public bool WriteGlobalSetting(string settingName, NullableDateTime dateTimeValue)
+                {
+                        if (dateTimeValue == null) {
+                                return WriteGlobalSetting(settingName, "");
+                        } else {
+                                return WriteGlobalSetting(settingName, Lfx.Types.Formatting.FormatDateTimeSql(dateTimeValue));
+                        }
+                }
 
                 public bool WriteGlobalSetting(string settingName, decimal decimalValue)
                 {

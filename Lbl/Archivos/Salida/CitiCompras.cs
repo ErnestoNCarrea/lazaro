@@ -24,7 +24,7 @@ namespace Lbl.Archivos.Salida
                         string Renglon = "";
                         //Formato CITI COMPRAS
                         Renglon += ComprobanteFacturable.Fecha.ToString("yyyyMMdd");  // Fecha del comprobante 1-8
-                        Renglon += CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante 9-11
+                        Renglon += ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 9-11
                         Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 12-16
                         Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0');  // Numero de comrpbante 17-36
                         Renglon += "".PadRight(16, ' ');  // Numero de despacho de importacion  37-52

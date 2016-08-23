@@ -45,7 +45,7 @@ namespace Lcc.Entrada
                         this.EntradaNombre.ForceCase = Lui.Forms.TextCasing.Automatic;
                         this.EntradaNombre.Location = new System.Drawing.Point(352, 0);
                         this.EntradaNombre.Name = "EntradaNombre";
-                        this.EntradaNombre.PlaceholderText = "Lugar";
+                        this.EntradaNombre.PlaceholderText = "Tipo";
                         this.EntradaNombre.Size = new System.Drawing.Size(108, 24);
                         this.EntradaNombre.TabIndex = 4;
                         this.EntradaNombre.TextChanged += new System.EventHandler(this.Entradas_TextChanged);

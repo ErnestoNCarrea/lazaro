@@ -390,7 +390,7 @@ namespace Lfc.Comprobantes
                         else
                                 Total = SubTotal * (1 + Recargo - Descuento);
 
-                        Total += EntradaIva.ValueDecimal;
+                        Total += (EntradaIva.ValueDecimal * (1 + Recargo - Descuento));
                         EntradaTotal.ValueDecimal = Total;
 
                         int Cuotas = EntradaCuotas.ValueInt;
@@ -448,10 +448,12 @@ namespace Lfc.Comprobantes
 
                 public override void AfterSave(System.Data.IDbTransaction transaction)
                 {
-                        Lbl.Comprobantes.Comprobante Compr = this.Elemento as Lbl.Comprobantes.Comprobante;
-                        if (Compr != null && Compr.Tipo != null && Compr.Tipo.ImprimirAlGuardar) {
-                                Lazaro.Impresion.Impresor Impr = Lazaro.Impresion.Instanciador.InstanciarImpresor(Compr, transaction);
-                                Impr.Imprimir();
+                        Lbl.Comprobantes.Comprobante Comprob = this.Elemento as Lbl.Comprobantes.Comprobante;
+                        if (Comprob != null && Comprob.Tipo != null && Comprob.Tipo.ImprimirAlGuardar) {
+                                using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
+                                        var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
+                                        Controlador.Imprimir(Comprob, null);
+                                }
                         }
                 }
 

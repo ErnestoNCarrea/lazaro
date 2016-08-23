@@ -78,6 +78,7 @@ namespace Lbl.Personas
                                 Comando.Fields.AddWithValue("id_subgrupo", this.SubGrupo.Id);
                         Comando.Fields.AddWithValue("nombre", this.Nombres);
                         Comando.Fields.AddWithValue("apellido", this.Apellido);
+                        Comando.Fields.AddWithValue("nombre_fantasia", this.NombreFantasia);
                         Comando.Fields.AddWithValue("razon_social", this.RazonSocial);
                         Comando.Fields.AddWithValue("nombre_visible", this.Nombre);
                         if (this.TipoDocumento == null)
@@ -136,6 +137,8 @@ namespace Lbl.Personas
                         Comando.Fields.AddWithValue("cbu", this.ClaveBancaria);
                         Comando.Fields.AddWithValue("estadocredito", this.EstadoCredito);
 
+                        Comando.Fields.AddWithValue("genero", this.Genero);
+
                         if (this.Existe == false) {
                                 // Si estoy creando una persona, le asigno una contraseña aleatoria de 6 digitos
                                 string Contrasena = new System.Random().Next(100000, 999999).ToString();
@@ -166,7 +169,20 @@ namespace Lbl.Personas
                 }
 
 
-		public string NumeroCuenta
+                public int Genero
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("genero");
+                        }
+                        set
+                        {
+                                this.Registro["genero"] = value;
+                        }
+                }
+
+
+                public string NumeroCuenta
 		{
 			get
 			{
@@ -391,6 +407,17 @@ namespace Lbl.Personas
                         }
                 }
 
+                public string NombreFantasia
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("nombre_fantasia");
+                        }
+                        set
+                        {
+                                this.Registro["nombre_fantasia"] = value;
+                        }
+                }
 
                 public string RazonSocial
                 {

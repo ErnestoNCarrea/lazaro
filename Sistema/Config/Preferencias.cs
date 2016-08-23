@@ -10,6 +10,7 @@ namespace Lazaro.WinMain.Config
                 private int CurrentTab = 1;
                 private const int TabCount = 4;
                 private int IdPaisOriginal = 0;
+                private Lbl.Sys.Blob Logo { get; set; }
 
                 public Preferencias()
                 {
@@ -87,10 +88,15 @@ namespace Lazaro.WinMain.Config
                         EntradaEmpresaSituacion.ValueInt = Lbl.Sys.Config.Empresa.SituacionTributaria;
                         EntradaEmpresaEmail.Text = Lbl.Sys.Config.Empresa.Email;
                         EntradaEmpresaId.ValueInt = Lbl.Sys.Config.Empresa.Id;
+                        EntradaIngresosBrutos.Text = Lbl.Sys.Config.Empresa.NumeroIngresosBrutos;
+                        if (Lbl.Sys.Config.Empresa.InicioDeActividades == null) {
+                                EntradaInicioActividades.Text = "";
+                        } else {
+                                EntradaInicioActividades.Text = Lbl.Sys.Config.Empresa.InicioDeActividades.ToString(Lfx.Types.Formatting.DateTime.ShortDatePattern);
+                        }
 
                         EntradaBackup.TextKey = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Backup.Tipo", "0");
                         EntradaModoPantalla.TextKey = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Apariencia.ModoPantalla", "maximizado");
-                        EntradaAislacion.TextKey = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Datos.Aislacion", "Serializable");
                         EntradaActualizaciones.TextKey = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Nivel", "stable");
 
                         EntradaPV.Text = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Documentos.PV", "1");
@@ -124,6 +130,10 @@ namespace Lazaro.WinMain.Config
                         EntradaMonedaDecimalesFinal.TextKey = Lbl.Sys.Config.Moneda.DecimalesFinal.ToString();
 
                         EntradaSucursal.ValueInt = Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual;
+
+                        this.Logo = new Lbl.Sys.Blob(this.Connection, 1);
+                        EntradaLogo.Elemento = Logo;
+                        EntradaLogo.ActualizarControl();
                 }
 
 
@@ -147,8 +157,11 @@ namespace Lazaro.WinMain.Config
                                 return true;
                         }
 
-                        if (NuevoPais.Id != IdPaisOriginal)
+                        var Trans = this.Connection.BeginTransaction();
+
+                        if (NuevoPais.Id != IdPaisOriginal) {
                                 Lbl.Sys.Config.CambiarPais(NuevoPais);
+                        }
 
                         int Sucursal = EntradaSucursal.ValueInt;
 
@@ -170,14 +183,22 @@ namespace Lazaro.WinMain.Config
                         Lbl.Sys.Config.Empresa.SituacionTributaria = EntradaEmpresaSituacion.ValueInt;
                         Lbl.Sys.Config.Empresa.Email = EntradaEmpresaEmail.Text;
                         Lbl.Sys.Config.Empresa.Id = EntradaEmpresaId.ValueInt;
+                        Lbl.Sys.Config.Empresa.NumeroIngresosBrutos = EntradaIngresosBrutos.Text;
+                        Lbl.Sys.Config.Empresa.InicioDeActividades = Lfx.Types.Parsing.ParseDate(EntradaInicioActividades.Text);
 
                         Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Backup.Tipo", EntradaBackup.TextKey, Lfx.Environment.SystemInformation.MachineName);
                         if (EntradaModoPantalla.TextKey == "*")
                                 Lfx.Workspace.Master.CurrentConfig.DeleteGlobalSetting("Sistema.Apariencia.ModoPantalla", Lfx.Environment.SystemInformation.MachineName);
                         else
                                 Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Apariencia.ModoPantalla", EntradaModoPantalla.TextKey, Lfx.Environment.SystemInformation.MachineName);
-                        Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Datos.Aislacion", EntradaAislacion.TextKey);
                         Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Actualizaciones.Nivel", EntradaActualizaciones.TextKey);
+
+                        if (this.Logo.ImagenCambio) {
+                                if (this.Logo.Existe == false) {
+                                        this.Logo.SetId(1);
+                                }
+                                this.Logo.Guardar();
+                        }
 
                         //Guardo información sobre los PV
                         Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Documentos.PV", EntradaPV.Text, Sucursal);
@@ -215,28 +236,29 @@ namespace Lazaro.WinMain.Config
                                 // Hago cambios referentes al país donde está configurado el sistema
 
                                 Lbl.Entidades.Pais Pais = EntradaPais.Elemento as Lbl.Entidades.Pais;
-                                if (Pais != null)
+                                if (Pais != null) {
                                         Lbl.Sys.Config.CambiarPais(Pais);
+                                }
 
-                                using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
-                                        // Cambio la sucursal 1 y el cliente consumidor final a la localidad proporcionada
-                                        Lbl.Entidades.Localidad Loc = EntradaLocalidad.Elemento as Lbl.Entidades.Localidad;
-                                        if (Loc != null) {
-                                                Lbl.Entidades.Sucursal Suc1 = new Lbl.Entidades.Sucursal(this.Connection, 1);
-                                                Suc1.Localidad = Loc;
-                                                Suc1.Guardar();
+                                // Cambio la sucursal 1 y el cliente consumidor final a la localidad proporcionada
+                                Lbl.Entidades.Localidad Loc = EntradaLocalidad.Elemento as Lbl.Entidades.Localidad;
+                                if (Loc != null) {
+                                        Lbl.Entidades.Sucursal Suc1 = new Lbl.Entidades.Sucursal(this.Connection, 1);
+                                        Suc1.Localidad = Loc;
+                                        Suc1.Guardar();
 
-                                                Lbl.Personas.Persona ConsFinal = new Lbl.Personas.Persona(this.Connection, 999);
-                                                ConsFinal.Localidad = Loc;
-                                                ConsFinal.Guardar();
-                                        }
-                                        Trans.Commit();
+                                        Lbl.Personas.Persona ConsFinal = new Lbl.Personas.Persona(this.Connection, 999);
+                                        ConsFinal.Localidad = Loc;
+                                        ConsFinal.Guardar();
                                 }
 
                                 Lbl.Sys.Config.Cargar();
 
                                 this.PrimeraVez = false;
                         }
+
+                        Trans.Commit();
+                        Trans.Dispose();
 
                         return false;
                 }
@@ -252,6 +274,11 @@ namespace Lazaro.WinMain.Config
                         FrmArticulos.Visible = CurrentTab == 2;
                         FrmComprobantes.Visible = CurrentTab == 3;
                         FrmAvanzado.Visible = CurrentTab == 4;
+
+                        LabelTab1.Left = CurrentTab == 1 ? 16 : 12;
+                        LabelTab2.Left = CurrentTab == 2 ? 16 : 12;
+                        LabelTab3.Left = CurrentTab == 3 ? 16 : 12;
+                        LabelTab4.Left = CurrentTab == 4 ? 16 : 12;
                 }
 
                 private void EntradaProvincia_TextChanged(object sender, System.EventArgs e)

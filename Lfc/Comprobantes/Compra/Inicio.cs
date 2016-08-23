@@ -13,7 +13,7 @@ namespace Lfc.Comprobantes.Compra
                 private string m_Tipo = "FP";
                 private Lbl.Personas.Persona m_Proveedor;
 		private Lfx.Types.DateRange m_Fechas = new Lfx.Types.DateRange("mes-0");
-
+                //Requiere permisos de comprobantes con articulos 
         	public Inicio()
 		{
                         this.Definicion = new Lazaro.Pres.Listings.Listing()

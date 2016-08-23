@@ -41,6 +41,10 @@ namespace Lfc.Personas
 
                         Lbl.Personas.Persona Cliente = this.Elemento as Lbl.Personas.Persona;
 
+                        if (EntradaNombreFantasia.Text.Length > 0 && EntradaRazonSocial.Text.Length == 0) {
+                                return new Lfx.Types.FailureOperationResult("Escriba la razón social");
+                        }
+
                         if (EntradaRazonSocial.Text.Length == 0 && EntradaNombre.Text.Length == 0 && EntradaApellido.Text.Length == 0) {
                                 return new Lfx.Types.FailureOperationResult("Escriba el nombre y el apellido o la razón social");
                         } else {
@@ -184,7 +188,10 @@ namespace Lfc.Personas
                         EntradaTipoDoc.Enabled = PermitirEdicionAvanzada;
                         EntradaNumDoc.Text = Cliente.NumeroDocumento;
                         EntradaNumDoc.Enabled = PermitirEdicionAvanzada;
+                        EntradaGenero.ValueInt = Cliente.Genero;
 
+                        EntradaNombreFantasia.Text = Cliente.NombreFantasia;
+                        EntradaNombreFantasia.Enabled = PermitirEdicionAvanzada;
                         EntradaRazonSocial.Text = Cliente.RazonSocial;
                         EntradaRazonSocial.Enabled = PermitirEdicionAvanzada;
 
@@ -269,7 +276,10 @@ namespace Lfc.Personas
                 private void GenerarNombreVisible(System.Object sender, System.EventArgs e)
                 {
                         string Res = "";
-                        if (EntradaRazonSocial.Text.Length > 0) {
+                        if (EntradaNombreFantasia.Text.Length > 0) {
+                                Res += EntradaNombreFantasia.Text.Trim().ToTitleCase();
+                        }
+                        else if(EntradaRazonSocial.Text.Length > 0) {
                                 Res += EntradaRazonSocial.Text.Trim().ToTitleCase();
                         } else {
                                 if (EntradaApellido.Text.Length > 0) {
@@ -348,8 +358,10 @@ namespace Lfc.Personas
                         Res.SubGrupo = EntradaSubGrupo.Elemento as Lbl.Personas.Grupo;
                         Res.Nombres = EntradaNombre.Text.Trim();
                         Res.Apellido = EntradaApellido.Text.Trim();
+                        Res.NombreFantasia = EntradaNombreFantasia.Text.Trim();
                         Res.RazonSocial = EntradaRazonSocial.Text.Trim();
                         Res.Nombre = this.Text;
+                        Res.Genero = EntradaGenero.ValueInt;
                         Res.TipoDocumento = EntradaTipoDoc.Elemento as Lbl.Entidades.ClaveUnica;
                         Res.NumeroDocumento = EntradaNumDoc.Text;
                         if (EntradaClaveTributaria.Text.Length > 0)

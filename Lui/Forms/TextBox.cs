@@ -528,12 +528,13 @@ namespace Lui.Forms
                         }
                         set
                         {
-                                TextBox1.AutoCompleteCustomSource = value;
-                                if (value == null)
+                                if (value == null) {
                                         TextBox1.AutoCompleteMode = AutoCompleteMode.None;
-                                else
-                                        TextBox1.AutoCompleteMode = AutoCompleteMode.Append;
+                                } else {
+                                        TextBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                                }
                                 TextBox1.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                                TextBox1.AutoCompleteCustomSource = value;
                         }
                 }
 

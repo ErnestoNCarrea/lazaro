@@ -7,6 +7,7 @@ namespace Lfc.Personas
         public partial class Inicio : Lfc.FormularioListado
         {
                 private int m_Tipo = 1;
+                private int m_Genero = -1;
 
                 public Lbl.Personas.Grupo Grupo { get; set; }
                 public Lbl.Personas.Grupo SubGrupo { get; set; }
@@ -22,6 +23,12 @@ namespace Lfc.Personas
                         Lbl.ColeccionCodigoDetalle SetEstados = new Lbl.ColeccionCodigoDetalle() {
                                 { 0, "Inactivo" },
                                 { 1, "Normal" }
+                        };
+
+                        Lbl.ColeccionCodigoDetalle SetGenero = new Lbl.ColeccionCodigoDetalle() {
+                                { 0, "Sin Informacion" },
+                                { 1, "Masculino" },
+                                { 2, "Femenino" }
                         };
 
                         this.Definicion = new Lazaro.Pres.Listings.Listing()
@@ -44,6 +51,7 @@ namespace Lfc.Personas
                                         new Lazaro.Pres.Field("personas.id_subgrupo", "Sub grupo", Lfx.Data.InputFieldTypes.Relation, 120),
                                         new Lazaro.Pres.Field("ciudades.nombre AS ciudad", "Localidad", Lfx.Data.InputFieldTypes.Text, 120),
                                         new Lazaro.Pres.Field("personas.estado", "Estado", 0, SetEstados),
+                                        new Lazaro.Pres.Field("personas.genero", "Genero", 120, SetGenero),
                                         new Lazaro.Pres.Field("personas.fechaalta", "Fecha de alta", Lfx.Data.InputFieldTypes.Date, 120),
                                         new Lazaro.Pres.Field("personas.fechabaja", "Fecha de baja", Lfx.Data.InputFieldTypes.Date, 120),
                                         new Lazaro.Pres.Field("personas.numerocuenta", "Cuenta", Lfx.Data.InputFieldTypes.Text, 120)
@@ -62,6 +70,7 @@ namespace Lfc.Personas
                                         new Lazaro.Pres.Filters.RelationFilter("Sub grupo", new Lfx.Data.Relation("personas.id_subgrupo", "personas_grupos", "id_grupo")),
                                         new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lfx.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
                                         new Lazaro.Pres.Filters.SetFilter("Estado", "personas.estado", new string[] {"Todos|-1", "Activos|1", "Inactivos|0"}, "1"),
+                                        new Lazaro.Pres.Filters.SetFilter("Genero", "personas.genero", new string[] {"Todos|-1", "Masculino|1", "Femenino|2"}, "-1"),
                                         new Lazaro.Pres.Filters.SetFilter("Estado de crédito", "personas.estadocredito", new string[] { "Cualquiera|-1", "Normal|0", "En plan de pago|5", "Suspendido|10" }, "-1"),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha de alta", "personas.fechaalta", new Lfx.Types.DateRange("*")),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha de baja", "personas.fechabaja", new Lfx.Types.DateRange("*"))
@@ -160,6 +169,9 @@ namespace Lfc.Personas
                         if (Estado >= 0)
                                 this.CustomFilters.AddWithValue("personas.estado", Estado);
 
+                        if (m_Genero >= 0)
+                                this.CustomFilters.AddWithValue("personas.genero", m_Genero);
+
                         if (FechaAlta.HasRange)
                                 this.CustomFilters.AddWithValue("personas.fechaalta", FechaAlta.From, FechaAlta.To);
 
@@ -180,6 +192,7 @@ namespace Lfc.Personas
                         this.SubGrupo = this.Definicion.Filters["personas.id_subgrupo"].Value as Lbl.Personas.Grupo;
                         this.Localidad = this.Definicion.Filters["personas.id_ciudad"].Value as Lbl.Entidades.Localidad;
                         this.Estado = Lfx.Types.Parsing.ParseInt(this.Definicion.Filters["personas.estado"].Value as string);
+                        m_Genero = Lfx.Types.Parsing.ParseInt(this.Definicion.Filters["personas.genero"].Value as string);
                         this.EstadoCredito = Lfx.Types.Parsing.ParseInt(this.Definicion.Filters["personas.estadocredito"].Value as string);
                         this.FechaAlta = this.Definicion.Filters["personas.fechaalta"].Value as Lfx.Types.DateRange;
                         this.FechaBaja = this.Definicion.Filters["personas.fechabaja"].Value as Lfx.Types.DateRange;

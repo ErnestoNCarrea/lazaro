@@ -176,6 +176,7 @@
     <Compile Include="Sys\Configuracion\Formatos.cs" />
     <Compile Include="Sys\Configuracion\Impresion.cs" />
     <Compile Include="Sys\Configuracion\UsuarioConectado.cs" />
+    <Compile Include="Sys\Blob.cs" />
     <Compile Include="Sys\Log\Acciones.cs" />
     <Compile Include="Sys\Permisos\Operaciones.cs" />
     <Compile Include="Sys\Permisos\Objeto.cs" />

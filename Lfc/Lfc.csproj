@@ -748,9 +748,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Impresion\Impresion.csproj">
-      <Project>{EBF39B24-DF1A-4C99-8FC8-F9A24E9CB8FF}</Project>
-      <Name>Impresion</Name>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{c47fcc4e-7d7e-4b81-acf8-af83b0997566}</Project>
+      <Name>Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lbl\Lbl.csproj">
       <Project>{56f39851-6542-405c-9f47-e8414b757ef6}</Project>

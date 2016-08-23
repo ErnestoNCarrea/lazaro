@@ -88,9 +88,8 @@ namespace Lcc.Entrada
 
                 private void BotonCapturarImagen_Click(object sender, EventArgs e)
                 {
-#if WINDOWS
                         try {
-                                WIA.CommonDialogClass WiaDialog = new WIA.CommonDialogClass();
+                                var WiaDialog = new WIA.CommonDialog();
                                 WIA.ImageFile WiaImage = null;
                                 
                                 WiaImage = WiaDialog.ShowAcquireImage(
@@ -100,8 +99,8 @@ namespace Lcc.Entrada
                                         System.Drawing.Imaging.ImageFormat.Jpeg.Guid.ToString("B"), true, false, false);
 
                                 if (WiaImage != null) {
-                                        WIA.Vector vector = WiaImage.FileData;
-                                        using (Entrada.AuxForms.ImagenRecorte Recorte = new Entrada.AuxForms.ImagenRecorte()) {
+                                        var vector = WiaImage.FileData;
+                                        using (var Recorte = new Entrada.AuxForms.ImagenRecorte()) {
                                                 Recorte.Imagen = System.Drawing.Image.FromStream(new System.IO.MemoryStream((byte[])vector.get_BinaryData()));
                                                 if (Recorte.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                                                         EntradaImagen.Image = Recorte.Imagen;
@@ -113,7 +112,6 @@ namespace Lcc.Entrada
                         } catch (Exception ex) {
                                 Lui.Forms.MessageBox.Show("No se puede conectar con el dispositivo de captura. " + ex.Message, "Error");
                         }
-#endif
                 }
 
                 private void GuardarEnarchivoToolStripMenuItem_Click(object sender, EventArgs e)

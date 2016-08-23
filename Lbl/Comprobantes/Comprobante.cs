@@ -79,56 +79,6 @@ namespace Lbl.Comprobantes
                         }
                 }
 
-                /// <summary>
-                /// Numera el comprobante (usando el número especificado), guardando automáticamente los cambios.
-                /// </summary>
-                /// <param name="numero">El número que se asignó a este comprobante.</param>
-                /// <param name="yMarcarComoImpreso">Si es Verdadero, el comprobante se marca como impreso y se actualiza la fecha.</param>
-                public void Numerar(int numero, bool yMarcarComoImpreso)
-                {
-                        qGen.Update ActualizarComprob = new qGen.Update(this.TablaDatos);
-
-                        // Modifico Registro para no volver a cargar el comprobante desde la BD
-                        Registro["numero"] = numero;
-                        ActualizarComprob.Fields.AddWithValue("numero", numero);
-
-                        string Nombre = this.PV.ToString("0000") + "-" + numero.ToString("00000000");
-                        Registro["nombre"] = Nombre;
-                        ActualizarComprob.Fields.AddWithValue("nombre", Nombre);
-
-                        if (yMarcarComoImpreso) {
-                                Registro["estado"] = 1;
-
-                                Registro["fecha"] = this.Connection.ServerDateTime;
-
-                                if (this.TablaDatos == "recibos") {
-                                        ActualizarComprob.Fields.AddWithValue("impreso", 1);
-                                        Registro["impreso"] = 1;
-                                } else {
-                                        ActualizarComprob.Fields.AddWithValue("impresa", 1);
-                                        Registro["impresa"] = 1;
-                                }
-                                ActualizarComprob.Fields.AddWithValue("estado", 1);
-                                ActualizarComprob.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        }
-                        ActualizarComprob.WhereClause = new qGen.Where(this.CampoId, this.Id);
-
-                        this.Connection.Execute(ActualizarComprob);
-                }
-                
-                /// <summary>
-                /// Numera el comprobante (usando el próximo número en el talonario), guardando automáticamente los cambios.
-                /// </summary>
-                /// <param name="yMarcarComoImpreso">Si es Verdadero, el comprobante se marca como impreso y se actualiza la fecha.</param>
-                public void Numerar(bool yMarcarComoImpreso)
-                {
-                        if (this.Numero == 0) {
-                                int NumeroNuevo = Numerador.ProximoNumero(this);
-                                this.Numerar(NumeroNuevo, yMarcarComoImpreso);
-                        }
-                }
-
-
                 public int PV
                 {
                         get

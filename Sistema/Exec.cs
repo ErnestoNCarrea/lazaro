@@ -9,7 +9,6 @@ namespace Lazaro.WinMain
                 /// <summary>
                 /// Ejecuta un comando. Se trata de un pequeño lenguaje de scripting de Lázaro.
                 /// </summary>
-                /// <param name="comando">El comando a ejecutar, puede ser una tarea o una cadena.</param>
                 /// <returns>Normalmente devuelve un formulario, que es el resultado del comando.
                 /// Por ejemplo, el comando "EDITAR Lbl.Articulos.Articulo 132" devuelve un formulario donde se está editando el artículo código 132.
                 /// También puede devolver otras cosas, como un Lfx.Types.OperationResult.
@@ -330,21 +329,34 @@ namespace Lazaro.WinMain
                                 case "COMPROBANTE":
                                 case "COMPROB":
                                         int IdComprobante = Lfx.Types.Parsing.ParseInt(Lfx.Types.Strings.GetNextToken(ref comando, " "));
-
+                                        
                                         Lfx.Types.OperationResult ResultadoImpresion;
 
                                         using (Lfx.Data.Connection DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante"))
                                         using (System.Data.IDbTransaction Trans = DataBaseImprimir.BeginTransaction()) {
-                                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
-                                                Lazaro.Impresion.Comprobantes.ImpresorComprobanteConArticulos Impresor = new Impresion.Comprobantes.ImpresorComprobanteConArticulos(Comprob, Trans);
+                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
+                                                var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
+                                                ResultadoImpresion = Controlador.Imprimir(Comprob, null);
+                                                if (ResultadoImpresion.Success) {
+                                                        Trans.Commit();
+                                                } else {
+                                                        Trans.Rollback();
+                                                }
+                                        }
+
+                                        /* using (Lfx.Data.Connection DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante"))
+                                        using (System.Data.IDbTransaction Trans = DataBaseImprimir.BeginTransaction()) {
+                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
+                                                var Impresor = new Impresion.Comprobantes.ImpresorComprobanteConArticulos(Comprob, Trans);
                                                 ResultadoImpresion = Impresor.Imprimir();
                                                 if (ResultadoImpresion.Success)
                                                         Trans.Commit();
                                                 else
                                                         Trans.Rollback();
-                                        }
+                                        } */
 
                                         return ResultadoImpresion;
+
                                 default:
                                         int itemId = Lfx.Types.Parsing.ParseInt(Lfx.Types.Strings.GetNextToken(ref comando, " ").Trim());
                                         Type TipoElem = Lbl.Instanciador.InferirTipo(SubComandoImprimir);
@@ -353,7 +365,7 @@ namespace Lazaro.WinMain
                                                         Lbl.IElementoDeDatos Elem = Lbl.Instanciador.Instanciar(TipoElem, DbImprimir, itemId);
                                                         Lfx.Types.OperationResult Res;
                                                         using (System.Data.IDbTransaction Trans = DbImprimir.BeginTransaction()) {
-                                                                Lazaro.Impresion.ImpresorElemento Impresor = Lazaro.Impresion.Instanciador.InstanciarImpresor(Elem, Trans);
+                                                                Lazaro.Base.Util.Impresion.ImpresorElemento Impresor = Lazaro.Base.Util.Impresion.Instanciador.InstanciarImpresor(Elem, Trans);
 
                                                                 string ImprimirEn = Lfx.Types.Strings.GetNextToken(ref comando, " ").Trim().ToUpperInvariant();
                                                                 if (ImprimirEn == "EN") {
@@ -391,7 +403,7 @@ namespace Lazaro.WinMain
                                 if (TipoListado == null)
                                         throw new NotImplementedException("LISTAR " + SubComandoListado);
                                 else
-                                        FormularioListado = Lfc.Instanciador.InstanciarFormularioListado(TipoListado, comando.Length > 0 ? comando : null);
+                                        FormularioListado = Lfc.Instanciador.InstanciarFormularioListado(TipoListado, SubComandoListado.Length > 0 ? SubComandoListado : null);
                         } else {
                                 return new Lfx.Types.NoAccessOperationResult();
                         }

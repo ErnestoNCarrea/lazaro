@@ -71,6 +71,30 @@ namespace Lbl.Comprobantes
 
 
                 /// <summary>
+                /// Devuelve los conceptos contenidos en el comprobante, según AFIP.
+                /// 
+                /// 1 = productos, 2 = servicios, 3 = productos y servicios.
+                /// </summary>
+                /// <returns></returns>
+                public int ConceptosAfip()
+                {
+                        int Res = 0;
+
+                        foreach (DetalleArticulo Det in this) {
+                                if (Det.Articulo != null) {
+                                        if (Det.Articulo.TipoDeArticulo == Articulos.TiposDeArticulo.Servicio) {
+                                                Res = Res | 2;
+                                        } else {
+                                                Res = Res | 1;
+                                        }
+                                }
+                        }
+
+                        return Res;
+                }
+
+
+                /// <summary>
                 /// Unifica la lista de articulos. Cuando un artículo aparece 2 o más veces, que una sola instancia
                 /// con la sumatoria de las cantidades (Si la lista consta de "2 manzanas, 3 naranjas y 1 manzana",
                 /// esta función devuelve "3 manzanas y 3 naranjas").

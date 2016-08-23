@@ -95,6 +95,8 @@
     <Optimize>false</Optimize>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1591</NoWarn>
+    <DocumentationFile>bin\dev\Lazaro.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -295,9 +297,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Impresion\Impresion.csproj">
-      <Project>{EBF39B24-DF1A-4C99-8FC8-F9A24E9CB8FF}</Project>
-      <Name>Impresion</Name>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{c47fcc4e-7d7e-4b81-acf8-af83b0997566}</Project>
+      <Name>Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\Lbl\Lbl.csproj">
       <Project>{56F39851-6542-405C-9F47-E8414B757EF6}</Project>
@@ -366,6 +368,8 @@
     <EmbeddedResource Include="whatsnew.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config.homologacion" />
+    <None Include="app.config" />
     <None Include="Resources\lazaro.ico" />
     <None Include="Resources\ajax-loader.gif" />
   </ItemGroup>

@@ -7,7 +7,7 @@ namespace Lfc.Comprobantes.Compra
         public partial class Editar : Lcc.Edicion.ControlEdicion
         {
                 private IDictionary<int, decimal> ArticulosCantidadesOriginales = new Dictionary<int, decimal>();
-
+                //Requiere permisos de comprobantes con articulos 
                 public Editar()
                 {
                         ElementoTipo = typeof(Lbl.Comprobantes.ComprobanteDeCompra);

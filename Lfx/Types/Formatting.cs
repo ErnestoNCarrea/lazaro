@@ -14,7 +14,7 @@ namespace Lfx.Types
                         public static readonly string SqlDateFormat = "yyyy-MM-dd";
                         public static readonly string SqlDateTimeFormat = "yyyy-MM-dd HH:mm:ss";
                         public static readonly string MonthAndYearPattern = @"MMMM ""de"" yyyy";
-                        public static readonly string ShortMonthAndYearPattern = @"MMM-yyyy";
+                        public static readonly string ShortMonthAndYearPattern = @"MMM yyyy";
                 }
 
                 public static class Currency

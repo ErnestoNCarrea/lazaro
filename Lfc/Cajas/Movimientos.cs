@@ -8,7 +8,7 @@ namespace Lfc.Cajas
         public partial class Movimientos : Lfc.FormularioCuenta
         {
                 private string Parametros = null;
-
+                private Lbl.Personas.Persona Usuario = null;
                 private Lbl.Cajas.Caja m_Caja = null;
                 private Lbl.Cajas.Concepto Concepto { get; set; }
                 private int TipoConcepto { get; set; }
@@ -46,6 +46,7 @@ namespace Lfc.Cajas
                                 Filters = new Lazaro.Pres.Filters.FilterCollection() {
                                         new Lazaro.Pres.Filters.RelationFilter("Caja", new Lfx.Data.Relation("cajas_movim.id_caja", "cajas", "cajas.id_caja")),
                                         new Lazaro.Pres.Filters.RelationFilter("Persona", new Lfx.Data.Relation("cajas_movim.id_cliente", "personas", "personas.id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Usuario", new Lfx.Data.Relation("cajas_movim.id_persona", "personas", "personas.id_persona", "nombre_visible")),
                                         new Lazaro.Pres.Filters.RelationFilter("Concepto", new Lfx.Data.Relation("cajas_movim.id_concepto", "conceptos", "conceptos.id_concepto")),
                                         new Lazaro.Pres.Filters.SetFilter("Tipo", "conceptos.grupo", new string[] { 
                                                 "Todos|0",
@@ -197,6 +198,9 @@ namespace Lfc.Cajas
                         if (this.Cliente != null)
                                 this.CustomFilters.AddWithValue("cajas_movim.id_cliente", this.Cliente.Id);
 
+                        if (this.Usuario != null)
+                                this.CustomFilters.AddWithValue("cajas_movim.id_persona", this.Usuario.Id);
+
                         if (Concepto != null)
                                 this.CustomFilters.AddWithValue("cajas_movim.id_concepto", Concepto.Id);
 
@@ -223,6 +227,7 @@ namespace Lfc.Cajas
                 {
                         this.Caja = this.Definicion.Filters["cajas_movim.id_caja"].Value as Lbl.Cajas.Caja;
                         this.Cliente = this.Definicion.Filters["cajas_movim.id_cliente"].Value as Lbl.Personas.Persona;
+                        this.Usuario = this.Definicion.Filters["cajas_movim.id_persona"].Value as Lbl.Personas.Persona;
                         this.Concepto = this.Definicion.Filters["cajas_movim.id_concepto"].Value as Lbl.Cajas.Concepto;
                         TipoConcepto = Lfx.Types.Parsing.ParseInt(this.Definicion.Filters["conceptos.grupo"].Value.ToString());
                         Direccion = Lfx.Types.Parsing.ParseInt(this.Definicion.Filters["conceptos.es"].Value.ToString());

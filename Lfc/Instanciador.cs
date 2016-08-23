@@ -35,10 +35,18 @@ namespace Lfc
                 public static Lfc.FormularioListado InstanciarFormularioListado(Type tipo, string args)
                 {
                         object Res;
-                        if (args == null || args == string.Empty)
+                        if (args == null || args == string.Empty) {
                                 Res = Activator.CreateInstance(tipo);
-                        else
-                                Res = Activator.CreateInstance(tipo, args);
+                        } else {
+                                var ConstructorQueAceptaUnString = tipo.GetConstructor(new Type[] { typeof(string) });
+                                if(ConstructorQueAceptaUnString == null) {
+                                        // No tiene un constructor que acepta un parámetro string, llamo al constructor sin parámetros
+                                        Res = Activator.CreateInstance(tipo);
+                                } else {
+                                        // Sí tiene un constructor que acepta un parámetro string, le paso el parámetro
+                                        Res = Activator.CreateInstance(tipo, args);
+                                }
+                        }
 
                         if (Res is Lazaro.Pres.Listings.Listing) {
                                 Lfc.FormularioListado NewForm = new Lfc.FormularioListado(Res as Lazaro.Pres.Listings.Listing);

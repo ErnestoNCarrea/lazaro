@@ -293,7 +293,7 @@ namespace Lfc.Comprobantes.Facturas
                                                 Connection.Execute(InsertarComprob);
                                                 m_Id = Connection.FieldInt("SELECT LAST_INSERT_ID()");
                                                 Lbl.Comprobantes.ComprobanteConArticulos NuevoComprob = new Lbl.Comprobantes.ComprobanteConArticulos(this.Connection, m_Id);
-                                                NuevoComprob.Numerar(true);
+                                                new Lbl.Comprobantes.Numerador(NuevoComprob).Numerar(true);
                                         } else {
                                                 Lbl.Comprobantes.ComprobanteConArticulos Fac = new Lbl.Comprobantes.ComprobanteConArticulos(Connection, IdFactura);
                                                 if (Fac.Anulado == false)

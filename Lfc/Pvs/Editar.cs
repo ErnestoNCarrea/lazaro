@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Lfx.Types;
 
 namespace Lfc.Pvs
 {
@@ -133,6 +134,36 @@ namespace Lfc.Pvs
                         Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.Clear();
 
                         base.AfterSave(transaction);
+                }
+
+                public override OperationResult BeforeSave()
+                {
+                        var TipoPv = (Lbl.Comprobantes.TipoPv)EntradaTipo.ValueInt;
+
+                        if (TipoPv == Lbl.Comprobantes.TipoPv.ElectronicoAfip) {
+                                var RutaCertif = System.IO.Path.Combine(Lbl.Sys.Config.CarpetaEmpresa, "AFIP");
+                                Lfx.Environment.Folders.EnsurePathExists(RutaCertif);
+
+                                // Si no existe el archivo P12, le solicito al usuario que seleccione uno
+                                var ArchivoCertif = System.IO.Path.Combine(RutaCertif, "Certificado.p12");
+                                if (System.IO.File.Exists(ArchivoCertif) == false) {
+                                        var DialogoSeleccionarP12 = new OpenFileDialog();
+                                        DialogoSeleccionarP12.Title = "Seleccionar certificado";
+                                        DialogoSeleccionarP12.AutoUpgradeEnabled = true;
+                                        DialogoSeleccionarP12.DefaultExt = ".p12";
+                                        DialogoSeleccionarP12.CheckFileExists = true;
+                                        DialogoSeleccionarP12.CheckPathExists = true;
+                                        //DialogoSeleccionarP12.InitialDirectory = System.IO.Path.Combine(Lfx.Environment.Folders.UserFolder, "Plantillas");
+                                        DialogoSeleccionarP12.Multiselect = false;
+                                        DialogoSeleccionarP12.ValidateNames = true;
+
+                                        if (DialogoSeleccionarP12.ShowDialog() == DialogResult.OK && DialogoSeleccionarP12.FileName != null && DialogoSeleccionarP12.FileName.Length > 0) {
+                                                System.IO.File.Copy(DialogoSeleccionarP12.FileName, ArchivoCertif);
+                                        }
+                                }
+                        }
+
+                        return base.BeforeSave();
                 }
         }
 }

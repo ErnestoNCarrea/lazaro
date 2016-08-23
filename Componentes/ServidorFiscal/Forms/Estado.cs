@@ -77,13 +77,13 @@ namespace ServidorFiscal.Forms
 
                 private void MenuReiniciar_Click(System.Object sender, System.EventArgs e)
                 {
-                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
+                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
                 }
 
 
                 private void MenuCerrar_Click(System.Object sender, System.EventArgs e)
                 {
-                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
+                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
                 }
 
 
@@ -112,13 +112,13 @@ namespace ServidorFiscal.Forms
 
                 private void BotonCerrar_Click(object sender, EventArgs e)
                 {
-                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
+                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando;
                 }
 
 
                 private void BotonReiniciar_Click(object sender, EventArgs e)
                 {
-                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
+                        ServidorAsociado.Impresora.EstadoServidor = Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando;
                 }
 
                 private void BotonOcultar_Click(object sender, EventArgs e)

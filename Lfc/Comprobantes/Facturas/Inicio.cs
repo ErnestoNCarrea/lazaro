@@ -12,10 +12,15 @@ namespace Lfc.Comprobantes.Facturas
                         this.HabilitarBorrar = true;
                 }
 
-                public Inicio(string comand)
-                        : base(comand)
+                public Inicio(string comando)
+                        : this()
                 {
-                        this.Definicion.ElementoTipo = typeof(Lbl.Comprobantes.Factura);
+                        try {
+                                this.Definicion.ElementoTipo = Lbl.Instanciador.InferirTipo(comando);
+                        } catch {
+                                this.Definicion.ElementoTipo = typeof(Lbl.Comprobantes.Factura);
+                        }
+                        
                         this.HabilitarBorrar = true;
                 }
 

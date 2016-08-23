@@ -456,7 +456,7 @@ namespace Lfc
                                 } else if (this.Elemento is Lbl.Comprobantes.ComprobanteConArticulos) {
                                         Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
 
-                                        if (Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero[Comprob.PV].Tipo == Lbl.Comprobantes.TipoPv.ControladorFiscal) {
+                                        if (Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero[Comprob.PV].Tipo != Lbl.Comprobantes.TipoPv.Talonario) {
                                                 Carga = Lbl.Impresion.CargasPapel.Automatica;
                                         } else {
                                                 // El tipo de comprobante puede forzar a una carga manual
@@ -486,13 +486,13 @@ namespace Lfc
                                 }
 
                                 if (Impresora != null && Impresora.EsVistaPrevia) {
-                                        Lazaro.Impresion.ImpresorElemento ImpresorVistaPrevia = Lazaro.Impresion.Instanciador.InstanciarImpresor(this.Elemento, null);
+                                        Lazaro.Base.Util.Impresion.ImpresorElemento ImpresorVistaPrevia = Lazaro.Base.Util.Impresion.Instanciador.InstanciarImpresor(this.Elemento, null);
                                         ImpresorVistaPrevia.PrintController = new System.Drawing.Printing.PreviewPrintController();
                                         Lui.Printing.PrintPreviewForm VistaPrevia = new Lui.Printing.PrintPreviewForm();
                                         VistaPrevia.MdiParent = this.ParentForm.MdiParent;
                                         VistaPrevia.PrintPreview.Document = ImpresorVistaPrevia;
                                         VistaPrevia.Show();
-                                } else {
+                                } else if(this.Elemento is Lbl.Comprobantes.Comprobante) {
                                         Lfx.Types.OperationProgress Progreso = new Lfx.Types.OperationProgress("Imprimiendo", "El documento se está enviando a la impresora.");
                                         if (Impresora != null)
                                                 Progreso.Description = "El documento se está enviando a la impresora " + Impresora.ToString();
@@ -500,28 +500,37 @@ namespace Lfc
                                         Progreso.Begin();
 
                                         using (IDbTransaction Trans = this.Elemento.Connection.BeginTransaction()) {
-                                                Lazaro.Impresion.ImpresorElemento Impresor = Lazaro.Impresion.Instanciador.InstanciarImpresor(this.Elemento, Trans);
-                                                Impresor.Impresora = Impresora;
-                                                try {
-                                                        Res = Impresor.Imprimir();
-                                                } catch (Exception ex) {
-                                                        Res = new Lfx.Types.FailureOperationResult(ex.Message);
+                                                var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
+
+                                                if (Lfx.Environment.SystemInformation.DesignMode) {
+                                                        Res = Controlador.Imprimir(this.Elemento as Lbl.Comprobantes.Comprobante, Impresora);
+                                                } else {
+                                                        try {
+                                                                Res = Controlador.Imprimir(this.Elemento as Lbl.Comprobantes.Comprobante, Impresora);
+                                                        } catch (Exception ex) {
+                                                                Res = new Lfx.Types.FailureOperationResult(ex.Message);
+                                                        }
                                                 }
                                                 Progreso.End();
                                                 if (Res.Success == false) {
-                                                        if (Impresor.Transaction != null)
+                                                        if (Controlador.Transaction != null) {
                                                                 // Puede que la transacción ya haya sido finalizada por el impresor
-                                                                Impresor.Transaction.Rollback();
+                                                                Controlador.Transaction.Rollback();
+                                                        }
                                                         Lui.Forms.MessageBox.Show(Res.Message, "Error");
                                                 } else {
-                                                        if (Impresor.Transaction != null)
+                                                        if (Controlador.Transaction != null) {
                                                                 // Puede que la transacción ya haya sido finalizada por el impresor
-                                                                Impresor.Transaction.Commit();
+                                                                Controlador.Transaction.Commit();
+                                                        }
                                                         this.Elemento.Cargar();
                                                         this.FromRow(this.Elemento);
                                                         this.ControlUnico.AfterPrint();
                                                 }
                                         }
+                                } else {
+                                        Lazaro.Base.Util.Impresion.ImpresorElemento Impresor = Lazaro.Base.Util.Impresion.Instanciador.InstanciarImpresor(this.Elemento, null);
+                                        Res = Impresor.Imprimir();
                                 }
                         } 
                         

@@ -336,7 +336,7 @@ namespace Lbl.Comprobantes
                                 foreach (DetalleArticulo Art in this.Articulos) {
                                         Res += Math.Round(Art.ImporteSinIva, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
                                 }
-                                return Res;
+                                return Res * (1 + (Recargo - Descuento) / 100);
                         }
                 }
 
@@ -363,7 +363,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return Math.Round((this.SubTotalSinIva * (1 + (Recargo - Descuento) / 100)) + this.ImporteIva, 4);
+                                return Math.Round(this.SubTotalSinIva + this.ImporteIva, 4);
                                 /* decimal Res = 0;
                                 foreach (Lbl.Comprobantes.DetalleArticulo Art in Articulos) {
                                         Res += Art.ImporteConIva;
@@ -407,7 +407,7 @@ namespace Lbl.Comprobantes
                                 foreach (DetalleArticulo Det in this.Articulos) {
                                         Res += Det.ImporteIva;
                                 }
-                                return this.RedondearImporte(Math.Round(Res, 4));
+                                return this.RedondearImporte(Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4));
                         }
                 }
 
@@ -451,6 +451,37 @@ namespace Lbl.Comprobantes
                         }
 		}
 
+
+                /// <summary>
+                /// El número de CAE de AFIP (sólo válido para factura electrónica AFIP).
+                /// </summary>
+                public string CaeNumero
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("cae_numero");
+                        }
+                        set
+                        {
+                                this.Registro["cae_numero"] = value;
+                        }
+                }
+
+                /// <summary>
+                /// La fecha de vencimiento del CAE de AFIP (sólo válido para factura electrónica AFIP).
+                /// </summary>
+                public DateTime CaeVencimiento
+                {
+                        get
+                        {
+                                return this.GetFieldValue<DateTime>("cae_vencimiento");
+                        }
+                        set
+                        {
+                                this.Registro["cae_vencimiento"] = value;
+                        }
+                }
+
                 public decimal ImporteIvaDiscriminado
                 {
                         get
@@ -462,7 +493,7 @@ namespace Lbl.Comprobantes
                                 foreach (DetalleArticulo Det in this.Articulos) {
                                         Res += Det.ImporteIvaDiscriminado;
                                 }
-                                return Math.Round(Res, 4);
+                                return Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4);
                         }
                 }
 
@@ -524,8 +555,13 @@ namespace Lbl.Comprobantes
                         var Res = new Dictionary<int, Lbl.Impuestos.Alicuota>();
 
                         foreach (DetalleArticulo Det in this.Articulos) {
-                                Lbl.Impuestos.Alicuota Alic = Det.Articulo.ObtenerAlicuota();
-                                if(Alic != null && Res.ContainsKey(Alic.Id) == false) {
+                                Lbl.Impuestos.Alicuota Alic;
+                                if (Det.Articulo != null) {
+                                        Alic = Det.Articulo.ObtenerAlicuota();
+                                } else {
+                                        Alic = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
+                                }
+                                if (Alic != null && Res.ContainsKey(Alic.Id) == false) {
                                         Res.Add(Alic.Id, Alic);
                                 }
                         }
@@ -833,7 +869,7 @@ namespace Lbl.Comprobantes
                         }
 
                         if (this.Existe == false && this.Numero == 0 && this.Tipo.NumerarAlGuardar) {
-                                this.Numerar(false);
+                                new Lbl.Comprobantes.Numerador(this).Numerar(false);
                         }
 
                         if (this.Fecha.Year == 1) {
@@ -895,6 +931,10 @@ namespace Lbl.Comprobantes
                         Comando.Fields.AddWithValue("compra", this.Compra ? 1 : 0);
                         Comando.Fields.AddWithValue("estado", this.Estado);
                         Comando.Fields.AddWithValue("series", this.Articulos.DatosSeguimiento);
+
+                        Comando.Fields.AddWithValue("cae_numero", this.CaeNumero);
+                        Comando.Fields.AddWithValue("cae_vencimiento", this.CaeVencimiento);
+
                         if (this.Tipo.EsFacturaOTicket == false && this.Tipo.EsNotaDebito == false) {
                                 // Este comprobante no es cancelable
                                 this.ImporteCancelado = this.Total;

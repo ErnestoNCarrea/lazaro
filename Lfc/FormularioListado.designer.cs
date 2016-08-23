@@ -23,9 +23,9 @@ namespace Lfc
                 {
                         this.components = new System.ComponentModel.Container();
                         this.EntradaBuscar = new Lui.Forms.TextBox();
-                        this.BotonCrear = new Lui.Forms.Button();
                         this.TimerBuscar = new System.Windows.Forms.Timer(this.components);
                         this.EtiquetaListadoVacio = new Lui.Forms.Label();
+                        this.BotonCrear = new Lui.Forms.Button();
                         this.PanelContadores.SuspendLayout();
                         ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).BeginInit();
                         this.SuspendLayout();
@@ -43,24 +43,6 @@ namespace Lfc
                         this.EntradaBuscar.TabIndex = 1;
                         this.EntradaBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EntradaBuscar_KeyDown);
                         this.EntradaBuscar.TextChanged += new System.EventHandler(this.EntradaBuscar_TextChanged);
-                        // 
-                        // BotonCrear
-                        // 
-                        this.BotonCrear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.BotonCrear.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCrear.Image = null;
-                        this.BotonCrear.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonCrear.Location = new System.Drawing.Point(152, 137);
-                        this.BotonCrear.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
-                        this.BotonCrear.MaximumSize = new System.Drawing.Size(108, 40);
-                        this.BotonCrear.MinimumSize = new System.Drawing.Size(96, 32);
-                        this.BotonCrear.Name = "BotonCrear";
-                        this.BotonCrear.Size = new System.Drawing.Size(108, 40);
-                        this.BotonCrear.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
-                        this.BotonCrear.Subtext = "F6";
-                        this.BotonCrear.TabIndex = 3;
-                        this.BotonCrear.Text = "Crear";
-                        this.BotonCrear.Click += new System.EventHandler(this.BotonCrear_Click);
                         // 
                         // TimerBuscar
                         // 
@@ -85,9 +67,28 @@ namespace Lfc
                         this.EtiquetaListadoVacio.Visible = false;
                         this.EtiquetaListadoVacio.Click += new System.EventHandler(this.EtiquetaListadoVacio_Click);
                         // 
+                        // BotonCrear
+                        // 
+                        this.BotonCrear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+                        this.BotonCrear.DialogResult = System.Windows.Forms.DialogResult.None;
+                        this.BotonCrear.Image = null;
+                        this.BotonCrear.ImagePos = Lui.Forms.ImagePositions.Top;
+                        this.BotonCrear.Location = new System.Drawing.Point(43, 239);
+                        this.BotonCrear.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+                        this.BotonCrear.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonCrear.MinimumSize = new System.Drawing.Size(96, 32);
+                        this.BotonCrear.Name = "BotonCrear";
+                        this.BotonCrear.Size = new System.Drawing.Size(108, 46);
+                        this.BotonCrear.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
+                        this.BotonCrear.Subtext = "F6";
+                        this.BotonCrear.TabIndex = 71;
+                        this.BotonCrear.Text = "Crear";
+                        this.BotonCrear.Click += new System.EventHandler(this.BotonCrear_Click);                       
+                        // 
                         // FormularioListado
                         // 
                         this.ClientSize = new System.Drawing.Size(864, 441);
+                        this.Controls.Add(this.BotonCrear);
                         this.Controls.Add(this.EtiquetaListadoVacio);
                         this.Controls.Add(this.EntradaBuscar);
                         this.Name = "FormularioListado";
@@ -98,6 +99,7 @@ namespace Lfc
                         this.Controls.SetChildIndex(this.EtiquetaCantidad, 0);
                         this.Controls.SetChildIndex(this.Listado, 0);
                         this.Controls.SetChildIndex(this.EtiquetaListadoVacio, 0);
+                        this.Controls.SetChildIndex(this.BotonCrear, 0);
                         this.PanelContadores.ResumeLayout(false);
                         ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
                         this.ResumeLayout(false);
@@ -106,9 +108,9 @@ namespace Lfc
 
                 #endregion
 
-                protected Lui.Forms.TextBox EntradaBuscar;
-                protected Lui.Forms.Button BotonCrear;
+                protected Lui.Forms.TextBox EntradaBuscar;                
                 protected System.Windows.Forms.Timer TimerBuscar;
                 protected Lui.Forms.Label EtiquetaListadoVacio;
+                protected Lui.Forms.Button BotonCrear;
         }
 }

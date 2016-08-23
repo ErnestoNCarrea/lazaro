@@ -20,9 +20,14 @@ namespace Lui.Forms
 			return new Lfx.Types.SuccessOperationResult();
 		}
 
+                public virtual DialogResult Cancel()
+                {
+                        return DialogResult.Cancel;
+                }
+
                 private void CancelCommandButton_Click(object sender, System.EventArgs e)
 		{
-			this.DialogResult = DialogResult.Cancel;
+                        this.DialogResult = Cancel();
 			this.Close();
 		}
 

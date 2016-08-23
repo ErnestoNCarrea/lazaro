@@ -36,16 +36,16 @@ namespace Lazaro.WinMain.Misc
                         this.EtiquetaFramework = new Lui.Forms.Label();
                         this.Label7 = new Lui.Forms.Label();
                         this.panel1 = new Lui.Forms.Panel();
+                        this.pictureBox2 = new System.Windows.Forms.PictureBox();
                         this.BotonWeb = new Lui.Forms.LinkLabel();
                         this.TimerBuscarActualizaciones = new System.Windows.Forms.Timer(this.components);
                         this.EtiquetaAlmacen = new Lui.Forms.LinkLabel();
                         this.label2 = new Lui.Forms.Label();
                         this.PicEsperar = new System.Windows.Forms.PictureBox();
-                        this.pictureBox2 = new System.Windows.Forms.PictureBox();
                         this.PictureBox1 = new System.Windows.Forms.PictureBox();
                         this.panel1.SuspendLayout();
-                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).BeginInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).BeginInit();
                         ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
                         this.SuspendLayout();
                         // 
@@ -184,6 +184,17 @@ namespace Lazaro.WinMain.Misc
                         this.panel1.Size = new System.Drawing.Size(100, 372);
                         this.panel1.TabIndex = 54;
                         // 
+                        // pictureBox2
+                        // 
+                        this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+                        this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
+                        this.pictureBox2.Location = new System.Drawing.Point(32, 228);
+                        this.pictureBox2.Name = "pictureBox2";
+                        this.pictureBox2.Size = new System.Drawing.Size(35, 120);
+                        this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+                        this.pictureBox2.TabIndex = 51;
+                        this.pictureBox2.TabStop = false;
+                        // 
                         // BotonWeb
                         // 
                         this.BotonWeb.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
@@ -242,20 +253,9 @@ namespace Lazaro.WinMain.Misc
                         this.PicEsperar.TabIndex = 69;
                         this.PicEsperar.TabStop = false;
                         // 
-                        // pictureBox2
-                        // 
-                        this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
-                        this.pictureBox2.Location = new System.Drawing.Point(32, 228);
-                        this.pictureBox2.Name = "pictureBox2";
-                        this.pictureBox2.Size = new System.Drawing.Size(35, 120);
-                        this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-                        this.pictureBox2.TabIndex = 51;
-                        this.pictureBox2.TabStop = false;
-                        // 
                         // PictureBox1
                         // 
-                        this.PictureBox1.Image = global::Lazaro.Properties.Resources.icon64;
+                        this.PictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox1.Image")));
                         this.PictureBox1.Location = new System.Drawing.Point(112, 20);
                         this.PictureBox1.Name = "PictureBox1";
                         this.PictureBox1.Size = new System.Drawing.Size(64, 63);
@@ -293,8 +293,8 @@ namespace Lazaro.WinMain.Misc
                         this.Load += new System.EventHandler(this.FormAcercaDe_Load);
                         this.panel1.ResumeLayout(false);
                         this.panel1.PerformLayout();
-                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
                         ((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).EndInit();
                         this.ResumeLayout(false);
                         this.PerformLayout();

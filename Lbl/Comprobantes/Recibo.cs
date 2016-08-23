@@ -252,8 +252,9 @@ namespace Lbl.Comprobantes
                         } else {
                                 this.Concepto.Connection = this.Connection;
                         }
-                        if (this.Tipo.NumerarAlGuardar)
-                                this.Numerar(false);
+                        if (this.Tipo.NumerarAlGuardar) {
+                                new Lbl.Comprobantes.Numerador(this).Numerar(false);
+                        }
 
                         // Asiento el recibo
                         qGen.TableCommand Comando;

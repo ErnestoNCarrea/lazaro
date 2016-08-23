@@ -12,7 +12,7 @@ namespace Lcc.Entrada
                         InitializeComponent();
 
                         EntradaNombre.AutoCompleteStringCollection = new System.Windows.Forms.AutoCompleteStringCollection() {
-                                "Trabajo", "Casa", "Móvil", "Fax", "Celular"
+                                "Trabajo", "Casa", "Fax", "Celular", "Contacto", "Referencia"
                         };
                 }
 

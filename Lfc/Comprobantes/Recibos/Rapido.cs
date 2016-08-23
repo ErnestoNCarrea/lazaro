@@ -45,7 +45,7 @@ namespace Lfc.Comprobantes.Recibos
 
                                 if (Rec.Tipo.ImprimirAlGuardar) {
                                         using (IDbTransaction TransImpr = Rec.Connection.BeginTransaction()) {
-                                                Lazaro.Impresion.Comprobantes.ImpresorRecibo Impresor = new Lazaro.Impresion.Comprobantes.ImpresorRecibo(Rec, TransImpr);
+                                                Lazaro.Base.Util.Impresion.Comprobantes.ImpresorRecibo Impresor = new Lazaro.Base.Util.Impresion.Comprobantes.ImpresorRecibo(Rec, TransImpr);
                                                 Lfx.Types.OperationResult ResImprimir = Impresor.Imprimir();
                                                 if (ResImprimir.Success) {
                                                         TransImpr.Commit();

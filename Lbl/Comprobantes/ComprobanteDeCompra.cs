@@ -9,6 +9,7 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Presentacion()]
         public class ComprobanteDeCompra : ComprobanteConArticulos, Lbl.IElementoConImagen
         {
+                //Requiere permisos de comprobantes con articulos 
                 //Heredar constructor
                 public ComprobanteDeCompra(Lfx.Data.Connection dataBase)
                         : base(dataBase) { }

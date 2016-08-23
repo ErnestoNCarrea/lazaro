@@ -327,29 +327,29 @@ namespace ServidorFiscal
 
 		#endregion
 
-		internal void Mostrar(Lazaro.Impresion.Comprobantes.Fiscal.Respuesta Res)
+		internal void Mostrar(Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Respuesta Res)
 		{
 			switch (Res.Error)
 			{
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok:
 					EtiquetaError.Text = "OK???";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorBCC:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorBCC:
 					EtiquetaError.Text = "BCC";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.Error:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Error:
 					EtiquetaError.Text = "Error genérico";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorFiscal:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorFiscal:
 					EtiquetaError.Text = "Error fiscal";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorImpresora:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.ErrorImpresora:
 					EtiquetaError.Text = "Error impresora";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.NAK:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.NAK:
 					EtiquetaError.Text = "NAK";
 					break;
-				case Lazaro.Impresion.Comprobantes.Fiscal.ErroresFiscales.TimeOut:
+				case Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.TimeOut:
 					EtiquetaError.Text = "Timeout";
 					break;
 			}

@@ -82,6 +82,17 @@ namespace Lbl
 		}
 
                 /// <summary>
+                /// Permite especificar un id arbitrario, sólo para entidades nuevas.
+                /// </summary>
+                public void SetId(int id)
+                {
+                        if (this.Existe) {
+                                throw new InvalidOperationException("No se puede cambiar el id de una entidad existente.");
+                        }
+                        this.m_ItemId = id;
+                }
+
+                /// <summary>
                 /// Obtiene una copia de this.Registro como fue cargado desde la base de datos (sin las modificaciones que se puedan haber hecho y que aun no hayan sido guardadas).
                 /// </summary>
                 public virtual Lfx.Data.Row RegistroOriginal

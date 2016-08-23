@@ -471,7 +471,7 @@ namespace Lfc.Comprobantes.Recibos
                 {
                         Lbl.Comprobantes.Recibo Rec = this.Elemento as Lbl.Comprobantes.Recibo;
                         if (Rec.Tipo.ImprimirAlGuardar) {
-                                Lazaro.Impresion.Comprobantes.ImpresorRecibo Impresor = new Lazaro.Impresion.Comprobantes.ImpresorRecibo(Rec, transaction);
+                                Lazaro.Base.Util.Impresion.Comprobantes.ImpresorRecibo Impresor = new Lazaro.Base.Util.Impresion.Comprobantes.ImpresorRecibo(Rec, transaction);
                                 Impresor.Imprimir();
                         }
                         base.AfterSave(transaction);

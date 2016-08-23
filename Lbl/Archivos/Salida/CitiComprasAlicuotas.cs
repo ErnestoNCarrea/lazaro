@@ -27,7 +27,7 @@ namespace Lbl.Archivos.Salida
                         if (ComprobanteFacturable.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
                                 decimal ImporteIva = 0m;
                                 decimal ImporteGravado = ComprobanteFacturable.Total - ImporteIva;
-                                string Renglon = CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
+                                string Renglon = ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
                                 Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 4-8
                                 Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0'); // Numero de comprobante 9-28
                                 Renglon += "80";  // 80:CUIT Codigo de documento del vendedor  29-30
@@ -44,7 +44,7 @@ namespace Lbl.Archivos.Salida
                                         decimal ImporteGravado = ComprobanteFacturable.TotalConIvaAlicuota(Alic.Id) - ImporteIva;
                                         string Renglon = "";
 
-                                        Renglon += CitiTablas.ComprobantesTipos[ComprobanteFacturable.Tipo.Nomenclatura].ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
+                                        Renglon += ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3
                                         Renglon += ComprobanteFacturable.PV.ToString().PadLeft(5, '0');  // Punto de venta 4-8
                                         Renglon += ComprobanteFacturable.Numero.ToString().PadLeft(20, '0'); // Numero de comprobante 9-28
                                         Renglon += "80";  // 80:CUIT Codigo de documento del vendedor  29-30

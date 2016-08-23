@@ -686,48 +686,49 @@ namespace Lfc.Comprobantes.Plantillas
                 {
                         Lbl.Impresion.Plantilla Plantilla = this.Elemento as Lbl.Impresion.Plantilla;
 
-                        OpenFileDialog FileDialog = new OpenFileDialog();
-                        FileDialog.CheckFileExists = true;
-                        FileDialog.CheckPathExists = true;
-                        FileDialog.InitialDirectory = System.IO.Path.Combine(Lfx.Environment.Folders.UserFolder, "Plantillas");
-                        FileDialog.Multiselect = false;
-                        FileDialog.Title = "Cargar plantilla";
-                        FileDialog.ValidateNames = true;
+                        using (var DialogoCargarArchivo = new OpenFileDialog()) {
+                                DialogoCargarArchivo.CheckFileExists = true;
+                                DialogoCargarArchivo.CheckPathExists = true;
+                                DialogoCargarArchivo.InitialDirectory = System.IO.Path.Combine(Lfx.Environment.Folders.UserFolder, "Plantillas");
+                                DialogoCargarArchivo.Multiselect = false;
+                                DialogoCargarArchivo.Title = "Cargar plantilla";
+                                DialogoCargarArchivo.ValidateNames = true;
 
-                        switch ((Lbl.Impresion.TipoPlantilla)(EntradaTipo.ValueInt)) {
-                                case Lbl.Impresion.TipoPlantilla.Pdf:
-                                        FileDialog.Filter = "Archivos PDF|*.pdf";
-                                        FileDialog.DefaultExt = "pdf";
-                                        break;
-                                default:
-                                        FileDialog.Filter = "Archivos de plantilla|*.ltx";
-                                        FileDialog.DefaultExt = "ltx";
-                                        break;
-                        }
-                        if (FileDialog.ShowDialog() == DialogResult.OK && FileDialog.FileName != null && FileDialog.FileName.Length > 0) {
                                 switch ((Lbl.Impresion.TipoPlantilla)(EntradaTipo.ValueInt)) {
                                         case Lbl.Impresion.TipoPlantilla.Pdf:
-                                                int TotalBytes = (int)(new System.IO.FileInfo(FileDialog.FileName).Length);
-                                                using (System.IO.FileStream Str = new System.IO.FileStream(FileDialog.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read))
-                                                using (System.IO.BinaryReader Rdr = new System.IO.BinaryReader(Str)) {
-                                                        Plantilla.Archivo = Rdr.ReadBytes(TotalBytes);
-                                                        Rdr.Close();
-                                                        Str.Close();
-                                                }
+                                                DialogoCargarArchivo.Filter = "Archivos PDF|*.pdf";
+                                                DialogoCargarArchivo.DefaultExt = "pdf";
                                                 break;
                                         default:
-                                                using (System.IO.StreamReader Str = new System.IO.StreamReader(FileDialog.FileName, true)) {
-                                                        Plantilla.CargarXml(Str.ReadToEnd());
-                                                        Str.Close();
-                                                }
+                                                DialogoCargarArchivo.Filter = "Archivos de plantilla|*.ltx";
+                                                DialogoCargarArchivo.DefaultExt = "ltx";
                                                 break;
                                 }
-                                this.MostrarListaCampos();
-                                BotonDiseno.PerformClick();
-                                ImagePreview.Invalidate();
-                                return new Lfx.Types.SuccessOperationResult();
-                        } else {
-                                return new Lfx.Types.CancelOperationResult();
+                                if (DialogoCargarArchivo.ShowDialog() == DialogResult.OK && DialogoCargarArchivo.FileName != null && DialogoCargarArchivo.FileName.Length > 0) {
+                                        switch ((Lbl.Impresion.TipoPlantilla)(EntradaTipo.ValueInt)) {
+                                                case Lbl.Impresion.TipoPlantilla.Pdf:
+                                                        int TotalBytes = (int)(new System.IO.FileInfo(DialogoCargarArchivo.FileName).Length);
+                                                        using (System.IO.FileStream Str = new System.IO.FileStream(DialogoCargarArchivo.FileName, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.Read))
+                                                        using (System.IO.BinaryReader Rdr = new System.IO.BinaryReader(Str)) {
+                                                                Plantilla.Archivo = Rdr.ReadBytes(TotalBytes);
+                                                                Rdr.Close();
+                                                                Str.Close();
+                                                        }
+                                                        break;
+                                                default:
+                                                        using (System.IO.StreamReader Str = new System.IO.StreamReader(DialogoCargarArchivo.FileName, true)) {
+                                                                Plantilla.CargarXml(Str.ReadToEnd());
+                                                                Str.Close();
+                                                        }
+                                                        break;
+                                        }
+                                        this.MostrarListaCampos();
+                                        BotonDiseno.PerformClick();
+                                        ImagePreview.Invalidate();
+                                        return new Lfx.Types.SuccessOperationResult();
+                                } else {
+                                        return new Lfx.Types.CancelOperationResult();
+                                }
                         }
                 }
 

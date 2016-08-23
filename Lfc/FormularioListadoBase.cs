@@ -230,7 +230,7 @@ namespace Lfc
                                 return new Lfx.Types.FailureOperationResult("El listado está vacío");
 
                         Lazaro.Pres.Spreadsheet.Workbook Workbook = this.ToWorkbook();
-                        Lazaro.Impresion.ImpresorListado Impresor = new Lazaro.Impresion.ImpresorListado(Workbook.Sheets[0], null);
+                        Lazaro.Base.Util.Impresion.ImpresorListado Impresor = new Lazaro.Base.Util.Impresion.ImpresorListado(Workbook.Sheets[0], null);
 
                         if (selectPrinter) {
                                 using (Lui.Printing.PrinterSelectionDialog SeleccionarImpresroa = new Lui.Printing.PrinterSelectionDialog()) {

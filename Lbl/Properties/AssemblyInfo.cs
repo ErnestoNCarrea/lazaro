@@ -2,10 +2,8 @@
 
 using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Resources;
-using System.Security.Permissions;
+using System.Runtime.InteropServices;
 
 #endregion
 
@@ -17,7 +15,7 @@ using System.Security.Permissions;
 [assembly: AssemblyCopyright("Copyright 2004-2012 Ernesto N. Carrea")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: System.Runtime.InteropServices.ComVisible (false)]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: CLSCompliant(true)]
 [assembly: Guid("eb7d2d6b-525b-4815-967d-0b4d93d58165")]
 [assembly: NeutralResourcesLanguageAttribute("es-AR")]

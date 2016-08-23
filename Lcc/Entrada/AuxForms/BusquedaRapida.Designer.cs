@@ -74,7 +74,7 @@ namespace Lcc.Entrada.AuxForms
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
                         this.Listado.ReadOnly = false;
-                        this.Listado.Size = new System.Drawing.Size(664, 264);
+                        this.Listado.Size = new System.Drawing.Size(664, 269);
                         this.Listado.TabIndex = 3;
                         this.Listado.UseCompatibleStateImageBehavior = false;
                         this.Listado.View = System.Windows.Forms.View.Details;
@@ -132,7 +132,6 @@ namespace Lcc.Entrada.AuxForms
                         // 
                         this.BotonNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonNuevo.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonNuevo.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonNuevo.Image = null;
                         this.BotonNuevo.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonNuevo.Location = new System.Drawing.Point(592, 48);
@@ -172,7 +171,7 @@ namespace Lcc.Entrada.AuxForms
                         // 
                         this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label2.Location = new System.Drawing.Point(24, 400);
+                        this.label2.Location = new System.Drawing.Point(24, 445);
                         this.label2.Name = "label2";
                         this.label2.Size = new System.Drawing.Size(664, 32);
                         this.label2.TabIndex = 6;
@@ -181,12 +180,11 @@ namespace Lcc.Entrada.AuxForms
                         // 
                         // EtiquetaSeleccionar
                         // 
-                        this.EtiquetaSeleccionar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+                        this.EtiquetaSeleccionar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaSeleccionar.Location = new System.Drawing.Point(72, 304);
+                        this.EtiquetaSeleccionar.Location = new System.Drawing.Point(122, 378);
                         this.EtiquetaSeleccionar.Name = "EtiquetaSeleccionar";
-                        this.EtiquetaSeleccionar.Size = new System.Drawing.Size(592, 64);
+                        this.EtiquetaSeleccionar.Size = new System.Drawing.Size(475, 30);
                         this.EtiquetaSeleccionar.TabIndex = 8;
                         this.EtiquetaSeleccionar.Tag = "Pulse la tecla Entrar para seleccionar {0}.";
                         this.EtiquetaSeleccionar.Text = "Pulse la tecla Entrar para seleccionar {0}.";
@@ -206,7 +204,7 @@ namespace Lcc.Entrada.AuxForms
                         // BusquedaRapida
                         // 
                         this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.ClientSize = new System.Drawing.Size(714, 451);
+                        this.ClientSize = new System.Drawing.Size(714, 496);
                         this.Controls.Add(this.pictureBox1);
                         this.Controls.Add(this.EtiquetaSeleccionar);
                         this.Controls.Add(this.label2);
