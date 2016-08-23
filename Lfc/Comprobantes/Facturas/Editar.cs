@@ -311,6 +311,15 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                         Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
 
                         if (Comprob.Impreso) {
+                                if (Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.ContainsKey(Comprob.PV)) {
+                                        var Pv = Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero[Comprob.PV];
+                                        if (Pv.Tipo == Lbl.Comprobantes.TipoPv.ElectronicoAfip) {
+                                                // Es un punto de venta electrónico... abro el PDF generado
+                                                var Carpeta = System.IO.Path.Combine(Lbl.Sys.Config.CarpetaEmpresa, "Comprobantes", "PV" + Comprob.PV.ToString());
+                                                System.Diagnostics.Process.Start(System.IO.Path.Combine(Carpeta, Comprob.ToString() + ".pdf"));
+                                        }
+                                }
+
                                 switch (Comprob.FormaDePago.Tipo) {
                                         case Lbl.Pagos.TiposFormasDePago.Efectivo:
                                                 //El pago lo asentó la rutina de impresión
