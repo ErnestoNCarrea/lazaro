@@ -270,9 +270,9 @@ namespace Lfc.Pvs
                         // 
                         this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label3.Location = new System.Drawing.Point(8, 485);
+                        this.label3.Location = new System.Drawing.Point(3, 487);
                         this.label3.Name = "label3";
-                        this.label3.Size = new System.Drawing.Size(524, 43);
+                        this.label3.Size = new System.Drawing.Size(542, 43);
                         this.label3.TabIndex = 45;
                         this.label3.Text = "Si desea cambiar el punto de venta predeterminado para las facturas u otros docum" +
     "entos, utilice la opción Preferencias del menú Sistema.";
@@ -280,10 +280,10 @@ namespace Lfc.Pvs
                         // EntradaNumero
                         // 
                         this.EntradaNumero.DataType = Lui.Forms.DataTypes.Integer;
-                        this.EntradaNumero.Location = new System.Drawing.Point(232, 0);
+                        this.EntradaNumero.Location = new System.Drawing.Point(144, 0);
                         this.EntradaNumero.MaxLength = 4;
                         this.EntradaNumero.Name = "EntradaNumero";
-                        this.EntradaNumero.Size = new System.Drawing.Size(68, 24);
+                        this.EntradaNumero.Size = new System.Drawing.Size(88, 24);
                         this.EntradaNumero.TabIndex = 3;
                         this.EntradaNumero.Text = "0";
                         // 
@@ -331,6 +331,7 @@ namespace Lfc.Pvs
                         this.EntradaPrefijo.Size = new System.Drawing.Size(68, 24);
                         this.EntradaPrefijo.TabIndex = 1;
                         this.EntradaPrefijo.Text = "0";
+                        this.EntradaPrefijo.Visible = false;
                         // 
                         // label12
                         // 
@@ -340,6 +341,7 @@ namespace Lfc.Pvs
                         this.label12.TabIndex = 2;
                         this.label12.Text = "-";
                         this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.label12.Visible = false;
                         // 
                         // EntradaDeTalonario
                         // 
@@ -380,7 +382,7 @@ namespace Lfc.Pvs
                         this.Controls.Add(this.label12);
                         this.MinimumSize = new System.Drawing.Size(548, 516);
                         this.Name = "Editar";
-                        this.Size = new System.Drawing.Size(548, 516);
+                        this.Size = new System.Drawing.Size(548, 528);
                         this.ResumeLayout(false);
                         this.PerformLayout();
 
