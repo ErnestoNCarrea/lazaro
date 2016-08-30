@@ -52,7 +52,14 @@ namespace Lbl.Comprobantes
                                 this.Impresora = null;
                 }
 
-
+                /// <summary>
+                /// Indica el tipo de punto de venta.
+                /// 
+                /// Puede ser:
+                ///  * Talonario: talonario o resma de facturas de papel preimpreso.
+                ///  * ControladorFiscal: controlador fiscal AFIP conectado por puerto serie.
+                ///  * ElectronicoAfip: factura electrónica de AFIP.
+                /// </summary>
                 public TipoPv Tipo
                 {
                         get
@@ -66,7 +73,11 @@ namespace Lbl.Comprobantes
                 }
 
 
-                public Lbl.Impresion.ModelosFiscales ModeloImpresoraFiscal
+                /// <summary>
+                /// El modelo de controlador fiscal.
+                /// Sólo válido si Tipo == ControladorFiscal.
+                /// </summary>
+                public Lbl.Impresion.ModelosFiscales FiscalModeloImpresora
                 {
                         get
                         {
@@ -79,7 +90,11 @@ namespace Lbl.Comprobantes
                 }
 
 
-                public int Puerto
+                /// <summary>
+                /// El número de puerto serie (1 para COM1, 2 para COM2, etc.).
+                /// Sólo válido si Tipo == ControladorFiscal.
+                /// </summary>
+                public int FiscalPuerto
                 {
                         get
                         {
@@ -92,7 +107,11 @@ namespace Lbl.Comprobantes
                 }
 
 
-                public int Bps
+                /// <summary>
+                /// La velocidad del puerto serie en bps.
+                /// Sólo válido si Tipo == ControladorFiscal.
+                /// </summary>
+                public int FiscalBps
                 {
                         get
                         {
@@ -101,6 +120,23 @@ namespace Lbl.Comprobantes
                         set
                         {
                                 this.Registro["bps"] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// La variante de diseño.
+                /// Especialmente útil si Tipo == ElectronicoAfip.
+                /// </summary>
+                public int Variante
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("variante");
+                        }
+                        set
+                        {
+                                this.Registro["variante"] = value;
                         }
                 }
 
@@ -117,6 +153,9 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// El número de punto de venta.
+                /// </summary>
                 public int Numero
                 {
                         get
@@ -130,6 +169,10 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// El prefijo del número de punto venta.
+                /// En especial, válido en Paraguay, donde los puntos de venta tienen el formato XXXX-YYYY.
+                /// </summary>
                 public int Prefijo
                 {
                         get
@@ -155,6 +198,11 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                /// <summary>
+                /// La estación (equipo o PC) a la cual está asociado este punto de venta.
+                /// Especialmente útil cuando Tipo == ControladorFiscal.
+                /// </summary>
                 public string Estacion
                 {
                         get
@@ -206,6 +254,12 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// Indica si este punto de venta utiliza carga manual de comprobantes.
+                /// 
+                /// Por ejemplo, si utiliza comprobantes prenumerados que se cargan uno a uno en la impresora.
+                /// Si es True, Lázaro solicitará confirmación antes imprimir cada comprobante en este PV.
+                /// </summary>
                 public bool CargaManual
                 {
                         get
@@ -248,9 +302,10 @@ namespace Lbl.Comprobantes
                         Comando.Fields.AddWithValue("detalonario", this.UsaTalonario ? 1 : 0);
                         Comando.Fields.AddWithValue("estacion", this.Estacion);
                         Comando.Fields.AddWithValue("carga", this.CargaManual ? 1 : 0);
-                        Comando.Fields.AddWithValue("modelo", (int)(this.ModeloImpresoraFiscal));
-                        Comando.Fields.AddWithValue("puerto", this.Puerto);
-                        Comando.Fields.AddWithValue("bps", this.Bps);
+                        Comando.Fields.AddWithValue("modelo", (int)(this.FiscalModeloImpresora));
+                        Comando.Fields.AddWithValue("puerto", this.FiscalPuerto);
+                        Comando.Fields.AddWithValue("bps", this.FiscalBps);
+                        Comando.Fields.AddWithValue("variante", (int)this.Variante);
 
                         this.AgregarTags(Comando);
 
@@ -260,6 +315,9 @@ namespace Lbl.Comprobantes
                 }
 
                 private static Dictionary<int, PuntoDeVenta> m_TodosPorNumero = null;
+                /// <summary>
+                /// Contiene una colección de todos los puntos de venta existentes, indizados por número.
+                /// </summary>
                 public static Dictionary<int, PuntoDeVenta> TodosPorNumero
                 {
                         get

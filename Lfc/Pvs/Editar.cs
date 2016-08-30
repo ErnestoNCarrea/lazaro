@@ -57,9 +57,11 @@ namespace Lfc.Pvs
                         EntradaEstacion.Text = Pv.Estacion;
                         EntradaCarga.ValueInt = Pv.CargaManual ? 1 : 0;
 
-                        EntradaModelo.ValueInt = ((int)(Pv.ModeloImpresoraFiscal));
-                        EntradaPuerto.ValueInt = Pv.Puerto;
-                        EntradaBps.ValueInt = Pv.Bps;
+                        EntradaModelo.ValueInt = ((int)(Pv.FiscalModeloImpresora));
+                        EntradaPuerto.ValueInt = Pv.FiscalPuerto;
+                        EntradaBps.ValueInt = Pv.FiscalBps;
+
+                        EntradaVariante.ValueInt = Pv.Variante;
 
                         base.ActualizarControl();
                 }
@@ -83,9 +85,11 @@ namespace Lfc.Pvs
                         Pv.Estacion = EntradaEstacion.Text;
                         Pv.CargaManual = EntradaCarga.ValueInt == 1;
 
-                        Pv.ModeloImpresoraFiscal = (Lbl.Impresion.ModelosFiscales)(EntradaModelo.ValueInt);
-                        Pv.Puerto = EntradaPuerto.ValueInt;
-                        Pv.Bps = EntradaBps.ValueInt;
+                        Pv.FiscalModeloImpresora = (Lbl.Impresion.ModelosFiscales)(EntradaModelo.ValueInt);
+                        Pv.FiscalPuerto = EntradaPuerto.ValueInt;
+                        Pv.FiscalBps = EntradaBps.ValueInt;
+
+                        Pv.Variante = EntradaVariante.ValueInt;
 
                         base.ActualizarElemento();
                 }
@@ -102,12 +106,12 @@ namespace Lfc.Pvs
 
                 private void EntradaTipo_TextChanged(object sender, System.EventArgs e)
                 {
-                        EntradaModelo.Enabled = EntradaTipo.TextKey == "2";
-                        EntradaPuerto.Enabled = EntradaTipo.TextKey == "2";
-                        EntradaBps.Enabled = EntradaTipo.TextKey == "2";
-                        EntradaCarga.Enabled = EntradaTipo.TextKey == "1";
+                        PanelTalonario.Visible = EntradaTipo.ValueInt == 1;
+                        PanelControladorFiscal.Visible = EntradaTipo.ValueInt == 2;
+                        PanelElectronicaAfip.Visible = EntradaTipo.ValueInt == 10;
 
                         if (EntradaEstacion.Text.Length == 0) {
+                                // Si es un controlador fiscal y no tiene una estación asociada, as
                                 EntradaEstacion.Text = Lfx.Environment.SystemInformation.MachineName;
                         }
                 }

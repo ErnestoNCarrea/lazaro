@@ -48,13 +48,21 @@ namespace Lfc.Pvs
                         this.EntradaPrefijo = new Lui.Forms.TextBox();
                         this.label12 = new Lui.Forms.Label();
                         this.EntradaDeTalonario = new Lui.Forms.YesNo();
+                        this.PanelControladorFiscal = new Lui.Forms.Panel();
+                        this.PanelTalonario = new Lui.Forms.Panel();
+                        this.PanelElectronicaAfip = new Lui.Forms.Panel();
+                        this.EntradaVariante = new Lui.Forms.ComboBox();
+                        this.label13 = new Lui.Forms.Label();
+                        this.PanelControladorFiscal.SuspendLayout();
+                        this.PanelTalonario.SuspendLayout();
+                        this.PanelElectronicaAfip.SuspendLayout();
                         this.SuspendLayout();
                         // 
                         // EntradaTipo
                         // 
                         this.EntradaTipo.AlwaysExpanded = true;
                         this.EntradaTipo.AutoSize = true;
-                        this.EntradaTipo.Location = new System.Drawing.Point(144, 200);
+                        this.EntradaTipo.Location = new System.Drawing.Point(144, 201);
                         this.EntradaTipo.Name = "EntradaTipo";
                         this.EntradaTipo.SetData = new string[] {
         "Inactivo|0",
@@ -68,7 +76,7 @@ namespace Lfc.Pvs
                         // 
                         // Label16
                         // 
-                        this.Label16.Location = new System.Drawing.Point(0, 200);
+                        this.Label16.Location = new System.Drawing.Point(0, 201);
                         this.Label16.Name = "Label16";
                         this.Label16.Size = new System.Drawing.Size(140, 24);
                         this.Label16.TabIndex = 10;
@@ -77,7 +85,7 @@ namespace Lfc.Pvs
                         // 
                         // label1
                         // 
-                        this.label1.Location = new System.Drawing.Point(0, 286);
+                        this.label1.Location = new System.Drawing.Point(0, 167);
                         this.label1.Name = "label1";
                         this.label1.Size = new System.Drawing.Size(144, 24);
                         this.label1.TabIndex = 12;
@@ -87,27 +95,27 @@ namespace Lfc.Pvs
                         // EntradaEstacion
                         // 
                         this.EntradaEstacion.ForceCase = Lui.Forms.TextCasing.UpperCase;
-                        this.EntradaEstacion.Location = new System.Drawing.Point(144, 286);
+                        this.EntradaEstacion.Location = new System.Drawing.Point(144, 167);
                         this.EntradaEstacion.Name = "EntradaEstacion";
                         this.EntradaEstacion.Size = new System.Drawing.Size(332, 24);
                         this.EntradaEstacion.TabIndex = 13;
                         // 
                         // EntradaCarga
                         // 
-                        this.EntradaCarga.AlwaysExpanded = false;
+                        this.EntradaCarga.AlwaysExpanded = true;
                         this.EntradaCarga.AutoSize = true;
-                        this.EntradaCarga.Location = new System.Drawing.Point(144, 350);
+                        this.EntradaCarga.Location = new System.Drawing.Point(147, 32);
                         this.EntradaCarga.Name = "EntradaCarga";
                         this.EntradaCarga.SetData = new string[] {
         "Automática|0",
         "Manual|1"};
-                        this.EntradaCarga.Size = new System.Drawing.Size(204, 24);
+                        this.EntradaCarga.Size = new System.Drawing.Size(204, 40);
                         this.EntradaCarga.TabIndex = 18;
                         this.EntradaCarga.TextKey = "0";
                         // 
                         // label2
                         // 
-                        this.label2.Location = new System.Drawing.Point(0, 350);
+                        this.label2.Location = new System.Drawing.Point(3, 32);
                         this.label2.Name = "label2";
                         this.label2.Size = new System.Drawing.Size(144, 24);
                         this.label2.TabIndex = 17;
@@ -119,7 +127,7 @@ namespace Lfc.Pvs
                         this.BotonEstacionSeleccionar.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonEstacionSeleccionar.Image = null;
                         this.BotonEstacionSeleccionar.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonEstacionSeleccionar.Location = new System.Drawing.Point(480, 286);
+                        this.BotonEstacionSeleccionar.Location = new System.Drawing.Point(480, 167);
                         this.BotonEstacionSeleccionar.Name = "BotonEstacionSeleccionar";
                         this.BotonEstacionSeleccionar.Size = new System.Drawing.Size(28, 24);
                         this.BotonEstacionSeleccionar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
@@ -156,7 +164,7 @@ namespace Lfc.Pvs
                         // 
                         // label5
                         // 
-                        this.label5.Location = new System.Drawing.Point(0, 382);
+                        this.label5.Location = new System.Drawing.Point(3, 0);
                         this.label5.Name = "label5";
                         this.label5.Size = new System.Drawing.Size(144, 24);
                         this.label5.TabIndex = 19;
@@ -165,7 +173,7 @@ namespace Lfc.Pvs
                         // 
                         // label6
                         // 
-                        this.label6.Location = new System.Drawing.Point(0, 414);
+                        this.label6.Location = new System.Drawing.Point(3, 32);
                         this.label6.Name = "label6";
                         this.label6.Size = new System.Drawing.Size(144, 24);
                         this.label6.TabIndex = 21;
@@ -174,7 +182,7 @@ namespace Lfc.Pvs
                         // 
                         // label7
                         // 
-                        this.label7.Location = new System.Drawing.Point(0, 446);
+                        this.label7.Location = new System.Drawing.Point(3, 64);
                         this.label7.Name = "label7";
                         this.label7.Size = new System.Drawing.Size(144, 24);
                         this.label7.TabIndex = 23;
@@ -185,8 +193,7 @@ namespace Lfc.Pvs
                         // 
                         this.EntradaModelo.AlwaysExpanded = false;
                         this.EntradaModelo.AutoSize = true;
-                        this.EntradaModelo.Enabled = false;
-                        this.EntradaModelo.Location = new System.Drawing.Point(144, 382);
+                        this.EntradaModelo.Location = new System.Drawing.Point(147, 0);
                         this.EntradaModelo.Name = "EntradaModelo";
                         this.EntradaModelo.SetData = new string[] {
         "Hasar|100",
@@ -194,7 +201,7 @@ namespace Lfc.Pvs
         "Epson|300",
         "Epson Tiqueadora|310",
         "Emulación|1"};
-                        this.EntradaModelo.Size = new System.Drawing.Size(132, 24);
+                        this.EntradaModelo.Size = new System.Drawing.Size(170, 24);
                         this.EntradaModelo.TabIndex = 20;
                         this.EntradaModelo.TextKey = "300";
                         // 
@@ -202,8 +209,7 @@ namespace Lfc.Pvs
                         // 
                         this.EntradaPuerto.AlwaysExpanded = false;
                         this.EntradaPuerto.AutoSize = true;
-                        this.EntradaPuerto.Enabled = false;
-                        this.EntradaPuerto.Location = new System.Drawing.Point(144, 414);
+                        this.EntradaPuerto.Location = new System.Drawing.Point(147, 32);
                         this.EntradaPuerto.Name = "EntradaPuerto";
                         this.EntradaPuerto.SetData = new string[] {
         "COM1|1",
@@ -222,8 +228,7 @@ namespace Lfc.Pvs
                         // 
                         this.EntradaBps.AlwaysExpanded = false;
                         this.EntradaBps.AutoSize = true;
-                        this.EntradaBps.Enabled = false;
-                        this.EntradaBps.Location = new System.Drawing.Point(144, 446);
+                        this.EntradaBps.Location = new System.Drawing.Point(147, 64);
                         this.EntradaBps.Name = "EntradaBps";
                         this.EntradaBps.SetData = new string[] {
         "9600 bps|9600",
@@ -236,7 +241,7 @@ namespace Lfc.Pvs
                         // 
                         this.EntradaTipoFac.AlwaysExpanded = true;
                         this.EntradaTipoFac.AutoSize = true;
-                        this.EntradaTipoFac.Location = new System.Drawing.Point(144, 96);
+                        this.EntradaTipoFac.Location = new System.Drawing.Point(144, 66);
                         this.EntradaTipoFac.Name = "EntradaTipoFac";
                         this.EntradaTipoFac.SetData = new string[] {
         "Facturas|F",
@@ -250,7 +255,7 @@ namespace Lfc.Pvs
                         // 
                         // label8
                         // 
-                        this.label8.Location = new System.Drawing.Point(0, 96);
+                        this.label8.Location = new System.Drawing.Point(0, 66);
                         this.label8.Name = "label8";
                         this.label8.Size = new System.Drawing.Size(144, 24);
                         this.label8.TabIndex = 8;
@@ -270,7 +275,7 @@ namespace Lfc.Pvs
                         // 
                         this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label3.Location = new System.Drawing.Point(3, 487);
+                        this.label3.Location = new System.Drawing.Point(3, 480);
                         this.label3.Name = "label3";
                         this.label3.Size = new System.Drawing.Size(542, 43);
                         this.label3.TabIndex = 45;
@@ -289,7 +294,7 @@ namespace Lfc.Pvs
                         // 
                         // label11
                         // 
-                        this.label11.Location = new System.Drawing.Point(0, 318);
+                        this.label11.Location = new System.Drawing.Point(3, 0);
                         this.label11.Name = "label11";
                         this.label11.Size = new System.Drawing.Size(144, 24);
                         this.label11.TabIndex = 15;
@@ -302,20 +307,20 @@ namespace Lfc.Pvs
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaImpresora.AutoTab = true;
                         this.EntradaImpresora.CanCreate = true;
-                        this.EntradaImpresora.Location = new System.Drawing.Point(144, 64);
+                        this.EntradaImpresora.Location = new System.Drawing.Point(147, 81);
                         this.EntradaImpresora.MaximumSize = new System.Drawing.Size(480, 24);
                         this.EntradaImpresora.MaxLength = 200;
                         this.EntradaImpresora.Name = "EntradaImpresora";
                         this.EntradaImpresora.NombreTipo = "Lbl.Impresion.Impresora";
                         this.EntradaImpresora.PlaceholderText = "Impresora";
                         this.EntradaImpresora.Required = true;
-                        this.EntradaImpresora.Size = new System.Drawing.Size(401, 24);
+                        this.EntradaImpresora.Size = new System.Drawing.Size(373, 24);
                         this.EntradaImpresora.TabIndex = 7;
                         this.EntradaImpresora.Text = "0";
                         // 
                         // label10
                         // 
-                        this.label10.Location = new System.Drawing.Point(0, 64);
+                        this.label10.Location = new System.Drawing.Point(3, 81);
                         this.label10.Name = "label10";
                         this.label10.Size = new System.Drawing.Size(144, 24);
                         this.label10.TabIndex = 6;
@@ -345,44 +350,103 @@ namespace Lfc.Pvs
                         // 
                         // EntradaDeTalonario
                         // 
-                        this.EntradaDeTalonario.Location = new System.Drawing.Point(144, 318);
+                        this.EntradaDeTalonario.Location = new System.Drawing.Point(147, 0);
                         this.EntradaDeTalonario.Name = "EntradaDeTalonario";
                         this.EntradaDeTalonario.Size = new System.Drawing.Size(55, 24);
                         this.EntradaDeTalonario.TabIndex = 16;
                         this.EntradaDeTalonario.Text = "yesNo1";
                         this.EntradaDeTalonario.Value = true;
                         // 
+                        // PanelControladorFiscal
+                        // 
+                        this.PanelControladorFiscal.Controls.Add(this.EntradaModelo);
+                        this.PanelControladorFiscal.Controls.Add(this.EntradaPuerto);
+                        this.PanelControladorFiscal.Controls.Add(this.EntradaBps);
+                        this.PanelControladorFiscal.Controls.Add(this.label7);
+                        this.PanelControladorFiscal.Controls.Add(this.label6);
+                        this.PanelControladorFiscal.Controls.Add(this.label5);
+                        this.PanelControladorFiscal.Location = new System.Drawing.Point(25, 289);
+                        this.PanelControladorFiscal.Name = "PanelControladorFiscal";
+                        this.PanelControladorFiscal.Size = new System.Drawing.Size(520, 120);
+                        this.PanelControladorFiscal.TabIndex = 46;
+                        // 
+                        // PanelTalonario
+                        // 
+                        this.PanelTalonario.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.PanelTalonario.Controls.Add(this.EntradaDeTalonario);
+                        this.PanelTalonario.Controls.Add(this.label2);
+                        this.PanelTalonario.Controls.Add(this.EntradaCarga);
+                        this.PanelTalonario.Controls.Add(this.EntradaImpresora);
+                        this.PanelTalonario.Controls.Add(this.label11);
+                        this.PanelTalonario.Controls.Add(this.label10);
+                        this.PanelTalonario.Location = new System.Drawing.Point(25, 289);
+                        this.PanelTalonario.Name = "PanelTalonario";
+                        this.PanelTalonario.Size = new System.Drawing.Size(520, 120);
+                        this.PanelTalonario.TabIndex = 47;
+                        // 
+                        // PanelElectronicaAfip
+                        // 
+                        this.PanelElectronicaAfip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.PanelElectronicaAfip.Controls.Add(this.EntradaVariante);
+                        this.PanelElectronicaAfip.Controls.Add(this.label13);
+                        this.PanelElectronicaAfip.Location = new System.Drawing.Point(25, 289);
+                        this.PanelElectronicaAfip.Name = "PanelElectronicaAfip";
+                        this.PanelElectronicaAfip.Size = new System.Drawing.Size(520, 120);
+                        this.PanelElectronicaAfip.TabIndex = 48;
+                        // 
+                        // EntradaVariante
+                        // 
+                        this.EntradaVariante.AlwaysExpanded = true;
+                        this.EntradaVariante.AutoSize = true;
+                        this.EntradaVariante.Location = new System.Drawing.Point(145, 0);
+                        this.EntradaVariante.Name = "EntradaVariante";
+                        this.EntradaVariante.SetData = new string[] {
+        "Predeterminada|0",
+        "Azul y verde|1",
+        "Rojo y negro|2"};
+                        this.EntradaVariante.Size = new System.Drawing.Size(306, 57);
+                        this.EntradaVariante.TabIndex = 13;
+                        this.EntradaVariante.TextKey = "0";
+                        // 
+                        // label13
+                        // 
+                        this.label13.Location = new System.Drawing.Point(1, 0);
+                        this.label13.Name = "label13";
+                        this.label13.Size = new System.Drawing.Size(140, 24);
+                        this.label13.TabIndex = 12;
+                        this.label13.Text = "Variante";
+                        this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        // 
                         // Editar
                         // 
-                        this.Controls.Add(this.EntradaDeTalonario);
                         this.Controls.Add(this.EntradaPrefijo);
-                        this.Controls.Add(this.EntradaCarga);
-                        this.Controls.Add(this.EntradaModelo);
-                        this.Controls.Add(this.EntradaPuerto);
-                        this.Controls.Add(this.EntradaImpresora);
                         this.Controls.Add(this.EntradaTipoFac);
                         this.Controls.Add(this.label3);
                         this.Controls.Add(this.EntradaSucursal);
-                        this.Controls.Add(this.EntradaBps);
                         this.Controls.Add(this.EntradaNumero);
                         this.Controls.Add(this.EntradaTipo);
                         this.Controls.Add(this.Label16);
                         this.Controls.Add(this.BotonEstacionSeleccionar);
                         this.Controls.Add(this.EntradaEstacion);
-                        this.Controls.Add(this.label10);
                         this.Controls.Add(this.label9);
                         this.Controls.Add(this.label8);
                         this.Controls.Add(this.label4);
-                        this.Controls.Add(this.label11);
-                        this.Controls.Add(this.label2);
-                        this.Controls.Add(this.label7);
-                        this.Controls.Add(this.label6);
-                        this.Controls.Add(this.label5);
                         this.Controls.Add(this.label1);
                         this.Controls.Add(this.label12);
+                        this.Controls.Add(this.PanelElectronicaAfip);
+                        this.Controls.Add(this.PanelControladorFiscal);
+                        this.Controls.Add(this.PanelTalonario);
                         this.MinimumSize = new System.Drawing.Size(548, 516);
                         this.Name = "Editar";
                         this.Size = new System.Drawing.Size(548, 528);
+                        this.PanelControladorFiscal.ResumeLayout(false);
+                        this.PanelControladorFiscal.PerformLayout();
+                        this.PanelTalonario.ResumeLayout(false);
+                        this.PanelTalonario.PerformLayout();
+                        this.PanelElectronicaAfip.ResumeLayout(false);
+                        this.PanelElectronicaAfip.PerformLayout();
                         this.ResumeLayout(false);
                         this.PerformLayout();
 
@@ -415,5 +479,10 @@ namespace Lfc.Pvs
                 internal Lui.Forms.TextBox EntradaPrefijo;
                 internal Lui.Forms.Label label12;
                 private Lui.Forms.YesNo EntradaDeTalonario;
+                private Lui.Forms.Panel PanelControladorFiscal;
+                private Lui.Forms.Panel PanelTalonario;
+                private Lui.Forms.Panel PanelElectronicaAfip;
+                internal Lui.Forms.ComboBox EntradaVariante;
+                internal Lui.Forms.Label label13;
         }
 }

@@ -9,10 +9,21 @@ using PdfSharp.Pdf.IO;
 
 namespace Lazaro.Base.Util.Comprobantes
 {
+        public enum Variantes
+        {
+                AzulYVerde = 1,
+                RojoYNegro = 2
+        }
+
         public class GeneradorPdf
         {
                 public const double mm = 2.834645669d;
                 public const string FuenteSans = "Calibri";
+                public Variantes Variante = Variantes.AzulYVerde;
+
+#pragma warning disable CS3003 // Il tipo non è conforme a CLS
+                protected XColor Color1, Color2, Color3;
+#pragma warning restore CS3003 // Il tipo non è conforme a CLS
 
                 public class Margenes
                 {
@@ -74,6 +85,22 @@ namespace Lazaro.Base.Util.Comprobantes
                 {
                         var Res = new PdfDocument();
 
+                        switch (this.Variante) {
+                                case Variantes.RojoYNegro:
+                                        this.Color1 = XColor.FromArgb(242, 46, 46);
+                                        this.Color2 = XColor.FromArgb(220, 200, 135);
+                                        this.Color3 = XColor.FromArgb(220, 200, 135);
+                                        break;
+
+                                default:
+                                case Variantes.AzulYVerde:
+                                        this.Color1 = XColor.FromArgb(48, 113, 242);
+                                        this.Color2 = XColor.FromArgb(194, 243, 31);
+                                        this.Color3 = XColors.Orange;
+                                        break;
+                        }
+
+
                         Res.Options.CompressContentStreams = true;
                         Res.Language = "es_AR";
                         Res.Info.Title = Comprob.ToString();
@@ -98,13 +125,12 @@ namespace Lazaro.Base.Util.Comprobantes
                                 Font = FuentePredeterminada
                         };
 
-                        var Azul = XColor.FromArgb(48, 113, 242);
-                        var LineaFina = new XPen(Azul, .3);
+                        var LineaFina = new XPen(this.Color1, .3);
 
                         var CuadroEncab = new XRect(AreaUsable.Left, AreaUsable.Top, AreaUsable.Width, 30 * mm);
 
                         //Gfx.DrawRectangle(new XPen(Azul), XBrushes.Transparent, new XRect(-10, AreaUsable.Top, AreaUsable.Right + 10, 30 * mm));
-                        Gfx.DrawRectangle(XPens.Transparent, XBrushes.Orange, new XRect(AreaUsable.Left + AreaUsable.Width / 2 - 12 * mm, -10, 24 * mm, AreaUsable.Top + 10 + 16 * mm));
+                        Gfx.DrawRectangle(XPens.Transparent, new XSolidBrush(this.Color3), new XRect(AreaUsable.Left + AreaUsable.Width / 2 - 12 * mm, -10, 24 * mm, AreaUsable.Top + 10 + 16 * mm));
 
                         Gfx.DrawString(Comprob.Tipo.LetraONomenclatura, new XFont(FuenteSans, 24, XFontStyle.Bold), XBrushes.Black, new XRect(AreaUsable.Left + AreaUsable.Width / 2 - 12 * mm, AreaUsable.Top + 1 * mm, 24 * mm, 10 * mm), XStringFormats.Center);
                         Gfx.DrawString("Cód. " + Afip.Ws.FacturaElectronica.Tablas.CodigoDeComprobantePorLetra(Comprob.Tipo.Nomenclatura).ToString().PadLeft(2, '0'), FuentePequena, XBrushes.Black, new XRect(AreaUsable.Left + AreaUsable.Width / 2 - 12 * mm, AreaUsable.Top + 10 * mm, 24 * mm, 6 * mm), XStringFormats.Center);
@@ -156,7 +182,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         } else {
                                 // Poner el nombre de la empresa
                                 Tf.Alignment = XParagraphAlignment.Center;
-                                Tf.DrawString(Lbl.Sys.Config.Empresa.Nombre, new XFont(FuenteSans, 16, XFontStyle.Bold), new XSolidBrush(Azul), EncabIzquierdo);
+                                Tf.DrawString(Lbl.Sys.Config.Empresa.Nombre, new XFont(FuenteSans, 16, XFontStyle.Bold), new XSolidBrush(this.Color1), EncabIzquierdo);
                         }
 
                         var CuadroCliente = new XRect(AreaUsable.Left , CuadroEncab.Bottom + 4 * mm, AreaUsable.Width, 14 * mm);
@@ -255,7 +281,7 @@ namespace Lazaro.Base.Util.Comprobantes
 
                         var CuadroTotal = new XRect(AreaUsable.Right - 50 * mm, CuadroTotales.Top, 50 * mm, CuadroTotales.Height);
                         var CuadroVerde = new XRect(AreaUsable.Right - 45 * mm, CuadroTotales.Top, 90 * mm, CuadroTotales.Height);
-                        Gfx.DrawRectangle(new XSolidBrush(XColor.FromArgb(194, 243, 31)), CuadroVerde);
+                        Gfx.DrawRectangle(new XSolidBrush(this.Color2), CuadroVerde);
                         //Gfx.DrawRectangle(XBrushes.Silver, CuadroTotal);
                         CuadroTotal.Offset(0, 3 * mm);
                         Gfx.DrawString("TOTAL", new XFont(FuenteSans, 8), XBrushes.Black, CuadroVerde.Left + 1 * mm, CuadroVerde.Top + 3 * mm);

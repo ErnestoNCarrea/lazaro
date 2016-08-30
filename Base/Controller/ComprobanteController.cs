@@ -205,6 +205,11 @@ namespace Lazaro.Base.Controller
                 {
                         var Generador = new Util.Comprobantes.GeneradorPdf(comprobante);
 
+                        var VariantePv = Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero[comprobante.PV].Variante;
+                        if (VariantePv > 0) {
+                                Generador.Variante = (Util.Comprobantes.Variantes)VariantePv;
+                        }
+
                         var Carpeta = System.IO.Path.Combine(Lbl.Sys.Config.CarpetaEmpresa, "Comprobantes", "PV" + comprobante.PV.ToString());
 
                         Lfx.Environment.Folders.EnsurePathExists(Carpeta);
