@@ -49,12 +49,12 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                 System.Threading.Thread.Sleep(100);
                                         }
 
-                                        this.Modelo = m_PuntoDeVenta.ModeloImpresoraFiscal;
-                                        this.PuertoSerie.PortName = "COM" + m_PuntoDeVenta.Puerto;
-                                        if (m_PuntoDeVenta.Bps == 0)
+                                        this.Modelo = m_PuntoDeVenta.FiscalModeloImpresora;
+                                        this.PuertoSerie.PortName = "COM" + m_PuntoDeVenta.FiscalPuerto;
+                                        if (m_PuntoDeVenta.FiscalBps == 0)
                                                 this.PuertoSerie.BaudRate = 9600;
                                         else
-                                                this.PuertoSerie.BaudRate = m_PuntoDeVenta.Bps;
+                                                this.PuertoSerie.BaudRate = m_PuntoDeVenta.FiscalBps;
                                 }
                         }
                 }
@@ -723,6 +723,11 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
 
                                 decimal Cantidad = Detalle.Cantidad;
                                 decimal Unitario = Detalle.UnitarioAImprimir;
+                                decimal PctIva = 0;
+                                var Alicuota = Detalle.Articulo.ObtenerAlicuota();
+                                if(Alicuota != null ) {
+                                        PctIva = Alicuota.Porcentaje;
+                                }
 
                                 //Si es cantidad negativa, pongo precio negativo y cantidad positiva
                                 if (Cantidad < 0) {
@@ -742,7 +747,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                         FiscalizarTexto(ItemNombre,18),
                                                         FormatearNumeroEpson(Cantidad, 3).PadLeft(8, '0'),
                                                         FormatearNumeroEpson(Math.Abs(Unitario), 2).PadLeft(9, '0'),
-                                                        "0000",
+                                                        FormatearNumeroEpson(PctIva, 2).PadLeft(4, '0'), /* IVA */
                                                         ParametroSumaResta,
                                                         "00001",
                                                         "00000000",
@@ -754,6 +759,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                 Res = Enviar(ComandoAEnviar);
                                                 Res = Enviar(new Comando(CodigosComandosFiscales.EpsonDocumentoFiscalSubtotal, "P", ""));
                                                 break;
+
                                         case Lbl.Impresion.ModelosFiscales.EpsonGenerico:
                                         case Lbl.Impresion.ModelosFiscales.Emulacion:
                                                 ParametroSumaResta = "M";
@@ -764,7 +770,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                         FiscalizarTexto(ItemNombre).PadRight(54).Substring(0, 54),
                                                         FormatearNumeroEpson(Cantidad, 3).PadLeft(8, '0'),
                                                         FormatearNumeroEpson(Math.Abs(Unitario), 2).PadLeft(9, '0'),
-                                                        "0000",
+                                                        FormatearNumeroEpson(PctIva, 2).PadLeft(4, '0'), /* IVA */
                                                         ParametroSumaResta,
                                                         "00001",
                                                         "00000000",
@@ -803,7 +809,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                                 FiscalizarTexto(ItemNombre, 50),
                                                                 FormatearNumeroHasar(Cantidad, 2),
                                                                 FormatearNumeroHasar(Unitario, 2),
-                                                                "0.0", /* IVA */
+                                                                FormatearNumeroHasar(PctIva, 2), /* IVA */
                                                                 "M",
                                                                 "0.0", /* Impuestos Interno s */
                                                                 "0", /* Campo Display */
