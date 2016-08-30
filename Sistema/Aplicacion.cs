@@ -278,7 +278,9 @@ namespace Lazaro.WinMain
                         {
                                 "Interop.WIA.dll",
                                 "MySql.Data.dll",
-                                "ICSharpCode.SharpZipLib.dll"
+                                "ICSharpCode.SharpZipLib.dll",
+                                "PdfSharp.dll",
+                                "BarcodeLib.dll",
                         };
                         IList<string> ArchivosFaltantes = new List<string>();
 

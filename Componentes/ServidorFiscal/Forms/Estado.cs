@@ -48,7 +48,7 @@ namespace ServidorFiscal.Forms
                                 } else {
                                         this.IconoBandeja.Text = "Utilizando el punto de venta " + this.ServidorAsociado.PuntoDeVenta.Numero.ToString();
                                         this.EtiquetaPV.Text = this.ServidorAsociado.PuntoDeVenta.ToString();
-                                        this.EtiquetaModeloImpresora.Text = this.ServidorAsociado.PuntoDeVenta.ModeloImpresoraFiscal.ToString() + " en puerto COM" + this.ServidorAsociado.PuntoDeVenta.Puerto.ToString() + " a " + this.ServidorAsociado.PuntoDeVenta.Bps.ToString() + " bps";
+                                        this.EtiquetaModeloImpresora.Text = this.ServidorAsociado.PuntoDeVenta.FiscalModeloImpresora.ToString() + " en puerto COM" + this.ServidorAsociado.PuntoDeVenta.FiscalPuerto.ToString() + " a " + this.ServidorAsociado.PuntoDeVenta.FiscalBps.ToString() + " bps";
                                 }
                         }
 
