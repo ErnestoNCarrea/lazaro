@@ -208,7 +208,6 @@ namespace Lazaro.Base.Util.Comprobantes
                         var CuadroArticulos = new XRect(AreaUsable.Left, CuadroCliente.Bottom + 4 * mm, AreaUsable.Width, 140 * mm);
                         //Gfx.DrawRectangle(LineaFinaGris, CuadroArticulos);
                         Gfx.DrawLine(LineaFina, CuadroArticulos.Left, CuadroArticulos.Top, CuadroArticulos.Right, CuadroArticulos.Top);
-                        Gfx.DrawLine(LineaFina, CuadroArticulos.Left, CuadroArticulos.Bottom, CuadroArticulos.Right, CuadroArticulos.Bottom);
 
                         var ColAnchos = new int[] { 24, 92, 14, 22, 22 };
 
@@ -266,7 +265,17 @@ namespace Lazaro.Base.Util.Comprobantes
                         Tf.DrawString(Unitarios, FuenteArticulos, XBrushes.Black, CuadroArticulosUnitarios);
                         Tf.DrawString(Importes, FuenteArticulos, XBrushes.Black, CuadroArticulosSubtotales);
 
-                        var CuadroTotales = new XRect(AreaUsable.Left, CuadroArticulos.Bottom + 4 * mm, 50 * mm, 14 * mm);
+                        // *** Observaciones
+
+                        var CuadroObs = new XRect(AreaUsable.Left, CuadroArticulos.Bottom + 4 * mm, AreaUsable.Width, 26 * mm);
+                        Tf.Alignment = XParagraphAlignment.Left;
+                        Tf.DrawString(Comprob.Obs, Comprob.Obs.Length > 400 ? FuentePequena : FuentePredeterminada, XBrushes.Black, CuadroObs);
+
+                        Gfx.DrawLine(LineaFina, CuadroObs.Left, CuadroObs.Bottom, CuadroObs.Right, CuadroObs.Bottom);
+
+                        // *** Subtotal, IVA, descuento y total
+
+                        var CuadroTotales = new XRect(AreaUsable.Left, CuadroObs.Bottom + 4 * mm, 50 * mm, 14 * mm);
 
                         Tf.Alignment = XParagraphAlignment.Left;
                         Tf.DrawString("Subtotal\nIVA\nDescuento / recargo", FuentePredeterminada, XBrushes.Black, CuadroTotales);
@@ -280,11 +289,11 @@ namespace Lazaro.Base.Util.Comprobantes
                         //Tf.DrawString("\nSon ciento veintitresmil cuatrocientos cincuenta y seis pesos con 00/100.", FuentePequena, XBrushes.Black, CuadroTotales);
 
                         var CuadroTotal = new XRect(AreaUsable.Right - 50 * mm, CuadroTotales.Top, 50 * mm, CuadroTotales.Height);
-                        var CuadroVerde = new XRect(AreaUsable.Right - 45 * mm, CuadroTotales.Top, 90 * mm, CuadroTotales.Height);
-                        Gfx.DrawRectangle(new XSolidBrush(this.Color2), CuadroVerde);
+                        var CuadroFondoTotal = new XRect(AreaUsable.Right - 45 * mm, CuadroTotales.Top, 90 * mm, CuadroTotales.Height);
+                        Gfx.DrawRectangle(new XSolidBrush(this.Color2), CuadroFondoTotal);
                         //Gfx.DrawRectangle(XBrushes.Silver, CuadroTotal);
                         CuadroTotal.Offset(0, 3 * mm);
-                        Gfx.DrawString("TOTAL", new XFont(FuenteSans, 8), XBrushes.Black, CuadroVerde.Left + 1 * mm, CuadroVerde.Top + 3 * mm);
+                        Gfx.DrawString("TOTAL", new XFont(FuenteSans, 8), XBrushes.Black, CuadroFondoTotal.Left + 1 * mm, CuadroFondoTotal.Top + 3 * mm);
                         Tf.Alignment = XParagraphAlignment.Right;
                         Tf.DrawString("$ " + Lfx.Types.Formatting.FormatCurrency(Comprob.Total), new XFont(FuenteSans, 18, XFontStyle.Bold), XBrushes.Black, CuadroTotal);
 
@@ -297,7 +306,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         CuadroPie.Offset(0, 1 * mm);
 
                         Tf.Alignment = XParagraphAlignment.Left;
-                        Tf.DrawString("CAE " + Comprob.CaeNumero + "\nVence " + Lfx.Types.Formatting.FormatDate(Comprob.CaeVencimiento), FuentePredeterminada, XBrushes.Black, new XRect(CuadroPie.Left + 110 * mm, CuadroPie.Top, CuadroPie.Width, CuadroPie.Height));
+                        Tf.DrawString("Comprobante electrónico\nCAE Nº " + Comprob.CaeNumero + "\nCAE Vence " + Lfx.Types.Formatting.FormatDate(Comprob.CaeVencimiento), FuentePredeterminada, XBrushes.Black, new XRect(CuadroPie.Left + 110 * mm, CuadroPie.Top, CuadroPie.Width, CuadroPie.Height));
          
                         string TextoCodigoBarras = this.GenerarTextoCodigoDeBarras();
                         var CodBarras = new BarcodeLib.Barcode();
