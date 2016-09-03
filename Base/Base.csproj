@@ -51,8 +51,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BarcodeLib, Version=1.0.0.20, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BarcodeLib.1.0.0.20\lib\net20\BarcodeLib.dll</HintPath>
+    <Reference Include="BarcodeLib, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BarcodeLib.1.0.0.22\lib\net20\BarcodeLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
