@@ -269,7 +269,9 @@ namespace Lazaro.Base.Util.Comprobantes
 
                         var CuadroObs = new XRect(AreaUsable.Left, CuadroArticulos.Bottom + 4 * mm, AreaUsable.Width, 26 * mm);
                         Tf.Alignment = XParagraphAlignment.Left;
-                        Tf.DrawString(Comprob.Obs, Comprob.Obs.Length > 400 ? FuentePequena : FuentePredeterminada, XBrushes.Black, CuadroObs);
+                        if (Comprob.Obs != null && Comprob.Obs.Length > 0) {
+                                Tf.DrawString(Comprob.Obs, Comprob.Obs.Length > 400 ? FuentePequena : FuentePredeterminada, XBrushes.Black, CuadroObs);
+                        }
 
                         Gfx.DrawLine(LineaFina, CuadroObs.Left, CuadroObs.Bottom, CuadroObs.Right, CuadroObs.Bottom);
 

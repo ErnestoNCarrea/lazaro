@@ -25,7 +25,7 @@ namespace Afip.Ws.FacturaElectronica
                 /// <summary>
                 /// Devuelve True si este CAE todavía es válido.
                 /// </summary>
-                public bool EsValido()
+                public bool TodaviaEstaVigente()
                 {
                         return this.Vencimiento > System.DateTime.Now;
                 }

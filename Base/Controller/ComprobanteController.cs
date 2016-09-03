@@ -160,32 +160,25 @@ namespace Lazaro.Base.Controller
                                 return Res;
                         }
 
-                        var TiposComprob = CliFe.ObtenerTiposDeComprobante();
-                        foreach (Afip.Ws.AfipFe.CbteTipo Cbe in TiposComprob) {
-                                System.Console.WriteLine(Cbe.Desc + " = " + Cbe.Id.ToString());
-                        }
-
                         var TipoComprob = Afip.Ws.FacturaElectronica.Tablas.ComprobantesTiposPorLetra[comprobante.Tipo.Nomenclatura];
                         var UltimoComprob = CliFe.UltimoComprobante(comprobante.PV, TipoComprob);
 
                         int ProximoNumero = UltimoComprob.CbteNro + 1;
 
-                        //Lfx.Workspace.Master.RunTime.Toast(UltimoComprob.CbteNro.ToString(), "Último comprobante de este PV");
-
                         var SolCae = Util.Comprobantes.ClienteAfipWsfe.CrearSolicitudCae(comprobante, ProximoNumero);
 
-                        var Cae = CliFe.SolictarCae(SolCae);
+                        var CantidadImpresos = CliFe.SolictarCae(SolCae);
                         // TODO: tratamiento de errores
 
                         foreach(var Comprob in SolCae.Comprobantes) {
-                                if(Comprob.Cae != null) {
+                                if(Comprob.Cae != null && string.IsNullOrWhiteSpace(Comprob.Cae.CodigoCae) == false) {
                                         new Lbl.Comprobantes.Numerador(comprobante).Numerar(Comprob.Numero, Comprob.Cae.CodigoCae, Comprob.Cae.Vencimiento, true);
                                         this.GenerarPdf(comprobante);
                                 }
                         }
 
                         
-                        if(Cae) {
+                        if(CantidadImpresos > 0) {
                                 // La solicitud tuvo éxito (total o parcial)
                                 return new Lfx.Types.SuccessOperationResult();
                         } else {
@@ -230,16 +223,14 @@ namespace Lazaro.Base.Controller
                         }
 
                         // Pruebo el estado de los servicios web
-                        var Estado = CliFe.ProbarEstadoServicios();
+                        /* var Estado = CliFe.ProbarEstadoServicios();
                         if (Estado == false) {
                                 return new Lfx.Types.FailureOperationResult("Los servicios web de AFIP no están funcionando");
-                        }
+                        } */
 
                         // Si no estoy autenticado o la autenticación está vencida, pido un TA
                         if (CliFe.TieneTicketDeAccesoValido() == false) {
-                                var CliWsass = new Afip.Ws.Autenticacion.ServicioAutenticacion();
-                                CliWsass.RutaCertificado = System.IO.Path.Combine(Lbl.Sys.Config.CarpetaEmpresa, "AFIP", "Certificado.p12");
-                                var TicketAcceso = CliWsass.Autenticar();
+                                var TicketAcceso = this.ObtenerTicketDeAcceso();
 
                                 if (TicketAcceso == null) {
                                         return new Lfx.Types.FailureOperationResult("Error solicitando Ticket de Acceso a los servicios web de AFIP");
@@ -250,6 +241,89 @@ namespace Lazaro.Base.Controller
                         }
 
                         return new Lfx.Types.SuccessOperationResult();
+                }
+
+                /// <summary>
+                /// Guarda un ticket de acceso en la base de datos, para reusarlo mientras sea válido.
+                /// </summary>
+                protected void GuardarTicketDeAcceso(Afip.Ws.Autenticacion.TicketAcceso ta)
+                {
+                        try {
+                                // Generar una cadena con el TA
+                                var CadenaTa = ta.Token + "|lazaro_separador|" + ta.Sign + "|lazaro_separador|" + Lfx.Types.Formatting.FormatDateTimeSql(ta.GenerationTime) + "|lazaro_separador|" + Lfx.Types.Formatting.FormatDateTimeSql(ta.ExpirationTime);
+
+                                // Escribirlo en un archivo en el disco
+                                var RutaTa = System.IO.Path.Combine(Lfx.Environment.Folders.TemporaryFolder, "ticketacceso.dat");
+                                System.IO.File.WriteAllText(RutaTa, CadenaTa);
+
+                                // Guardarlo en la base de datos
+                                Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("AFIP.TicketAcceso", CadenaTa);
+                        } catch { 
+                                // Nada
+                        }
+                }
+
+                /// <summary>
+                /// Obtiene un ticket de acceso guardado en la base de datos o solicita uno nuevo a AFIP.
+                /// </summary>
+                /// <returns>Un ticket de acceso válido o null en caso de error.</returns>
+                protected Afip.Ws.Autenticacion.TicketAcceso ObtenerTicketDeAcceso()
+                {
+                        var RutaTa = System.IO.Path.Combine(Lfx.Environment.Folders.TemporaryFolder, "ticketacceso.dat");
+
+                        // Buscar un ticket guardado en un archivo local
+                        if (System.IO.File.Exists(RutaTa)) {
+                                // Existe un archivo... lo uso
+                                var CadenaTaArchivo = System.IO.File.ReadAllText(RutaTa);
+                                var TicketGuardadoEnArchivo = this.DecodificarTicketDeAcceso(CadenaTaArchivo);
+
+                                if (TicketGuardadoEnArchivo != null && TicketGuardadoEnArchivo.EsValido()) {
+                                        // El ticket todavía es válido... lo uso
+                                        return TicketGuardadoEnArchivo;
+                                }
+
+                        }
+
+                        // Buscar un ticket guardado en la base de datos
+                        var CadenaDb = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("AFIP.TicketAcceso", null);
+                        var TicketGuardadoEnDb = this.DecodificarTicketDeAcceso(CadenaDb);
+                        if (TicketGuardadoEnDb != null && TicketGuardadoEnDb.EsValido()) {
+                                // El ticket todavía es válido... lo uso
+                                return TicketGuardadoEnDb;
+                        }
+
+                        // Parece que no hay un ticket o ya no es válido. Pedir uno nuevo.
+                        var CliWsass = new Afip.Ws.Autenticacion.ServicioAutenticacion();
+                        CliWsass.RutaCertificado = System.IO.Path.Combine(Lbl.Sys.Config.CarpetaEmpresa, "AFIP", "Certificado.p12");
+                        var Ta = CliWsass.Autenticar();
+
+                        // Guardar el ticket para reusar
+                        this.GuardarTicketDeAcceso(Ta);
+
+                        return Ta;
+                }
+
+                protected Afip.Ws.Autenticacion.TicketAcceso DecodificarTicketDeAcceso(string cadenaTa)
+                {
+                        try {
+                                if (string.IsNullOrWhiteSpace(cadenaTa) == false) {
+                                        // Hay un ticket guardado en la configuración
+                                        var Partes = cadenaTa.Split(new string[] { "|lazaro_separador|" }, StringSplitOptions.None);
+                                        if (Partes.Length == 4) {
+                                                var Ta = new Afip.Ws.Autenticacion.TicketAcceso();
+                                                Ta.Token = Partes[0];
+                                                Ta.Sign = Partes[1];
+                                                Ta.GenerationTime = Lfx.Types.Parsing.ParseSqlDateTime(Partes[2]);
+                                                Ta.ExpirationTime = Lfx.Types.Parsing.ParseSqlDateTime(Partes[3]);
+
+                                                return Ta;
+                                        }
+                                }
+                        } catch {
+                                // Nada...
+                        }
+
+                        return null;
                 }
         }
 }

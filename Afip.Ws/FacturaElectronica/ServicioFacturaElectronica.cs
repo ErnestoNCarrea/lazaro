@@ -92,8 +92,8 @@ namespace Afip.Ws.FacturaElectronica
                 /// Solicitar un CAE para uno o más comprobantes.
                 /// </summary>
                 /// <param name="solCae">Los datos para la solicitud del CAE.</param>
-                /// <returns>True si la solicitud tuvo éxito total o parcial, False si no tuvo éxito.</returns>
-                public bool SolictarCae(SolicitudCae solCae)
+                /// <returns>La cantidad de comprobantes aprobados, o 0 si todos fueron rechazados.</returns>
+                public int SolictarCae(SolicitudCae solCae)
                 {
                         var Clie = new ServiceSoapClient();
 
@@ -167,6 +167,7 @@ namespace Afip.Ws.FacturaElectronica
 
                         // Llamar al WS para hacer la solicitud
                         var Res = Clie.FECAESolicitar(this.CrearFEAuthRequest(), CaeReq);
+                        int Aprobados = 0;
 
                         solCae.Observaciones = new List<Observacion>();
                         /* if (Res.FeCabResp.Resultado == "R") {
@@ -185,6 +186,7 @@ namespace Afip.Ws.FacturaElectronica
                                                 Comprob.Cae.CodigoCae = De.CAE;
                                                 Comprob.Cae.Vencimiento = DateTime.ParseExact(De.CAEFchVto, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture);
                                                 Comprob.Numero = System.Convert.ToInt32(De.CbteDesde);
+                                                Aprobados++;
                                         }
 
                                         if(De.Observaciones != null && De.Observaciones.Count<Obs>() > 0) {
@@ -195,12 +197,8 @@ namespace Afip.Ws.FacturaElectronica
                                         }
                                 }
                         /* } */
-                        
-                        if (Res.FeCabResp.Resultado != "R") {
-                                return true;
-                        } else {
-                                return false;
-                        }
+
+                        return Aprobados;
                 }
 
 
