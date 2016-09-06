@@ -57,7 +57,7 @@ namespace Lazaro.WinMain.Misc
                         this.EtiquetaCopyright.Name = "EtiquetaCopyright";
                         this.EtiquetaCopyright.Size = new System.Drawing.Size(431, 16);
                         this.EtiquetaCopyright.TabIndex = 2;
-                        this.EtiquetaCopyright.Text = "Copyright 2004-2012 Ernesto N. Carrea. Todos los derechos reservados.";
+                        this.EtiquetaCopyright.Text = "Copyright 2004-2016 Ernesto N. Carrea. Todos los derechos reservados.";
                         this.EtiquetaCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         this.EtiquetaCopyright.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         // 

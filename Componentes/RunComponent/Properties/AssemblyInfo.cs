@@ -14,7 +14,7 @@ using System.Security.Permissions;
 [assembly: AssemblyDescription("Ejecuta un componente Lfx fuera del entorno de Lázaro")]
 [assembly: AssemblyCompany("Ernesto N. Carrea")]
 [assembly: AssemblyProduct("Lázaro")]
-[assembly: AssemblyCopyright("Copyright 2004-2012 Ernesto N. Carrea")]
+[assembly: AssemblyCopyright("Copyright 2004-2016 Ernesto N. Carrea")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]

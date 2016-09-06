@@ -14,7 +14,7 @@ using System.Security.Permissions;
 [assembly: AssemblyDescription("Componente Lázaro Servidor Fiscal versión 1.0")]
 [assembly: AssemblyCompany("Ernesto N. Carrea")]
 [assembly: AssemblyProduct("Lázaro")]
-[assembly: AssemblyCopyright("Copyright 2004-2012 Ernesto N. Carrea")]
+[assembly: AssemblyCopyright("Copyright 2004-2016 Ernesto N. Carrea")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]
