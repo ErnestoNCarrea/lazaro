@@ -321,6 +321,8 @@ namespace Lfc.Articulos
                         EntradaGarantia.ValueInt = Art.Garantia;
                         CustomName = Art.Existe;
 
+                        EntradaTipoDeArticulo_TextChanged(this, null);
+
                         base.ActualizarControl();
                 }
 
@@ -375,11 +377,11 @@ namespace Lfc.Articulos
 
                 private void EntradaTipoDeArticulo_TextChanged(object sender, EventArgs e)
                 {
-                        BotonReceta.Visible = EntradaTipoDeArticulo.TextKey == "2";
-                        EntradaCosto.Enabled = EntradaTipoDeArticulo.TextKey != "2";
+                        BotonReceta.Visible = EntradaTipoDeArticulo.ValueInt == 2;
+                        EntradaCosto.Enabled = EntradaTipoDeArticulo.ValueInt != 2;
 
                         PanelServicio.Visible = EntradaTipoDeArticulo.ValueInt == 0;
-                        PanelProducto.Visible = !PanelServicio.Visible;
+                        PanelProducto.Visible = EntradaTipoDeArticulo.ValueInt != 0;
                         this.ActualizarCostoYStockSegunReceta();
                 }
 
