@@ -24,10 +24,45 @@ namespace Lazaro.Base.Util.Comprobantes
                         };
 
                         if ((ComprobanteAsociado.Conceptos | Tablas.Conceptos.Servicios) == Tablas.Conceptos.Servicios) {
-                                DateTime MesPasado = DateTime.Now;
-                                MesPasado.AddMonths(-1);
-                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(MesPasado.Year, MesPasado.Month, 1);
-                                ComprobanteAsociado.ServicioFechaHasta = new DateTime(MesPasado.Year, MesPasado.Month, DateTime.DaysInMonth(MesPasado.Year, MesPasado.Month));
+                                foreach (var Art in comprobante.Articulos) {
+                                        if (Art.Articulo != null) {
+                                                switch (Art.Articulo.Periodicidad) {
+                                                        case Lbl.Articulos.Periodicidad.PorSemana:
+                                                                DateTime SemanaPasada = DateTime.Now;
+                                                                SemanaPasada.AddDays(-7);
+                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(SemanaPasada.Year, SemanaPasada.Month, SemanaPasada.Day);
+                                                                ComprobanteAsociado.ServicioFechaHasta = DateTime.Now;
+                                                                break;
+
+                                                        case Lbl.Articulos.Periodicidad.PorMes:
+                                                                DateTime MesPasado = DateTime.Now;
+                                                                MesPasado.AddMonths(-1);
+                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(MesPasado.Year, MesPasado.Month, 1);
+                                                                ComprobanteAsociado.ServicioFechaHasta = new DateTime(MesPasado.Year, MesPasado.Month, DateTime.DaysInMonth(MesPasado.Year, MesPasado.Month));
+                                                                break;
+
+                                                        case Lbl.Articulos.Periodicidad.PorBimestre:
+                                                                DateTime MesPasado1 = DateTime.Now;
+                                                                MesPasado1.AddMonths(-1);
+                                                                DateTime MesPasado2 = DateTime.Now;
+                                                                MesPasado2.AddMonths(-2);
+                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(MesPasado2.Year, MesPasado2.Month, 1);
+                                                                ComprobanteAsociado.ServicioFechaHasta = new DateTime(MesPasado1.Year, MesPasado1.Month, DateTime.DaysInMonth(MesPasado1.Year, MesPasado1.Month));
+                                                                break;
+
+                                                        case Lbl.Articulos.Periodicidad.PorOcasion:
+                                                        case Lbl.Articulos.Periodicidad.PorMinuto:
+                                                        case Lbl.Articulos.Periodicidad.PorHora:
+                                                        case Lbl.Articulos.Periodicidad.PorDia:
+                                                        default:
+                                                                ComprobanteAsociado.ServicioFechaDesde = DateTime.Now;
+                                                                ComprobanteAsociado.ServicioFechaHasta = ComprobanteAsociado.ServicioFechaDesde;
+                                                                break;
+                                                }
+                                                break;
+                                        }
+                                }
+                                
                                 ComprobanteAsociado.FechaVencimientoPago = DateTime.Now;
                         }
 
