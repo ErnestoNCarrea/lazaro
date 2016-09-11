@@ -30,9 +30,9 @@ namespace Lfc.Inicio
                         MostrarConsejo();
                 }
 
-                private void BotonWebComo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+                private void BotonForoWeb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/?q=node/33");
+                        Help.ShowHelp(this, "http://foro.lazarogestion.com/");
                 }
 
                 private void BotonWebContacto_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -55,17 +55,17 @@ namespace Lfc.Inicio
 
                 private void BotonWebPrimerosPasos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/?q=node/44");
+                        Help.ShowHelp(this, "http://www.lazarogestion.com/soporte/primeros-pasos");
                 }
 
-                private void BotonWebAltaArticulo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+                private void BotonWebAyudaWeb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/?q=node/35");
+                        Help.ShowHelp(this, "http://www.http://lazarogestion.com/soporte");
                 }
 
                 private void BotonWebComoFactura_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/?q=node/34");
+                        Help.ShowHelp(this, "http://www.lazarogestion.com/soporte/primeros-pasos/facturar");
                 }
 
                 private void PanelConsejo_DoubleClick(object sender, EventArgs e)

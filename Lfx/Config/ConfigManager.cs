@@ -93,6 +93,10 @@ namespace Lfx.Config
                         }
 
                         lock (ConfigDocument) {
+                                if(ConfigDocument.DocumentElement == null) {
+                                        ConfigDocument.LoadXml("<?xml version='1.0' ?><LocalConfig></LocalConfig>");
+                                }
+
                                 System.Xml.XmlAttribute Attribute;
                                 System.Xml.XmlNode SectionNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionName + "']");
                                 if (SectionNode == null) {

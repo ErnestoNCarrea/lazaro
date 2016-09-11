@@ -223,7 +223,6 @@ namespace ServidorFiscal.Forms
                         // 
                         this.BotonCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.BotonCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCerrar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonCerrar.Image = null;
                         this.BotonCerrar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCerrar.Location = new System.Drawing.Point(136, 280);
@@ -239,7 +238,6 @@ namespace ServidorFiscal.Forms
                         // 
                         this.BotonReiniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.BotonReiniciar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonReiniciar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonReiniciar.Image = null;
                         this.BotonReiniciar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonReiniciar.Location = new System.Drawing.Point(24, 280);
@@ -255,7 +253,6 @@ namespace ServidorFiscal.Forms
                         // 
                         this.BotonOcultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonOcultar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonOcultar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonOcultar.Image = null;
                         this.BotonOcultar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonOcultar.Location = new System.Drawing.Point(408, 280);
@@ -296,6 +293,7 @@ namespace ServidorFiscal.Forms
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Servidor fiscal";
                         this.TopMost = true;
+                        this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Estado_FormClosing);
                         this.Load += new System.EventHandler(this.FormEstado_Load);
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
                         this.ResumeLayout(false);

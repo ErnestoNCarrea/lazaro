@@ -125,5 +125,15 @@ namespace ServidorFiscal.Forms
                 {
                         this.Hide();
                 }
+
+                private void Estado_FormClosing(object sender, FormClosingEventArgs e)
+                {
+                        if (this.Visible) {
+                                this.Hide();
+                                e.Cancel = true;
+                        } else {
+                                this.QuitarIcono();
+                        }
+                }
         }
 }

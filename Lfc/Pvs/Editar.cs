@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics;
 using Lfx.Types;
 
 namespace Lfc.Pvs
@@ -137,7 +138,32 @@ namespace Lfc.Pvs
                 {
                         Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.Clear();
 
+                        this.InicarServidorFiscal();
+
                         base.AfterSave(transaction);
+                }
+
+
+                /// <summary>
+                /// Iniciar un servidor fiscal, si esta es una estación fiscal y si no hay uno iniciado
+                /// </summary>
+                public void InicarServidorFiscal()
+                {
+                        // Buscar si algún punto de venta fiscal corresponde a este equipo
+                        foreach (var Pv in Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.Values) {
+                                if (Pv.Tipo == Lbl.Comprobantes.TipoPv.ControladorFiscal && Pv.Estacion == Lfx.Environment.SystemInformation.MachineName) {
+                                        // Buscar un servidor fiscal ejecutándose
+                                        Process[] ServidoresFiscales = Process.GetProcessesByName("ServidorFiscal.exe");
+                                        if (ServidoresFiscales.Length > 0) {
+                                                // Si hay uno, lo reinicio
+                                                Lfx.Workspace.Master.DefaultScheduler.AddTask("REBOOT", "fiscal" + Pv.ToString(), "*");
+                                        } else { 
+                                                // Si no hay ninguno, lo inicio
+                                                Lfx.Workspace.Master.RunTime.Execute("RUN ServidorFiscal.ServidorFiscal");
+                                        }
+                                        break;
+                                }
+                        }
                 }
 
                 public override OperationResult BeforeSave()

@@ -639,6 +639,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         }
                                 }
 
+                                InicarServidorFiscal();
+
                                 // Mostrar el formulario
                                 Lfx.Workspace.Master.MainForm = new Principal.Inicio();
                                 Aplicacion.FormularioPrincipal.Show();
@@ -646,13 +648,34 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Lui.Forms.YesNoDialog Pregunta = new Lui.Forms.YesNoDialog("¡Hola! ¿Le gustaría ver una página sencilla con un poco de información sobre cómo utilizar Lázaro?", "Primeros pasos");
                                         Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                         if (Pregunta.ShowDialog() == DialogResult.OK)
-                                                Help.ShowHelp(Aplicacion.FormularioPrincipal, "http://www.lazarogestion.com/ayuda/descripcion-general");
+                                                Help.ShowHelp(Aplicacion.FormularioPrincipal, "http://www.lazarogestion.com/soporte/primeros-pasos");
                                 }
                                 Application.Run(Aplicacion.FormularioPrincipal);
                         }
 
                         return new Lfx.Types.SuccessOperationResult();
                 }
+
+                /// <summary>
+                /// Iniciar un servidor fiscal, si esta es una estación fiscal y si no hay uno iniciado
+                /// </summary>
+                public static void InicarServidorFiscal()
+                {
+                        // Buscar si algún punto de venta fiscal corresponde a este equipo
+                        foreach (var Pv in Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.Values) {
+                                if (Pv.Tipo == Lbl.Comprobantes.TipoPv.ControladorFiscal && Pv.Estacion == Lfx.Environment.SystemInformation.MachineName) {
+                                        // Buscar un servidor fiscal ejecutándose
+                                        Process[] ServidoresFiscales = Process.GetProcessesByName("ServidorFiscal.exe");
+                                        if (ServidoresFiscales.Length == 0) {
+                                                // Si no hay ninguno, lo inicio
+                                                Lazaro.WinMain.Ejecutor.Exec("RUN ServidorFiscal.ServidorFiscal", null);
+                                        }
+                                        break;
+                                }
+                        }
+                }
+
+
 
                 /// <summary>
                 /// Envía datos anónimos sobre el equipo en el que se está ejecutando Lázaro.

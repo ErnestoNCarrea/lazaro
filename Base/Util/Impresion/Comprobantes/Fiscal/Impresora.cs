@@ -724,9 +724,13 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                 decimal Cantidad = Detalle.Cantidad;
                                 decimal Unitario = Detalle.UnitarioAImprimir;
                                 decimal PctIva = 0;
-                                var Alicuota = Detalle.Articulo.ObtenerAlicuota();
-                                if(Alicuota != null ) {
-                                        PctIva = Alicuota.Porcentaje;
+                                if (Comprob.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
+                                        PctIva = 0;
+                                } else {
+                                        var Alicuota = Detalle.Articulo.ObtenerAlicuota();
+                                        if (Alicuota != null) {
+                                                PctIva = Alicuota.Porcentaje;
+                                        }
                                 }
 
                                 //Si es cantidad negativa, pongo precio negativo y cantidad positiva
@@ -848,7 +852,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                         FormatearNumeroHasar(MontoDescuento, 2),
                                                         "m",
                                                         "0",
-                                                        "T");
+                                                        "B");
                                                 Res = Enviar(ComandoAEnviar);
                                                 break;
                                 }
@@ -878,7 +882,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                         FormatearNumeroHasar((Comprob.Total - Comprob.TotalSinRedondeo), 2),
                                                         "m",
                                                         "0",
-                                                        "T");
+                                                        "B");
                                                 Res = Enviar(ComandoAEnviar);
                                                 break;
                                 }

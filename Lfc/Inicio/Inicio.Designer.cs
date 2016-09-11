@@ -29,10 +29,10 @@ namespace Lfc.Inicio
                 {
                         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
                         this.BotonWebInicio = new Lui.Forms.LinkLabel();
-                        this.BotonWebComo = new Lui.Forms.LinkLabel();
+                        this.BotonForoWeb = new Lui.Forms.LinkLabel();
                         this.label1 = new Lui.Forms.Label();
                         this.BotonWebPrimerosPasos = new Lui.Forms.LinkLabel();
-                        this.BotonWebAltaArticulo = new Lui.Forms.LinkLabel();
+                        this.BotonAyudaWeb = new Lui.Forms.LinkLabel();
                         this.BotonWebComoFactura = new Lui.Forms.LinkLabel();
                         this.PanelWeb = new Lui.Forms.Panel();
                         this.PanelActualizarAlmacen = new Lui.Forms.Panel();
@@ -66,20 +66,20 @@ namespace Lfc.Inicio
                         this.BotonWebInicio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                         this.BotonWebInicio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonWebInicio_LinkClicked);
                         // 
-                        // BotonWebComo
+                        // BotonForoWeb
                         // 
-                        this.BotonWebComo.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
-                        this.BotonWebComo.AutoSize = true;
-                        this.BotonWebComo.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonWebComo.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonWebComo.Location = new System.Drawing.Point(240, 72);
-                        this.BotonWebComo.Name = "BotonWebComo";
-                        this.BotonWebComo.Size = new System.Drawing.Size(144, 17);
-                        this.BotonWebComo.TabIndex = 5;
-                        this.BotonWebComo.TabStop = true;
-                        this.BotonWebComo.Text = "Otras tareas frecuentes";
-                        this.BotonWebComo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                        this.BotonWebComo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonWebComo_LinkClicked);
+                        this.BotonForoWeb.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
+                        this.BotonForoWeb.AutoSize = true;
+                        this.BotonForoWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+                        this.BotonForoWeb.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+                        this.BotonForoWeb.Location = new System.Drawing.Point(240, 72);
+                        this.BotonForoWeb.Name = "BotonForoWeb";
+                        this.BotonForoWeb.Size = new System.Drawing.Size(104, 17);
+                        this.BotonForoWeb.TabIndex = 5;
+                        this.BotonForoWeb.TabStop = true;
+                        this.BotonForoWeb.Text = "Foro de soporte";
+                        this.BotonForoWeb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        this.BotonForoWeb.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonForoWeb_LinkClicked);
                         // 
                         // label1
                         // 
@@ -106,20 +106,20 @@ namespace Lfc.Inicio
                         this.BotonWebPrimerosPasos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                         this.BotonWebPrimerosPasos.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonWebPrimerosPasos_LinkClicked);
                         // 
-                        // BotonWebAltaArticulo
+                        // BotonAyudaWeb
                         // 
-                        this.BotonWebAltaArticulo.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
-                        this.BotonWebAltaArticulo.AutoSize = true;
-                        this.BotonWebAltaArticulo.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonWebAltaArticulo.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonWebAltaArticulo.Location = new System.Drawing.Point(48, 72);
-                        this.BotonWebAltaArticulo.Name = "BotonWebAltaArticulo";
-                        this.BotonWebAltaArticulo.Size = new System.Drawing.Size(138, 17);
-                        this.BotonWebAltaArticulo.TabIndex = 7;
-                        this.BotonWebAltaArticulo.TabStop = true;
-                        this.BotonWebAltaArticulo.Text = "Dar de alta un artículo";
-                        this.BotonWebAltaArticulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                        this.BotonWebAltaArticulo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonWebAltaArticulo_LinkClicked);
+                        this.BotonAyudaWeb.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
+                        this.BotonAyudaWeb.AutoSize = true;
+                        this.BotonAyudaWeb.Cursor = System.Windows.Forms.Cursors.Hand;
+                        this.BotonAyudaWeb.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+                        this.BotonAyudaWeb.Location = new System.Drawing.Point(48, 72);
+                        this.BotonAyudaWeb.Name = "BotonAyudaWeb";
+                        this.BotonAyudaWeb.Size = new System.Drawing.Size(104, 17);
+                        this.BotonAyudaWeb.TabIndex = 7;
+                        this.BotonAyudaWeb.TabStop = true;
+                        this.BotonAyudaWeb.Text = "Ayuda en la web";
+                        this.BotonAyudaWeb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        this.BotonAyudaWeb.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonWebAyudaWeb_LinkClicked);
                         // 
                         // BotonWebComoFactura
                         // 
@@ -142,8 +142,8 @@ namespace Lfc.Inicio
                         this.PanelWeb.BackColor = System.Drawing.Color.White;
                         this.PanelWeb.Controls.Add(this.label1);
                         this.PanelWeb.Controls.Add(this.BotonWebComoFactura);
-                        this.PanelWeb.Controls.Add(this.BotonWebComo);
-                        this.PanelWeb.Controls.Add(this.BotonWebAltaArticulo);
+                        this.PanelWeb.Controls.Add(this.BotonForoWeb);
+                        this.PanelWeb.Controls.Add(this.BotonAyudaWeb);
                         this.PanelWeb.Controls.Add(this.BotonWebPrimerosPasos);
                         this.PanelWeb.Location = new System.Drawing.Point(48, 448);
                         this.PanelWeb.Name = "PanelWeb";
@@ -182,7 +182,7 @@ namespace Lfc.Inicio
                         this.BotonNoActualizarAlmacen.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
                         this.BotonNoActualizarAlmacen.Location = new System.Drawing.Point(18, 211);
                         this.BotonNoActualizarAlmacen.Name = "BotonNoActualizarAlmacen";
-                        this.BotonNoActualizarAlmacen.Size = new System.Drawing.Size(232, 17);
+                        this.BotonNoActualizarAlmacen.Size = new System.Drawing.Size(231, 17);
                         this.BotonNoActualizarAlmacen.TabIndex = 6;
                         this.BotonNoActualizarAlmacen.TabStop = true;
                         this.BotonNoActualizarAlmacen.Text = "No, gracias. Tal vez en otro momento.";
@@ -299,13 +299,13 @@ namespace Lfc.Inicio
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
                         this.BackColor = System.Drawing.Color.White;
                         this.ClientSize = new System.Drawing.Size(984, 642);
-                        this.Controls.Add(this.PanelActualizarAlmacen);
                         this.Controls.Add(this.PanelConsejo);
                         this.Controls.Add(this.PanelWeb);
                         this.Controls.Add(this.PanelComprobantes);
                         this.Controls.Add(this.PanelPersonas);
                         this.Controls.Add(this.PanelArticulos);
                         this.Controls.Add(this.BotonWebInicio);
+                        this.Controls.Add(this.PanelActualizarAlmacen);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.Name = "Inicio";
                         this.Padding = new System.Windows.Forms.Padding(32);
@@ -325,10 +325,10 @@ namespace Lfc.Inicio
                 private ControlPersonas PanelPersonas;
                 private ControlComprobantes PanelComprobantes;
                 private Lui.Forms.LinkLabel BotonWebInicio;
-                private Lui.Forms.LinkLabel BotonWebComo;
+                private Lui.Forms.LinkLabel BotonForoWeb;
                 private Lui.Forms.Label label1;
                 private Lui.Forms.LinkLabel BotonWebPrimerosPasos;
-                private Lui.Forms.LinkLabel BotonWebAltaArticulo;
+                private Lui.Forms.LinkLabel BotonAyudaWeb;
                 private Lui.Forms.LinkLabel BotonWebComoFactura;
                 private Lui.Forms.Panel PanelWeb;
                 private Consejo PanelConsejo;

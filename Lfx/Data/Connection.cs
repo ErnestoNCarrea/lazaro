@@ -116,8 +116,8 @@ namespace Lfx.Data
                         if (string.IsNullOrEmpty(Port) == false)
                                 ConnectionString.Append("PORT=" + Port + ";");
 
-                        if (Lfx.Data.DataBaseCache.DefaultCache.DataBaseName.Length > 0)
-                                ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
+                        //if (Lfx.Data.DataBaseCache.DefaultCache.DataBaseName.Length > 0)
+                        //        ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
                         ConnectionString.Append("UID=" + Lfx.Data.DataBaseCache.DefaultCache.UserName + ";");
                         ConnectionString.Append("PWD=" + Lfx.Data.DataBaseCache.DefaultCache.Password + ";");
 
@@ -127,6 +127,15 @@ namespace Lfx.Data
                                 DbConnection.Open();
                         } catch (Exception ex) {
                                 throw ex;
+                        }
+
+                        if (Lfx.Data.DataBaseCache.DefaultCache.DataBaseName.Length > 0) {
+                                try {
+                                        DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
+                                } catch {
+                                        this.ExecuteSql("CREATE DATABASE " + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
+                                        DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
+                                }
                         }
 
                         this.SetupConnection(this.DbConnection);

@@ -65,32 +65,6 @@ namespace Lazaro.WinMain
                                 case "INSTANCIAR":
                                         return ExecInstanciar(comando);
 
-                                /* case "REPO":
-                                        qGen.Select Sel = new qGen.Select("comprob_detalle");
-                                        Sel.Fields = "personas.id_persona,personas.nombre_visible,comprob.fecha,comprob.total";
-                                        Sel.Joins.Add(new qGen.Join("comprob", "comprob_detalle.id_comprob=comprob.id_comprob"));
-                                        Sel.Joins.Add(new qGen.Join("personas", "comprob.id_cliente=personas.id_persona"));
-                                        Sel.WhereClause = new qGen.Where();
-                                        Sel.WhereClause.AddWithValue("comprob.fecha", "'2009-09-01'", "'2009-09-30'");
-                                        Sel.WhereClause.AddWithValue("comprob.compra", 0);
-                                        Sel.WhereClause.AddWithValue("comprob.numero", qGen.ComparisonOperators.GreaterThan, 0);
-                                        Sel.WhereClause.AddWithValue("comprob.tipo_fac", qGen.ComparisonOperators.In, new string[] { "FA", "FB", "FC", "FM", "FE" });
-
-                                        Lbl.Reportes.Reporte Rep = new Lbl.Reportes.Reporte(Lfx.Workspace.Master.GetNewConnection("REPO"), Sel);
-                                        Rep.Grouping = new Lfx.Data.Grouping("personas.nombre_visible");
-                                        Rep.Aggregates.Add(new Lfx.Data.Aggregate(Lfx.Data.AggregationFunctions.Count, "comprob.fecha"));
-                                        Rep.Aggregates.Add(new Lfx.Data.Aggregate(Lfx.Data.AggregationFunctions.Sum, "comprob.total"));
-                                        Rep.Fields.Add(new Lazaro.Pres.Field("personas.nombre_visible", "Cliente", Lfx.Data.InputFieldTypes.Text, 320));
-                                        Rep.Fields.Add(new Lazaro.Pres.Field("comprob.fecha", "Fecha", Lfx.Data.InputFieldTypes.Date, 100));
-                                        Rep.Fields.Add(new Lazaro.Pres.Field("comprob.total", "Total", Lfx.Data.InputFieldTypes.Currency, 120));
-                                        Rep.ExpandGroups = false;
-
-                                        Lfc.Reportes.Reporte RepForm = new Lfc.Reportes.Reporte();
-                                        RepForm.MdiParent = Aplicacion.FormularioPrincipal;
-                                        RepForm.ReporteAMostrar = Rep;
-                                        RepForm.Show();
-                                        break; */
-
                                 case "HISTORIAL":
                                         string Tabla = Lfx.Types.Strings.GetNextToken(ref comando, " ").Trim();
                                         int Id = Lfx.Types.Parsing.ParseInt(Lfx.Types.Strings.GetNextToken(ref comando, " "));
@@ -218,7 +192,11 @@ namespace Lazaro.WinMain
 
                                         switch (SubComandoFiscal) {
                                                 case "INICIAR":
-                                                        Lfx.Environment.Shell.Execute(Lfx.Environment.Folders.ApplicationFolder + "ServidorFiscal.exe", null, System.Diagnostics.ProcessWindowStyle.Normal, false);
+                                                        if (Lfx.Environment.SystemInformation.DesignMode == true) {
+                                                                ExecInternal("RUN ServidorFiscal.ServidorFiscal", null);
+                                                        } else {
+                                                                Lfx.Environment.Shell.Execute(Lfx.Environment.Folders.ApplicationFolder + "ServidorFiscal.exe", null, System.Diagnostics.ProcessWindowStyle.Normal, false);
+                                                        }
                                                         break;
                                                 case "PANEL":
                                                         Lazaro.WinMain.Misc.Fiscal OFormFiscal = (Lazaro.WinMain.Misc.Fiscal)BuscarVentana("Lazaro.Misc.Fiscal");

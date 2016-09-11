@@ -53,13 +53,27 @@ namespace Lazaro.Base.Controller
                                 }
                         }
 
+                        Lfx.Types.OperationResult ResultadoImprimir;
+                        Lbl.Comprobantes.ComprobanteConArticulos ComprobConArt = comprobante as Lbl.Comprobantes.ComprobanteConArticulos;
+
                         switch (ClaseImpr) {
                                 case Lbl.Impresion.ClasesImpresora.ElectronicaAfip:
+                                        if(ComprobConArt == null) {
+                                                throw new InvalidOperationException("El comprobante no es una factura");
+                                        }
                                         if (Reimpresion) {
-                                                this.GenerarPdf(comprobante as Lbl.Comprobantes.ComprobanteConArticulos);
+                                                this.GenerarPdf(ComprobConArt);
                                                 return new Lfx.Types.SuccessOperationResult();
                                         } else {
-                                                return this.ImprimirFacturaElectronicaAfip(comprobante as Lbl.Comprobantes.ComprobanteConArticulos);
+                                                ResultadoImprimir = this.ImprimirFacturaElectronicaAfip(comprobante as Lbl.Comprobantes.ComprobanteConArticulos);
+                                                if (ResultadoImprimir.Success == true) {
+                                                        //Resto el stock si corresponde
+                                                        ComprobConArt.MoverExistencias(false);
+
+                                                        // Asentar pagos si corresponde
+                                                        ComprobConArt.AsentarPago(false);
+                                                }
+                                                return ResultadoImprimir;
                                         }
 
                                 case Lbl.Impresion.ClasesImpresora.FiscalAfip:
@@ -103,8 +117,17 @@ namespace Lazaro.Base.Controller
                                         }
 
                                 case Lbl.Impresion.ClasesImpresora.Nula:
-                                        if (Reimpresion == false && comprobante.Tipo.NumerarAlImprimir)
+                                        if (Reimpresion == false && comprobante.Tipo.NumerarAlImprimir) {
                                                 new Lbl.Comprobantes.Numerador(comprobante).Numerar(true);
+                                        }
+
+                                        if (Reimpresion == false) {
+                                                //Resto el stock si corresponde
+                                                ComprobConArt.MoverExistencias(false);
+
+                                                // Asentar pagos si corresponde
+                                                ComprobConArt.AsentarPago(false);
+                                        }
 
                                         return new Lfx.Types.SuccessOperationResult();
 
@@ -139,6 +162,7 @@ namespace Lazaro.Base.Controller
                                                                 return new Lfx.Types.FailureOperationResult("Se superó el tiempo de espera para recibir respuesta del sistema remoto.");
                                                         } else {
                                                                 comprobante.Cargar();
+
                                                                 // Tengo número de factura. Imprimió Ok
                                                                 return new Lfx.Types.SuccessOperationResult();
                                                         }

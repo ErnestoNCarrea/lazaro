@@ -26,6 +26,7 @@ namespace Lazaro.WinMain.Misc
                 private void InitializeComponent()
                 {
                         this.components = new System.ComponentModel.Container();
+                        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Fiscal));
                         this.BotonCierreZ = new Lui.Forms.Button();
                         this.Timer1 = new System.Windows.Forms.Timer(this.components);
                         this.EtiquetaCierreZ = new Lui.Forms.Label();
@@ -43,7 +44,6 @@ namespace Lazaro.WinMain.Misc
                         // BotonCierreZ
                         // 
                         this.BotonCierreZ.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCierreZ.ForeColor = System.Drawing.Color.Black;
                         this.BotonCierreZ.Image = null;
                         this.BotonCierreZ.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCierreZ.Location = new System.Drawing.Point(512, 112);
@@ -88,7 +88,7 @@ namespace Lazaro.WinMain.Misc
                         this.EntradaPv.Location = new System.Drawing.Point(168, 112);
                         this.EntradaPv.Name = "EntradaPv";
                         this.EntradaPv.SetData = null;
-                        this.EntradaPv.Size = new System.Drawing.Size(248, 22);
+                        this.EntradaPv.Size = new System.Drawing.Size(248, 23);
                         this.EntradaPv.TabIndex = 52;
                         this.EntradaPv.TextKey = "";
                         this.EntradaPv.TextChanged += new System.EventHandler(this.EntradaPV_TextChanged);
@@ -97,7 +97,6 @@ namespace Lazaro.WinMain.Misc
                         // 
                         this.BotonReiniciar.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonReiniciar.Enabled = false;
-                        this.BotonReiniciar.ForeColor = System.Drawing.Color.Black;
                         this.BotonReiniciar.Image = null;
                         this.BotonReiniciar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonReiniciar.Location = new System.Drawing.Point(512, 208);
@@ -145,7 +144,6 @@ namespace Lazaro.WinMain.Misc
                         // BotonIniciarDetener
                         // 
                         this.BotonIniciarDetener.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonIniciarDetener.ForeColor = System.Drawing.Color.Black;
                         this.BotonIniciarDetener.Image = null;
                         this.BotonIniciarDetener.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonIniciarDetener.Location = new System.Drawing.Point(512, 160);
@@ -196,6 +194,7 @@ namespace Lazaro.WinMain.Misc
                         this.Controls.Add(this.label3);
                         this.Controls.Add(this.Titulo);
                         this.ForeColor = System.Drawing.Color.Black;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "Fiscal";
                         this.Text = "Panel de impresora fiscal";
                         this.Load += new System.EventHandler(this.Fiscal_Load);
