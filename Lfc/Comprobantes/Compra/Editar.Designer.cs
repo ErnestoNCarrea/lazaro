@@ -145,7 +145,7 @@ namespace Lfc.Comprobantes.Compra
                         this.EntradaProductos.Location = new System.Drawing.Point(0, 64);
                         this.EntradaProductos.Name = "EntradaProductos";
                         this.EntradaProductos.Precio = Lcc.Entrada.Articulos.Precios.Costo;
-                        this.EntradaProductos.ShowStock = false;
+                        this.EntradaProductos.MostrarExistencias = false;
                         this.EntradaProductos.Size = new System.Drawing.Size(642, 240);
                         this.EntradaProductos.TabIndex = 26;
                         this.EntradaProductos.TotalChanged += new System.EventHandler(this.RecalcularTotal);

@@ -30,6 +30,7 @@ namespace Lcc.Entrada.Articulos
                         this.EtiquetaHeaderDescuento = new Lui.Forms.Label();
                         this.EtiquetaHeaderCantidad = new Lui.Forms.Label();
                         this.EtiquetaHeaderImporte = new Lui.Forms.Label();
+                        this.EtiquetaHeaderIva = new Lui.Forms.Label();
                         this.SuspendLayout();
                         // 
                         // EtiquetaHeaderDetalle
@@ -59,7 +60,7 @@ namespace Lcc.Entrada.Articulos
                         // EtiquetaHeaderDescuento
                         // 
                         this.EtiquetaHeaderDescuento.AutoEllipsis = true;
-                        this.EtiquetaHeaderDescuento.Location = new System.Drawing.Point(200, 0);
+                        this.EtiquetaHeaderDescuento.Location = new System.Drawing.Point(340, 0);
                         this.EtiquetaHeaderDescuento.Name = "EtiquetaHeaderDescuento";
                         this.EtiquetaHeaderDescuento.Size = new System.Drawing.Size(64, 18);
                         this.EtiquetaHeaderDescuento.TabIndex = 999;
@@ -71,7 +72,7 @@ namespace Lcc.Entrada.Articulos
                         // EtiquetaHeaderCantidad
                         // 
                         this.EtiquetaHeaderCantidad.AutoEllipsis = true;
-                        this.EtiquetaHeaderCantidad.Location = new System.Drawing.Point(248, 0);
+                        this.EtiquetaHeaderCantidad.Location = new System.Drawing.Point(270, 0);
                         this.EtiquetaHeaderCantidad.Name = "EtiquetaHeaderCantidad";
                         this.EtiquetaHeaderCantidad.Size = new System.Drawing.Size(72, 18);
                         this.EtiquetaHeaderCantidad.TabIndex = 999;
@@ -83,7 +84,7 @@ namespace Lcc.Entrada.Articulos
                         // EtiquetaHeaderImporte
                         // 
                         this.EtiquetaHeaderImporte.AutoEllipsis = true;
-                        this.EtiquetaHeaderImporte.Location = new System.Drawing.Point(324, 0);
+                        this.EtiquetaHeaderImporte.Location = new System.Drawing.Point(406, 0);
                         this.EtiquetaHeaderImporte.Name = "EtiquetaHeaderImporte";
                         this.EtiquetaHeaderImporte.Size = new System.Drawing.Size(80, 18);
                         this.EtiquetaHeaderImporte.TabIndex = 999;
@@ -92,8 +93,22 @@ namespace Lcc.Entrada.Articulos
                         this.EtiquetaHeaderImporte.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader2;
                         this.EtiquetaHeaderImporte.UseMnemonic = false;
                         // 
+                        // EtiquetaHeaderIva
+                        // 
+                        this.EtiquetaHeaderIva.AutoEllipsis = true;
+                        this.EtiquetaHeaderIva.Location = new System.Drawing.Point(227, 0);
+                        this.EtiquetaHeaderIva.Name = "EtiquetaHeaderIva";
+                        this.EtiquetaHeaderIva.Size = new System.Drawing.Size(64, 18);
+                        this.EtiquetaHeaderIva.TabIndex = 1000;
+                        this.EtiquetaHeaderIva.Text = " IVA";
+                        this.EtiquetaHeaderIva.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.EtiquetaHeaderIva.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader2;
+                        this.EtiquetaHeaderIva.UseMnemonic = false;
+                        // 
                         // MatrizDetalleComprobante
                         // 
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+                        this.Controls.Add(this.EtiquetaHeaderIva);
                         this.Controls.Add(this.EtiquetaHeaderDescuento);
                         this.Controls.Add(this.EtiquetaHeaderImporte);
                         this.Controls.Add(this.EtiquetaHeaderCantidad);
@@ -106,6 +121,7 @@ namespace Lcc.Entrada.Articulos
                         this.Controls.SetChildIndex(this.EtiquetaHeaderCantidad, 0);
                         this.Controls.SetChildIndex(this.EtiquetaHeaderImporte, 0);
                         this.Controls.SetChildIndex(this.EtiquetaHeaderDescuento, 0);
+                        this.Controls.SetChildIndex(this.EtiquetaHeaderIva, 0);
                         this.ResumeLayout(false);
 
                 }
@@ -115,5 +131,6 @@ namespace Lcc.Entrada.Articulos
                 private Lui.Forms.Label EtiquetaHeaderDescuento;
                 private Lui.Forms.Label EtiquetaHeaderCantidad;
                 private Lui.Forms.Label EtiquetaHeaderImporte;
+                private Lui.Forms.Label EtiquetaHeaderIva;
         }
 }

@@ -194,11 +194,15 @@ namespace Lfc
                                 }
                                 if (Resultado.Success) {
                                         this.ControlUnico.AfterSave(Trans);
-                                        if (Trans != null)
+                                        if (Trans != null) {
                                                 Trans.Commit();
+                                                Trans = null;
+                                        }
                                 } else {
-                                        if (Trans != null)
+                                        if (Trans != null) {
                                                 Trans.Rollback();
+                                                Trans = null;
+                                        }
                                 }
                         }
 
@@ -516,12 +520,14 @@ namespace Lfc
                                                         if (Controlador.Transaction != null) {
                                                                 // Puede que la transacción ya haya sido finalizada por el impresor
                                                                 Controlador.Transaction.Rollback();
+                                                                Controlador.Transaction = null;
                                                         }
                                                         Lui.Forms.MessageBox.Show(Res.Message, "Error");
                                                 } else {
                                                         if (Controlador.Transaction != null) {
                                                                 // Puede que la transacción ya haya sido finalizada por el impresor
                                                                 Controlador.Transaction.Commit();
+                                                                Controlador.Transaction = null;
                                                         }
                                                         this.Elemento.Cargar();
                                                         this.FromRow(this.Elemento);

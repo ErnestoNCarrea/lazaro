@@ -56,7 +56,7 @@ namespace Lfc.Tareas
                         this.MatrizArticulos.BloquearAtriculo = false;
                         this.MatrizArticulos.Name = "MatrizArticulos";
                         this.MatrizArticulos.Precio = Lcc.Entrada.Articulos.Precios.Pvp;
-                        this.MatrizArticulos.ShowStock = true;
+                        this.MatrizArticulos.MostrarExistencias = true;
                         this.MatrizArticulos.Size = new System.Drawing.Size(624, 256);
                         this.MatrizArticulos.TabIndex = 1;
                         this.MatrizArticulos.TotalChanged += new System.EventHandler(this.ProductArray_TotalChanged);

@@ -1501,7 +1501,7 @@ LEFT JOIN pg_attribute
 
                 internal void Commit(Transaction transaction)
                 {
-                        if (m_InTransaction == false)
+                        if (m_InTransaction == false && Lfx.Environment.SystemInformation.DesignMode)
                                 throw new InvalidOperationException("Commit sin BeginTransaction");
 
                         transaction.DbTransaction.Commit();

@@ -46,7 +46,7 @@ namespace Lfc.Articulos
                         this.MatrizArticulos.Location = new System.Drawing.Point(24, 24);
                         this.MatrizArticulos.Name = "MatrizArticulos";
                         this.MatrizArticulos.Precio = Lcc.Entrada.Articulos.Precios.Costo;
-                        this.MatrizArticulos.ShowStock = false;
+                        this.MatrizArticulos.MostrarExistencias = false;
                         this.MatrizArticulos.Size = new System.Drawing.Size(584, 272);
                         this.MatrizArticulos.TabIndex = 0;
                         // 

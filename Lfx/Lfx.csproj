@@ -95,6 +95,10 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MicroLite, Version=6.3.0.0, Culture=neutral, PublicKeyToken=08410e6798c4fa37, processorArchitecture=MSIL">
+      <HintPath>..\packages\MicroLite.6.3.1\lib\net40-client\MicroLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -262,6 +266,9 @@
     <EmbeddedResource Include="Data\Struct\db_upd27_pre.sql" />
     <EmbeddedResource Include="Data\Struct\db_upd26_post.sql" />
     <Content Include="Lazaro.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

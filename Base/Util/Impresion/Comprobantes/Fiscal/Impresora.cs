@@ -7,7 +7,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
 {
         public class Impresora
         {
-                public Lbl.Impresion.ModelosFiscales Modelo = Lbl.Impresion.ModelosFiscales.Desconocido;
+                protected Lbl.Impresion.ModelosFiscales m_Modelo = Lbl.Impresion.ModelosFiscales.Desconocido;
                 private Lbl.Comprobantes.PuntoDeVenta m_PuntoDeVenta = null;
                 private System.Text.Encoding DefaultEncoding = System.Text.Encoding.GetEncoding(1252);
 
@@ -21,6 +21,8 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
 
                 public event NotificacionEventHandler Notificacion;
 
+                protected int m_LongitudMaximaDeLinea = 20;
+
                 public Impresora(Lfx.Workspace workspace)
                 {
                         Lfx.Workspace.Master = workspace;
@@ -31,6 +33,27 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 ~Impresora()
                 {
                         this.Terminar();
+                }
+
+
+                public Lbl.Impresion.ModelosFiscales Modelo
+                {
+                        get
+                        {
+                                return m_Modelo;
+                        }
+                        set
+                        {
+                                this.m_Modelo = value;
+                                switch(this.m_Modelo) {
+                                        case Lbl.Impresion.ModelosFiscales.HasarTiquedora:
+                                                m_LongitudMaximaDeLinea = 20;
+                                                break;
+                                        default:
+                                                m_LongitudMaximaDeLinea = 50;
+                                                break;
+                                }
+                        }
                 }
 
 
@@ -666,7 +689,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                                 //0: borra encabezamiento y cola,  -1: borra encabezamiento,  -2: borra cola. 
                                                 Comando EstablecerEncabezadoCola = new Comando(CodigosComandosFiscales.HasarDocumentoEstablecerEncabezadoCola,
                                                                 "12",
-                                                                "        Muchas gracias por su compra");
+                                                                "        Gracias por su compra");
                                                 Res = Enviar(EstablecerEncabezadoCola);
                                         }
 
@@ -722,7 +745,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         StrCodigo = "(" + StrCodigo + ") ";
 
                                 decimal Cantidad = Detalle.Cantidad;
-                                decimal Unitario = Detalle.UnitarioAImprimir;
+                                decimal Unitario = Detalle.UnitarioAImprimirConDescuentoORecargo;
                                 decimal PctIva = 0;
                                 if (Comprob.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
                                         PctIva = 0;
@@ -791,7 +814,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         case Lbl.Impresion.ModelosFiscales.HasarGenerico:
                                                 if (Detalle.DatosSeguimiento != null && Detalle.DatosSeguimiento.Count > 0) {
                                                         ComandoAEnviar = new Comando(CodigosComandosFiscales.HasarDocumentoFiscalTexto,
-                                                                FiscalizarTexto(Detalle.DatosSeguimiento.ToString(), 50),
+                                                                FiscalizarTexto(Detalle.DatosSeguimiento.ToString(), m_LongitudMaximaDeLinea),
                                                                 "0"
                                                                 );
                                                         Res = Enviar(ComandoAEnviar);
@@ -803,21 +826,21 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
 
                                                 if (Unitario < 0) {
                                                         ComandoAEnviar = new Comando(CodigosComandosFiscales.HasarDocumentoFiscalDescuentoGeneral,
-                                                                FiscalizarTexto(ItemNombre, 50),
+                                                                FiscalizarTexto(ItemNombre, m_LongitudMaximaDeLinea),
                                                                 FormatearNumeroHasar(Math.Abs(Unitario), 2),
                                                                 "m",
                                                                 "0",
                                                                 "T");
                                                 } else {
                                                         ComandoAEnviar = new Comando(CodigosComandosFiscales.HasarDocumentoFiscalItem,
-                                                                FiscalizarTexto(ItemNombre, 50),
+                                                                FiscalizarTexto(ItemNombre, m_LongitudMaximaDeLinea),
                                                                 FormatearNumeroHasar(Cantidad, 2),
                                                                 FormatearNumeroHasar(Unitario, 2),
                                                                 FormatearNumeroHasar(PctIva, 2), /* IVA */
                                                                 "M",
                                                                 "0.0", /* Impuestos Interno s */
                                                                 "0", /* Campo Display */
-                                                                "B" /* Precio total o base */
+                                                                Comprob.Tipo.DiscriminaIva ? "B"  : "T" /* Precio total o base */
                                                                 );
                                                 }
                                                 Res = Enviar(ComandoAEnviar);

@@ -126,9 +126,9 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                         Res = null;
                                         for (int i = 0; i < this.Comprobante.Articulos.Count; i++) {
                                                 if (Res == null)
-                                                        Res = Lfx.Types.Formatting.FormatCurrencyForPrint(this.Comprobante.Articulos[i].ImporteConIva, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                        Res = Lfx.Types.Formatting.FormatCurrencyForPrint(this.Comprobante.Articulos[i].ImporteConIvaDiscriminado, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
                                                 else
-                                                        Res += System.Environment.NewLine + Lfx.Types.Formatting.FormatCurrencyForPrint(this.Comprobante.Articulos[i].ImporteConIva, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                        Res += System.Environment.NewLine + Lfx.Types.Formatting.FormatCurrencyForPrint(this.Comprobante.Articulos[i].ImporteConIvaDiscriminado, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
                                         }
                                         return Res;
 
@@ -199,7 +199,12 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                         Res = null;
                                         for (int i = 0; i < this.Comprobante.Articulos.Count; i++) {
                                                 Lbl.Comprobantes.DetalleArticulo Det = this.Comprobante.Articulos[i];
-                                                string Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.UnitarioAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                string Linea;
+                                                if (Comprobante.Tipo.DiscriminaIva) {
+                                                        Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.UnitarioSinIvaConDescuentoORecargo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                } else {
+                                                        Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.UnitarioConIvaConDescuentoORecargo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                }
                                                 if (Res == null)
                                                         Res = Linea;
                                                 else
@@ -231,7 +236,12 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                         Res = null;
                                         for (int i = 0; i < this.Comprobante.Articulos.Count; i++) {
                                                 Lbl.Comprobantes.DetalleArticulo Det = this.Comprobante.Articulos[i];
-                                                string Linea =Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal); 
+                                                string Linea;
+                                                if (Comprobante.Tipo.DiscriminaIva) {
+                                                        Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteSinIva, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                } else {
+                                                        Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteConIva, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                }
                                                 if (Res == null)
                                                         Res = Linea;
                                                 else

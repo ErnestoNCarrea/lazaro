@@ -7,6 +7,7 @@ namespace Lfc.Comprobantes
         public partial class Editar : Lcc.Edicion.ControlEdicion
         {
                 protected internal string TipoPredet = null;
+                protected bool m_DiscriminarIva = false, m_AplicaIva = true;
 
                 public Editar()
                 {
@@ -108,12 +109,13 @@ namespace Lfc.Comprobantes
                         EntradaCliente.Elemento = Comprob.Cliente;
                         Ignorar_EntradaCliente_TextChanged = false;
 
-                        EntradaSubTotal.ValueDecimal = Comprob.SubTotal;
+                        EntradaSubTotal.ValueDecimal = Comprob.SubTotalSinIva;
                         EntradaDescuento.ValueDecimal= Comprob.Descuento;
                         EntradaInteres.ValueDecimal = Comprob.Recargo;
                         EntradaCuotas.ValueInt = Comprob.Cuotas;
 
-                        EntradaIva.ValueDecimal = Comprob.ImporteIva;
+                        EntradaIva.ValueDecimal = Comprob.ImporteIvaDiscriminado;
+                        EntradaSubTotalIva.ValueDecimal = Comprob.SubTotalSinIva + Comprob.ImporteIvaDiscriminado;
                         EntradaTotal.ValueDecimal = Comprob.Total;
 
                         if (this.Elemento.Existe == true || this.PuedeEditar() == false) {
@@ -172,6 +174,42 @@ namespace Lfc.Comprobantes
 
                         base.ActualizarElemento();
                 }
+
+
+                /// <summary>
+                /// Indica si debe mostrar el IVA discriminado.
+                /// </summary>
+                public bool DiscriminarIva
+                {
+                        get
+                        {
+                                return m_DiscriminarIva;
+                        }
+                        set
+                        {
+                                EntradaProductos.DiscriminarIva = value;
+                                this.RecalcularTotal(this, null);
+                        }
+                }
+
+
+                /// <summary>
+                /// Indica si debe aplicar IVA al cliente.
+                /// </summary>
+                public bool AplicaIva
+                {
+                        get
+                        {
+                                return m_AplicaIva;
+                        }
+                        set
+                        {
+                                EntradaProductos.AplicaIva = value;
+                                this.RecalcularTotal(this, null);
+                        }
+                }
+
+
 
                 public override bool TemporaryReadOnly
                 {
@@ -272,29 +310,18 @@ namespace Lfc.Comprobantes
                 private void EntradaProductos_TotalChanged(System.Object sender, System.EventArgs e)
                 {
                         if (this.TemporaryReadOnly == false) {
-                                EntradaSubTotal.ValueDecimal = EntradaProductos.Total;
-                                Lbl.Personas.Persona Cliente = EntradaCliente.Elemento as Lbl.Personas.Persona;
+                                EntradaSubTotal.ValueDecimal = EntradaProductos.SubTotal;
 
-                                decimal ImporteIva = 0;
-
-                                if (Cliente != null) {
-                                        if (Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento)
-                                                // cliente exento
-                                                ImporteIva = 0;
-                                        else if (Cliente.Localidad != null && Cliente.Localidad.ObtenerIva() == Lbl.Impuestos.SituacionIva.Exento)
-                                                // cliente que vive en lugar exento
-                                                ImporteIva = 0;
-                                        else
-                                                // En un cliente normal
-                                                ImporteIva = EntradaProductos.ImporteIva;
-                                } else if(Lbl.Sys.Config.Empresa.AlicuotaPredeterminada.Id == 4) {
-                                        // La alícuota 4 es del 0%
-                                        ImporteIva = 0;
+                                if(EntradaProductos.DiscriminarIva) {
+                                        var ImporteIva = EntradaProductos.ImporteIva;
+                                        EntradaIva.ValueDecimal = ImporteIva;
+                                        EntradaSubTotalIva.ValueDecimal = Math.Round(EntradaSubTotal.ValueDecimal + ImporteIva, Lbl.Sys.Config.Moneda.DecimalesFinal);
                                 } else {
-                                        ImporteIva = EntradaProductos.ImporteIva;
+                                        EntradaIva.ValueDecimal = 0m;
+                                        EntradaSubTotalIva.ValueDecimal = EntradaSubTotal.ValueDecimal;
                                 }
 
-                                EntradaIva.ValueDecimal = ImporteIva;
+                                this.RecalcularTotal(this, null);
                         }
                 }
 
@@ -310,6 +337,10 @@ namespace Lfc.Comprobantes
                         if (Cliente != null && Cliente.Grupo != null && Cliente.Grupo.Descuento > 0 && EntradaDescuento.ValueDecimal == 0) {
                                 EntradaDescuento.ValueDecimal = Cliente.Grupo.Descuento;
                                 // TODO: EntradaDescuento.ShowBalloon("Se aplicó el descuento que corresponde al tipo de cliente.");
+                        }
+
+                        if(Cliente != null) {
+                                EntradaProductos.AplicaIva = Cliente.PagaIva != Lbl.Impuestos.SituacionIva.Exento;
                         }
 
                         if (this.Tipo != null && this.Tipo.EsFacturaNCoND && this.Elemento.Existe == false && Cliente != null) {
@@ -373,7 +404,7 @@ namespace Lfc.Comprobantes
                 }
 
 
-                internal virtual void CambioValores(object sender, System.EventArgs e)
+                internal virtual void RecalcularTotal(object sender, System.EventArgs e)
                 {
                         if (IgnorarEventos)
                                 return;
@@ -382,15 +413,13 @@ namespace Lfc.Comprobantes
 
                         decimal Descuento = EntradaDescuento.ValueDecimal / 100m;
                         decimal Recargo = EntradaInteres.ValueDecimal / 100m;
+                        decimal SubTotal = EntradaSubTotalIva.ValueDecimal;
 
-                        decimal SubTotal = EntradaSubTotal.ValueDecimal;
-                        decimal Total;
-                        if (Lbl.Sys.Config.Moneda.UnidadMonetariaMinima > 0)
-                                Total = Math.Floor((SubTotal * (1 + Recargo - Descuento)) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
-                        else
-                                Total = SubTotal * (1 + Recargo - Descuento);
+                        decimal Total = SubTotal * (1 + Recargo - Descuento);
+                        if (Lbl.Sys.Config.Moneda.UnidadMonetariaMinima > 0) {
+                                Total = Math.Floor(Total / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
+                        }
 
-                        Total += (EntradaIva.ValueDecimal * (1 + Recargo - Descuento));
                         EntradaTotal.ValueDecimal = Total;
 
                         int Cuotas = EntradaCuotas.ValueInt;
@@ -450,8 +479,15 @@ namespace Lfc.Comprobantes
                 {
                         Lbl.Comprobantes.Comprobante Comprob = this.Elemento as Lbl.Comprobantes.Comprobante;
                         if (Comprob != null && Comprob.Tipo != null && Comprob.Tipo.ImprimirAlGuardar) {
-                                using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
-                                        var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
+                                if (transaction == null) {
+                                        using (transaction = this.Connection.BeginTransaction()) {
+                                                var Controlador = new Lazaro.Base.Controller.ComprobanteController(transaction);
+                                                Controlador.Imprimir(Comprob, null);
+                                                transaction.Commit();
+                                                transaction = null;
+                                        }
+                                } else {
+                                        var Controlador = new Lazaro.Base.Controller.ComprobanteController(transaction);
                                         Controlador.Imprimir(Comprob, null);
                                 }
                         }

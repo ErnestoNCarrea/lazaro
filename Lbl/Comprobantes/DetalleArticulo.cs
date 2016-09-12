@@ -49,6 +49,18 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+                public decimal ImporteIva
+                {
+                        get
+                        {
+                                return this.GetFieldValue<decimal>("iva");
+                        }
+                        set
+                        {
+                                this.Registro["iva"] = value;
+                        }
+                }
+
 
                 public decimal Descuento
                 {
@@ -131,6 +143,17 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
+                                return this.Cantidad * this.UnitarioConIva;
+                        }
+                }
+
+                /// <summary>
+                /// Devuelve el importe final a facturar (precio unitario multiplicado por la cantidad, más descuentos y recargos).
+                /// </summary>
+                public decimal ImporteConIvaDiscriminado
+                {
+                        get
+                        {
                                 return this.Cantidad * this.UnitarioConIvaConDescuentoORecargo;
                         }
                 }
@@ -167,7 +190,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.UnitarioAImprimir * (1 + Recargo / 100);
+                                return this.UnitarioAImprimir * (1 + this.Recargo / 100);
                         }
                 }
 
@@ -179,21 +202,24 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                if (this.ElementoPadre == null) {
-                                        return this.UnitarioAImprimirConDescuentoORecargo;
-                                } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                        if (Comprob.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
-                                                return this.Unitario;
-                                        } else if (Comprob.DiscriminaIva) {
-                                                return this.Unitario;
-                                        } else {
-                                                decimal IvaPct = this.ObtenerAlicuota().Porcentaje;
-                                                return Math.Round(this.Unitario * (1 + IvaPct / 100), Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                                        }
-                                } else {
+                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                                if(Comprob != null && Comprob.Tipo.DiscriminaIva) {
                                         return this.Unitario;
+                                } else {
+                                        return this.UnitarioConIva;
                                 }
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve el precio unitario con IVA incluido.
+                /// </summary>
+                public decimal UnitarioConIva
+                {
+                        get
+                        {
+                                return this.Unitario + this.ImporteIva;
                         }
                 }
 
@@ -201,50 +227,14 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el precio unitario a facturar, según la discriminación de IVA del comprobante.
                 /// </summary>
-                public decimal UnitarioConIva
+                public decimal UnitarioConIvaDiscriminado
                 {
                         get
                         {
-                                if (this.ElementoPadre == null) {
-                                        return this.UnitarioAImprimirConDescuentoORecargo;
-                                } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                        if (Comprob.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
-                                                return this.Unitario;
-                                        } else {
-                                                decimal IvaPct = this.ObtenerAlicuota().Porcentaje;
-                                                return Math.Round(this.Unitario * (1 + IvaPct / 100), Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                                        }
-                                } else {
-                                        return this.Unitario;
-                                }
+                                return this.Unitario + this.ImporteIvaDiscriminado;
                         }
                 }
 
-
-
-                /// <summary>
-                /// Devuelve el importe de IVA que corresponde a este artículo.
-                /// </summary>
-                public decimal ImporteIva
-                {
-                        get
-                        {
-                                if (this.ElementoPadre == null) {
-                                        return 0;
-                                } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                        if (Comprob.Cliente.PagaIva != Impuestos.SituacionIva.Exento) {
-                                                decimal IvaPct = this.ObtenerAlicuota().Porcentaje;
-                                                return Math.Round(this.ImporteSinIva * (IvaPct / 100), Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                                        } else {
-                                                return 0;
-                                        }
-                                } else {
-                                        return 0;
-                                }
-                        }
-                }
 
                 /// <summary>
                 /// Devuelve la cantidad de IVA que fue discriminado para este artículo, o 0 si no se discriminó IVA.
@@ -253,17 +243,11 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                if (this.ElementoPadre == null) {
-                                        return 0;
-                                } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                        if (Comprob.DiscriminaIva) {
-                                                return this.ImporteIva;
-                                        } else {
-                                                return 0;
-                                        }
+                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                                if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
+                                        return this.ImporteIva;
                                 } else {
-                                        return 0;
+                                        return 0m;
                                 }
                         }
                 }
@@ -285,7 +269,7 @@ namespace Lbl.Comprobantes
                                         AlicArticulo = this.Articulo.ObtenerAlicuota();
 
                                 if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteConIva;
+                                        return this.ImporteConIvaDiscriminado;
                                 else
                                         return 0;
                         } else {
@@ -487,6 +471,7 @@ namespace Lbl.Comprobantes
 
                         Comando.Fields.AddWithValue("cantidad", this.Cantidad);
                         Comando.Fields.AddWithValue("precio", this.Unitario);
+                        Comando.Fields.AddWithValue("iva", this.ImporteIva);
                         Comando.Fields.AddWithValue("recargo", this.Recargo);
                         if (this.Costo == 0 && this.Articulo != null)
                                 Comando.Fields.AddWithValue("costo", this.Articulo.Costo);

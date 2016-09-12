@@ -131,7 +131,8 @@ namespace Lazaro.WinMain.Misc
                                         Lfx.Workspace.Master.RunTime.Execute("FISCAL INICIAR");
                                 } else {
                                         // Servidor remoto
-                                        Lui.Forms.MessageBox.Show("Se envió una orden de iniciar el servidor fiscal a través de la red. Para que esto funcione es necesario que Lázaro esté abierto en el equipo remoto.", "Iniciar remoto");
+                                        Lfx.Workspace.Master.DefaultScheduler.AddTask("FISAL INICIAR", "lazaro", EstacionFiscal);
+                                        Lui.Forms.MessageBox.Show("Se envió una orden de iniciar el servidor fiscal a través de la red. Para que esto funcione es necesario que Lázaro esté funcionando en el equipo remoto.", "Iniciar remoto");
                                 }
                         } else {
                                 Lfx.Workspace.Master.DefaultScheduler.AddTask("END", "fiscal" + this.Pv.ToString(), "*");

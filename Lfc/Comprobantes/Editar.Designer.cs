@@ -29,6 +29,7 @@ namespace Lfc.Comprobantes
                         this.PnlCuotas = new Lui.Forms.Panel();
                         this.EntradaIva = new Lui.Forms.TextBox();
                         this.EtiquetaIva = new Lui.Forms.Label();
+                        this.EntradaSubTotalIva = new Lui.Forms.TextBox();
                         this.PnlCuotas.SuspendLayout();
                         this.SuspendLayout();
                         // 
@@ -43,12 +44,13 @@ namespace Lfc.Comprobantes
                         this.EntradaProductos.BloquearCantidad = false;
                         this.EntradaProductos.BloquearDescuento = false;
                         this.EntradaProductos.BloquearPrecio = false;
+                        this.EntradaProductos.DiscriminarIva = false;
                         this.EntradaProductos.FreeTextCode = "*";
                         this.EntradaProductos.Location = new System.Drawing.Point(0, 32);
+                        this.EntradaProductos.MostrarExistencias = true;
                         this.EntradaProductos.Name = "EntradaProductos";
                         this.EntradaProductos.Precio = Lcc.Entrada.Articulos.Precios.Pvp;
-                        this.EntradaProductos.ShowStock = true;
-                        this.EntradaProductos.Size = new System.Drawing.Size(640, 264);
+                        this.EntradaProductos.Size = new System.Drawing.Size(960, 264);
                         this.EntradaProductos.TabIndex = 20;
                         this.EntradaProductos.TotalChanged += new System.EventHandler(this.EntradaProductos_TotalChanged);
                         this.EntradaProductos.ObtenerDatosSeguimiento += new System.EventHandler(this.EntradaProductos_ObtenerDatosSeguimiento);
@@ -75,7 +77,7 @@ namespace Lfc.Comprobantes
                         this.EntradaCliente.Name = "EntradaCliente";
                         this.EntradaCliente.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaCliente.Required = true;
-                        this.EntradaCliente.Size = new System.Drawing.Size(272, 24);
+                        this.EntradaCliente.Size = new System.Drawing.Size(480, 24);
                         this.EntradaCliente.TabIndex = 4;
                         this.EntradaCliente.Text = "0";
                         this.EntradaCliente.TextChanged += new System.EventHandler(this.EntradaCliente_TextChanged);
@@ -108,7 +110,7 @@ namespace Lfc.Comprobantes
                         // 
                         this.EntradaTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaTotal.DataType = Lui.Forms.DataTypes.Currency;
-                        this.EntradaTotal.Location = new System.Drawing.Point(496, 328);
+                        this.EntradaTotal.Location = new System.Drawing.Point(816, 328);
                         this.EntradaTotal.Name = "EntradaTotal";
                         this.EntradaTotal.Prefijo = "$";
                         this.EntradaTotal.Size = new System.Drawing.Size(144, 32);
@@ -120,7 +122,7 @@ namespace Lfc.Comprobantes
                         // Label4
                         // 
                         this.Label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label4.Location = new System.Drawing.Point(416, 328);
+                        this.Label4.Location = new System.Drawing.Point(736, 328);
                         this.Label4.Name = "Label4";
                         this.Label4.Size = new System.Drawing.Size(80, 32);
                         this.Label4.TabIndex = 40;
@@ -150,24 +152,24 @@ namespace Lfc.Comprobantes
                         this.EntradaSubTotal.TabIndex = 22;
                         this.EntradaSubTotal.TabStop = false;
                         this.EntradaSubTotal.Text = "0.00";
-                        this.EntradaSubTotal.TextChanged += new System.EventHandler(this.CambioValores);
+                        this.EntradaSubTotal.TextChanged += new System.EventHandler(this.RecalcularTotal);
                         // 
                         // EntradaDescuento
                         // 
                         this.EntradaDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.EntradaDescuento.DataType = Lui.Forms.DataTypes.Float;
-                        this.EntradaDescuento.Location = new System.Drawing.Point(224, 304);
+                        this.EntradaDescuento.Location = new System.Drawing.Point(380, 304);
                         this.EntradaDescuento.Name = "EntradaDescuento";
                         this.EntradaDescuento.Size = new System.Drawing.Size(76, 24);
                         this.EntradaDescuento.Sufijo = "%";
                         this.EntradaDescuento.TabIndex = 24;
                         this.EntradaDescuento.Text = "0.0000";
-                        this.EntradaDescuento.TextChanged += new System.EventHandler(this.CambioValores);
+                        this.EntradaDescuento.TextChanged += new System.EventHandler(this.RecalcularTotal);
                         // 
                         // Label6
                         // 
                         this.Label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.Label6.Location = new System.Drawing.Point(164, 304);
+                        this.Label6.Location = new System.Drawing.Point(320, 304);
                         this.Label6.Name = "Label6";
                         this.Label6.Size = new System.Drawing.Size(60, 24);
                         this.Label6.TabIndex = 23;
@@ -178,18 +180,18 @@ namespace Lfc.Comprobantes
                         // 
                         this.EntradaInteres.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.EntradaInteres.DataType = Lui.Forms.DataTypes.Float;
-                        this.EntradaInteres.Location = new System.Drawing.Point(224, 332);
+                        this.EntradaInteres.Location = new System.Drawing.Point(380, 332);
                         this.EntradaInteres.Name = "EntradaInteres";
                         this.EntradaInteres.Size = new System.Drawing.Size(76, 24);
                         this.EntradaInteres.Sufijo = "%";
                         this.EntradaInteres.TabIndex = 26;
                         this.EntradaInteres.Text = "0.0000";
-                        this.EntradaInteres.TextChanged += new System.EventHandler(this.CambioValores);
+                        this.EntradaInteres.TextChanged += new System.EventHandler(this.RecalcularTotal);
                         // 
                         // Label7
                         // 
                         this.Label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.Label7.Location = new System.Drawing.Point(164, 332);
+                        this.Label7.Location = new System.Drawing.Point(320, 332);
                         this.Label7.Name = "Label7";
                         this.Label7.Size = new System.Drawing.Size(60, 24);
                         this.Label7.TabIndex = 25;
@@ -206,7 +208,7 @@ namespace Lfc.Comprobantes
                         this.EntradaCuotas.Size = new System.Drawing.Size(32, 24);
                         this.EntradaCuotas.TabIndex = 28;
                         this.EntradaCuotas.Text = "0";
-                        this.EntradaCuotas.TextChanged += new System.EventHandler(this.CambioValores);
+                        this.EntradaCuotas.TextChanged += new System.EventHandler(this.RecalcularTotal);
                         // 
                         // Label8
                         // 
@@ -242,7 +244,7 @@ namespace Lfc.Comprobantes
                         // 
                         // EntradaComprobanteId
                         // 
-                        this.EntradaComprobanteId.Location = new System.Drawing.Point(336, 336);
+                        this.EntradaComprobanteId.Location = new System.Drawing.Point(492, 336);
                         this.EntradaComprobanteId.Name = "EntradaComprobanteId";
                         this.EntradaComprobanteId.Size = new System.Drawing.Size(28, 25);
                         this.EntradaComprobanteId.TabIndex = 52;
@@ -251,7 +253,7 @@ namespace Lfc.Comprobantes
                         // label2
                         // 
                         this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label2.Location = new System.Drawing.Point(584, 0);
+                        this.label2.Location = new System.Drawing.Point(904, 0);
                         this.label2.Name = "label2";
                         this.label2.Size = new System.Drawing.Size(24, 24);
                         this.label2.TabIndex = 5;
@@ -262,7 +264,7 @@ namespace Lfc.Comprobantes
                         // 
                         this.EntradaPV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaPV.DataType = Lui.Forms.DataTypes.Integer;
-                        this.EntradaPV.Location = new System.Drawing.Point(608, 0);
+                        this.EntradaPV.Location = new System.Drawing.Point(928, 0);
                         this.EntradaPV.MaxLength = 2;
                         this.EntradaPV.Name = "EntradaPV";
                         this.EntradaPV.Size = new System.Drawing.Size(32, 24);
@@ -276,7 +278,7 @@ namespace Lfc.Comprobantes
                         this.PnlCuotas.Controls.Add(this.EntradaCuotas);
                         this.PnlCuotas.Controls.Add(this.Label9);
                         this.PnlCuotas.Controls.Add(this.EntradaValorCuota);
-                        this.PnlCuotas.Location = new System.Drawing.Point(308, 304);
+                        this.PnlCuotas.Location = new System.Drawing.Point(464, 304);
                         this.PnlCuotas.Name = "PnlCuotas";
                         this.PnlCuotas.Size = new System.Drawing.Size(188, 24);
                         this.PnlCuotas.TabIndex = 27;
@@ -293,7 +295,7 @@ namespace Lfc.Comprobantes
                         this.EntradaIva.TabIndex = 54;
                         this.EntradaIva.TabStop = false;
                         this.EntradaIva.Text = "0.00";
-                        this.EntradaIva.TextChanged += new System.EventHandler(this.CambioValores);
+                        this.EntradaIva.TextChanged += new System.EventHandler(this.RecalcularTotal);
                         // 
                         // EtiquetaIva
                         // 
@@ -305,8 +307,22 @@ namespace Lfc.Comprobantes
                         this.EtiquetaIva.Text = "IVA";
                         this.EtiquetaIva.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
+                        // EntradaSubTotalIva
+                        // 
+                        this.EntradaSubTotalIva.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+                        this.EntradaSubTotalIva.DataType = Lui.Forms.DataTypes.Currency;
+                        this.EntradaSubTotalIva.Location = new System.Drawing.Point(162, 319);
+                        this.EntradaSubTotalIva.Name = "EntradaSubTotalIva";
+                        this.EntradaSubTotalIva.Prefijo = "$";
+                        this.EntradaSubTotalIva.ReadOnly = true;
+                        this.EntradaSubTotalIva.Size = new System.Drawing.Size(92, 24);
+                        this.EntradaSubTotalIva.TabIndex = 55;
+                        this.EntradaSubTotalIva.TabStop = false;
+                        this.EntradaSubTotalIva.Text = "0.00";
+                        // 
                         // Editar
                         // 
+                        this.Controls.Add(this.EntradaSubTotalIva);
                         this.Controls.Add(this.EntradaIva);
                         this.Controls.Add(this.EtiquetaIva);
                         this.Controls.Add(this.PnlCuotas);
@@ -328,7 +344,7 @@ namespace Lfc.Comprobantes
                         this.Controls.Add(this.EntradaProductos);
                         this.MinimumSize = new System.Drawing.Size(600, 360);
                         this.Name = "Editar";
-                        this.Size = new System.Drawing.Size(640, 360);
+                        this.Size = new System.Drawing.Size(960, 360);
                         this.PnlCuotas.ResumeLayout(false);
                         this.ResumeLayout(false);
                         this.PerformLayout();
@@ -360,5 +376,6 @@ namespace Lfc.Comprobantes
                 internal Lui.Forms.Panel PnlCuotas;
                 internal Lui.Forms.TextBox EntradaIva;
                 internal Lui.Forms.Label EtiquetaIva;
+                internal Lui.Forms.TextBox EntradaSubTotalIva;
         }
 }

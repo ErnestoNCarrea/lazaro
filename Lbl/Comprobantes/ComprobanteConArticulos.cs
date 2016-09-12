@@ -237,7 +237,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Tipo.Letra == "A";
+                                return this.Tipo.DiscriminaIva;
                         }
                 }
 
@@ -363,7 +363,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return Math.Round(this.SubTotalSinIva + this.ImporteIva, 4);
+                                return Math.Round(this.SubTotalSinIva + this.ImporteIvaDiscriminado, 4);
                                 /* decimal Res = 0;
                                 foreach (Lbl.Comprobantes.DetalleArticulo Art in Articulos) {
                                         Res += Art.ImporteConIva;
@@ -491,7 +491,7 @@ namespace Lbl.Comprobantes
 
                                 decimal Res = 0;
                                 foreach (DetalleArticulo Det in this.Articulos) {
-                                        Res += Det.ImporteIvaDiscriminado;
+                                        Res += Det.ImporteIvaDiscriminado * Det.Cantidad;
                                 }
                                 return Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4);
                         }
@@ -1055,7 +1055,7 @@ namespace Lbl.Comprobantes
                                                 else
                                                         Comando.Fields.AddWithValue("costo", Art.Costo);
                                                 Comando.Fields.AddWithValue("importe", Art.ImporteAImprimir);
-                                                Comando.Fields.AddWithValue("total", Art.ImporteConIva);
+                                                Comando.Fields.AddWithValue("total", Art.ImporteConIvaDiscriminado);
                                                 Comando.Fields.AddWithValue("series", Art.DatosSeguimiento);
                                                 Comando.Fields.AddWithValue("obs", Art.Obs);
 

@@ -139,6 +139,10 @@ namespace Lfc.Comprobantes.Facturas
                         }
 
                         EntradaTipo.TextKey = Res.Tipo.Nomenclatura;
+                        this.DiscriminarIva = Res.Tipo.DiscriminaIva;
+                        if (Res.Cliente != null) {
+                                this.AplicaIva = Res.Cliente.PagaIva != Lbl.Impuestos.SituacionIva.Exento;
+                        }
 
                         if (Res.IdRemito == 0)
                                 EntradaRemito.Text = "";
@@ -226,7 +230,7 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                                 }
                         }
 
-                        if (EntradaProductos.ShowStock && this.Tipo.MueveExistencias < 0 && Comprob.HayExistencias() == false) {
+                        if (EntradaProductos.MostrarExistencias && this.Tipo.MueveExistencias < 0 && Comprob.HayExistencias() == false) {
                                 Lui.Forms.YesNoDialog OPregunta = new Lui.Forms.YesNoDialog("Las existencias actuales no son suficientes para cubrir la operación que intenta realizar.\n¿Desea continuar de todos modos?", "No hay existencias suficientes");
                                 OPregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                 if (OPregunta.ShowDialog() == DialogResult.Cancel)
@@ -356,6 +360,7 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                 private void EntradaTipo_TextChanged(object sender, System.EventArgs e)
                 {
                         this.Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra[EntradaTipo.TextKey];
+                        this.DiscriminarIva = this.Tipo.DiscriminaIva;
                 }
 
 
@@ -511,11 +516,11 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                         if (RemitoId > 0) {
                                 Lfx.Data.Row Remito = this.Connection.FirstRowFromSelect("SELECT * FROM comprob WHERE tipo_fac='R' AND numero=" + RemitoId.ToString() + " AND impresa>0 AND anulada=0");
                                 if (Remito == null)
-                                        EntradaProductos.ShowStock = true;
+                                        EntradaProductos.MostrarExistencias = true;
                                 else
-                                        EntradaProductos.ShowStock = false;
+                                        EntradaProductos.MostrarExistencias = false;
                         } else {
-                                EntradaProductos.ShowStock = true;
+                                EntradaProductos.MostrarExistencias = true;
                         }
                 }
 

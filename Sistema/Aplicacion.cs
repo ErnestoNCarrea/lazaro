@@ -668,7 +668,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Process[] ServidoresFiscales = Process.GetProcessesByName("ServidorFiscal.exe");
                                         if (ServidoresFiscales.Length == 0) {
                                                 // Si no hay ninguno, lo inicio
-                                                Lazaro.WinMain.Ejecutor.Exec("RUN ServidorFiscal.ServidorFiscal", null);
+                                                Lfx.Workspace.Master.RunTime.Execute("FISCAL INICIAR");
                                         }
                                         break;
                                 }

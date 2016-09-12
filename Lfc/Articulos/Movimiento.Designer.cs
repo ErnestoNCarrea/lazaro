@@ -292,7 +292,7 @@ namespace Lfc.Articulos
                         this.EntradaArticulo.Location = new System.Drawing.Point(136, 176);
                         this.EntradaArticulo.MaximumSize = new System.Drawing.Size(480, 64);
                         this.EntradaArticulo.MuestraPrecio = false;
-                        this.EntradaArticulo.MuestraStock = false;
+                        this.EntradaArticulo.MostrarExistencias = false;
                         this.EntradaArticulo.Name = "EntradaArticulo";
                         this.EntradaArticulo.PermiteCrear = false;
                         this.EntradaArticulo.Precio = Lcc.Entrada.Articulos.Precios.Pvp;

@@ -503,7 +503,7 @@ namespace Lui.Forms
                                 if (this.TextKey != ValorAnterior) {
                                         if (ItemList.SelectedItem != null)
                                                 this.Text = ItemList.SelectedItem.ToString();
-                                        this.OnTextChanged(EventArgs.Empty);
+                                        //this.OnTextChanged(EventArgs.Empty);
                                 }
                         }
                 }

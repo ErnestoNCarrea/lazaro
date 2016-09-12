@@ -10,13 +10,14 @@ namespace Lcc.Entrada.Articulos
         {
                 private Lbl.Comprobantes.ColeccionDetalleArticulos m_Articulos = null;
 
-                private bool m_ShowStock;
+                private bool m_MostrarExistencias;
                 private string m_FreeTextCode = "";
                 private bool m_BloquearAtriculo;
                 private bool m_BloquearPrecio;
                 private bool m_AutoUpdate = true;
                 private bool m_BloquearCantidad;
                 private bool m_BloquearDescuento = false;
+                private bool m_DiscriminarIva = false, m_AplicaIva = true;
                 private Precios m_Precio = Precios.Pvp;
 
                 public event System.EventHandler TotalChanged;
@@ -67,7 +68,8 @@ namespace Lcc.Entrada.Articulos
 
                                         this.ChildControls[i].TextDetail = articulos[i].Nombre;
                                         this.ChildControls[i].Cantidad = articulos[i].Cantidad;
-                                        this.ChildControls[i].Unitario = articulos[i].Unitario;
+                                        this.ChildControls[i].ImporteUnitario = articulos[i].Unitario;
+                                        this.ChildControls[i].ImporteUnitarioIva = articulos[i].ImporteIvaDiscriminado;
                                         this.ChildControls[i].Descuento = articulos[i].Descuento;
                                         this.ChildControls[i].DatosSeguimiento = articulos[i].DatosSeguimiento;
                                 }
@@ -86,7 +88,7 @@ namespace Lcc.Entrada.Articulos
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
-                                        DetArt.Unitario = Pro.Unitario;
+                                        DetArt.Unitario = Pro.ImporteUnitario;
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;
                                         m_Articulos.Add(DetArt);
@@ -112,7 +114,12 @@ namespace Lcc.Entrada.Articulos
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
-                                        DetArt.Unitario = Pro.Unitario;
+                                        DetArt.Unitario = Pro.ImporteUnitario;
+                                        if (this.AplicaIva) {
+                                                DetArt.ImporteIva = Pro.ImporteUnitarioIva;
+                                        } else {
+                                                DetArt.ImporteIva = 0;
+                                        }
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;
                                         m_Articulos.Add(DetArt);
@@ -175,6 +182,9 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                /// <summary>
+                /// Devuelve o establece si utiliza precio de costo o de venta.
+                /// </summary>
                 public Precios Precio
                 {
                         get
@@ -191,6 +201,9 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                /// <summary>
+                /// Devuelve o establece el valor que indica si se puede cambiar el artículo.
+                /// </summary>
                 public bool BloquearAtriculo
                 {
                         get
@@ -207,6 +220,9 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                /// <summary>
+                /// Devuelve o establece el valor que indica si se puede cambiar la cantidad.
+                /// </summary>
                 public bool BloquearCantidad
                 {
                         get
@@ -223,6 +239,9 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                /// <summary>
+                /// Devuelve o establece el valor que indica si se puede cambiar el precio.
+                /// </summary>
                 public bool BloquearPrecio
                 {
                         get
@@ -239,7 +258,9 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
-
+                /// <summary>
+                /// Devuelve o establece el valor que indica si se puede cambiar el descuento.
+                /// </summary>
                 public bool BloquearDescuento
                 {
                         get
@@ -256,17 +277,58 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
-                public bool ShowStock
+                /// <summary>
+                /// Devuelve o establece el valor que indica si se muestra en rojo cuando hay existencias.
+                /// </summary>
+                public bool MostrarExistencias
                 {
                         get
                         {
-                                return m_ShowStock;
+                                return m_MostrarExistencias;
                         }
                         set
                         {
-                                m_ShowStock = value;
+                                m_MostrarExistencias = value;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Control.MuestraStock = m_ShowStock;
+                                        Control.MostrarExistencias = m_MostrarExistencias;
+                                }
+                        }
+                }
+
+
+                /// <summary>
+                /// Indica si los precios se muestran con IVA discriminado.
+                /// </summary>
+                public bool DiscriminarIva
+                {
+                        get
+                        {
+                                return m_DiscriminarIva;
+                        }
+                        set
+                        {
+                                m_DiscriminarIva = value;
+                                foreach (DetalleComprobante Control in this.ChildControls) {
+                                        Control.DiscriminarIva = m_DiscriminarIva;
+                                }
+                        }
+                }
+
+
+                /// <summary>
+                /// Indica si debe aplicar IVA al cliente.
+                /// </summary>
+                public bool AplicaIva
+                {
+                        get
+                        {
+                                return m_AplicaIva;
+                        }
+                        set
+                        {
+                                m_AplicaIva = value;
+                                foreach (DetalleComprobante Control in this.ChildControls) {
+                                        Control.AplicaIva = value;
                                 }
                         }
                 }
@@ -308,15 +370,20 @@ namespace Lcc.Entrada.Articulos
                         {
                                 decimal Res = 0;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Lbl.Impuestos.Alicuota Alic;
-                                        if (Control.Articulo == null) {
-                                                Alic = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
-                                        } else {
-                                                Alic = Control.Articulo.ObtenerAlicuota();
-                                        }
+                                        Res += Control.ImporteUnitarioIva * (1 - Control.Descuento / 100) * Control.Cantidad;
+                                }
+                                return Res;
+                        }
+                }
 
-                                        if (Alic.Porcentaje > 0)
-                                                Res += Control.Importe * Alic.Porcentaje / 100m;
+
+                public decimal SubTotal
+                {
+                        get
+                        {
+                                decimal Res = 0;
+                                foreach (DetalleComprobante Control in this.ChildControls) {
+                                        Res += Control.ImporteUnitario * (1 - Control.Descuento / 100) * Control.Cantidad;
                                 }
                                 return Res;
                         }
@@ -347,6 +414,8 @@ namespace Lcc.Entrada.Articulos
                         Ctrl.Precio = this.Precio;
                         Ctrl.AutoUpdate = m_AutoUpdate;
                         Ctrl.FreeTextCode = this.FreeTextCode;
+                        Ctrl.DiscriminarIva = m_DiscriminarIva;
+                        Ctrl.AplicaIva = m_AplicaIva;
 
                         return Ctrl;
                 }
@@ -419,8 +488,11 @@ namespace Lcc.Entrada.Articulos
                                 EtiquetaHeaderDetalle.Width = Ctrl.UnitarioLeft - 1;
 
                                 EtiquetaHeaderUnitario.Left = Ctrl.UnitarioLeft;
-                                EtiquetaHeaderUnitario.Width = Ctrl.CantidadLeft - EtiquetaHeaderUnitario.Left - 1;
-                                                                
+                                EtiquetaHeaderUnitario.Width = Ctrl.IvaLeft - EtiquetaHeaderUnitario.Left - 1;
+
+                                EtiquetaHeaderIva.Left = Ctrl.IvaLeft;
+                                EtiquetaHeaderIva.Width = Ctrl.CantidadLeft - EtiquetaHeaderUnitario.Left - 1;
+
                                 EtiquetaHeaderCantidad.Left = Ctrl.CantidadLeft;
                                 EtiquetaHeaderCantidad.Width = Ctrl.DescuentoLeft - EtiquetaHeaderCantidad.Left - 1;
 

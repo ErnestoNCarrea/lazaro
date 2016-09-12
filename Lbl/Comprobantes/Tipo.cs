@@ -239,6 +239,18 @@ namespace Lbl.Comprobantes
 
 
                 /// <summary>
+                /// Devuelve True si el comprobante discrimina IVA el los precios de los detalles (por ejemplo en Argentina factura A).
+                /// </summary>
+                public bool DiscriminaIva
+                {
+                        get
+                        {
+                                return this.Letra == "A";
+                        }
+                }
+
+
+                /// <summary>
                 /// La nomenclatura del tipo de comprobante (A, B, NCA, NDE, etc.). Está formada por el TipoBase y la Letra.
                 /// </summary>
                 public string Nomenclatura
