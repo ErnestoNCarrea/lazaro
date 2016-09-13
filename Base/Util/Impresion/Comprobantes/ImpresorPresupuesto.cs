@@ -163,7 +163,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                 Rect = new RectangleF(MarginLeft + 70, iTop, PrintAreaWidth - MarginLeft - 160, 20);
                                 e.Graphics.DrawString(Detalle.Nombre, Fuente, Brushes.Black, Rect, FormatoLC);
                                 Rect = new RectangleF(MarginLeft + PrintAreaWidth - 200, iTop, 100, 20);
-                                e.Graphics.DrawString(Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatNumber(Detalle.Unitario, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto), Fuente, Brushes.Black, Rect, FormatoRC);
+                                e.Graphics.DrawString(Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatNumber(Detalle.ImporteUnitario, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto), Fuente, Brushes.Black, Rect, FormatoRC);
                                 Rect = new RectangleF(MarginLeft + PrintAreaWidth - 100, iTop, 100, 20);
                                 e.Graphics.DrawString(Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatNumber(Detalle.ImporteAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto), Fuente, Brushes.Black, Rect, FormatoRC);
                                 iTop += 20;
@@ -230,7 +230,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                 iTop = iTopOld;
                                 Fuente = new Font("Arial", 12);
                                 Rect = new RectangleF(MarginLeft + PrintAreaWidth - 200, iTop, 200, 20);
-                                e.Graphics.DrawString("Subtotal: " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Presupuesto.SubTotal, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales), Fuente, Brushes.Black, Rect, FormatoRC);
+                                e.Graphics.DrawString("Subtotal: " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Presupuesto.Subtotal, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales), Fuente, Brushes.Black, Rect, FormatoRC);
                                 iTop += System.Convert.ToInt32(Rect.Height + 4);
 
                                 Fuente.Dispose();

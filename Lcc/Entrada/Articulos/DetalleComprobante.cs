@@ -10,14 +10,14 @@ namespace Lcc.Entrada.Articulos
 {
         public partial class DetalleComprobante : ControlSeleccionElemento
         {
-                protected bool m_MostrarExistencias, m_DiscriminarIva = false, m_AplicaIva = true;
+                protected bool m_MostrarExistencias, m_DiscriminarIva = false, m_AplicarIva = true;
                 protected Precios m_Precio = Precios.Pvp;
                 protected ControlesSock m_ControlStock = ControlesSock.Ambos;
                 protected Lbl.Articulos.ColeccionDatosSeguimiento m_DatosSeguimiento = new Lbl.Articulos.ColeccionDatosSeguimiento();
                 protected Lbl.Impuestos.Alicuota m_Alicuota = null;
 
                 new public event System.Windows.Forms.KeyEventHandler KeyDown;
-                public event System.EventHandler PrecioCantidadChanged;
+                public event System.EventHandler ImportesChanged;
                 public event System.EventHandler ObtenerDatosSeguimiento;
 
                 public DetalleComprobante()
@@ -138,8 +138,9 @@ namespace Lcc.Entrada.Articulos
                         }
                         set
                         {
-                                if (m_DatosSeguimiento != value)
+                                if (m_DatosSeguimiento != value) {
                                         this.Changed = true;
+                                }
                                 m_DatosSeguimiento = value;
                                 if (m_DatosSeguimiento == null || m_DatosSeguimiento.Count == 0) {
                                         LabelSerials.Visible = false;
@@ -181,7 +182,7 @@ namespace Lcc.Entrada.Articulos
                 {
                         get
                         {
-                                return EntradaArticulo.Changed || EntradaCantidad.Changed || EntradaUnitario.Changed;
+                                return EntradaArticulo.Changed || EntradaCantidad.Changed || EntradaUnitario.Changed || EntradaDescuento.Changed;
                         }
                         set
                         {
@@ -192,7 +193,7 @@ namespace Lcc.Entrada.Articulos
                         }
                 }
 
-                public Precios Precio
+                public Precios UsarPrecio
                 {
                         get
                         {
@@ -201,7 +202,7 @@ namespace Lcc.Entrada.Articulos
                         set
                         {
                                 m_Precio = value;
-                                EntradaArticulo_TextChanged(null, null);
+                                this.CambiarArticulo(this.Articulo);
                                 this.Changed = false;
                         }
                 }
@@ -285,8 +286,30 @@ namespace Lcc.Entrada.Articulos
                         }
                         set
                         {
+                                bool AntesDiscriminaba = m_DiscriminarIva;
                                 m_DiscriminarIva = value;
-                                EntradaIva.Enabled = this.DiscriminarIva && this.AplicaIva;
+                                EntradaIva.Enabled = this.DiscriminarIva && this.AplicarIva;
+
+                                if (m_DiscriminarIva != AntesDiscriminaba && m_AplicarIva && m_Alicuota != null) {
+                                        if (value) {
+                                                // Antes no discriminaba y ahora sí
+                                                decimal ImporteUnitarioIva = this.ImporteUnitario - (this.ImporteUnitario / (1 + m_Alicuota.Porcentaje / 100m));
+                                                this.ImporteUnitarioIva = ImporteUnitarioIva;
+                                                this.ImporteUnitario -= ImporteUnitarioIva;
+                                        } else {
+                                                // Antes discriminaba y ahora no
+                                                this.ImporteUnitario += this.ImporteUnitarioIva;
+                                                this.ImporteUnitarioIva = 0m;
+                                        }
+
+                                        this.RecalcularImportes();
+
+                                        if (null != ImportesChanged) {
+                                                ImportesChanged(this, null);
+                                        }
+                                }
+
+                                
                                 this.RecalcularImportes();
                         }
                 }
@@ -295,17 +318,42 @@ namespace Lcc.Entrada.Articulos
                 /// <summary>
                 /// Indica si debe aplicar IVA al cliente.
                 /// </summary>
-                public bool AplicaIva
+                public bool AplicarIva
                 {
                         get
                         {
-                                return m_AplicaIva;
+                                return m_AplicarIva;
                         }
                         set
                         {
-                                m_AplicaIva = value;
-                                EntradaIva.Enabled = this.DiscriminarIva && this.AplicaIva;
-                                this.RecalcularImportes();
+                                bool AntesAplicaba = m_AplicarIva;
+                                m_AplicarIva = value;
+                                EntradaIva.Enabled = this.DiscriminarIva && this.AplicarIva;
+
+                                if (m_AplicarIva != AntesAplicaba && m_Alicuota != null) {
+                                        decimal ImporteUnitarioIva = this.ImporteUnitario * (m_Alicuota.Porcentaje / 100m);
+                                        if (value) {
+                                                // Antes no aplicaba y ahora sí
+                                                if (this.DiscriminarIva) {
+                                                        this.ImporteUnitarioIva = ImporteUnitarioIva;
+                                                } else {
+                                                        this.ImporteUnitario += ImporteUnitarioIva;
+                                                }
+                                        } else {
+                                                // Antes aplicaba y ahora no
+                                                if (this.DiscriminarIva) {
+                                                        this.ImporteUnitarioIva = 0m;
+                                                } else {
+                                                        this.ImporteUnitario -= ImporteUnitarioIva;
+                                                }
+                                        }
+
+                                        this.RecalcularImportes();
+
+                                        if (null != ImportesChanged) {
+                                                ImportesChanged(this, null);
+                                        }
+                                }
                         }
                 }
 
@@ -386,8 +434,9 @@ namespace Lcc.Entrada.Articulos
                         }
                         set
                         {
-                                if (EntradaArticulo.Text != value)
+                                if (EntradaArticulo.Text != value) {
                                         EntradaArticulo.Text = value;
+                                }
                                 this.Changed = false;
                         }
                 }
@@ -405,8 +454,11 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                /// <summary>
+                /// El importe final, con IVA, por cantidad y con descuento.
+                /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public decimal Importe
+                public decimal ImporteFinal
                 {
                         get
                         {
@@ -419,7 +471,9 @@ namespace Lcc.Entrada.Articulos
                         }
                 }
 
-
+                /// <summary>
+                /// El importe de IVA ingresado (sin descuento), por unidad.
+                /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
                 public decimal ImporteUnitarioIva
                 {
@@ -431,6 +485,18 @@ namespace Lcc.Entrada.Articulos
                         {
                                 EntradaIva.ValueDecimal = value;
                                 this.Changed = false;
+                        }
+                }
+
+                /// <summary>
+                /// El importe de IVA final, por cantidad y con descuento.
+                /// </summary>
+                [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+                public decimal ImporteUnitarioIvaFinal
+                {
+                        get
+                        {
+                                return this.ImporteUnitarioIva * this.Cantidad * (1m - this.Descuento / 100m);
                         }
                 }
 
@@ -446,6 +512,18 @@ namespace Lcc.Entrada.Articulos
                         {
                                 EntradaUnitario.ValueDecimal = value;
                                 this.Changed = false;
+                        }
+                }
+
+                /// <summary>
+                /// El importe unitario final, por cantidad y con descuento.
+                /// </summary>
+                [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+                public decimal ImporteUnitarioFinal
+                {
+                        get
+                        {
+                                return this.ImporteUnitario * this.Cantidad * (1m - this.Descuento / 100m);
                         }
                 }
 
@@ -521,51 +599,10 @@ namespace Lcc.Entrada.Articulos
                                 if (this.Articulo != null) {
                                         this.m_Alicuota = this.Articulo.ObtenerAlicuota();
                                 }
+                                this.CambiarArticulo(this.Articulo);
                         }
 
                         this.DatosSeguimiento = null;
-
-                        if (this.Articulo != null) {
-                                EntradaUnitario.Enabled = true;
-                                EntradaUnitario.Enabled = true;
-                                EntradaDescuento.Enabled = true;
-                                EntradaCantidad.Enabled = true;
-                                EntradaImporte.Enabled = true;
-                                EntradaCantidad.TemporaryReadOnly = this.Articulo.ObtenerSeguimiento() != Lbl.Articulos.Seguimientos.Ninguno || this.TemporaryReadOnly;
-                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                if (this.AutoUpdate) {
-                                        this.RecalcularImportes();
-                                }
-                        } else if (EntradaArticulo.Text == EntradaArticulo.FreeTextCode && EntradaArticulo.FreeTextCode.Length > 0) {
-                                EntradaUnitario.Enabled = true;
-                                EntradaDescuento.Enabled = true;
-                                EntradaCantidad.Enabled = true;
-                                EntradaCantidad.TemporaryReadOnly = this.TemporaryReadOnly;
-                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                EntradaImporte.Enabled = true;
-                                if (this.AutoUpdate) {
-                                        if (this.Cantidad == 0)
-                                                this.Cantidad = 1;
-                                }
-                        } else if (EntradaArticulo.Text.Length == 0 || (EntradaArticulo.Text.IsNumericInt() && EntradaArticulo.ValueInt == 0)) {
-                                EntradaUnitario.Enabled = false;
-                                EntradaDescuento.Enabled = false;
-                                EntradaCantidad.Enabled = false;
-                                EntradaCantidad.TemporaryReadOnly = this.TemporaryReadOnly;
-                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
-                                EntradaImporte.Enabled = false;
-                                if (this.AutoUpdate) {
-                                        EntradaCantidad.ValueDecimal = 0;
-                                        EntradaImporte.ValueDecimal = 0;
-                                        EntradaIva.ValueDecimal = 0;
-                                        EntradaUnitario.ValueDecimal = 0;
-                                        EntradaDescuento.ValueDecimal = 0;
-                                }
-                        }
-
                         this.Changed = true;
                         this.OnTextChanged(EventArgs.Empty);
                 }
@@ -574,23 +611,14 @@ namespace Lcc.Entrada.Articulos
                 private void EntradaUnitarioIvaDescuentoCantidad_TextChanged(object sender, System.EventArgs e)
                 {
                         if (this.Connection != null) {
-                                if(sender == EntradaUnitario) {
-                                        if (this.AplicaIva && this.DiscriminarIva && m_Alicuota != null) {
-                                                var ImporteIva = Math.Ceiling(EntradaUnitario.ValueDecimal * m_Alicuota.Porcentaje / 100m * 10000m) / 10000m;
-                                                EntradaIva.ValueDecimal = ImporteIva;
-                                        }
-                                }
-
                                 decimal ValorAnterior = EntradaImporte.ValueDecimal;
-                                try {
-                                        EntradaImporte.ValueDecimal = (EntradaUnitario.ValueDecimal + EntradaIva.ValueDecimal) * this.Cantidad * (1 - this.Descuento / 100);
-                                } catch {
-                                        EntradaImporte.ValueDecimal = 0;
-                                }
-                                VerificarStock();
-                                this.Changed = true;
-                                if (null != PrecioCantidadChanged && EntradaImporte.ValueDecimal != ValorAnterior) {
-                                        PrecioCantidadChanged(this, null);
+                                this.RecalcularImportes();
+                                this.VerificarStock();
+                                if (EntradaImporte.ValueDecimal != ValorAnterior) {
+                                        this.Changed = true;
+                                        if (null != ImportesChanged) {
+                                                ImportesChanged(this, null);
+                                        }
                                 }
                         }
                 }
@@ -851,49 +879,116 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
+                protected void CambiarArticulo(Lbl.Articulos.Articulo articulo)
+                {
+                        if (this.Articulo != null) {
+                                EntradaUnitario.Enabled = true;
+                                EntradaUnitario.Enabled = true;
+                                EntradaDescuento.Enabled = true;
+                                EntradaCantidad.Enabled = true;
+                                EntradaImporte.Enabled = true;
+                                EntradaCantidad.TemporaryReadOnly = this.Articulo.ObtenerSeguimiento() != Lbl.Articulos.Seguimientos.Ninguno || this.TemporaryReadOnly;
+                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                if (this.AutoUpdate) {
+                                        if (this.Articulo == null) {
+                                                return;
+                                        }
+
+                                        if (this.Articulo.Unidad != "u") {
+                                                EntradaCantidad.Sufijo = Articulo.Unidad;
+                                        } else {
+                                                EntradaCantidad.Sufijo = "";
+                                        }
+
+                                        decimal UnitarioMostrar;
+                                        if (m_Precio == Precios.Costo) {
+                                                UnitarioMostrar = Articulo.Costo;
+                                        } else {
+                                                UnitarioMostrar = Articulo.Pvp;
+                                        }
+
+                                        decimal UnitarioIvaMostrar = 0m;
+                                        
+                                        if (m_AplicarIva && m_Alicuota != null) {
+                                                // Aplicar IVA
+                                                UnitarioIvaMostrar = UnitarioMostrar * (m_Alicuota.Porcentaje / 100m);
+                                                if (m_DiscriminarIva == false) {
+                                                        // Aplica IVA, pero no lo discrimina
+                                                        UnitarioMostrar = UnitarioMostrar + UnitarioIvaMostrar;
+                                                        UnitarioIvaMostrar = 0m;
+                                                }
+                                        }
+
+                                        EntradaUnitario.ValueDecimal = UnitarioMostrar;
+                                        EntradaIva.ValueDecimal = UnitarioIvaMostrar;
+                                        
+                                        this.RecalcularImportes();
+                                }
+                        } else if (EntradaArticulo.Text == EntradaArticulo.FreeTextCode && EntradaArticulo.FreeTextCode.Length > 0) {
+                                EntradaUnitario.Enabled = true;
+                                EntradaDescuento.Enabled = true;
+                                EntradaCantidad.Enabled = true;
+                                EntradaCantidad.TemporaryReadOnly = this.TemporaryReadOnly;
+                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                EntradaImporte.Enabled = true;
+                                if (this.AutoUpdate) {
+                                        if (this.Cantidad == 0)
+                                                this.Cantidad = 1;
+                                }
+                        } else if (EntradaArticulo.Text.Length == 0 || (EntradaArticulo.Text.IsNumericInt() && EntradaArticulo.ValueInt == 0)) {
+                                EntradaUnitario.Enabled = false;
+                                EntradaDescuento.Enabled = false;
+                                EntradaCantidad.Enabled = false;
+                                EntradaCantidad.TemporaryReadOnly = this.TemporaryReadOnly;
+                                EntradaUnitario.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
+                                EntradaImporte.Enabled = false;
+                                if (this.AutoUpdate) {
+                                        EntradaCantidad.ValueDecimal = 0m;
+                                        EntradaImporte.ValueDecimal = 0m;
+                                        EntradaIva.ValueDecimal = 0m;
+                                        EntradaUnitario.ValueDecimal = 0m;
+                                        EntradaDescuento.ValueDecimal = 0m;
+                                }
+                        }
+                }
+
+
                 protected void RecalcularImportes()
                 {
-                        if(this.Articulo == null) {
-                                return;
-                        }
+                        decimal UnitarioMostrar = EntradaUnitario.ValueDecimal;
+                        decimal UnitarioIvaMostrar = 0m;
 
-                        if (this.Articulo.Unidad != "u")
-                                EntradaCantidad.Sufijo = Articulo.Unidad;
-                        else
-                                EntradaCantidad.Sufijo = "";
-
-                        decimal PrecioMostrar = 0m;
-                        if (m_Precio == Precios.Costo) {
-                                PrecioMostrar = Articulo.Costo;
-                        } else {
-                                PrecioMostrar = Articulo.Pvp;
-                        }
-
-                        decimal ImporteIva = 0m;
-
-                        if (m_Alicuota != null) {
-                                ImporteIva = Math.Ceiling(PrecioMostrar * m_Alicuota.Porcentaje / 100m * 10000m) / 10000m;
-                        }
-
-                        if (m_AplicaIva) {
-                                if (m_DiscriminarIva == false) {
-                                        // Aplica IVA, pero no lo discrimina
-                                        PrecioMostrar = PrecioMostrar + ImporteIva;
-                                        ImporteIva = 0m;
-                                }
-                        } else {
-                                // No aplica IVA
-                                ImporteIva = 0m;
-                        }
-
-                        EntradaUnitario.ValueDecimal = PrecioMostrar;
-                        EntradaIva.ValueDecimal = ImporteIva;
-
-                        if (m_MostrarExistencias)
-                                VerificarStock();
-
-                        if (this.Cantidad == 0)
+                        if (this.Cantidad == 0) {
                                 this.Cantidad = 1;
+                        }
+
+                        if (m_AplicarIva && m_DiscriminarIva && m_Alicuota != null) {
+                                UnitarioIvaMostrar = UnitarioMostrar * (m_Alicuota.Porcentaje / 100m);
+                        } else {
+                                // No aplica IVA, no discrimina o no se conoce la alícuota
+                                UnitarioIvaMostrar = 0m;
+                        }
+
+                        /* if (UnitarioMostrar != EntradaUnitario.ValueDecimal) {
+                                EntradaUnitario.ValueDecimal = UnitarioMostrar;
+                        } */
+                        if (UnitarioIvaMostrar != EntradaIva.ValueDecimal) {
+                                EntradaIva.ValueDecimal = UnitarioIvaMostrar;
+                        }
+
+                        try {
+                                decimal ImporteFinal = (UnitarioMostrar + UnitarioIvaMostrar) * this.Cantidad * (1m - this.Descuento / 100m);
+                                EntradaImporte.ValueDecimal = ImporteFinal;
+                        } catch {
+                                EntradaImporte.ValueDecimal = 0m;
+                        }
+
+                        if (m_MostrarExistencias) {
+                                VerificarStock();
+                        }
                 }
         }
 }

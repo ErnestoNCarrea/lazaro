@@ -132,9 +132,9 @@ namespace Lbl.Comprobantes
                         get
                         {
                                 if (Lbl.Sys.Config.Moneda.UnidadMonetariaMinima > 0)
-                                        return Math.Floor((SubTotal * this.Descuento / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
+                                        return Math.Floor((Subtotal * this.Descuento / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
                                 else
-                                        return Math.Round(SubTotal * this.Descuento / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
+                                        return Math.Round(Subtotal * this.Descuento / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
                         }
                 }
 
@@ -147,9 +147,9 @@ namespace Lbl.Comprobantes
                         get
                         {
                                 if (Lbl.Sys.Config.Moneda.UnidadMonetariaMinima > 0)
-                                        return Math.Floor((SubTotal * this.Recargo / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
+                                        return Math.Floor((Subtotal * this.Recargo / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
                                 else
-                                        return Math.Round(SubTotal * this.Recargo / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
+                                        return Math.Round(Subtotal * this.Recargo / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
                         }
                 }
 
@@ -312,7 +312,7 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el subtotal, que es el importe de los artículos del comprobante, antes de descuentos y recargos.
                 /// </summary>
-                public decimal SubTotal
+                public decimal Subtotal
                 {
                         get
                         {
@@ -328,7 +328,7 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el subtotal sin IVA, pero con descuentos, recargos y redondeos.
                 /// </summary>
-                public decimal SubTotalSinIva
+                public decimal SubtotalFinalSinIva
                 {
                         get
                         {
@@ -336,7 +336,7 @@ namespace Lbl.Comprobantes
                                 foreach (DetalleArticulo Art in this.Articulos) {
                                         Res += Math.Round(Art.ImporteSinIva, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
                                 }
-                                return Res * (1 + (Recargo - Descuento) / 100);
+                                return Res * (1m + (Recargo - Descuento) / 100m);
                         }
                 }
 
@@ -363,7 +363,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return Math.Round(this.SubTotalSinIva + this.ImporteIvaDiscriminado, 4);
+                                return Math.Round(this.SubtotalFinalSinIva + this.ImporteIvaDiscriminado, 4);
                                 /* decimal Res = 0;
                                 foreach (Lbl.Comprobantes.DetalleArticulo Art in Articulos) {
                                         Res += Art.ImporteConIva;
@@ -405,7 +405,7 @@ namespace Lbl.Comprobantes
 
                                 decimal Res = 0;
                                 foreach (DetalleArticulo Det in this.Articulos) {
-                                        Res += Det.ImporteIva;
+                                        Res += Det.ImporteUnitarioIva;
                                 }
                                 return this.RedondearImporte(Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4));
                         }
@@ -491,9 +491,9 @@ namespace Lbl.Comprobantes
 
                                 decimal Res = 0;
                                 foreach (DetalleArticulo Det in this.Articulos) {
-                                        Res += Det.ImporteIvaDiscriminado * Det.Cantidad;
+                                        Res += Det.ImporteFinalIvaDiscriminado;
                                 }
-                                return Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4);
+                                return Math.Round(Res * (1m + (Recargo - Descuento) / 100m), 4);
                         }
                 }
 
@@ -916,7 +916,7 @@ namespace Lbl.Comprobantes
                         else
                                 Comando.Fields.AddWithValue("situaciondestino", this.SituacionDestino.Id);
                         Comando.Fields.AddWithValue("tipo_fac", this.Tipo.Nomenclatura);
-                        Comando.Fields.AddWithValue("subtotal", this.SubTotalSinIva);
+                        Comando.Fields.AddWithValue("subtotal", this.SubtotalFinalSinIva);
                         Comando.Fields.AddWithValue("descuento", this.Descuento);
                         Comando.Fields.AddWithValue("interes", this.Recargo);
                         Comando.Fields.AddWithValue("cuotas", this.Cuotas);
@@ -1030,8 +1030,8 @@ namespace Lbl.Comprobantes
                                         // en la segunda pasada, guardo sólo los negativos.
                                         // De esa manera, los negativos siempre quedan últimos
                                         // lo cual es un requerimiento de las fiscales Hasar.
-                                        if ((Pasada == 1 && Art.Cantidad >= 0 && Art.Unitario >= 0)
-                                                || (Pasada == 2 && (Art.Cantidad < 0 || Art.Unitario < 0))) {
+                                        if ((Pasada == 1 && Art.Cantidad >= 0 && Art.ImporteUnitario >= 0)
+                                                || (Pasada == 2 && (Art.Cantidad < 0 || Art.ImporteUnitario < 0))) {
                                                 qGen.TableCommand Comando = new qGen.Insert(this.Connection, "comprob_detalle");
                                                 Comando.Fields.AddWithValue("id_comprob", this.Id);
                                                 Comando.Fields.AddWithValue("orden", i);
@@ -1047,8 +1047,8 @@ namespace Lbl.Comprobantes
                                                 }
 
                                                 Comando.Fields.AddWithValue("cantidad", Art.Cantidad);
-                                                Comando.Fields.AddWithValue("precio", Art.Unitario);
-                                                Comando.Fields.AddWithValue("iva", Art.ImporteIva);
+                                                Comando.Fields.AddWithValue("precio", Art.ImporteUnitario);
+                                                Comando.Fields.AddWithValue("iva", Art.ImporteUnitarioIva);
                                                 Comando.Fields.AddWithValue("recargo", Art.Recargo);
                                                 if (Art.Costo == 0 && Art.Articulo != null)
                                                         Comando.Fields.AddWithValue("costo", Art.Articulo.Costo);

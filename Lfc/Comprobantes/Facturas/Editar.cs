@@ -191,7 +191,7 @@ namespace Lfc.Comprobantes.Facturas
                 public override Lfx.Types.OperationResult BeforePrint()
                 {
                         Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
-                        if (Comprob.Articulos.Count >= 1 && (Comprob.Articulos[0].Cantidad < 0 || Comprob.Articulos[0].Unitario < 0))
+                        if (Comprob.Articulos.Count >= 1 && (Comprob.Articulos[0].Cantidad < 0 || Comprob.Articulos[0].ImporteUnitario < 0))
                                 return new Lfx.Types.OperationResult(false, "El primer ítem de la factura no puede ser negativo. Utilice los ítem negativos en último lugar.");
 
                         Comprob.Cliente.Cargar();

@@ -220,7 +220,7 @@ namespace Lfc.Tareas
                                         Lbl.Comprobantes.DetalleArticulo Art = new Lbl.Comprobantes.DetalleArticulo(Factura);
 
                                         Art.Nombre = this.Elemento.ToString();
-                                        Art.Unitario = EntradaImportePresupuesto.ValueDecimal;
+                                        Art.ImporteUnitario = EntradaImportePresupuesto.ValueDecimal;
                                         Art.Cantidad = 1;
 
                                         Factura.Articulos.Add(Art);

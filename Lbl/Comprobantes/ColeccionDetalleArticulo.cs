@@ -51,7 +51,7 @@ namespace Lbl.Comprobantes
                         DetalleArticulo Det = new DetalleArticulo(this.ElementoPadre);
                         Det.Articulo = articulo;
                         Det.Cantidad = cantidad;
-                        Det.Unitario = unitario;
+                        Det.ImporteUnitario = unitario;
                         Det.Obs = obs;
                 }
 
@@ -106,7 +106,7 @@ namespace Lbl.Comprobantes
                                 bool Encontre = false;
                                 foreach (DetalleArticulo Det2 in Res) {
                                         if (Det2.IdArticulo == Det.IdArticulo
-                                                && Det2.Unitario == Det.Unitario
+                                                && Det2.ImporteUnitario == Det.ImporteUnitario
                                                 && Det2.Obs == Det.Obs
                                                 && Det2.Nombre == Det.Nombre) {
                                                 //Si ya existe, sumo la cantidad
@@ -123,6 +123,9 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// El importe total del comprobante.
+                /// </summary>
                 public decimal ImporteTotal
                 {
                         get

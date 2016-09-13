@@ -283,7 +283,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         Tf.DrawString("Subtotal\nIVA\nDescuento / recargo", FuentePredeterminada, XBrushes.Black, CuadroTotales);
                         Tf.Alignment = XParagraphAlignment.Right;
                         Tf.DrawString(string.Concat(
-                                Lfx.Types.Formatting.FormatCurrency(Comprob.SubTotalSinIva), "\n",
+                                Lfx.Types.Formatting.FormatCurrency(Comprob.SubtotalFinalSinIva), "\n",
                                 Lfx.Types.Formatting.FormatCurrency(Comprob.ImporteIvaDiscriminado), "\n",
                                 Lfx.Types.Formatting.FormatNumber(Comprob.Descuento, 2) + "%"
                                 ), FuenteResaltada, XBrushes.Black, CuadroTotales);

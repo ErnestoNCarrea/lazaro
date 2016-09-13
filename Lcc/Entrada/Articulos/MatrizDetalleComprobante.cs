@@ -68,8 +68,8 @@ namespace Lcc.Entrada.Articulos
 
                                         this.ChildControls[i].TextDetail = articulos[i].Nombre;
                                         this.ChildControls[i].Cantidad = articulos[i].Cantidad;
-                                        this.ChildControls[i].ImporteUnitario = articulos[i].Unitario;
-                                        this.ChildControls[i].ImporteUnitarioIva = articulos[i].ImporteIvaDiscriminado;
+                                        this.ChildControls[i].ImporteUnitario = articulos[i].ImporteUnitario;
+                                        this.ChildControls[i].ImporteUnitarioIva = articulos[i].ImporteUnitarioIvaDiscriminado;
                                         this.ChildControls[i].Descuento = articulos[i].Descuento;
                                         this.ChildControls[i].DatosSeguimiento = articulos[i].DatosSeguimiento;
                                 }
@@ -88,7 +88,7 @@ namespace Lcc.Entrada.Articulos
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
-                                        DetArt.Unitario = Pro.ImporteUnitario;
+                                        DetArt.ImporteUnitario = Pro.ImporteUnitario;
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;
                                         m_Articulos.Add(DetArt);
@@ -114,11 +114,11 @@ namespace Lcc.Entrada.Articulos
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
-                                        DetArt.Unitario = Pro.ImporteUnitario;
+                                        DetArt.ImporteUnitario = Pro.ImporteUnitario;
                                         if (this.AplicaIva) {
-                                                DetArt.ImporteIva = Pro.ImporteUnitarioIva;
+                                                DetArt.ImporteUnitarioIva = Pro.ImporteUnitarioIva;
                                         } else {
-                                                DetArt.ImporteIva = 0;
+                                                DetArt.ImporteUnitarioIva = 0;
                                         }
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;
@@ -195,7 +195,7 @@ namespace Lcc.Entrada.Articulos
                         {
                                 m_Precio = value;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Control.Precio = m_Precio;
+                                        Control.UsarPrecio = m_Precio;
                                 }
                         }
                 }
@@ -328,7 +328,7 @@ namespace Lcc.Entrada.Articulos
                         {
                                 m_AplicaIva = value;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Control.AplicaIva = value;
+                                        Control.AplicarIva = value;
                                 }
                         }
                 }
@@ -350,40 +350,47 @@ namespace Lcc.Entrada.Articulos
                         }
                 }
 
-
+                /// <summary>
+                /// El importe total de todos los artículos, incluyendo IVA y descuentos.
+                /// </summary>
                 public decimal Total
                 {
                         get
                         {
                                 decimal Res = 0;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Res += Control.Importe;
+                                        Res += Control.ImporteFinal;
                                 }
                                 return Res;
                         }
                 }
 
 
-                public decimal ImporteIva
+                /// <summary>
+                /// La sumatoria de los importes de IVA finales de todos los artículos.
+                /// </summary>
+                public decimal ImporteIvaTotalFinal
                 {
                         get
                         {
                                 decimal Res = 0;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Res += Control.ImporteUnitarioIva * (1 - Control.Descuento / 100) * Control.Cantidad;
+                                        Res += Control.ImporteUnitarioIvaFinal;
                                 }
                                 return Res;
                         }
                 }
 
-
-                public decimal SubTotal
+                /// <summary>
+                /// La sumatoria de los importes de unitarios finales de todos los artículos.
+                /// </summary>
+                public decimal ImporteUnitarioTotalFinal
                 {
                         get
                         {
                                 decimal Res = 0;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Res += Control.ImporteUnitario * (1 - Control.Descuento / 100) * Control.Cantidad;
+                                        Res += Control.ImporteUnitarioFinal;
                                 }
                                 return Res;
                         }
@@ -409,13 +416,13 @@ namespace Lcc.Entrada.Articulos
                         DetalleComprobante Ctrl = base.Agregar();
 
                         Ctrl.TextChanged += new System.EventHandler(Product_TextChanged);
-                        Ctrl.PrecioCantidadChanged += new System.EventHandler(Product_PrecioCantidadChanged);
+                        Ctrl.ImportesChanged += new System.EventHandler(Product_PrecioCantidadChanged);
                         Ctrl.ObtenerDatosSeguimiento += new System.EventHandler(Product_ObtenerDatosSeguimiento);
-                        Ctrl.Precio = this.Precio;
+                        Ctrl.UsarPrecio = this.Precio;
                         Ctrl.AutoUpdate = m_AutoUpdate;
                         Ctrl.FreeTextCode = this.FreeTextCode;
                         Ctrl.DiscriminarIva = m_DiscriminarIva;
-                        Ctrl.AplicaIva = m_AplicaIva;
+                        Ctrl.AplicarIva = m_AplicaIva;
 
                         return Ctrl;
                 }
@@ -491,7 +498,7 @@ namespace Lcc.Entrada.Articulos
                                 EtiquetaHeaderUnitario.Width = Ctrl.IvaLeft - EtiquetaHeaderUnitario.Left - 1;
 
                                 EtiquetaHeaderIva.Left = Ctrl.IvaLeft;
-                                EtiquetaHeaderIva.Width = Ctrl.CantidadLeft - EtiquetaHeaderUnitario.Left - 1;
+                                EtiquetaHeaderIva.Width = Ctrl.CantidadLeft - EtiquetaHeaderIva.Left - 1;
 
                                 EtiquetaHeaderCantidad.Left = Ctrl.CantidadLeft;
                                 EtiquetaHeaderCantidad.Width = Ctrl.DescuentoLeft - EtiquetaHeaderCantidad.Left - 1;

@@ -37,7 +37,11 @@ namespace Lbl.Comprobantes
                         this.ElementoPadre = comprobante;
                 }
 
-                public decimal Unitario
+
+                /// <summary>
+                /// El precio unitario original del renglón (sin descuento ni cantidad).
+                /// </summary>
+                public decimal ImporteUnitario
                 {
                         get
                         {
@@ -49,7 +53,22 @@ namespace Lbl.Comprobantes
                         }
                 }
 
-                public decimal ImporteIva
+                /// <summary>
+                /// El precio unitario final del renglón (con descuento y cantidad).
+                /// </summary>
+                public decimal ImporteUnitarioFinal
+                {
+                        get
+                        {
+                                return this.ImporteUnitario * (1m - this.Descuento / 100m);
+                        }
+                }
+
+
+                /// <summary>
+                /// El importe de IVA original del renglón (sin descuento ni cantidad).
+                /// </summary>
+                public decimal ImporteUnitarioIva
                 {
                         get
                         {
@@ -62,6 +81,21 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// El importe de IVA final del renglón (con descuento y cantidad).
+                /// </summary>
+                public decimal ImporteUnitarioIvaFinal
+                {
+                        get
+                        {
+                                return this.ImporteUnitarioIva * (1m - this.Descuento / 100m);
+                        }
+                }
+
+
+                /// <summary>
+                /// El porcentaje de descuento aplicado a este renglón.
+                /// </summary>
                 public decimal Descuento
                 {
                         get
@@ -74,6 +108,10 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                /// <summary>
+                /// La cantidad del renglón.
+                /// </summary>
                 public decimal Cantidad
                 {
                         get
@@ -86,6 +124,10 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                /// <summary>
+                /// El precio de costo del artículo al momento de guardar o de imprimir (si corresponde).
+                /// </summary>
                 public decimal Costo
                 {
                         get
@@ -99,6 +141,9 @@ namespace Lbl.Comprobantes
                 }
 
 
+                /// <summary>
+                /// La descripción del renglón (puede ser texto libre o el nombre del artículo al momento de guardar o de imprimir).
+                /// </summary>
                 public string Descripcion
                 {
                         get
@@ -120,7 +165,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Cantidad * this.UnitarioAImprimirConDescuentoORecargo;
+                                return this.Cantidad * this.ImporteUnitarioFinalAImprimir;
                         }
                 }
 
@@ -143,7 +188,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Cantidad * this.UnitarioConIva;
+                                return this.Cantidad * this.ImporteUnitarioConIva;
                         }
                 }
 
@@ -154,7 +199,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Cantidad * this.UnitarioConIvaConDescuentoORecargo;
+                                return this.Cantidad * this.UnitarioFinalConIva;
                         }
                 }
 
@@ -166,60 +211,60 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Unitario * (1 + Recargo / 100);
+                                return this.ImporteUnitario * (1 + Recargo / 100);
                         }
                 }
 
 
                 /// <summary>
-                /// Devuelve el precio unitario aplicando descuentos o recargos.
+                /// Devuelve el importe unitario final, más IVA, aplicando descuentos o recargos.
                 /// </summary>
-                public decimal UnitarioConIvaConDescuentoORecargo
+                public decimal UnitarioFinalConIva
                 {
                         get
                         {
-                                return this.UnitarioConIva * (1 + Recargo / 100);
+                                return this.ImporteUnitarioConIva * (1 + Recargo / 100);
                         }
                 }
 
 
                 /// <summary>
-                /// Devuelve el precio unitario aplicando descuentos o recargos.
+                /// Devuelve el importe unitario final a mostrar en el comprobante aplicando descuentos o recargos.
                 /// </summary>
-                public decimal UnitarioAImprimirConDescuentoORecargo
+                public decimal ImporteUnitarioFinalAImprimir
                 {
                         get
                         {
-                                return this.UnitarioAImprimir * (1 + this.Recargo / 100);
+                                return this.ImporteUnitarioAImprimir * (1 + this.Recargo / 100);
                         }
                 }
 
 
                 /// <summary>
-                /// Devuelve el precio unitario a imprimir, según la discriminación de IVA del comprobante.
+                /// Devuelve el importe unitario a imprimir, según la discriminación de IVA del comprobante.
                 /// </summary>
-                public decimal UnitarioAImprimir
+                public decimal ImporteUnitarioAImprimir
                 {
                         get
                         {
                                 Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
                                 if(Comprob != null && Comprob.Tipo.DiscriminaIva) {
-                                        return this.Unitario;
+                                        return this.ImporteUnitario;
                                 } else {
-                                        return this.UnitarioConIva;
+                                        return this.ImporteUnitarioConIva;
                                 }
                         }
                 }
 
 
                 /// <summary>
-                /// Devuelve el precio unitario con IVA incluido.
+                /// Devuelve el importe unitario original con IVA incluido.
                 /// </summary>
-                public decimal UnitarioConIva
+                public decimal ImporteUnitarioConIva
                 {
                         get
                         {
-                                return this.Unitario + this.ImporteIva;
+                                return this.ImporteUnitario + this.ImporteUnitarioIva;
                         }
                 }
 
@@ -227,11 +272,11 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el precio unitario a facturar, según la discriminación de IVA del comprobante.
                 /// </summary>
-                public decimal UnitarioConIvaDiscriminado
+                public decimal ImporteUnitarioConIvaDiscriminado
                 {
                         get
                         {
-                                return this.Unitario + this.ImporteIvaDiscriminado;
+                                return this.ImporteUnitario + this.ImporteUnitarioIvaDiscriminado;
                         }
                 }
 
@@ -239,13 +284,30 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve la cantidad de IVA que fue discriminado para este artículo, o 0 si no se discriminó IVA.
                 /// </summary>
-                public decimal ImporteIvaDiscriminado
+                public decimal ImporteUnitarioIvaDiscriminado
                 {
                         get
                         {
                                 Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
                                 if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
-                                        return this.ImporteIva;
+                                        return this.ImporteUnitarioIva;
+                                } else {
+                                        return 0m;
+                                }
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve la cantidad de IVA que fue discriminado para este artículo, o 0 si no se discriminó IVA.
+                /// </summary>
+                public decimal ImporteFinalIvaDiscriminado
+                {
+                        get
+                        {
+                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                                if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
+                                        return this.ImporteUnitarioIva * (1m - this.Descuento / 100m) * this.Cantidad;
                                 } else {
                                         return 0m;
                                 }
@@ -297,7 +359,7 @@ namespace Lbl.Comprobantes
                                         AlicArticulo = this.Articulo.ObtenerAlicuota();
 
                                 if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteIva;
+                                        return this.ImporteUnitarioIva;
                                 else
                                         return 0;
                         } else {
@@ -470,8 +532,8 @@ namespace Lbl.Comprobantes
                         }
 
                         Comando.Fields.AddWithValue("cantidad", this.Cantidad);
-                        Comando.Fields.AddWithValue("precio", this.Unitario);
-                        Comando.Fields.AddWithValue("iva", this.ImporteIva);
+                        Comando.Fields.AddWithValue("precio", this.ImporteUnitario);
+                        Comando.Fields.AddWithValue("iva", this.ImporteUnitarioIva);
                         Comando.Fields.AddWithValue("recargo", this.Recargo);
                         if (this.Costo == 0 && this.Articulo != null)
                                 Comando.Fields.AddWithValue("costo", this.Articulo.Costo);
@@ -500,7 +562,7 @@ namespace Lbl.Comprobantes
 
                 public override string ToString()
                 {
-                        return this.Cantidad.ToString() + " " + this.Nombre + " a " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Unitario, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales) + " c/u";
+                        return this.Cantidad.ToString() + " " + this.Nombre + " a " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.ImporteUnitario, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales) + " c/u";
                 }
 	}
 }

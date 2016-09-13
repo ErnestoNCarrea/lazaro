@@ -745,7 +745,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         StrCodigo = "(" + StrCodigo + ") ";
 
                                 decimal Cantidad = Detalle.Cantidad;
-                                decimal Unitario = Detalle.UnitarioAImprimirConDescuentoORecargo;
+                                decimal Unitario = Detalle.ImporteUnitarioFinalAImprimir;
                                 decimal PctIva = 0;
                                 if (Comprob.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
                                         PctIva = 0;
@@ -855,7 +855,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
 
                         // Calculo el total real, tomando en cuenta el redondeo y los decimales
                         if (Comprob.Descuento > 0) {
-                                decimal MontoDescuento = Comprob.SubTotal * (Comprob.Descuento / 100);
+                                decimal MontoDescuento = Comprob.Subtotal * (Comprob.Descuento / 100);
 
                                 switch (Modelo) {
                                         case Lbl.Impresion.ModelosFiscales.EpsonTiquedora:
@@ -926,7 +926,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         case Lbl.Impresion.ModelosFiscales.Emulacion:
                                                 ComandoAEnviar = new Comando(CodigosComandosFiscales.EpsonDocumentoFiscalPagosYDescuentos,
                                                         "Recargo " + Lfx.Types.Formatting.FormatCurrencyForPrint(Comprob.Recargo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto) + "%",
-                                                        FormatearNumeroEpson(Comprob.SubTotal * (Comprob.Recargo / 100), 2).PadLeft(12, '0'),
+                                                        FormatearNumeroEpson(Comprob.Subtotal * (Comprob.Recargo / 100), 2).PadLeft(12, '0'),
                                                         "R");
                                                 Res = Enviar(ComandoAEnviar);
                                                 break;
@@ -935,7 +935,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         case Lbl.Impresion.ModelosFiscales.HasarGenerico:
                                                 ComandoAEnviar = new Comando(CodigosComandosFiscales.HasarDocumentoFiscalDevolucionesYRecargos,
                                                         "Recargo " + Lfx.Types.Formatting.FormatCurrencyForPrint(Comprob.Recargo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto) + "%",
-                                                        FormatearNumeroHasar(Comprob.SubTotal * (Comprob.Recargo / 100), 2).PadLeft(10, '0'),
+                                                        FormatearNumeroHasar(Comprob.Subtotal * (Comprob.Recargo / 100), 2).PadLeft(10, '0'),
                                                         "M",
                                                         "00000000000",
                                                         "0",

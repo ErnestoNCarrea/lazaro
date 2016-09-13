@@ -295,7 +295,7 @@ namespace Lfc.Articulos
                         this.EntradaArticulo.MostrarExistencias = false;
                         this.EntradaArticulo.Name = "EntradaArticulo";
                         this.EntradaArticulo.PermiteCrear = false;
-                        this.EntradaArticulo.Precio = Lcc.Entrada.Articulos.Precios.Pvp;
+                        this.EntradaArticulo.UsarPrecio = Lcc.Entrada.Articulos.Precios.Pvp;
                         this.EntradaArticulo.BloquearPrecio = false;
                         this.EntradaArticulo.BloquearAtriculo = false;
                         this.EntradaArticulo.Required = true;
@@ -303,7 +303,7 @@ namespace Lfc.Articulos
                         this.EntradaArticulo.TabIndex = 3;
                         this.EntradaArticulo.NombreTipo = "Lbl.Articulos.Articulo";
                         this.EntradaArticulo.Text = "0";
-                        this.EntradaArticulo.PrecioCantidadChanged += new System.EventHandler(this.EntradaArticulo_PrecioCantidadChanged);
+                        this.EntradaArticulo.ImportesChanged += new System.EventHandler(this.EntradaArticulo_PrecioCantidadChanged);
                         this.EntradaArticulo.ObtenerDatosSeguimiento += new System.EventHandler(this.EntradaArticulo_ObtenerDatosSeguimiento);
                         // 
                         // label10

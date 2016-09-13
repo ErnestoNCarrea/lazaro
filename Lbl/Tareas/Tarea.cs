@@ -264,7 +264,7 @@ namespace Lbl.Tareas
                                         
                                         InsertarArticulo.Fields.AddWithValue("orden", i++);
                                         InsertarArticulo.Fields.AddWithValue("cantidad", Det.Cantidad);
-                                        InsertarArticulo.Fields.AddWithValue("precio", Det.Unitario);
+                                        InsertarArticulo.Fields.AddWithValue("precio", Det.ImporteUnitario);
                                         Connection.Execute(InsertarArticulo);
                                 }
                         }
@@ -284,7 +284,7 @@ namespace Lbl.Tareas
                                                         Lbl.Comprobantes.DetalleArticulo Det = new Comprobantes.DetalleArticulo(this.Connection);
                                                         Det.Articulo = new Articulos.Articulo(this.Connection, System.Convert.ToInt32(Art["id_articulo"]));
                                                         Det.Cantidad = System.Convert.ToDecimal(Art["cantidad"]);
-                                                        Det.Unitario = System.Convert.ToDecimal(Art["precio"]);
+                                                        Det.ImporteUnitario = System.Convert.ToDecimal(Art["precio"]);
                                                         m_Articulos.Add(Det);
                                                 }
                                         }
