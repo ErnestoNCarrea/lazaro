@@ -594,7 +594,9 @@ namespace Lcc.Entrada.Articulos
                         if (this.Connection == null)
                                 return;
 
-                        if (this.Elemento != EntradaArticulo.Elemento) {
+                        EntradaUnitario.TabStop = EntradaArticulo.IsFreeText;
+
+                        if (this.Elemento != EntradaArticulo.Elemento || EntradaArticulo.IsFreeText) {
                                 this.Elemento = EntradaArticulo.Elemento;
                                 if (this.Articulo != null) {
                                         this.m_Alicuota = this.Articulo.ObtenerAlicuota();
@@ -925,7 +927,7 @@ namespace Lcc.Entrada.Articulos
                                         
                                         this.RecalcularImportes();
                                 }
-                        } else if (EntradaArticulo.Text == EntradaArticulo.FreeTextCode && EntradaArticulo.FreeTextCode.Length > 0) {
+                        } else if (EntradaArticulo.IsFreeText) {
                                 EntradaUnitario.Enabled = true;
                                 EntradaDescuento.Enabled = true;
                                 EntradaCantidad.Enabled = true;
@@ -960,10 +962,6 @@ namespace Lcc.Entrada.Articulos
                 {
                         decimal UnitarioMostrar = EntradaUnitario.ValueDecimal;
                         decimal UnitarioIvaMostrar = 0m;
-
-                        if (this.Cantidad == 0) {
-                                this.Cantidad = 1;
-                        }
 
                         if (m_AplicarIva && m_DiscriminarIva && m_Alicuota != null) {
                                 UnitarioIvaMostrar = UnitarioMostrar * (m_Alicuota.Porcentaje / 100m);

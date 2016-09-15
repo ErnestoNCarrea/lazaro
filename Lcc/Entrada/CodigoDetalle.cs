@@ -102,14 +102,30 @@ namespace Lcc.Entrada
                         }
                 }
 
+                
+                /// <summary>
+                /// Devuelve True si el control no tiene un valor o tiene sólo espacios.
+                /// </summary>
                 public override bool IsEmpty
                 {
                         get
                         {
                                 if (this.Text == this.FreeTextCode)
-                                        return this.EntradaFreeText.Text.Length == 0;
+                                        return string.IsNullOrWhiteSpace(this.EntradaFreeText.Text);
                                 else
-                                        return this.Text.Length == 0 || this.Text == "0";
+                                        return string.IsNullOrWhiteSpace(this.Text) || this.Text == "0";
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve True 
+                /// </summary>
+                public bool IsFreeText
+                {
+                        get
+                        {
+                                return string.IsNullOrWhiteSpace(this.FreeTextCode) == false && this.EntradaCodigo.Text == this.FreeTextCode;
                         }
                 }
 
@@ -261,7 +277,7 @@ namespace Lcc.Entrada
                 {
                         get
                         {
-                                if (m_FreeTextCode.Length > 0 && this.EntradaCodigo.Text == m_FreeTextCode)
+                               if (string.IsNullOrWhiteSpace(m_FreeTextCode) == false && this.EntradaCodigo.Text == m_FreeTextCode)
                                         return m_FreeTextCode;
                                 else if (Label1.Text == "???")
                                         return "";
@@ -302,7 +318,7 @@ namespace Lcc.Entrada
                         }
                         set
                         {
-                                if (m_FreeTextCode.Length > 0 && this.EntradaCodigo.Text == m_FreeTextCode)
+                                if (this.IsFreeText)
                                         EntradaFreeText.Text = value;
                                 else
                                         Label1.Text = value;
@@ -377,7 +393,7 @@ namespace Lcc.Entrada
                 }
 
 
-                private void TextBox1_TextChanged(object sender, System.EventArgs e)
+                private void EntradaCodigo_TextChanged(object sender, System.EventArgs e)
                 {
                         if (EntradaCodigo.Text.Length > 13) {
                                 if (EntradaCodigo.Font.Size > 7) {
@@ -415,7 +431,7 @@ namespace Lcc.Entrada
                 {
                         TimerActualizar.Stop();
 
-                        if (string.IsNullOrEmpty(m_FreeTextCode) == false && EntradaCodigo.Text == m_FreeTextCode) {
+                        if (string.IsNullOrEmpty(m_FreeTextCode) == false && this.EntradaCodigo.Text == m_FreeTextCode) {
                                 m_ItemId = 0;
                                 this.CurrentRow = null;
                                 m_LastText1 = "";
@@ -424,23 +440,27 @@ namespace Lcc.Entrada
                                         EntradaFreeText.Focus();
                                 }
 
-                                if (textChanged)
-                                        this.OnTextChanged(EventArgs.Empty);
-                        } else if (this.Relation.IsEmpty() == false && EntradaCodigo.Text.Length > 0 && EntradaCodigo.Text != "0") {
+                                if (textChanged) {
+                                        //this.DispararTextChanged = true;
+                                        //this.TimerActualizar.Start();
+                                        this.DispararTextChangedAhora();
+                                }
+                        } else if (this.Relation.IsEmpty() == false && string.IsNullOrWhiteSpace(EntradaCodigo.Text) == false && EntradaCodigo.Text != "0") {
                                 Label1.ForeColor = this.DisplayStyle.TextColor;
                                 if (this.AutoUpdate) {
                                         if (Lfx.Workspace.Master == null || Lfx.Workspace.Master.SlowLink)
-                                                TimerActualizar.Interval = 500;
+                                                this.TimerActualizar.Interval = 500;
                                         else
-                                                TimerActualizar.Interval = 200;
+                                                this.TimerActualizar.Interval = 200;
 
-                                        if (textChanged)
-                                                DispararTextChanged = true;
-
-                                        TimerActualizar.Start();
+                                        if (textChanged) {
+                                                this.DispararTextChanged = true;
+                                                this.TimerActualizar.Start();
+                                        }
                                 } else {
-                                        if (textChanged)
-                                                this.OnTextChanged(EventArgs.Empty);
+                                        if (textChanged) {
+                                                this.DispararTextChangedAhora();
+                                        }
                                 }
                         } else {
                                 m_ItemId = 0;
@@ -449,8 +469,9 @@ namespace Lcc.Entrada
                                 Label1.Text = this.PlaceholderText;
                                 Label1.ForeColor = this.DisplayStyle.DataAreaGrayTextColor;
 
-                                if (textChanged)
-                                        this.OnTextChanged(EventArgs.Empty);
+                                if (textChanged) {
+                                        this.DispararTextChangedAhora();
+                                }
                         }
                 }
 
@@ -498,8 +519,6 @@ namespace Lcc.Entrada
                                                 }
                                         }
 
-                                        if (DispararTextChanged) 
-                                                this.DispararTextChangedAhora();
                                 } else {
                                         // El campo está en blanco o con algo que no parece un código válido
                                         m_ItemId = 0;
@@ -515,6 +534,10 @@ namespace Lcc.Entrada
                                 Label1.Text = "";
                         }
 
+                        if (this.DispararTextChanged) {
+                                this.DispararTextChangedAhora();
+                        }
+
                         if (this.ValueInt > 0 && this.Visible)
                                 Lfx.Workspace.Master.RunTime.Info("ITEMFOCUS", new string[] { "TABLE", this.Relation.ReferenceTable, this.Text });
                 }
@@ -522,7 +545,7 @@ namespace Lcc.Entrada
 
                 private void DispararTextChangedAhora()
                 {
-                        DispararTextChanged = false;
+                        this.DispararTextChanged = false;
                         this.OnTextChanged(EventArgs.Empty);
                 }
 

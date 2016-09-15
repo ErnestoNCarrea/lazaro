@@ -135,6 +135,7 @@ namespace Lcc.Entrada.Articulos
                         this.EntradaArticulo.CanCreate = true;
                         this.EntradaArticulo.ExtraDetailFields = "pvp,codigo1,codigo2,codigo3,codigo4";
                         this.EntradaArticulo.Filter = "estado=1";
+                        this.EntradaArticulo.FreeTextCode = "*";
                         this.EntradaArticulo.Location = new System.Drawing.Point(0, 0);
                         this.EntradaArticulo.MaxLength = 200;
                         this.EntradaArticulo.Name = "EntradaArticulo";

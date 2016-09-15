@@ -100,46 +100,49 @@ namespace Lfc.Comprobantes.Facturas
                 {
                         Lbl.Comprobantes.ComprobanteConArticulos Res = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
 
-                        if (this.Tipo.EsFactura || this.Tipo.EsTicket) {
-                                List<Lbl.Comprobantes.Tipo> TiposFac = new List<Lbl.Comprobantes.Tipo>();
-                                foreach (Lbl.Comprobantes.Tipo Tp in Lbl.Comprobantes.Tipo.TodosPorLetra.Values) {
-                                        if (Tp.EsFacturaOTicket)
-                                                TiposFac.Add(Tp);
-                                }
-                                string[] NombresYTipos = new string[TiposFac.Count];
-                                int i = 0;
-                                foreach (Lbl.Comprobantes.Tipo Tp in TiposFac) {
-                                        NombresYTipos[i++] = Tp.Nombre + "|" + Tp.Nomenclatura;
-                                }
-                                EntradaTipo.SetData = NombresYTipos;
-                                EntradaFormaPago.Elemento = Res.FormaDePago;
-                                PanelFormaPago.Visible = true;
-                                PanelComprobanteOriginal.Visible = false;
-                        } else if (this.Tipo.EsNotaCredito || this.Tipo.EsNotaDebito) {
-                                List<Lbl.Comprobantes.Tipo> TiposFac = new List<Lbl.Comprobantes.Tipo>();
-                                foreach (Lbl.Comprobantes.Tipo Tp in Lbl.Comprobantes.Tipo.TodosPorLetra.Values) {
-                                        if (Tp.EsNotaCredito || Tp.EsNotaDebito)
-                                                TiposFac.Add(Tp);
-                                }
-                                string[] NombresYTipos = new string[TiposFac.Count];
-                                int i = 0;
-                                foreach (Lbl.Comprobantes.Tipo Tp in TiposFac) {
-                                        NombresYTipos[i++] = Tp.Nombre + "|" + Tp.Nomenclatura;
-                                }
-                                EntradaTipo.SetData = NombresYTipos;
-                                EntradaFormaPago.ValueInt = 3;
-                                EntradaComprobanteOriginal.Elemento = Res.ComprobanteOriginal;
+                        if (Res.Tipo != null) {
+                                if (Res.Tipo.EsFactura || this.Tipo.EsTicket) {
+                                        List<Lbl.Comprobantes.Tipo> TiposFac = new List<Lbl.Comprobantes.Tipo>();
+                                        foreach (Lbl.Comprobantes.Tipo Tp in Lbl.Comprobantes.Tipo.TodosPorLetra.Values) {
+                                                if (Tp.EsFacturaOTicket)
+                                                        TiposFac.Add(Tp);
+                                        }
+                                        string[] NombresYTipos = new string[TiposFac.Count];
+                                        int i = 0;
+                                        foreach (Lbl.Comprobantes.Tipo Tp in TiposFac) {
+                                                NombresYTipos[i++] = Tp.Nombre + "|" + Tp.Nomenclatura;
+                                        }
+                                        EntradaTipo.SetData = NombresYTipos;
+                                        EntradaFormaPago.Elemento = Res.FormaDePago;
+                                        PanelFormaPago.Visible = true;
+                                        PanelComprobanteOriginal.Visible = false;
+                                } else if (Res.Tipo.EsNotaCredito || this.Tipo.EsNotaDebito) {
+                                        List<Lbl.Comprobantes.Tipo> TiposFac = new List<Lbl.Comprobantes.Tipo>();
+                                        foreach (Lbl.Comprobantes.Tipo Tp in Lbl.Comprobantes.Tipo.TodosPorLetra.Values) {
+                                                if (Tp.EsNotaCredito || Tp.EsNotaDebito)
+                                                        TiposFac.Add(Tp);
+                                        }
+                                        string[] NombresYTipos = new string[TiposFac.Count];
+                                        int i = 0;
+                                        foreach (Lbl.Comprobantes.Tipo Tp in TiposFac) {
+                                                NombresYTipos[i++] = Tp.Nombre + "|" + Tp.Nomenclatura;
+                                        }
+                                        EntradaTipo.SetData = NombresYTipos;
+                                        EntradaFormaPago.ValueInt = 3;
+                                        EntradaComprobanteOriginal.Elemento = Res.ComprobanteOriginal;
 
-                                if (Res.ComprobanteOriginal != null && Res.ComprobanteOriginal.Cliente != null) {
-                                        EntradaComprobanteOriginal.Filter = "tipo_fac IN ('FA', 'FB', 'FC', 'FE', 'FM') AND numero>0 AND id_cliente=" + Res.ComprobanteOriginal.Cliente.Id.ToString();
+                                        if (Res.ComprobanteOriginal != null && Res.ComprobanteOriginal.Cliente != null) {
+                                                EntradaComprobanteOriginal.Filter = "tipo_fac IN ('FA', 'FB', 'FC', 'FE', 'FM') AND numero>0 AND id_cliente=" + Res.ComprobanteOriginal.Cliente.Id.ToString();
+                                        }
+
+                                        PanelFormaPago.Visible = false;
+                                        PanelComprobanteOriginal.Visible = true;
                                 }
 
-                                PanelFormaPago.Visible = false;
-                                PanelComprobanteOriginal.Visible = true;
+                                EntradaTipo.TextKey = Res.Tipo.Nomenclatura;
+                                this.DiscriminarIva = Res.Tipo.DiscriminaIva;
                         }
 
-                        EntradaTipo.TextKey = Res.Tipo.Nomenclatura;
-                        this.DiscriminarIva = Res.Tipo.DiscriminaIva;
                         if (Res.Cliente != null) {
                                 this.AplicaIva = Res.Cliente.PagaIva != Lbl.Impuestos.SituacionIva.Exento;
                         }

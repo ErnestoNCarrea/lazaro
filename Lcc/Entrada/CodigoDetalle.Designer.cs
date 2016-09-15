@@ -56,7 +56,7 @@ namespace Lcc.Entrada
                         this.EntradaCodigo.Name = "EntradaCodigo";
                         this.EntradaCodigo.Size = new System.Drawing.Size(52, 18);
                         this.EntradaCodigo.TabIndex = 0;
-                        this.EntradaCodigo.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+                        this.EntradaCodigo.TextChanged += new System.EventHandler(this.EntradaCodigo_TextChanged);
                         this.EntradaCodigo.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
                         this.EntradaCodigo.GotFocus += new System.EventHandler(this.TextBox1_GotFocus);
                         this.EntradaCodigo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);

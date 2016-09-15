@@ -34,6 +34,7 @@ namespace Lfc.Pvs
                                 foreach (System.Data.DataRow DocumentoTipo in DocumentosTipos.Rows) {
                                         ListaTipos.Add(DocumentoTipo["nombre"].ToString() + "|" + DocumentoTipo["letra"].ToString());
                                 }
+
                                 EntradaTipoFac.SetData = ListaTipos.ToArray();
                         }
                 }
@@ -63,6 +64,8 @@ namespace Lfc.Pvs
                         EntradaBps.ValueInt = Pv.FiscalBps;
 
                         EntradaVariante.ValueInt = Pv.Variante;
+
+                        this.EntradaTipo_TextChanged(this, null);
 
                         base.ActualizarControl();
                 }

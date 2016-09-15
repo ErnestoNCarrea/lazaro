@@ -227,7 +227,11 @@ namespace Lfc.Comprobantes
                 private void PonerTitulo()
                 {
                         Lbl.Comprobantes.ComprobanteConArticulos Registro = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
-                        string NuevoTitulo = Registro.Tipo.NombreLargo;
+                        string NuevoTitulo = "";
+
+                        if (Registro.Tipo != null) {
+                                NuevoTitulo += Registro.Tipo.NombreLargo;
+                        }
 
                         if (Registro.Numero > 0) {
                                 NuevoTitulo += " ";

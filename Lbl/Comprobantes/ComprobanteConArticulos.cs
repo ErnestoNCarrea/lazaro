@@ -405,7 +405,7 @@ namespace Lbl.Comprobantes
 
                                 decimal Res = 0;
                                 foreach (DetalleArticulo Det in this.Articulos) {
-                                        Res += Det.ImporteUnitarioIva;
+                                        Res += Det.ImporteUnitarioIvaFinal * Det.Cantidad;
                                 }
                                 return this.RedondearImporte(Math.Round(Res * (1 + (Recargo - Descuento) / 100), 4));
                         }
@@ -487,9 +487,13 @@ namespace Lbl.Comprobantes
                         get
                         {
                                 if (this.Cliente != null && this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
-                                        return 0;
+                                        return 0m;
 
-                                decimal Res = 0;
+                                if(this.Tipo != null && this.Tipo.DiscriminaIva == false) {
+                                        return 0m;
+                                }
+
+                                decimal Res = 0m;
                                 foreach (DetalleArticulo Det in this.Articulos) {
                                         Res += Det.ImporteFinalIvaDiscriminado;
                                 }
