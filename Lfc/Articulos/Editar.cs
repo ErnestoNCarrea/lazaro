@@ -60,22 +60,26 @@ namespace Lfc.Articulos
                                 }
 
                                 ListaMargenes[i] = "Otro|0";
-                                IgnorarCostoMargenTextChanged++;
+                                IgnorarCostoMargenPvpPvpIvaTextChanged++;
                                 EntradaMargen.SetData = ListaMargenes;
-                                IgnorarCostoMargenTextChanged--;
+                                IgnorarCostoMargenPvpPvpIvaTextChanged--;
                         }
                 }
 
 
                 private void EntradaCategoriaMarcaModeloSerie_TextChanged(System.Object sender, System.EventArgs e)
                 {
-                        Lbl.Articulos.Categoria Cat = EntradaCategoria.Elemento as Lbl.Articulos.Categoria;
-                        if (Cat != null) {
-                                Lbl.Impuestos.Alicuota Alic = Cat.ObtenerAlicuota();
-                                if (Alic != null)
-                                        EtiquetaAlicuota.Text = "(más " + Alic.ToString() + ")";
-                                else
+                        var Cat = EntradaCategoria.Elemento as Lbl.Articulos.Categoria;
+
+                        if (sender == EntradaCategoria) {
+                                var Alic = this.ObtenerAlicuota();
+                                if (Alic != null) {
+                                        EtiquetaAlicuota.Text = Alic.Porcentaje.ToString("#0.00") + "%, " + Alic.Nombre;
+                                } else {
                                         EtiquetaAlicuota.Text = "";
+                                }
+
+                                EntradaPvp_TextChanged(sender, e);
                         }
 
                         if (CustomName == false) {
@@ -104,7 +108,7 @@ namespace Lfc.Articulos
                         FormMasInfo.Show();
                 }
 
-                private int IgnorarCostoMargenTextChanged;
+                private int IgnorarCostoMargenPvpPvpIvaTextChanged;
                 private void EntradaCostoMargen_TextChanged(System.Object sender, System.EventArgs e)
                 {
                         if (this.Connection == null)
@@ -115,8 +119,8 @@ namespace Lfc.Articulos
                         else
                                 EntradaCosto.ErrorText = "";
 
-                        if (IgnorarCostoMargenTextChanged <= 0) {
-                                IgnorarCostoMargenTextChanged++;
+                        if (IgnorarCostoMargenPvpPvpIvaTextChanged <= 0) {
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged++;
                                 if (EntradaMargen.ValueInt > 0) {
                                         this.Margen = this.Margenes.GetById(EntradaMargen.ValueInt);
 
@@ -126,44 +130,18 @@ namespace Lfc.Articulos
                                                 decimal MargenCompleto = Margen.Porcentaje;
                                                 Pvp *= (1 + MargenCompleto / 100);
                                                 //Pvp += Margen.Sumar2;
-                                                EntradaPvp.ValueDecimal = Pvp;
+                                                if (EntradaPvp.ValueDecimal != Pvp) {
+                                                        EntradaPvp.ValueDecimal = Pvp;
+                                                }
                                         }
                                 } else {
                                         this.Margen = null;
-                                        EntradaPvp_TextChanged(sender, e);
+                                        //EntradaPvp_TextChanged(sender, e);
                                 }
-                                IgnorarCostoMargenTextChanged--;
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged--;
                         }
                 }
 
-                private void EntradaPvp_TextChanged(object sender, System.EventArgs e)
-                {
-                        if (IgnorarCostoMargenTextChanged <= 0) {
-                                IgnorarCostoMargenTextChanged++;
-
-                                decimal PorcentajeActual;
-                                if (EntradaCosto.ValueDecimal != 0)
-                                        PorcentajeActual = EntradaPvp.ValueDecimal / EntradaCosto.ValueDecimal * 100m - 100m;
-                                else
-                                        PorcentajeActual = 0;
-                                int IdMargen = 0;
-                                foreach (Lbl.Articulos.Margen Mg in this.Margenes) {
-                                        if (decimal.Compare(Mg.Porcentaje, PorcentajeActual) == 0)
-                                                IdMargen = Mg.Id;
-                                }
-
-                                EntradaMargen.ValueInt = IdMargen;
-
-                                if (IdMargen == 0) {
-                                        if (EntradaCosto.ValueDecimal == 0)
-                                                EntradaMargen.Text = "N/A";
-                                        else
-                                                EntradaMargen.Text = "Otro (" + Lfx.Types.Formatting.FormatNumber(PorcentajeActual, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto) + "%)";
-                                }
-
-                                IgnorarCostoMargenTextChanged--;
-                        }
-                }
 
                 public override Lfx.Types.OperationResult ValidarControl()
                 {
@@ -292,7 +270,7 @@ namespace Lfc.Articulos
                         EntradaDestacado.ValueInt = Art.Destacado ? 1 : 0;
                         EntradaWeb.ValueInt = ((int)(Art.Publicacion));
 
-                        IgnorarCostoMargenTextChanged++;
+                        IgnorarCostoMargenPvpPvpIvaTextChanged++;
                         EntradaCosto.ValueDecimal = Art.Costo;
                         if (Art.Margen == null)
                                 EntradaMargen.ValueInt = 0;
@@ -306,7 +284,7 @@ namespace Lfc.Articulos
                         else
                                 EntradaMargen.ValueInt = Art.Margen.Id;
 
-                        IgnorarCostoMargenTextChanged--;
+                        IgnorarCostoMargenPvpPvpIvaTextChanged--;
 
                         EntradaTipoDeArticulo.ValueInt = (int)(Art.TipoDeArticulo);
                         EntradaSeguimiento.ValueInt = (int)(Art.Seguimiento);
@@ -322,6 +300,7 @@ namespace Lfc.Articulos
                         CustomName = Art.Existe;
 
                         EntradaTipoDeArticulo_TextChanged(this, null);
+                        EntradaCategoriaMarcaModeloSerie_TextChanged(EntradaCategoria, null);
 
                         base.ActualizarControl();
                 }
@@ -484,6 +463,96 @@ namespace Lfc.Articulos
                         {
                                 return Lazaro.Pres.DisplayStyles.Template.Current.Articulos;
                         }
+                }
+
+
+                private void EntradaPvp_TextChanged(object sender, System.EventArgs e)
+                {
+                        if (IgnorarCostoMargenPvpPvpIvaTextChanged <= 0) {
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged++;
+
+                                if (this.Margenes != null) {
+                                        decimal PorcentajeActual;
+                                        if (EntradaCosto.ValueDecimal != 0)
+                                                PorcentajeActual = EntradaPvp.ValueDecimal / EntradaCosto.ValueDecimal * 100m - 100m;
+                                        else
+                                                PorcentajeActual = 0;
+
+                                        int IdMargen = 0;
+                                        foreach (Lbl.Articulos.Margen Mg in this.Margenes) {
+                                                if (decimal.Compare(Mg.Porcentaje, PorcentajeActual) == 0)
+                                                        IdMargen = Mg.Id;
+                                        }
+
+                                        if (EntradaMargen.ValueInt != IdMargen) {
+                                                EntradaMargen.ValueInt = IdMargen;
+                                        }
+
+                                        if (IdMargen == 0) {
+                                                if (EntradaCosto.ValueDecimal == 0m) {
+                                                        EntradaMargen.Text = "N/A";
+                                                } else {
+                                                        EntradaMargen.Text = "Otro (" + Lfx.Types.Formatting.FormatNumber(PorcentajeActual, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto) + "%)";
+                                                }
+                                        }
+                                }
+
+                                var Alic = this.ObtenerAlicuota();
+                                if (Alic == null) {
+                                        if (Math.Abs(EntradaPvpIva.ValueDecimal -EntradaPvp.ValueDecimal) > 0.01m) {
+                                                EntradaPvpIva.ValueDecimal = EntradaPvp.ValueDecimal;
+                                        }
+                                } else {
+                                        decimal PvpIva = Math.Round(EntradaPvp.ValueDecimal * (1m + Alic.Porcentaje / 100m), 4);
+                                        if(Math.Abs(EntradaPvpIva.ValueDecimal - PvpIva) > 0.01m) {
+                                                EntradaPvpIva.ValueDecimal = PvpIva;
+                                        }
+                                }
+
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged--;
+                        }
+                }
+
+
+                private void EntradaPvpIva_TextChanged(object sender, EventArgs e)
+                {
+                        if (IgnorarCostoMargenPvpPvpIvaTextChanged <= 0) {
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged++;
+
+                                var Alic = this.ObtenerAlicuota();
+                                if (Alic == null) {
+                                        if(EntradaPvp.ValueDecimal != EntradaPvpIva.ValueDecimal) {
+                                                EntradaPvp.ValueDecimal = EntradaPvpIva.ValueDecimal;
+                                        }
+                                } else {
+                                        decimal Pvp = Math.Round(EntradaPvpIva.ValueDecimal / (1m + Alic.Porcentaje / 100m), 4);
+                                        if(Math.Abs(EntradaPvp.ValueDecimal - Pvp) > 0.01m) {
+                                                EntradaPvp.ValueDecimal = Pvp;
+                                        }
+                                }
+
+                                //IgnorarCostoMargenPvpPvpIvaTextChanged--;
+                        }
+                }
+
+
+                protected Lbl.Impuestos.Alicuota ObtenerAlicuota()
+                {
+                        var Categ = EntradaCategoria.Elemento as Lbl.Articulos.Categoria;
+                        Lbl.Impuestos.Alicuota Res = null;
+
+                        if (Categ != null) {
+                                if (Categ.Alicuota != null)
+                                        Res = Categ.Alicuota;
+                                else if (Categ.Rubro != null && Categ.Rubro.Alicuota != null)
+                                        Res = Categ.Rubro.Alicuota;
+                                else
+                                        Res = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
+                        } else {
+                                Res = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
+                        }
+
+                        return Res;
                 }
         }
 }

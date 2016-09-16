@@ -180,7 +180,11 @@ namespace Lcc.Edicion
                                         if (AttrDatos != null) {
                                                 string NombreTabla = AttrDatos.TablaDatos;
 
-                                                System.Data.DataTable TagsTable = Lfx.Workspace.Master.MasterConnection.Select("SELECT * FROM sys_tags WHERE fieldtype IN ('action') AND tablename='" + NombreTabla + "'");
+                                                var Conn = this.Connection;
+                                                if(Conn == null) {
+                                                        Conn = Lfx.Workspace.Master.MasterConnection;
+                                                }
+                                                System.Data.DataTable TagsTable = Conn.Select("SELECT * FROM sys_tags WHERE fieldtype IN ('action') AND tablename='" + NombreTabla + "'");
                                                 foreach (System.Data.DataRow TagRow in TagsTable.Rows) {
                                                         Lfx.Data.Row ActionRow = (Lfx.Data.Row)TagRow;
                                                         Lazaro.Pres.Forms.FormAction NewAction = new Lazaro.Pres.Forms.FormAction(ActionRow.Fields["label"].ValueString, null, ActionRow.Fields["label"].ValueString, 0);
