@@ -33,6 +33,10 @@ namespace Lazaro.WinMain.Config
                         this.Label17 = new Lui.Forms.Label();
                         this.FrmGeneral = new Lui.Forms.Frame();
                         this.panel1 = new Lui.Forms.Panel();
+                        this.EntradaInicioActividades = new Lui.Forms.TextBox();
+                        this.label39 = new Lui.Forms.Label();
+                        this.EntradaIngresosBrutos = new Lui.Forms.TextBox();
+                        this.label38 = new Lui.Forms.Label();
                         this.label37 = new Lui.Forms.Label();
                         this.EntradaLogo = new Lcc.Entrada.Imagen();
                         this.label29 = new Lui.Forms.Label();
@@ -93,6 +97,7 @@ namespace Lazaro.WinMain.Config
                         this.EntradaStockDepositoPredetSuc = new Lcc.Entrada.CodigoDetalle();
                         this.label22 = new Lui.Forms.Label();
                         this.FrmComprobantes = new Lui.Forms.Frame();
+                        this.panel2 = new Lui.Forms.Panel();
                         this.EntradaPVRC = new Lui.Forms.TextBox();
                         this.label3 = new Lui.Forms.Label();
                         this.label11 = new Lui.Forms.Label();
@@ -108,18 +113,13 @@ namespace Lazaro.WinMain.Config
                         this.LabelTab2 = new Lui.Forms.Label();
                         this.LabelTab3 = new Lui.Forms.Label();
                         this.LabelTab4 = new Lui.Forms.Label();
-                        this.panel2 = new Lui.Forms.Panel();
-                        this.EntradaIngresosBrutos = new Lui.Forms.TextBox();
-                        this.label38 = new Lui.Forms.Label();
-                        this.EntradaInicioActividades = new Lui.Forms.TextBox();
-                        this.label39 = new Lui.Forms.Label();
                         this.FrmGeneral.SuspendLayout();
                         this.panel1.SuspendLayout();
                         this.FrmArticulos.SuspendLayout();
                         this.FrmComprobantes.SuspendLayout();
+                        this.panel2.SuspendLayout();
                         this.FrmAvanzado.SuspendLayout();
                         this.buttonPanel1.SuspendLayout();
-                        this.panel2.SuspendLayout();
                         this.SuspendLayout();
                         // 
                         // BotonAceptar
@@ -264,6 +264,41 @@ namespace Lazaro.WinMain.Config
                         this.panel1.Name = "panel1";
                         this.panel1.Size = new System.Drawing.Size(618, 397);
                         this.panel1.TabIndex = 0;
+                        // 
+                        // EntradaInicioActividades
+                        // 
+                        this.EntradaInicioActividades.DataType = Lui.Forms.DataTypes.Date;
+                        this.EntradaInicioActividades.Location = new System.Drawing.Point(382, 265);
+                        this.EntradaInicioActividades.MaxLength = 50;
+                        this.EntradaInicioActividades.Name = "EntradaInicioActividades";
+                        this.EntradaInicioActividades.Size = new System.Drawing.Size(167, 24);
+                        this.EntradaInicioActividades.TabIndex = 22;
+                        // 
+                        // label39
+                        // 
+                        this.label39.Location = new System.Drawing.Point(254, 265);
+                        this.label39.Name = "label39";
+                        this.label39.Size = new System.Drawing.Size(144, 24);
+                        this.label39.TabIndex = 21;
+                        this.label39.Text = "Inicio de actividades";
+                        this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        // 
+                        // EntradaIngresosBrutos
+                        // 
+                        this.EntradaIngresosBrutos.Location = new System.Drawing.Point(420, 105);
+                        this.EntradaIngresosBrutos.MaxLength = 50;
+                        this.EntradaIngresosBrutos.Name = "EntradaIngresosBrutos";
+                        this.EntradaIngresosBrutos.Size = new System.Drawing.Size(134, 24);
+                        this.EntradaIngresosBrutos.TabIndex = 10;
+                        // 
+                        // label38
+                        // 
+                        this.label38.Location = new System.Drawing.Point(379, 105);
+                        this.label38.Name = "label38";
+                        this.label38.Size = new System.Drawing.Size(35, 24);
+                        this.label38.TabIndex = 9;
+                        this.label38.Text = "II.BB.";
+                        this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
                         // label37
                         // 
@@ -960,6 +995,36 @@ namespace Lazaro.WinMain.Config
                         this.FrmComprobantes.Text = "Comprobantes";
                         this.FrmComprobantes.Visible = false;
                         // 
+                        // panel2
+                        // 
+                        this.panel2.Controls.Add(this.Label16);
+                        this.panel2.Controls.Add(this.EntradaPVRC);
+                        this.panel2.Controls.Add(this.label3);
+                        this.panel2.Controls.Add(this.label11);
+                        this.panel2.Controls.Add(this.EntradaLimiteCredito);
+                        this.panel2.Controls.Add(this.label21);
+                        this.panel2.Controls.Add(this.EntradaCambiaPrecioComprob);
+                        this.panel2.Controls.Add(this.label13);
+                        this.panel2.Controls.Add(this.EntradaPVR);
+                        this.panel2.Controls.Add(this.label12);
+                        this.panel2.Controls.Add(this.EntradaPV);
+                        this.panel2.Controls.Add(this.Label9);
+                        this.panel2.Controls.Add(this.EntradaPVND);
+                        this.panel2.Controls.Add(this.Label10);
+                        this.panel2.Controls.Add(this.Label8);
+                        this.panel2.Controls.Add(this.Label7);
+                        this.panel2.Controls.Add(this.EntradaPVNC);
+                        this.panel2.Controls.Add(this.EntradaPVABC);
+                        this.panel2.Controls.Add(this.Label6);
+                        this.panel2.Controls.Add(this.Label5);
+                        this.panel2.Controls.Add(this.Label4);
+                        this.panel2.Controls.Add(this.EntradaFormaPagoPredet);
+                        this.panel2.Controls.Add(this.Label15);
+                        this.panel2.Location = new System.Drawing.Point(0, 37);
+                        this.panel2.Name = "panel2";
+                        this.panel2.Size = new System.Drawing.Size(611, 398);
+                        this.panel2.TabIndex = 26;
+                        // 
                         // EntradaPVRC
                         // 
                         this.EntradaPVRC.DataType = Lui.Forms.DataTypes.Integer;
@@ -1077,6 +1142,7 @@ namespace Lazaro.WinMain.Config
                         this.LabelTab1.TabIndex = 101;
                         this.LabelTab1.Text = "Empresa";
                         this.LabelTab1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.LabelTab1.Click += new System.EventHandler(this.LabelTab1_Click);
                         // 
                         // LabelTab2
                         // 
@@ -1086,6 +1152,7 @@ namespace Lazaro.WinMain.Config
                         this.LabelTab2.TabIndex = 102;
                         this.LabelTab2.Text = "Comprobantes";
                         this.LabelTab2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.LabelTab2.Click += new System.EventHandler(this.LabelTab2_Click);
                         // 
                         // LabelTab3
                         // 
@@ -1095,6 +1162,7 @@ namespace Lazaro.WinMain.Config
                         this.LabelTab3.TabIndex = 103;
                         this.LabelTab3.Text = "Stock";
                         this.LabelTab3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.LabelTab3.Click += new System.EventHandler(this.LabelTab3_Click);
                         // 
                         // LabelTab4
                         // 
@@ -1104,71 +1172,7 @@ namespace Lazaro.WinMain.Config
                         this.LabelTab4.TabIndex = 105;
                         this.LabelTab4.Text = "Otras";
                         this.LabelTab4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                        // 
-                        // panel2
-                        // 
-                        this.panel2.Controls.Add(this.Label16);
-                        this.panel2.Controls.Add(this.EntradaPVRC);
-                        this.panel2.Controls.Add(this.label3);
-                        this.panel2.Controls.Add(this.label11);
-                        this.panel2.Controls.Add(this.EntradaLimiteCredito);
-                        this.panel2.Controls.Add(this.label21);
-                        this.panel2.Controls.Add(this.EntradaCambiaPrecioComprob);
-                        this.panel2.Controls.Add(this.label13);
-                        this.panel2.Controls.Add(this.EntradaPVR);
-                        this.panel2.Controls.Add(this.label12);
-                        this.panel2.Controls.Add(this.EntradaPV);
-                        this.panel2.Controls.Add(this.Label9);
-                        this.panel2.Controls.Add(this.EntradaPVND);
-                        this.panel2.Controls.Add(this.Label10);
-                        this.panel2.Controls.Add(this.Label8);
-                        this.panel2.Controls.Add(this.Label7);
-                        this.panel2.Controls.Add(this.EntradaPVNC);
-                        this.panel2.Controls.Add(this.EntradaPVABC);
-                        this.panel2.Controls.Add(this.Label6);
-                        this.panel2.Controls.Add(this.Label5);
-                        this.panel2.Controls.Add(this.Label4);
-                        this.panel2.Controls.Add(this.EntradaFormaPagoPredet);
-                        this.panel2.Controls.Add(this.Label15);
-                        this.panel2.Location = new System.Drawing.Point(0, 37);
-                        this.panel2.Name = "panel2";
-                        this.panel2.Size = new System.Drawing.Size(611, 398);
-                        this.panel2.TabIndex = 26;
-                        // 
-                        // EntradaIngresosBrutos
-                        // 
-                        this.EntradaIngresosBrutos.Location = new System.Drawing.Point(420, 105);
-                        this.EntradaIngresosBrutos.MaxLength = 50;
-                        this.EntradaIngresosBrutos.Name = "EntradaIngresosBrutos";
-                        this.EntradaIngresosBrutos.Size = new System.Drawing.Size(134, 24);
-                        this.EntradaIngresosBrutos.TabIndex = 10;
-                        // 
-                        // label38
-                        // 
-                        this.label38.Location = new System.Drawing.Point(379, 105);
-                        this.label38.Name = "label38";
-                        this.label38.Size = new System.Drawing.Size(35, 24);
-                        this.label38.TabIndex = 9;
-                        this.label38.Text = "II.BB.";
-                        this.label38.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                        // 
-                        // EntradaInicioActividades
-                        // 
-                        this.EntradaInicioActividades.DataType = Lui.Forms.DataTypes.Date;
-                        this.EntradaInicioActividades.Location = new System.Drawing.Point(382, 265);
-                        this.EntradaInicioActividades.MaxLength = 50;
-                        this.EntradaInicioActividades.Name = "EntradaInicioActividades";
-                        this.EntradaInicioActividades.Size = new System.Drawing.Size(167, 24);
-                        this.EntradaInicioActividades.TabIndex = 22;
-                        // 
-                        // label39
-                        // 
-                        this.label39.Location = new System.Drawing.Point(254, 265);
-                        this.label39.Name = "label39";
-                        this.label39.Size = new System.Drawing.Size(144, 24);
-                        this.label39.TabIndex = 21;
-                        this.label39.Text = "Inicio de actividades";
-                        this.label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.LabelTab4.Click += new System.EventHandler(this.LabelTab4_Click);
                         // 
                         // Preferencias
                         // 
@@ -1196,10 +1200,10 @@ namespace Lazaro.WinMain.Config
                         this.FrmArticulos.PerformLayout();
                         this.FrmComprobantes.ResumeLayout(false);
                         this.FrmComprobantes.PerformLayout();
+                        this.panel2.ResumeLayout(false);
                         this.FrmAvanzado.ResumeLayout(false);
                         this.FrmAvanzado.PerformLayout();
                         this.buttonPanel1.ResumeLayout(false);
-                        this.panel2.ResumeLayout(false);
                         this.ResumeLayout(false);
 
 		}

@@ -53,10 +53,10 @@ namespace Lfc.Tareas
                         this.Label1.Name = "Label1";
                         this.Label1.Size = new System.Drawing.Size(88, 24);
                         this.Label1.TabIndex = 8;
-                        this.Label1.Text = "Persona";
+                        this.Label1.Text = "Vendedor";
                         this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
-                        // EntradaTecnico
+                        // EntradaEncargado
                         // 
                         this.EntradaEncargado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -65,11 +65,11 @@ namespace Lfc.Tareas
                         this.EntradaEncargado.Filter = "(tipo&4)=4";
                         this.EntradaEncargado.Location = new System.Drawing.Point(112, 240);
                         this.EntradaEncargado.MaxLength = 200;
-                        this.EntradaEncargado.Name = "EntradaTecnico";
+                        this.EntradaEncargado.Name = "EntradaEncargado";
+                        this.EntradaEncargado.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaEncargado.Required = true;
                         this.EntradaEncargado.Size = new System.Drawing.Size(496, 24);
                         this.EntradaEncargado.TabIndex = 9;
-                        this.EntradaEncargado.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaEncargado.Text = "0";
                         // 
                         // EntradaDescripcion
@@ -87,7 +87,7 @@ namespace Lfc.Tareas
                         this.Label2.Location = new System.Drawing.Point(280, 192);
                         this.Label2.Name = "Label2";
                         this.Label2.Size = new System.Drawing.Size(68, 24);
-                        this.Label2.TabIndex = 4;
+                        this.Label2.TabIndex = 6;
                         this.Label2.Text = "Tiempo";
                         this.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
@@ -96,7 +96,7 @@ namespace Lfc.Tareas
                         this.EntradaMinutos.Location = new System.Drawing.Point(348, 192);
                         this.EntradaMinutos.Name = "EntradaMinutos";
                         this.EntradaMinutos.Size = new System.Drawing.Size(76, 24);
-                        this.EntradaMinutos.TabIndex = 5;
+                        this.EntradaMinutos.TabIndex = 7;
                         // 
                         // EntradaCondicion
                         // 
@@ -109,8 +109,8 @@ namespace Lfc.Tareas
                         this.EntradaCondicion.SetData = new string[] {
         "Publica|0",
         "Interna|1"};
-                        this.EntradaCondicion.Size = new System.Drawing.Size(152, 39);
-                        this.EntradaCondicion.TabIndex = 7;
+                        this.EntradaCondicion.Size = new System.Drawing.Size(152, 40);
+                        this.EntradaCondicion.TabIndex = 5;
                         this.EntradaCondicion.TextKey = "0";
                         // 
                         // Label3
@@ -118,7 +118,7 @@ namespace Lfc.Tareas
                         this.Label3.Location = new System.Drawing.Point(24, 192);
                         this.Label3.Name = "Label3";
                         this.Label3.Size = new System.Drawing.Size(88, 24);
-                        this.Label3.TabIndex = 6;
+                        this.Label3.TabIndex = 4;
                         this.Label3.Text = "Visibilidad";
                         this.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
@@ -137,14 +137,13 @@ namespace Lfc.Tareas
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaTicket.AutoTab = true;
                         this.EntradaTicket.CanCreate = true;
-                        this.EntradaTicket.Filter = "";
                         this.EntradaTicket.Location = new System.Drawing.Point(112, 24);
                         this.EntradaTicket.MaxLength = 200;
                         this.EntradaTicket.Name = "EntradaTicket";
+                        this.EntradaTicket.NombreTipo = "Lbl.Tareas.Tarea";
                         this.EntradaTicket.Required = true;
                         this.EntradaTicket.Size = new System.Drawing.Size(496, 24);
                         this.EntradaTicket.TabIndex = 1;
-                        this.EntradaTicket.NombreTipo = "Lbl.Tareas.Tarea";
                         this.EntradaTicket.Text = "0";
                         // 
                         // Label5

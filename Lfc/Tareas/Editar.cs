@@ -63,8 +63,8 @@ namespace Lfc.Tareas
                                 EntradaComprobante.Text = Tarea.Presupuesto.ToString();
 
                         if (Tarea.Existe) {
-                                EntradaPresupuesto2.ValueDecimal = Tarea.Articulos.ImporteTotal;
-                                CargarHistorial();
+                                this.MostrarPresupuesto();
+                                this.CargarHistorial();
                         }
 
                         base.ActualizarControl();
@@ -189,7 +189,7 @@ namespace Lfc.Tareas
                         if (Res.Success == false)
                                 return Res;
 
-                        Lbl.Tareas.Tarea Tarea = this.Elemento as Lbl.Tareas.Tarea;
+                        var Tarea = this.Elemento as Lbl.Tareas.Tarea;
                         Lbl.Comprobantes.ComprobanteFacturable Factura;
 
                         Lfx.Data.Connection ConnFacturaNueva = Lfx.Workspace.Master.GetNewConnection("Convertir tarea en factura");
@@ -219,7 +219,7 @@ namespace Lfc.Tareas
                                 if (EntradaImportePresupuesto.ValueDecimal > 0) {
                                         Lbl.Comprobantes.DetalleArticulo Art = new Lbl.Comprobantes.DetalleArticulo(Factura);
 
-                                        Art.Nombre = this.Elemento.ToString();
+                                        Art.Nombre = Tarea.Nombre;
                                         Art.ImporteUnitario = EntradaImportePresupuesto.ValueDecimal;
                                         Art.Cantidad = 1;
 
@@ -283,10 +283,12 @@ namespace Lfc.Tareas
                 }
 
 
-                public void MostrarPresupuesto2()
+                public void MostrarPresupuesto()
                 {
-                        decimal ValorArticulos = this.Connection.FieldDecimal("SELECT SUM(cantidad*precio) FROM tickets_articulos WHERE id_ticket=" + this.Elemento.Id.ToString());
-                        EntradaPresupuesto2.ValueDecimal = ValorArticulos * (1 - Descuento / 100);
+                        //decimal ValorArticulos = this.Connection.FieldDecimal("SELECT SUM(cantidad*precio) FROM tickets_articulos WHERE id_ticket=" + this.Elemento.Id.ToString());
+                        //EntradaPresupuesto2.ValueDecimal = ValorArticulos * (1 - Descuento / 100);
+                        var Tarea = this.Elemento as Lbl.Tareas.Tarea;
+                        EntradaPresupuesto2.ValueDecimal = Tarea.Articulos.ImporteTotal * (1m - Tarea.DescuentoArticulos / 100m);
                 }
 
 
@@ -322,6 +324,11 @@ namespace Lfc.Tareas
                                 default:
                                         return base.PerformFormAction(name);
                         }
+                }
+
+                private void Editar_Enter(object sender, EventArgs e)
+                {
+                        this.MostrarPresupuesto();
                 }
         }
 }

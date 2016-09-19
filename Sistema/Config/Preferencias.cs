@@ -270,6 +270,12 @@ namespace Lazaro.WinMain.Config
                         if (CurrentTab > TabCount)
                                 CurrentTab = 1;
 
+                        this.MostrarPestanias();
+                }
+
+
+                protected void MostrarPestanias()
+                {
                         FrmGeneral.Visible = CurrentTab == 1;
                         FrmArticulos.Visible = CurrentTab == 2;
                         FrmComprobantes.Visible = CurrentTab == 3;
@@ -280,6 +286,7 @@ namespace Lazaro.WinMain.Config
                         LabelTab3.Left = CurrentTab == 3 ? 16 : 12;
                         LabelTab4.Left = CurrentTab == 4 ? 16 : 12;
                 }
+
 
                 private void EntradaProvincia_TextChanged(object sender, System.EventArgs e)
                 {
@@ -314,6 +321,30 @@ namespace Lazaro.WinMain.Config
                                         EntradaPais.Focus();
                                 }
                         }
+                }
+
+                private void LabelTab1_Click(object sender, System.EventArgs e)
+                {
+                        CurrentTab = 1;
+                        this.MostrarPestanias();
+                }
+
+                private void LabelTab2_Click(object sender, System.EventArgs e)
+                {
+                        CurrentTab = 2;
+                        this.MostrarPestanias();
+                }
+
+                private void LabelTab3_Click(object sender, System.EventArgs e)
+                {
+                        CurrentTab = 3;
+                        this.MostrarPestanias();
+                }
+
+                private void LabelTab4_Click(object sender, System.EventArgs e)
+                {
+                        CurrentTab = 4;
+                        this.MostrarPestanias();
                 }
         }
 }

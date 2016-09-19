@@ -78,14 +78,13 @@ namespace Lfc.Tareas
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaCliente.AutoTab = true;
                         this.EntradaCliente.CanCreate = true;
-                        this.EntradaCliente.Filter = "";
                         this.EntradaCliente.Location = new System.Drawing.Point(104, 0);
                         this.EntradaCliente.MaxLength = 200;
                         this.EntradaCliente.Name = "EntradaCliente";
+                        this.EntradaCliente.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaCliente.Required = true;
                         this.EntradaCliente.Size = new System.Drawing.Size(328, 24);
                         this.EntradaCliente.TabIndex = 1;
-                        this.EntradaCliente.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaCliente.Text = "0";
                         // 
                         // EntradaTarea
@@ -94,14 +93,13 @@ namespace Lfc.Tareas
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaTarea.AutoTab = true;
                         this.EntradaTarea.CanCreate = true;
-                        this.EntradaTarea.Filter = "";
                         this.EntradaTarea.Location = new System.Drawing.Point(104, 32);
                         this.EntradaTarea.MaxLength = 200;
                         this.EntradaTarea.Name = "EntradaTarea";
+                        this.EntradaTarea.NombreTipo = "Lbl.Tareas.Tipo";
                         this.EntradaTarea.Required = true;
                         this.EntradaTarea.Size = new System.Drawing.Size(328, 24);
                         this.EntradaTarea.TabIndex = 3;
-                        this.EntradaTarea.NombreTipo = "Lbl.Tareas.Tipo";
                         this.EntradaTarea.Text = "0";
                         // 
                         // Label3
@@ -123,10 +121,10 @@ namespace Lfc.Tareas
                         this.EntradaEncargado.Location = new System.Drawing.Point(104, 64);
                         this.EntradaEncargado.MaxLength = 200;
                         this.EntradaEncargado.Name = "EntradaEncargado";
+                        this.EntradaEncargado.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaEncargado.Required = true;
                         this.EntradaEncargado.Size = new System.Drawing.Size(328, 24);
                         this.EntradaEncargado.TabIndex = 5;
-                        this.EntradaEncargado.NombreTipo = "Lbl.Personas.Persona";
                         this.EntradaEncargado.Text = "0";
                         // 
                         // Label4
@@ -244,6 +242,7 @@ namespace Lfc.Tareas
                         this.EntradaImportePresupuesto.Prefijo = "$";
                         this.EntradaImportePresupuesto.Size = new System.Drawing.Size(80, 24);
                         this.EntradaImportePresupuesto.TabIndex = 24;
+                        this.EntradaImportePresupuesto.Text = "0.00";
                         // 
                         // EntradaObs
                         // 
@@ -289,11 +288,13 @@ namespace Lfc.Tareas
             this.Tecnico,
             this.Fecha,
             this.Detalle});
+                        this.ListaHistorial.FieldName = null;
                         this.ListaHistorial.FullRowSelect = true;
                         this.ListaHistorial.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.ListaHistorial.Location = new System.Drawing.Point(8, 40);
                         this.ListaHistorial.MultiSelect = false;
                         this.ListaHistorial.Name = "ListaHistorial";
+                        this.ListaHistorial.ReadOnly = false;
                         this.ListaHistorial.Size = new System.Drawing.Size(760, 177);
                         this.ListaHistorial.TabIndex = 30;
                         this.ListaHistorial.UseCompatibleStateImageBehavior = false;
@@ -307,8 +308,8 @@ namespace Lfc.Tareas
                         // 
                         // Tecnico
                         // 
-                        this.Tecnico.Text = "Técnico";
-                        this.Tecnico.Width = 113;
+                        this.Tecnico.Text = "Vendedor";
+                        this.Tecnico.Width = 180;
                         // 
                         // Fecha
                         // 
@@ -325,14 +326,13 @@ namespace Lfc.Tareas
                         this.EntradaEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaEstado.AutoTab = true;
                         this.EntradaEstado.CanCreate = true;
-                        this.EntradaEstado.Filter = "";
                         this.EntradaEstado.Location = new System.Drawing.Point(512, 0);
                         this.EntradaEstado.MaxLength = 200;
                         this.EntradaEstado.Name = "EntradaEstado";
+                        this.EntradaEstado.NombreTipo = "Lbl.Tareas.Estado";
                         this.EntradaEstado.Required = true;
                         this.EntradaEstado.Size = new System.Drawing.Size(256, 24);
                         this.EntradaEstado.TabIndex = 14;
-                        this.EntradaEstado.NombreTipo = "Lbl.Tareas.Estado";
                         this.EntradaEstado.Text = "0";
                         // 
                         // EntradaFechaIngreso
@@ -393,6 +393,7 @@ namespace Lfc.Tareas
                         this.EntradaPresupuesto2.Size = new System.Drawing.Size(88, 24);
                         this.EntradaPresupuesto2.TabIndex = 26;
                         this.EntradaPresupuesto2.TabStop = false;
+                        this.EntradaPresupuesto2.Text = "0.00";
                         // 
                         // EntradaPrioridad
                         // 
@@ -465,6 +466,7 @@ namespace Lfc.Tareas
                         this.Controls.Add(this.Label1);
                         this.Name = "Editar";
                         this.Size = new System.Drawing.Size(768, 486);
+                        this.Enter += new System.EventHandler(this.Editar_Enter);
                         this.Frame2.ResumeLayout(false);
                         this.Frame2.PerformLayout();
                         this.ResumeLayout(false);
