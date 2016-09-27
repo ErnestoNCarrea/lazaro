@@ -188,7 +188,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.Cantidad * this.ImporteUnitarioConIva;
+                                return this.Cantidad * this.UnitarioConIvaConDescuentoORecargo;
                         }
                 }
 
@@ -212,6 +212,18 @@ namespace Lbl.Comprobantes
                         get
                         {
                                 return this.ImporteUnitario * (1 + Recargo / 100);
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve el precio unitario con IVA aplicando descuentos o recargos.
+                /// </summary>
+                public decimal UnitarioConIvaConDescuentoORecargo
+                {
+                        get
+                        {
+                                return this.ImporteUnitarioConIva * (1 + Recargo / 100);
                         }
                 }
 

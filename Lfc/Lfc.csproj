@@ -84,6 +84,12 @@
     <Compile Include="Articulos\Margenes\Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Articulos\CambioMasivoPrecios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Articulos\CambioMasivoPrecios.Designer.cs">
+      <DependentUpon>CambioMasivoPrecios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Articulos\Situaciones\Editar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -774,8 +780,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Articulos\Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Articulos\Margenes\Editar.resx">
       <DependentUpon>Editar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Articulos\CambioMasivoPrecios.resx">
+      <DependentUpon>CambioMasivoPrecios.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Articulos\Situaciones\Editar.resx">
       <DependentUpon>Editar.cs</DependentUpon>

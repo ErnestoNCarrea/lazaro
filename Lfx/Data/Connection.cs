@@ -116,8 +116,12 @@ namespace Lfx.Data
                         if (string.IsNullOrEmpty(Port) == false)
                                 ConnectionString.Append("PORT=" + Port + ";");
 
-                        //if (Lfx.Data.DataBaseCache.DefaultCache.DataBaseName.Length > 0)
-                        //        ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
+                        if (this.Handle > 0) {
+                                // En conexiones sucesivas, puede seleccionar la base de datos al conectar,
+                                // pero no es la conexión master (handle 0).
+                                if (string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false)
+                                        ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
+                        }
                         ConnectionString.Append("UID=" + Lfx.Data.DataBaseCache.DefaultCache.UserName + ";");
                         ConnectionString.Append("PWD=" + Lfx.Data.DataBaseCache.DefaultCache.Password + ";");
 
@@ -129,7 +133,8 @@ namespace Lfx.Data
                                 throw ex;
                         }
 
-                        if (Lfx.Data.DataBaseCache.DefaultCache.DataBaseName.Length > 0) {
+                        if (this.Handle == 0 && string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false) {
+                                // En la conexión master (handle 0) selecciono la base de datos después de conectar, para dar oportunidad de crearla si no existe
                                 try {
                                         DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
                                 } catch {
@@ -1384,25 +1389,27 @@ LEFT JOIN pg_attribute
                         if (Lfx.Workspace.Master.TraceMode)
                                 Lfx.Workspace.Master.DebugLog(this.Handle, selectCommand);
 
-                        System.Data.IDbDataAdapter Adaptador = Lfx.Data.DataBaseCache.DefaultCache.Provider.GetAdapter(selectCommand, this.DbConnection);
-                        using (System.Data.DataSet Lector = new System.Data.DataSet()) {
-                                Lector.Locale = System.Globalization.CultureInfo.CurrentCulture;
-                                while (true) {
-                                        try {
-                                                this.ResetKeepAliveTimer();
-                                                Adaptador.Fill(Lector);
-                                                break;
-                                        } catch (Exception ex) {
-                                                if (this.TryToRecover(ex)) {
-                                                        LogError("----------------------------------------------------------------------------");
-                                                        LogError(ex.Message);
-                                                        LogError(selectCommand);
-                                                        ex.Data.Add("Command", selectCommand);
-                                                        throw ex;
+                        var Adaptador = Lfx.Data.DataBaseCache.DefaultCache.Provider.GetAdapter(selectCommand, this.DbConnection);
+                        lock (Adaptador) {
+                                using (System.Data.DataSet Lector = new System.Data.DataSet()) {
+                                        Lector.Locale = System.Globalization.CultureInfo.CurrentCulture;
+                                        while (true) {
+                                                try {
+                                                        this.ResetKeepAliveTimer();
+                                                        Adaptador.Fill(Lector);
+                                                        break;
+                                                } catch (Exception ex) {
+                                                        if (this.TryToRecover(ex)) {
+                                                                LogError("----------------------------------------------------------------------------");
+                                                                LogError(ex.Message);
+                                                                LogError(selectCommand);
+                                                                ex.Data.Add("Command", selectCommand);
+                                                                throw ex;
+                                                        }
                                                 }
                                         }
+                                        return Lector.Tables[0];
                                 }
-                                return Lector.Tables[0];
                         }
                 }
 

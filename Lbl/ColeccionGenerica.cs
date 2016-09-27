@@ -199,10 +199,10 @@ namespace Lbl
                 /// <returns>La colección de los elementos presentes en esta colección, pero no en la original.</returns>
                 public ColeccionGenerica<T> Agregados(ColeccionGenerica<T> original)
                 {
-                        ColeccionGenerica<T> Res = new ColeccionGenerica<T>();
+                        var Res = new ColeccionGenerica<T>();
                         foreach (T El in this) {
-                                Lbl.IElementoDeDatos El2 = El as Lbl.IElementoDeDatos;
-                                if(original.Contains(El2.Id) == false)
+                                var El2 = El as Lbl.IElementoDeDatos;
+                                if(original == null || original.Contains(El2.Id) == false)
                                         Res.Add(El);
                         }
                         return Res;
@@ -215,11 +215,13 @@ namespace Lbl
                 /// <returns>La colección de los elementos no presentes en esta colección, pero si en la original.</returns>
                 public ColeccionGenerica<T> Quitados(ColeccionGenerica<T> original)
                 {
-                        ColeccionGenerica<T> Res = new ColeccionGenerica<T>();
-                        foreach (T Elem in original) {
-                                Lbl.IElementoDeDatos El2 = Elem as Lbl.IElementoDeDatos;
-                                if (this.Contains(El2.Id) == false)
-                                        Res.Add(Elem);
+                        var Res = new ColeccionGenerica<T>();
+                        if (original != null) {
+                                foreach (T Elem in original) {
+                                        var El2 = Elem as Lbl.IElementoDeDatos;
+                                        if (this.Contains(El2.Id) == false)
+                                                Res.Add(Elem);
+                                }
                         }
                         return Res;
                 }

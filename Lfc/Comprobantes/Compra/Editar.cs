@@ -89,10 +89,10 @@ namespace Lfc.Comprobantes.Compra
                         EntradaHaciaSituacion.TemporaryReadOnly = Fac.Existe;
                         EntradaTipo.TextKey = Fac.Tipo.Nomenclatura;
                         EntradaEstado.TextKey = Fac.Estado.ToString();
-                        EntradaTotal.Text = Lfx.Types.Formatting.FormatCurrency(Fac.Total, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                        EntradaCancelado.Text = Lfx.Types.Formatting.FormatCurrency(Fac.ImporteCancelado, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                        EntradaGastosEnvio.Text = Lfx.Types.Formatting.FormatCurrency(Fac.GastosDeEnvio, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
-                        EntradaOtrosGastos.Text = Lfx.Types.Formatting.FormatCurrency(Fac.OtrosGastos, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
+                        EntradaTotal.ValueDecimal = Fac.Total;
+                        EntradaCancelado.ValueDecimal = Fac.ImporteCancelado;
+                        EntradaGastosEnvio.ValueDecimal = Fac.GastosDeEnvio;
+                        EntradaOtrosGastos.ValueDecimal = Fac.OtrosGastos;
                         EntradaFecha.Text = Lfx.Types.Formatting.FormatDate(Fac.Fecha);
                         EntradaObs.Text = Fac.Obs;
 
@@ -123,11 +123,11 @@ namespace Lfc.Comprobantes.Compra
                         Comprob.Vendedor = Lbl.Sys.Config.Actual.UsuarioConectado.Persona;
                         Comprob.Cliente = EntradaProveedor.Elemento as Lbl.Personas.Persona;
                         Comprob.Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra[EntradaTipo.TextKey];
-                        Comprob.PV = Lfx.Types.Parsing.ParseInt(EntradaPV.Text);
-                        Comprob.Numero = Lfx.Types.Parsing.ParseInt(EntradaNumero.Text);
+                        Comprob.PV = EntradaPV.ValueInt;
+                        Comprob.Numero = EntradaNumero.ValueInt;
                         Comprob.SituacionDestino = EntradaHaciaSituacion.Elemento as Lbl.Articulos.Situacion;
-                        Comprob.GastosDeEnvio = Lfx.Types.Parsing.ParseCurrency(EntradaGastosEnvio.Text);
-                        Comprob.OtrosGastos = Lfx.Types.Parsing.ParseCurrency(EntradaOtrosGastos.Text);
+                        Comprob.GastosDeEnvio = EntradaGastosEnvio.ValueDecimal;
+                        Comprob.OtrosGastos = EntradaOtrosGastos.ValueDecimal;
                         Comprob.Obs = EntradaObs.Text;
 
                         if (EntradaEstado.Enabled && EntradaEstado.Visible)
@@ -283,11 +283,14 @@ namespace Lfc.Comprobantes.Compra
                 private void EntradaTipoPvNumero_TextChanged(object sender, EventArgs e)
                 {
                         if (Lbl.Comprobantes.Tipo.TodosPorLetra.ContainsKey(EntradaTipo.TextKey)) {
-                                Lbl.Comprobantes.Tipo Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra[EntradaTipo.TextKey];
-                                if (Tipo.Existe)
+                                var Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra[EntradaTipo.TextKey];
+
+                                if (Tipo.Existe) {
                                         EntradaFormaPago.Enabled = Tipo.EsFacturaNCoND;
-                                else
+                                        EntradaProductos.DiscriminarIva = Tipo.DiscriminaIva;
+                                } else {
                                         EntradaFormaPago.Enabled = false;
+                                }
 
                                 if (EntradaNumero.ValueInt > 0)
                                         this.Text = Tipo.ToString() + " " + this.EntradaPV.ValueInt.ToString("0000") + "-" + EntradaNumero.ValueInt.ToString("00000000");
