@@ -946,12 +946,14 @@ LEFT JOIN pg_attribute
 
                                 System.Threading.Thread.Sleep(500);
 
-                                int intentos = 3;
+                                int intentos = 5;
                                 while ((DbConnection == null || DbConnection.State != System.Data.ConnectionState.Open) && intentos-- > 0) {
                                         try {
                                                 this.Open();
+                                                System.Threading.Thread.Sleep(50);
+                                                DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
                                         } catch {
-                                                System.Threading.Thread.Sleep(1000);
+                                                System.Threading.Thread.Sleep(2000);
                                         }
                                 }
                                 EnableRecover = true;
