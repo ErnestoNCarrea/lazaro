@@ -735,8 +735,9 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                                 || string.Compare(ex2.Message, "Unable to connect to any of the specified MySQL hosts.", true) == 0
                                                 || string.Compare(ex2.Message, "Connection unexpectedly terminated.", true) == 0
                                                 || string.Compare(ex2.Message, "Timeout expired.", true) == 0
+                                                || string.Compare(ex2.Message, "Connection must be valid and open.", true) == 0
                                                 || string.Compare(ex2.Message, "No se pueden leer los datos de la conexión de transporte: Se ha forzado la interrupción de una conexión existente por el host remoto.", true) == 0) {
-                                                KnownExceptionHandler(ex, "Error de comunicación con el servidor");
+                                                KnownExceptionHandler(ex, "Error de comunicación con el servidor.");
                                                 Found = true;
                                                 break;
                                         } else if (string.Compare(ex2.Message, "Lock wait timeout exceeded; try restarting transaction", true) == 0) {
@@ -746,8 +747,9 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         }
                                         ex2 = ex2.InnerException;
                                 }
-                                if (Found == false)
+                                if (Found == false) {
                                         UnknownExceptionHandler(ex);
+                                }
                         } else if (ex.Message.IndexOf("El servidor RPC no está disponible", StringComparison.CurrentCultureIgnoreCase) >= 0
                                 || ex.Message.IndexOf("RPC server unavailable", StringComparison.CurrentCultureIgnoreCase) >= 0) {
                                 KnownExceptionHandler(ex, "La impresora no está disponible");
@@ -837,7 +839,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                         Mensaje.To.Add(new MailAddress("error@lazarogestion.com"));
                         Mensaje.From = new MailAddress(Lbl.Sys.Config.Empresa.Email, Lbl.Sys.Config.Actual.UsuarioConectado.Nombre + " en " + Lbl.Sys.Config.Empresa.Nombre);
                         try {
-                                //No sé por qué, pero una vez dió un error al poner el asunto
+                                // No sé por qué, pero una vez dio un error al poner el asunto
                                 Mensaje.Subject = ex.Message;
                         } catch {
                                 Mensaje.Subject = "Excepción no controlada";

@@ -563,6 +563,17 @@ namespace Lcc.Entrada.Articulos
                         }
                 }
 
+
+                [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+                public Lbl.Impuestos.Alicuota Alicuota
+                {
+                        get
+                        {
+                                return m_Alicuota;
+                        }
+                }
+
+
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
                 public decimal Cantidad
                 {

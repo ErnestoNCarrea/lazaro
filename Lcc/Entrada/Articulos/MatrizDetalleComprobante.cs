@@ -111,6 +111,7 @@ namespace Lcc.Entrada.Articulos
                                 if (Pro.IsEmpty == false) {
                                         Lbl.Comprobantes.DetalleArticulo DetArt = new Lbl.Comprobantes.DetalleArticulo(comprobante);
                                         DetArt.Articulo = Pro.Articulo;
+                                        DetArt.Alicuota = Pro.Alicuota;
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
@@ -118,7 +119,7 @@ namespace Lcc.Entrada.Articulos
                                         if (this.AplicaIva) {
                                                 DetArt.ImporteUnitarioIva = Pro.ImporteUnitarioIva;
                                         } else {
-                                                DetArt.ImporteUnitarioIva = 0;
+                                                DetArt.ImporteUnitarioIva = 0m;
                                         }
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;

@@ -109,11 +109,11 @@ namespace Afip.Ws.FacturaElectronica
                                         CbteDesde = Comprob.Numero,
                                         CbteHasta = Comprob.Numero,
                                         CbteFch = DateTime.Now.ToString("yyyyMMdd"),
-                                        ImpTotal = decimal.ToDouble(Comprob.ImporteTotal()),
-                                        ImpTotConc = decimal.ToDouble(Comprob.ImporteNetoNoGravado),
-                                        ImpNeto = decimal.ToDouble(Comprob.ImporteNetoGravado),
-                                        ImpOpEx = decimal.ToDouble(Comprob.ImporteExento),
-                                        ImpIVA = decimal.ToDouble(Comprob.ImporteIva()),
+                                        ImpTotal = Math.Round(decimal.ToDouble(Comprob.ImporteTotal()), 2),
+                                        ImpTotConc = Math.Round(decimal.ToDouble(Comprob.ImporteNetoNoGravado), 2),
+                                        ImpNeto = Math.Round(decimal.ToDouble(Comprob.ImporteNetoGravado), 2),
+                                        ImpOpEx = Math.Round(decimal.ToDouble(Comprob.ImporteExento), 2),
+                                        ImpIVA = Math.Round(decimal.ToDouble(Comprob.ImporteIva()), 2),
                                         //ImpTrib = Comprob.TotalTributos(),
                                         MonId = "PES",
                                         MonCotiz = 1,
@@ -143,8 +143,8 @@ namespace Afip.Ws.FacturaElectronica
                                                 DetalleComprobante.Iva[j++] = new AlicIva()
                                                 {
                                                         Id = (int)Alic.Alicuota,
-                                                        BaseImp = decimal.ToDouble(Alic.BaseImponible),
-                                                        Importe = decimal.ToDouble(Alic.Importe)
+                                                        BaseImp = Math.Round(decimal.ToDouble(Alic.BaseImponible), 2),
+                                                        Importe = Math.Round(decimal.ToDouble(Alic.Importe), 2)
                                                 };
                                         }
                                 }

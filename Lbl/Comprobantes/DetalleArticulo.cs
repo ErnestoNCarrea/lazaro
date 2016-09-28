@@ -10,6 +10,7 @@ namespace Lbl.Comprobantes
 	public class DetalleArticulo : ElementoDeDatos
 	{
                 private Articulos.Articulo m_Articulo = null;
+                private Impuestos.Alicuota m_Alicuota = null;
                 private Lbl.ElementoDeDatos m_ElementoPadre = null;
 
 		//Heredar constructor
@@ -361,21 +362,20 @@ namespace Lbl.Comprobantes
                 public decimal ImporteIvaAlicuota(int idAlicuota)
                 {
                         if (this.ElementoPadre == null) {
-                                return 0;
+                                return 0m;
                         } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                //Lbl.Comprobantes.ComprobanteConArticulos Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                Lbl.Impuestos.Alicuota AlicArticulo;
-                                if (this.Articulo == null)
-                                        AlicArticulo = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
-                                else
-                                        AlicArticulo = this.Articulo.ObtenerAlicuota();
-
-                                if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteUnitarioIva;
-                                else
-                                        return 0;
+                                if (this.Alicuota != null && this.Alicuota.Id == idAlicuota) {
+                                        var Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                                        if (Comprob.DiscriminaIva) {
+                                                return this.ImporteUnitarioIvaFinal * this.Cantidad;
+                                        } else {
+                                                return this.ImporteConIva - this.ImporteConIva / (1m + this.Alicuota.Porcentaje / 100m);
+                                        }
+                                } else {
+                                        return 0m;
+                                }
                         } else {
-                                return 0;
+                                return 0m;
                         }
                 }
 
@@ -404,6 +404,10 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                /// <summary>
+                /// Devuelve o establece el Id del artículo facturado, si corresponde.
+                /// </summary>
                 protected internal int IdArticulo
                 {
                         get
@@ -414,6 +418,20 @@ namespace Lbl.Comprobantes
                         {
                                 this.Registro["id_articulo"] = value;
                                 m_Articulo = null;
+                        }
+                }
+
+
+                protected internal int IdAlicuota
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("id_alicuota");
+                        }
+                        set
+                        {
+                                this.Registro["id_alicuota"] = value;
+                                m_Alicuota = null;
                         }
                 }
 
@@ -468,8 +486,32 @@ namespace Lbl.Comprobantes
                                         this.IdArticulo = value.Id;
                                         this.Nombre = value.Nombre;
                                         this.Descripcion = value.Descripcion;
+                                        this.Alicuota = value.ObtenerAlicuota();
                                 } else {
                                         this.IdArticulo = 0;
+                                }
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve o establece la alícuota utilizada al momento de guardar o imprimir el comprobante.
+                /// </summary>
+                public Impuestos.Alicuota Alicuota
+                {
+                        get
+                        {
+                                if (m_Alicuota == null && this.IdAlicuota != 0)
+                                        m_Alicuota = new Lbl.Impuestos.Alicuota(this.Connection, this.IdAlicuota);
+
+                                return m_Alicuota;
+                        }
+                        set
+                        {
+                                if (value != null) {
+                                        this.IdAlicuota = value.Id;
+                                } else {
+                                        this.IdAlicuota = 0;
                                 }
                         }
                 }
@@ -541,6 +583,12 @@ namespace Lbl.Comprobantes
                                 Comando.Fields.AddWithValue("id_articulo", this.Articulo.Id);
                                 Comando.Fields.AddWithValue("nombre", this.Articulo.Nombre);
                                 Comando.Fields.AddWithValue("descripcion", this.Articulo.Descripcion);
+                        }
+
+                        if (this.Alicuota == null) {
+                                Comando.Fields.AddWithValue("id_alicuota", null);
+                        } else {
+                                Comando.Fields.AddWithValue("id_alicuota", this.Alicuota.Id);
                         }
 
                         Comando.Fields.AddWithValue("cantidad", this.Cantidad);

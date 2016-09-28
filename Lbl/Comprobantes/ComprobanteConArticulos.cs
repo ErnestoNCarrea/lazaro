@@ -522,8 +522,9 @@ namespace Lbl.Comprobantes
                 /// </summary>
                 public decimal TotalIvaAlicuota(int idAlicuota)
                 {
-                        if (this.Cliente != null && this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
+                        /* if (this.Cliente != null && this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
                                 return 0;
+                        */
 
                         decimal Res = 0;
                         foreach (DetalleArticulo Det in this.Articulos) {
@@ -1048,6 +1049,12 @@ namespace Lbl.Comprobantes
                                                         Comando.Fields.AddWithValue("id_articulo", Art.Articulo.Id);
                                                         Comando.Fields.AddWithValue("nombre", Art.Nombre);
                                                         Comando.Fields.AddWithValue("descripcion", Art.Articulo.Descripcion);
+                                                }
+
+                                                if (Art.Alicuota == null) {
+                                                        Comando.Fields.AddWithValue("id_alicuota", null);
+                                                } else {
+                                                        Comando.Fields.AddWithValue("id_alicuota", Art.Alicuota.Id);
                                                 }
 
                                                 Comando.Fields.AddWithValue("cantidad", Art.Cantidad);
