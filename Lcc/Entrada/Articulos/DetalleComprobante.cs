@@ -15,6 +15,7 @@ namespace Lcc.Entrada.Articulos
                 protected ControlesSock m_ControlStock = ControlesSock.Ambos;
                 protected Lbl.Articulos.ColeccionDatosSeguimiento m_DatosSeguimiento = new Lbl.Articulos.ColeccionDatosSeguimiento();
                 protected Lbl.Impuestos.Alicuota m_Alicuota = null;
+                protected decimal m_ImporteUnitarioIva = 0m;
 
                 new public event System.Windows.Forms.KeyEventHandler KeyDown;
                 public event System.EventHandler ImportesChanged;
@@ -293,24 +294,20 @@ namespace Lcc.Entrada.Articulos
                                 if (m_DiscriminarIva != AntesDiscriminaba && m_AplicarIva && m_Alicuota != null) {
                                         if (value) {
                                                 // Antes no discriminaba y ahora sí
-                                                decimal ImporteUnitarioIva = this.ImporteUnitario - (this.ImporteUnitario / (1 + m_Alicuota.Porcentaje / 100m));
-                                                this.ImporteUnitarioIva = ImporteUnitarioIva;
-                                                this.ImporteUnitario -= ImporteUnitarioIva;
+                                                this.EstablecerImporteUnitarioOriginal(this.ImporteUnitario / (1 + m_Alicuota.Porcentaje / 100m));
                                         } else {
                                                 // Antes discriminaba y ahora no
-                                                this.ImporteUnitario += this.ImporteUnitarioIva;
-                                                this.ImporteUnitarioIva = 0m;
+                                                this.EstablecerImporteUnitarioOriginal(this.ImporteUnitario);
                                         }
 
-                                        this.RecalcularImportes();
+                                        this.RecalcularImporteFinal();
 
                                         if (null != ImportesChanged) {
                                                 ImportesChanged(this, null);
                                         }
                                 }
 
-                                
-                                this.RecalcularImportes();
+                                this.RecalcularImporteFinal();
                         }
                 }
 
@@ -331,24 +328,16 @@ namespace Lcc.Entrada.Articulos
                                 EntradaIva.Enabled = this.DiscriminarIva && this.AplicarIva;
 
                                 if (m_AplicarIva != AntesAplicaba && m_Alicuota != null) {
-                                        decimal ImporteUnitarioIva = this.ImporteUnitario * (m_Alicuota.Porcentaje / 100m);
+                                        decimal NuevoImporteUnitarioIva = this.ImporteUnitario * (m_Alicuota.Porcentaje / 100m);
                                         if (value) {
                                                 // Antes no aplicaba y ahora sí
-                                                if (this.DiscriminarIva) {
-                                                        this.ImporteUnitarioIva = ImporteUnitarioIva;
-                                                } else {
-                                                        this.ImporteUnitario += ImporteUnitarioIva;
-                                                }
+                                                this.EstablecerImporteUnitarioOriginal(this.ImporteUnitario);
                                         } else {
                                                 // Antes aplicaba y ahora no
-                                                if (this.DiscriminarIva) {
-                                                        this.ImporteUnitarioIva = 0m;
-                                                } else {
-                                                        this.ImporteUnitario -= ImporteUnitarioIva;
-                                                }
+                                                this.EstablecerImporteUnitarioOriginal((this.ImporteUnitario + this.ImporteIvaDiscriminadoUnitario) / (1m + m_Alicuota.Porcentaje / 100m));
                                         }
 
-                                        this.RecalcularImportes();
+                                        this.RecalcularImporteFinal();
 
                                         if (null != ImportesChanged) {
                                                 ImportesChanged(this, null);
@@ -472,10 +461,30 @@ namespace Lcc.Entrada.Articulos
                 }
 
                 /// <summary>
-                /// El importe de IVA ingresado (sin descuento), por unidad.
+                /// El importe de IVA unitario (sin descuento).
                 /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public decimal ImporteUnitarioIva
+                public decimal ImporteIvaUnitario
+                {
+                        get
+                        {
+                                return this.m_ImporteUnitarioIva;
+                        }
+                        set
+                        {
+                                this.m_ImporteUnitarioIva = value;
+                                if(this.DiscriminarIva) {
+                                        this.EntradaUnitarioIvaDescuentoCantidad_TextChanged(this, null);
+                                }
+                                this.Changed = false;
+                        }
+                }
+
+                /// <summary>
+                /// El importe de IVA discriminado unitario (sin descuento), o 0 si el IVA no está discriminado.
+                /// </summary>
+                [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+                public decimal ImporteIvaDiscriminadoUnitario
                 {
                         get
                         {
@@ -492,11 +501,11 @@ namespace Lcc.Entrada.Articulos
                 /// El importe de IVA final, por cantidad y con descuento.
                 /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public decimal ImporteUnitarioIvaFinal
+                public decimal ImporteIvaUnitarioFinal
                 {
                         get
                         {
-                                return this.ImporteUnitarioIva * this.Cantidad * (1m - this.Descuento / 100m);
+                                return this.ImporteIvaUnitario * this.Cantidad * (1m - this.Descuento / 100m);
                         }
                 }
 
@@ -625,7 +634,7 @@ namespace Lcc.Entrada.Articulos
                 {
                         if (this.Connection != null) {
                                 decimal ValorAnterior = EntradaImporte.ValueDecimal;
-                                this.RecalcularImportes();
+                                this.RecalcularImporteFinal();
                                 this.VerificarStock();
                                 if (EntradaImporte.ValueDecimal != ValorAnterior) {
                                         this.Changed = true;
@@ -921,22 +930,12 @@ namespace Lcc.Entrada.Articulos
                                                 UnitarioMostrar = Articulo.Pvp;
                                         }
 
-                                        decimal UnitarioIvaMostrar = 0m;
-                                        
-                                        if (m_AplicarIva && m_Alicuota != null) {
-                                                // Aplicar IVA
-                                                UnitarioIvaMostrar = UnitarioMostrar * (m_Alicuota.Porcentaje / 100m);
-                                                if (m_DiscriminarIva == false) {
-                                                        // Aplica IVA, pero no lo discrimina
-                                                        UnitarioMostrar = UnitarioMostrar + UnitarioIvaMostrar;
-                                                        UnitarioIvaMostrar = 0m;
-                                                }
+                                        if (this.Cantidad == 0) {
+                                                this.Cantidad = 1;
                                         }
 
-                                        EntradaUnitario.ValueDecimal = UnitarioMostrar;
-                                        EntradaIva.ValueDecimal = UnitarioIvaMostrar;
-                                        
-                                        this.RecalcularImportes();
+                                        this.EstablecerImporteUnitarioOriginal(UnitarioMostrar);
+                                        this.RecalcularImporteFinal();
                                 }
                         } else if (EntradaArticulo.IsFreeText) {
                                 EntradaUnitario.Enabled = true;
@@ -947,8 +946,9 @@ namespace Lcc.Entrada.Articulos
                                 EntradaDescuento.TemporaryReadOnly = this.TemporaryReadOnly || this.BloquearPrecio;
                                 EntradaImporte.Enabled = true;
                                 if (this.AutoUpdate) {
-                                        if (this.Cantidad == 0)
+                                        if (this.Cantidad == 0) {
                                                 this.Cantidad = 1;
+                                        }
                                 }
                         } else if (EntradaArticulo.Text.Length == 0 || (EntradaArticulo.Text.IsNumericInt() && EntradaArticulo.ValueInt == 0)) {
                                 EntradaUnitario.Enabled = false;
@@ -961,35 +961,49 @@ namespace Lcc.Entrada.Articulos
                                 if (this.AutoUpdate) {
                                         EntradaCantidad.ValueDecimal = 0m;
                                         EntradaImporte.ValueDecimal = 0m;
-                                        EntradaIva.ValueDecimal = 0m;
-                                        EntradaUnitario.ValueDecimal = 0m;
+                                        this.EstablecerImporteUnitarioOriginal(0m);
                                         EntradaDescuento.ValueDecimal = 0m;
                                 }
                         }
                 }
 
 
-                protected void RecalcularImportes()
+                /// <summary>
+                /// Cambia el importe unitario original (sin IVA), y además recalcula el IVA y lo muestra discriminado si corresponde.
+                /// </summary>
+                /// <param name="unitario">El precio unitario a mostrar y usar como base para el cálculo de IVA e importe final.</param>
+                protected void EstablecerImporteUnitarioOriginal(decimal unitario)
                 {
-                        decimal UnitarioMostrar = EntradaUnitario.ValueDecimal;
-                        decimal UnitarioIvaMostrar = 0m;
-
-                        if (m_AplicarIva && m_DiscriminarIva && m_Alicuota != null) {
-                                UnitarioIvaMostrar = UnitarioMostrar * (m_Alicuota.Porcentaje / 100m);
+                        if (this.AplicarIva && m_Alicuota != null) {
+                                this.ImporteIvaUnitario = unitario * (m_Alicuota.Porcentaje / 100m);
+                                if (this.DiscriminarIva) {
+                                        EntradaUnitario.ValueDecimal = unitario;
+                                        EntradaIva.ValueDecimal = this.ImporteIvaUnitario;
+                                } else {
+                                        EntradaUnitario.ValueDecimal = unitario + this.ImporteIvaUnitario;
+                                        EntradaIva.ValueDecimal = 0m;
+                                }
                         } else {
-                                // No aplica IVA, no discrimina o no se conoce la alícuota
-                                UnitarioIvaMostrar = 0m;
+                                this.ImporteIvaUnitario = 0m;
+                                EntradaUnitario.ValueDecimal = unitario;
+                                EntradaIva.ValueDecimal = 0;
                         }
+                }
 
-                        /* if (UnitarioMostrar != EntradaUnitario.ValueDecimal) {
-                                EntradaUnitario.ValueDecimal = UnitarioMostrar;
-                        } */
-                        if (UnitarioIvaMostrar != EntradaIva.ValueDecimal) {
-                                EntradaIva.ValueDecimal = UnitarioIvaMostrar;
+
+                /// <summary>
+                /// Recalcula el importe final, según importe, IVA, cantidad y descuento.
+                /// </summary>
+                protected void RecalcularImporteFinal()
+                {
+                        if(m_DiscriminarIva) {
+                                EntradaIva.ValueDecimal = this.ImporteIvaUnitario;
+                        } else {
+                                EntradaIva.ValueDecimal = 0m;
                         }
 
                         try {
-                                decimal ImporteFinal = (UnitarioMostrar + UnitarioIvaMostrar) * this.Cantidad * (1m - this.Descuento / 100m);
+                                decimal ImporteFinal = (this.ImporteUnitario + this.ImporteIvaDiscriminadoUnitario) * this.Cantidad * (1m - this.Descuento / 100m);
                                 EntradaImporte.ValueDecimal = ImporteFinal;
                         } catch {
                                 EntradaImporte.ValueDecimal = 0m;

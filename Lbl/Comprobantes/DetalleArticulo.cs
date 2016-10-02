@@ -61,7 +61,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                return this.ImporteUnitario * (1m - this.Descuento / 100m);
+                                return this.ImporteUnitario * this.FactorDescuentoRecargo;
                         }
                 }
 
@@ -69,7 +69,7 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// El importe de IVA original del renglón (sin descuento ni cantidad).
                 /// </summary>
-                public decimal ImporteUnitarioIva
+                public decimal ImporteIvaUnitario
                 {
                         get
                         {
@@ -85,11 +85,11 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// El importe de IVA final del renglón (con descuento y cantidad).
                 /// </summary>
-                public decimal ImporteUnitarioIvaFinal
+                public decimal ImporteIvaUnitarioFinal
                 {
                         get
                         {
-                                return this.ImporteUnitarioIva * (1m - this.Descuento / 100m);
+                                return this.ImporteIvaUnitario * this.FactorDescuentoRecargo;
                         }
                 }
 
@@ -174,33 +174,30 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el importe final a facturar (precio unitario multiplicado por la cantidad, más descuentos y recargos).
                 /// </summary>
-                public decimal ImporteSinIva
+                public decimal ImporteSinIvaFinal
                 {
                         get
                         {
-                                return this.Cantidad * this.UnitarioSinIvaConDescuentoORecargo;
+                                return this.Cantidad * this.ImporteUnitarioSinIvaFinal;
                         }
                 }
 
-                /// <summary>
-                /// Devuelve el importe final a facturar (precio unitario multiplicado por la cantidad, más descuentos y recargos).
-                /// </summary>
-                public decimal ImporteConIva
-                {
-                        get
-                        {
-                                return this.Cantidad * this.UnitarioConIvaConDescuentoORecargo;
-                        }
-                }
+
+
 
                 /// <summary>
-                /// Devuelve el importe final a facturar (precio unitario multiplicado por la cantidad, más descuentos y recargos).
+                /// Devuelve el precio unitario aplicando descuentos o recargos.
                 /// </summary>
-                public decimal ImporteConIvaDiscriminado
+                public decimal ImporteUnitarioSinIvaFinal
                 {
                         get
                         {
-                                return this.Cantidad * this.UnitarioFinalConIva;
+                                if(this.IvaDiscriminado()) {
+                                        return this.ImporteUnitario * this.FactorDescuentoRecargo;
+                                } else {
+                                        return (this.ImporteUnitario - this.ImporteIvaUnitario) * this.FactorDescuentoRecargo;
+                                }
+                                
                         }
                 }
 
@@ -208,35 +205,31 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el precio unitario aplicando descuentos o recargos.
                 /// </summary>
-                public decimal UnitarioSinIvaConDescuentoORecargo
+                public decimal ImporteUnitarioConIvaFinal
                 {
                         get
                         {
-                                return this.ImporteUnitario * (1 + Recargo / 100);
+                                if (this.IvaDiscriminado()) {
+                                        return this.ImporteUnitario + this.ImporteIvaUnitario * this.FactorDescuentoRecargo;
+                                } else {
+                                        return this.ImporteUnitario * this.FactorDescuentoRecargo;
+                                }
+
                         }
                 }
 
 
                 /// <summary>
-                /// Devuelve el precio unitario con IVA aplicando descuentos o recargos.
+                /// Devuelve Verdadero si este detalle tiene el IVA discriminado.
                 /// </summary>
-                public decimal UnitarioConIvaConDescuentoORecargo
+                /// <returns></returns>
+                public bool IvaDiscriminado()
                 {
-                        get
-                        {
-                                return this.ImporteUnitarioConIva * (1 + Recargo / 100);
-                        }
-                }
-
-
-                /// <summary>
-                /// Devuelve el importe unitario final, más IVA, aplicando descuentos o recargos.
-                /// </summary>
-                public decimal UnitarioFinalConIva
-                {
-                        get
-                        {
-                                return this.ImporteUnitarioConIva * (1 + Recargo / 100);
+                        var Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                        if(Comprob == null) {
+                                return false;
+                        } else {
+                                return Comprob.DiscriminaIva;
                         }
                 }
 
@@ -264,20 +257,8 @@ namespace Lbl.Comprobantes
                                 if(Comprob != null && Comprob.Tipo.DiscriminaIva) {
                                         return this.ImporteUnitario;
                                 } else {
-                                        return this.ImporteUnitarioConIva;
+                                        return this.ImporteUnitario;
                                 }
-                        }
-                }
-
-
-                /// <summary>
-                /// Devuelve el importe unitario original con IVA incluido.
-                /// </summary>
-                public decimal ImporteUnitarioConIva
-                {
-                        get
-                        {
-                                return this.ImporteUnitario + this.ImporteUnitarioIva;
                         }
                 }
 
@@ -303,7 +284,7 @@ namespace Lbl.Comprobantes
                         {
                                 Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
                                 if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
-                                        return this.ImporteUnitarioIva;
+                                        return this.ImporteIvaUnitario;
                                 } else {
                                         return 0m;
                                 }
@@ -314,13 +295,13 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve la cantidad de IVA que fue discriminado para este artículo, o 0 si no se discriminó IVA.
                 /// </summary>
-                public decimal ImporteFinalIvaDiscriminado
+                public decimal ImporteIvaDiscriminadoFinal
                 {
                         get
                         {
                                 Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
                                 if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
-                                        return this.ImporteUnitarioIva * (1m - this.Descuento / 100m) * this.Cantidad;
+                                        return this.ImporteIvaUnitario * this.Cantidad * this.FactorDescuentoRecargo;
                                 } else {
                                         return 0m;
                                 }
@@ -331,45 +312,22 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Ídem ImporteIvaAlicuota, pero con el precio del artículo incluído.
                 /// </summary>
-                public decimal ImporteConIvaAlicuota(int idAlicuota)
+                public decimal ImporteConIvaFinalAlicuota(int idAlicuota)
                 {
                         if (this.ElementoPadre == null) {
-                                return 0;
+                                return 0m;
                         } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                //Lbl.Comprobantes.ComprobanteConArticulos Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
                                 Lbl.Impuestos.Alicuota AlicArticulo;
                                 if (this.Articulo == null)
                                         AlicArticulo = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
                                 else
                                         AlicArticulo = this.Articulo.ObtenerAlicuota();
 
-                                if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteConIvaDiscriminado;
-                                else
-                                        return 0;
-                        } else {
-                                return 0;
-                        }
-                }
-
-
-
-                /// <summary>
-                /// Devuelve la cantidad de IVA que este artículo lleva de una alícuota en particular, o 0 si este artículo no se le aplica esa alícuota.
-                /// Útil para Paraguay, donde por cada renglón de la factura van dos columnas, una con el importe IVA tasa regular y
-                /// otra con la tasa reducida (o cero). Una de las dos columnas puede estar en blanco.
-                /// </summary>
-                public decimal ImporteIvaAlicuota(int idAlicuota)
-                {
-                        if (this.ElementoPadre == null) {
-                                return 0m;
-                        } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                if (this.Alicuota != null && this.Alicuota.Id == idAlicuota) {
-                                        var Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                        if (Comprob.DiscriminaIva) {
-                                                return this.ImporteUnitarioIvaFinal * this.Cantidad;
+                                if (AlicArticulo != null && AlicArticulo.Id == idAlicuota) {
+                                        if (this.IvaDiscriminado()) {
+                                                return (this.ImporteUnitario + this.ImporteIvaUnitario) * this.Cantidad * this.FactorDescuentoRecargo;
                                         } else {
-                                                return this.ImporteConIva - this.ImporteConIva / (1m + this.Alicuota.Porcentaje / 100m);
+                                                return this.ImporteUnitario * this.Cantidad * this.FactorDescuentoRecargo;
                                         }
                                 } else {
                                         return 0m;
@@ -380,10 +338,44 @@ namespace Lbl.Comprobantes
                 }
 
 
+
+                /// <summary>
+                /// Devuelve la cantidad de IVA que este artículo lleva de una alícuota en particular, o 0 si este artículo no se le aplica esa alícuota.
+                /// Útil para Paraguay, donde por cada renglón de la factura van dos columnas, una con el importe IVA tasa regular y
+                /// otra con la tasa reducida (o cero). Una de las dos columnas puede estar en blanco.
+                /// </summary>
+                public decimal ImporteIvaFinalAlicuota(int idAlicuota)
+                {
+                        if (this.ElementoPadre == null) {
+                                return 0m;
+                        } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
+                                if (this.Alicuota != null && this.Alicuota.Id == idAlicuota) {
+                                        return this.ImporteIvaUnitario * this.Cantidad * this.FactorDescuentoRecargo;
+                                } else {
+                                        return 0m;
+                                }
+                        } else {
+                                return 0m;
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve el descuento o recargo como un factor (por ejemplo 0.9 para descuento de 10% o 1.25 para recargo de 25%).
+                /// </summary>
+                public decimal FactorDescuentoRecargo
+                {
+                        get
+                        {
+                                return 1m + this.Recargo / 100m;
+                        }
+                }
+
+
                 /// <summary>
                 /// Devuelve el importe son IVA que este artículo lleva de una alícuota en particular, o 0 si este artículo no se le aplica esa alícuota.
                 /// </summary>
-                public decimal ImporteSinIvaAlicuota(int idAlicuota)
+                public decimal ImporteSinIvaFinalAlicuota(int idAlicuota)
                 {
                         if (this.ElementoPadre == null) {
                                 return 0;
@@ -396,7 +388,7 @@ namespace Lbl.Comprobantes
                                         AlicArticulo = this.Articulo.ObtenerAlicuota();
 
                                 if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteSinIva;
+                                        return this.ImporteSinIvaFinal;
                                 else
                                         return 0;
                         } else {
@@ -593,12 +585,13 @@ namespace Lbl.Comprobantes
 
                         Comando.Fields.AddWithValue("cantidad", this.Cantidad);
                         Comando.Fields.AddWithValue("precio", this.ImporteUnitario);
-                        Comando.Fields.AddWithValue("iva", this.ImporteUnitarioIva);
+                        Comando.Fields.AddWithValue("iva", this.ImporteIvaUnitario);
                         Comando.Fields.AddWithValue("recargo", this.Recargo);
                         if (this.Costo == 0 && this.Articulo != null)
                                 Comando.Fields.AddWithValue("costo", this.Articulo.Costo);
                         else
                                 Comando.Fields.AddWithValue("costo", this.Costo);
+                        Comando.Fields.AddWithValue("importe", this.ImporteUnitarioAImprimir);
                         Comando.Fields.AddWithValue("importe", this.ImporteAImprimir);
                         Comando.Fields.AddWithValue("series", this.DatosSeguimiento);
                         Comando.Fields.AddWithValue("obs", this.Obs);

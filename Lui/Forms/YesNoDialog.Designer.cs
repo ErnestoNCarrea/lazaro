@@ -54,6 +54,7 @@ namespace Lui.Forms
                         this.Controls.Add(this.DialogCaption);
                         this.Controls.Add(this.pctQuestion);
                         this.ForeColor = System.Drawing.Color.Black;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "YesNoDialog";
                         this.Text = "Pregunta";
                         this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.YesNoDialogForm_KeyDown);

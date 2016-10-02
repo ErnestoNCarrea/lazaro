@@ -99,7 +99,7 @@ namespace Lbl.Tareas
                         get
                         {
                                 if (this.Articulos != null)
-                                        return this.Articulos.ImporteTotal;
+                                        return this.Articulos.Total_Importe;
                                 else
                                         return 0;
                         }

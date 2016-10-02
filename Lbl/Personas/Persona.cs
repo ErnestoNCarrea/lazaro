@@ -148,9 +148,7 @@ namespace Lbl.Personas
                         }
 
                         this.AgregarTags(Comando);
-
                         this.Connection.Execute(Comando);
-
                         return base.Guardar();
                 }
 

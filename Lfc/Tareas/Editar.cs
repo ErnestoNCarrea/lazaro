@@ -288,7 +288,7 @@ namespace Lfc.Tareas
                         //decimal ValorArticulos = this.Connection.FieldDecimal("SELECT SUM(cantidad*precio) FROM tickets_articulos WHERE id_ticket=" + this.Elemento.Id.ToString());
                         //EntradaPresupuesto2.ValueDecimal = ValorArticulos * (1 - Descuento / 100);
                         var Tarea = this.Elemento as Lbl.Tareas.Tarea;
-                        EntradaPresupuesto2.ValueDecimal = Tarea.Articulos.ImporteTotal * (1m - Tarea.DescuentoArticulos / 100m);
+                        EntradaPresupuesto2.ValueDecimal = Tarea.Articulos.Total_Importe * (1m - Tarea.DescuentoArticulos / 100m);
                 }
 
 

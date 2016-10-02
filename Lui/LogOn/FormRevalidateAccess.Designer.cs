@@ -38,32 +38,23 @@ namespace Lui.LogOn
                         ((System.ComponentModel.ISupportInitialize)(this.PictureBox2)).BeginInit();
                         this.SuspendLayout();
                         // 
-                        // OkButton
-                        // 
-                        this.OkButton.Location = new System.Drawing.Point(234, 8);
-                        // 
-                        // CancelCommandButton
-                        // 
-                        this.CancelCommandButton.Location = new System.Drawing.Point(354, 8);
-                        // 
                         // Titulo
                         // 
                         this.Titulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Titulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         this.Titulo.Location = new System.Drawing.Point(36, 36);
                         this.Titulo.Name = "Titulo";
                         this.Titulo.Size = new System.Drawing.Size(400, 24);
                         this.Titulo.TabIndex = 0;
                         this.Titulo.Text = "Para continuar, por favor escriba su contraseña";
                         this.Titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        this.Titulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         // 
                         // EntradaContrasena
                         // 
                         this.EntradaContrasena.Location = new System.Drawing.Point(164, 156);
                         this.EntradaContrasena.Name = "EntradaContrasena";
                         this.EntradaContrasena.PasswordChar = '*';
-                        this.EntradaContrasena.ReadOnly = false;
                         this.EntradaContrasena.Size = new System.Drawing.Size(180, 24);
                         this.EntradaContrasena.TabIndex = 4;
                         // 
@@ -91,7 +82,6 @@ namespace Lui.LogOn
                         this.EntradaUsuario.Enabled = false;
                         this.EntradaUsuario.Location = new System.Drawing.Point(164, 124);
                         this.EntradaUsuario.Name = "EntradaUsuario";
-                        this.EntradaUsuario.ReadOnly = false;
                         this.EntradaUsuario.Size = new System.Drawing.Size(272, 24);
                         this.EntradaUsuario.TabIndex = 2;
                         this.EntradaUsuario.Text = "0";
@@ -129,6 +119,8 @@ namespace Lui.LogOn
                         this.Controls.Add(this.PictureBox2);
                         this.Controls.Add(this.Label2);
                         this.Controls.Add(this.Titulo);
+                        this.ForeColor = System.Drawing.Color.Black;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "FormRevalidateAccess";
                         this.Text = "Revalidar autorización";
                         this.Controls.SetChildIndex(this.Titulo, 0);

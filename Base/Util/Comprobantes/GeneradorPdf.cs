@@ -255,8 +255,8 @@ namespace Lazaro.Base.Util.Comprobantes
                                 Codigos += CodigoImprimir + "\n";
                                 Detalles += DetalleImprimir + "\n";
                                 Cantidades += Lfx.Types.Formatting.FormatNumberForPrint(Det.Cantidad, Lbl.Sys.Config.Articulos.Decimales) + "\n";
-                                Unitarios += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.UnitarioSinIvaConDescuentoORecargo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
-                                Importes += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteSinIva, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
+                                Unitarios += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteUnitarioFinalAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
+                                Importes += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
                         }
                         Tf.DrawString(Codigos, FuenteArticulos, XBrushes.Black, CuadroArticulosCodigos);
                         Tf.DrawString(Detalles, FuenteArticulos, XBrushes.Black, CuadroArticulosDetalles);
@@ -283,8 +283,8 @@ namespace Lazaro.Base.Util.Comprobantes
                         Tf.DrawString("Subtotal\nIVA\nDescuento / recargo", FuentePredeterminada, XBrushes.Black, CuadroTotales);
                         Tf.Alignment = XParagraphAlignment.Right;
                         Tf.DrawString(string.Concat(
-                                Lfx.Types.Formatting.FormatCurrency(Comprob.SubtotalFinalSinIva), "\n",
-                                Lfx.Types.Formatting.FormatCurrency(Comprob.ImporteIvaDiscriminado), "\n",
+                                Lfx.Types.Formatting.FormatCurrency(Comprob.SubtotalSinIvaFinal), "\n",
+                                Lfx.Types.Formatting.FormatCurrency(Comprob.ImporteIvaDiscriminadoFinal), "\n",
                                 Lfx.Types.Formatting.FormatNumber(Comprob.Descuento, 2) + "%"
                                 ), FuenteResaltada, XBrushes.Black, CuadroTotales);
 

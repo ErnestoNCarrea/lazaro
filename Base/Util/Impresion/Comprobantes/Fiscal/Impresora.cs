@@ -750,7 +750,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                 if (Comprob.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
                                         PctIva = 0;
                                 } else {
-                                        var Alicuota = Detalle.Articulo.ObtenerAlicuota();
+                                        var Alicuota = Detalle.Alicuota;
                                         if (Alicuota != null) {
                                                 PctIva = Alicuota.Porcentaje;
                                         }

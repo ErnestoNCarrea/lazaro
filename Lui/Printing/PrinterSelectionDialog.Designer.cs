@@ -44,12 +44,14 @@ namespace Lui.Printing
                         this.Listado.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Nombre,
             this.NombreVisible});
+                        this.Listado.FieldName = null;
                         this.Listado.FullRowSelect = true;
                         this.Listado.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
                         this.Listado.HideSelection = false;
                         this.Listado.Location = new System.Drawing.Point(160, 56);
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
+                        this.Listado.ReadOnly = false;
                         this.Listado.Size = new System.Drawing.Size(448, 224);
                         this.Listado.TabIndex = 0;
                         this.Listado.UseCompatibleStateImageBehavior = false;
@@ -97,6 +99,7 @@ namespace Lui.Printing
                         this.Controls.Add(this.Label1);
                         this.Controls.Add(this.Listado);
                         this.ForeColor = System.Drawing.Color.Black;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "PrinterSelectionDialog";
                         this.Text = "Seleccionar impresora";
                         this.Activated += new System.EventHandler(this.FormSeleccionarImpresora_Activated);

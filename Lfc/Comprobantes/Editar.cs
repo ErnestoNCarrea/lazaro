@@ -102,6 +102,7 @@ namespace Lfc.Comprobantes
                         Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
 
                         this.SuspendLayout();
+
                         EntradaPV.Text = Comprob.PV.ToString();
                         EntradaVendedor.Elemento = Comprob.Vendedor;
 
@@ -109,13 +110,18 @@ namespace Lfc.Comprobantes
                         EntradaCliente.Elemento = Comprob.Cliente;
                         Ignorar_EntradaCliente_TextChanged = false;
 
-                        EntradaSubTotal.ValueDecimal = Comprob.SubtotalFinalSinIva;
+                        if (this.DiscriminarIva) {
+                                EntradaSubTotal.ValueDecimal = Comprob.SubtotalSinIva;
+                                EntradaIva.ValueDecimal = Comprob.ImporteIvaDiscriminado;
+                        } else {
+                                EntradaSubTotal.ValueDecimal = Comprob.SubtotalSinIva + Comprob.ImporteIva;
+                                EntradaIva.ValueDecimal = 0m;
+                        }
                         EntradaDescuento.ValueDecimal= Comprob.Descuento;
                         EntradaInteres.ValueDecimal = Comprob.Recargo;
                         EntradaCuotas.ValueInt = Comprob.Cuotas;
 
-                        EntradaIva.ValueDecimal = Comprob.ImporteIvaDiscriminado;
-                        EntradaSubTotalIva.ValueDecimal = Comprob.SubtotalFinalSinIva + Comprob.ImporteIvaDiscriminado;
+                        EntradaSubTotalIva.ValueDecimal = EntradaSubTotal.ValueDecimal + EntradaIva.ValueDecimal;
                         EntradaTotal.ValueDecimal = Comprob.Total;
 
                         if (this.Elemento.Existe == true || this.PuedeEditar() == false) {
@@ -187,6 +193,7 @@ namespace Lfc.Comprobantes
                         }
                         set
                         {
+                                m_DiscriminarIva = value;
                                 EntradaProductos.DiscriminarIva = value;
                                 this.RecalcularTotal(this, null);
                         }
@@ -314,10 +321,10 @@ namespace Lfc.Comprobantes
                 private void EntradaProductos_TotalChanged(System.Object sender, System.EventArgs e)
                 {
                         if (this.TemporaryReadOnly == false) {
-                                EntradaSubTotal.ValueDecimal = EntradaProductos.ImporteUnitarioTotalFinal;
+                                EntradaSubTotal.ValueDecimal = EntradaProductos.Total_ImporteUnitarioFinal;
 
-                                if(EntradaProductos.DiscriminarIva) {
-                                        var ImporteIva = EntradaProductos.ImporteIvaTotalFinal;
+                                if(this.DiscriminarIva) {
+                                        var ImporteIva = EntradaProductos.Total_ImporteIvaFinal;
                                         EntradaIva.ValueDecimal = ImporteIva;
                                         EntradaSubTotalIva.ValueDecimal = Math.Round(EntradaSubTotal.ValueDecimal + ImporteIva, Lbl.Sys.Config.Moneda.DecimalesFinal);
                                 } else {

@@ -459,6 +459,7 @@ namespace Lcc.Entrada.AuxForms
                 internal void DarleEnter()
                 {
                         if (Listado.SelectedItems.Count > 0) {
+                                this.Opacity = .3;
                                 if (m_Table == "articulos") {
                                         string Codigo = this.Connection.FieldString("SELECT " + Lfx.Workspace.Master.CurrentConfig.Productos.CodigoPredeterminado() + " FROM articulos WHERE id_articulo=" + int.Parse(Listado.SelectedItems[0].Text).ToString());
                                         if (Codigo.Length == 0)

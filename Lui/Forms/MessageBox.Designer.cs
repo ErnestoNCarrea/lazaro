@@ -41,7 +41,6 @@ namespace Lui.Forms
                         // 
                         this.OkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.OkButton.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.OkButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.OkButton.Image = null;
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(401, 12);
@@ -88,7 +87,7 @@ namespace Lui.Forms
                         this.EtiquetaTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         this.EtiquetaTitulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         // 
-                        // DialogText
+                        // MessageText
                         // 
                         this.MessageText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -96,7 +95,7 @@ namespace Lui.Forms
                         this.MessageText.AutoSize = true;
                         this.MessageText.Location = new System.Drawing.Point(96, 72);
                         this.MessageText.MaximumSize = new System.Drawing.Size(480, 0);
-                        this.MessageText.Name = "DialogText";
+                        this.MessageText.Name = "MessageText";
                         this.MessageText.Size = new System.Drawing.Size(0, 20);
                         this.MessageText.TabIndex = 1001;
                         // 
@@ -110,6 +109,7 @@ namespace Lui.Forms
                         this.Controls.Add(this.pictureBox1);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "MessageBox";
                         this.ShowIcon = false;
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

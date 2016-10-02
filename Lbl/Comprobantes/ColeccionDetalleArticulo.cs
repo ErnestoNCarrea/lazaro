@@ -126,7 +126,7 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// El importe total del comprobante.
                 /// </summary>
-                public decimal ImporteTotal
+                public decimal Total_Importe
                 {
                         get
                         {

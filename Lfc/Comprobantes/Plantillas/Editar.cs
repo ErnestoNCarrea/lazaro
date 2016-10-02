@@ -267,6 +267,7 @@ namespace Lfc.Comprobantes.Plantillas
                                         Texto = Texto.Replace("{Cantidades}", "1\r\n2\r\n1\r\n1");
                                         Texto = Texto.Replace("{Articulos.Precios}", "$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00");
                                         Texto = Texto.Replace("{Precios}", "$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00");
+                                        Texto = Texto.Replace("{Articulos.Unitarios}", "$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00");
                                         Texto = Texto.Replace("{Articulos.Importes}", "$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00");
                                         Texto = Texto.Replace("{Importes}", "$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00\r\n$ 123.456,00");
                                         Texto = Texto.Replace("{Articulos.Detalles}", "Producto de ejemplo Nº 1\r\nProducto de ejemplo Nº 2\r\nProducto de ejemplo Nº 3\r\nProducto de ejemplo Nº 4");

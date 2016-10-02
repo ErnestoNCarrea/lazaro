@@ -69,7 +69,7 @@ namespace Lcc.Entrada.Articulos
                                         this.ChildControls[i].TextDetail = articulos[i].Nombre;
                                         this.ChildControls[i].Cantidad = articulos[i].Cantidad;
                                         this.ChildControls[i].ImporteUnitario = articulos[i].ImporteUnitario;
-                                        this.ChildControls[i].ImporteUnitarioIva = articulos[i].ImporteUnitarioIvaDiscriminado;
+                                        this.ChildControls[i].ImporteIvaUnitario = articulos[i].ImporteIvaUnitario;
                                         this.ChildControls[i].Descuento = articulos[i].Descuento;
                                         this.ChildControls[i].DatosSeguimiento = articulos[i].DatosSeguimiento;
                                 }
@@ -115,12 +115,8 @@ namespace Lcc.Entrada.Articulos
                                         DetArt.Nombre = Pro.TextDetail;
                                         DetArt.Orden = i++;
                                         DetArt.Cantidad = Pro.Cantidad;
+                                        DetArt.ImporteIvaUnitario = Pro.ImporteIvaUnitario;
                                         DetArt.ImporteUnitario = Pro.ImporteUnitario;
-                                        if (this.AplicaIva) {
-                                                DetArt.ImporteUnitarioIva = Pro.ImporteUnitarioIva;
-                                        } else {
-                                                DetArt.ImporteUnitarioIva = 0m;
-                                        }
                                         DetArt.Descuento = Pro.Descuento;
                                         DetArt.DatosSeguimiento = Pro.DatosSeguimiento;
                                         m_Articulos.Add(DetArt);
@@ -370,13 +366,13 @@ namespace Lcc.Entrada.Articulos
                 /// <summary>
                 /// La sumatoria de los importes de IVA finales de todos los artículos.
                 /// </summary>
-                public decimal ImporteIvaTotalFinal
+                public decimal Total_ImporteIvaFinal
                 {
                         get
                         {
                                 decimal Res = 0;
                                 foreach (DetalleComprobante Control in this.ChildControls) {
-                                        Res += Control.ImporteUnitarioIvaFinal;
+                                        Res += Control.ImporteIvaUnitarioFinal;
                                 }
                                 return Res;
                         }
@@ -385,7 +381,7 @@ namespace Lcc.Entrada.Articulos
                 /// <summary>
                 /// La sumatoria de los importes de unitarios finales de todos los artículos.
                 /// </summary>
-                public decimal ImporteUnitarioTotalFinal
+                public decimal Total_ImporteUnitarioFinal
                 {
                         get
                         {

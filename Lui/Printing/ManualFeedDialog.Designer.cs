@@ -82,6 +82,7 @@ namespace Lui.Printing
                         this.Controls.Add(this.txtDocumento);
                         this.Controls.Add(this.Label1);
                         this.ForeColor = System.Drawing.Color.Black;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "ManualFeedDialog";
                         this.ShowInTaskbar = false;
                         this.Text = "Carga manual de papel";

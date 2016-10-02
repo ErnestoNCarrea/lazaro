@@ -24,6 +24,7 @@ namespace Lui.Forms
 
                 private void InitializeComponent()
                 {
+                        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputBox));
                         this.EtiquetaInfo = new Lui.Forms.Label();
                         this.CancelBtn = new Lui.Forms.Button();
                         this.Texto = new Lui.Forms.TextBox();
@@ -47,7 +48,6 @@ namespace Lui.Forms
                         this.CancelBtn.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelBtn.Location = new System.Drawing.Point(352, 64);
                         this.CancelBtn.Name = "CancelBtn";
-                        this.CancelBtn.ReadOnly = false;
                         this.CancelBtn.Size = new System.Drawing.Size(96, 32);
                         this.CancelBtn.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.CancelBtn.Subtext = "Tecla";
@@ -59,7 +59,6 @@ namespace Lui.Forms
                         // 
                         this.Texto.Location = new System.Drawing.Point(24, 224);
                         this.Texto.Name = "Texto";
-                        this.Texto.ReadOnly = false;
                         this.Texto.Size = new System.Drawing.Size(424, 24);
                         this.Texto.TabIndex = 0;
                         this.Texto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Texto_KeyDown);
@@ -71,7 +70,6 @@ namespace Lui.Forms
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(352, 24);
                         this.OkButton.Name = "OkButton";
-                        this.OkButton.ReadOnly = false;
                         this.OkButton.Size = new System.Drawing.Size(96, 32);
                         this.OkButton.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.OkButton.Subtext = "Tecla";
@@ -90,6 +88,7 @@ namespace Lui.Forms
                         this.Controls.Add(this.EtiquetaInfo);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+                        this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.Name = "InputBox";
                         this.Text = "Ingreso de datos";
                         this.ResumeLayout(false);

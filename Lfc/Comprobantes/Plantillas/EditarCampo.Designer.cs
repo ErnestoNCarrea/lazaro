@@ -57,8 +57,10 @@ namespace Lfc.Comprobantes.Plantillas
                         this.label10 = new Lui.Forms.Label();
                         this.BotonColorFondoPredet = new Lui.Forms.Button();
                         this.EntradaPreimpreso = new Lui.Forms.ComboBox();
+                        this.panel1 = new Lui.Forms.Panel();
                         this.PanelMuestra.SuspendLayout();
                         this.PanelMuestraBorde.SuspendLayout();
+                        this.panel1.SuspendLayout();
                         this.SuspendLayout();
                         // 
                         // Label15
@@ -211,7 +213,7 @@ namespace Lfc.Comprobantes.Plantillas
         "Izquierda|Near",
         "Centro|Center",
         "Derecha|Far"};
-                        this.EntradaAlienacionHorizontal.Size = new System.Drawing.Size(140, 56);
+                        this.EntradaAlienacionHorizontal.Size = new System.Drawing.Size(140, 57);
                         this.EntradaAlienacionHorizontal.TabIndex = 17;
                         this.EntradaAlienacionHorizontal.TextKey = "Near";
                         this.EntradaAlienacionHorizontal.TextChanged += new System.EventHandler(this.EntradaAlienacionHorizontal_TextChanged);
@@ -235,7 +237,7 @@ namespace Lfc.Comprobantes.Plantillas
         "Arriba|Near",
         "Centro|Center",
         "Abajo|Far"};
-                        this.EntradaAlienacionVertical.Size = new System.Drawing.Size(140, 56);
+                        this.EntradaAlienacionVertical.Size = new System.Drawing.Size(140, 57);
                         this.EntradaAlienacionVertical.TabIndex = 18;
                         this.EntradaAlienacionVertical.TextKey = "Near";
                         this.EntradaAlienacionVertical.TextChanged += new System.EventHandler(this.EntradaAlienacionVertical_TextChanged);
@@ -263,7 +265,6 @@ namespace Lfc.Comprobantes.Plantillas
                         // ColorFondo
                         // 
                         this.ColorFondo.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.ColorFondo.ForeColor = System.Drawing.Color.Black;
                         this.ColorFondo.Image = null;
                         this.ColorFondo.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.ColorFondo.Location = new System.Drawing.Point(112, 304);
@@ -278,7 +279,6 @@ namespace Lfc.Comprobantes.Plantillas
                         // ColorTexto
                         // 
                         this.ColorTexto.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.ColorTexto.ForeColor = System.Drawing.Color.Black;
                         this.ColorTexto.Image = null;
                         this.ColorTexto.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.ColorTexto.Location = new System.Drawing.Point(216, 304);
@@ -293,7 +293,6 @@ namespace Lfc.Comprobantes.Plantillas
                         // ColorBorde
                         // 
                         this.ColorBorde.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.ColorBorde.ForeColor = System.Drawing.Color.Black;
                         this.ColorBorde.Image = null;
                         this.ColorBorde.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.ColorBorde.Location = new System.Drawing.Point(312, 304);
@@ -314,7 +313,7 @@ namespace Lfc.Comprobantes.Plantillas
                         this.EntradaAjusteTexto.SetData = new string[] {
         "Sólo un renglon|0",
         "Fluir texto hacia abajo|1"};
-                        this.EntradaAjusteTexto.Size = new System.Drawing.Size(288, 39);
+                        this.EntradaAjusteTexto.Size = new System.Drawing.Size(288, 40);
                         this.EntradaAjusteTexto.TabIndex = 20;
                         this.EntradaAjusteTexto.TextKey = "0";
                         this.EntradaAjusteTexto.TextChanged += new System.EventHandler(this.EntradaAjusteTexto_TextChanged);
@@ -335,14 +334,14 @@ namespace Lfc.Comprobantes.Plantillas
                         this.EntradaFormato.Location = new System.Drawing.Point(112, 56);
                         this.EntradaFormato.Name = "EntradaFormato";
                         this.EntradaFormato.SetData = new string[] {
-                                "Predeterminado|*",
-                                "Fecha corta (01/01/2001)|dd/MM/yyyy",
-                                "Fecha larga (lunes, 1 de enero de 2001)|dddd, d \"de\" MMMM \"de\" yyyy",
-                                "Fecha y hora (01/01/2001 12:00)|dd/MM/yyyy HH:mm",
-                                "Numérico con 2 decimales|#.00",
-                                "Numérico con 4 decimales|#.0000",
-                                "Entero de 7 dígitos|0000000",
-                                "Entero de 8 dígitos|00000000"};
+        "Predeterminado|*",
+        "Fecha corta (01/01/2001)|dd/MM/yyyy",
+        "Fecha larga (lunes, 1 de enero de 2001)|dddd, d \"de\" MMMM \"de\" yyyy",
+        "Fecha y hora (01/01/2001 12:00)|dd/MM/yyyy HH:mm",
+        "Numérico con 2 decimales|#.00",
+        "Numérico con 4 decimales|#.0000",
+        "Entero de 7 dígitos|0000000",
+        "Entero de 8 dígitos|00000000"};
                         this.EntradaFormato.Size = new System.Drawing.Size(400, 24);
                         this.EntradaFormato.TabIndex = 4;
                         this.EntradaFormato.TextKey = "*";
@@ -362,7 +361,7 @@ namespace Lfc.Comprobantes.Plantillas
                         // 
                         this.PanelMuestra.BackColor = System.Drawing.Color.White;
                         this.PanelMuestra.Controls.Add(this.PanelMuestraBorde);
-                        this.PanelMuestra.Location = new System.Drawing.Point(432, 176);
+                        this.PanelMuestra.Location = new System.Drawing.Point(7, 10);
                         this.PanelMuestra.Name = "PanelMuestra";
                         this.PanelMuestra.Size = new System.Drawing.Size(224, 136);
                         this.PanelMuestra.TabIndex = 52;
@@ -388,7 +387,6 @@ namespace Lfc.Comprobantes.Plantillas
                         // BotonColorFondoPredet
                         // 
                         this.BotonColorFondoPredet.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonColorFondoPredet.ForeColor = System.Drawing.Color.Black;
                         this.BotonColorFondoPredet.Image = null;
                         this.BotonColorFondoPredet.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonColorFondoPredet.Location = new System.Drawing.Point(112, 336);
@@ -409,18 +407,27 @@ namespace Lfc.Comprobantes.Plantillas
                         this.EntradaPreimpreso.SetData = new string[] {
         "Normal|0",
         "Preimpreso|1"};
-                        this.EntradaPreimpreso.Size = new System.Drawing.Size(140, 39);
+                        this.EntradaPreimpreso.Size = new System.Drawing.Size(140, 40);
                         this.EntradaPreimpreso.TabIndex = 2;
-                        this.EntradaPreimpreso.TextKey = "";
+                        this.EntradaPreimpreso.TextKey = "0";
                         this.EntradaPreimpreso.TextChanged += new System.EventHandler(this.EntradaPreimpreso_TextChanged);
+                        // 
+                        // panel1
+                        // 
+                        this.panel1.BackColor = System.Drawing.Color.Silver;
+                        this.panel1.Controls.Add(this.PanelMuestra);
+                        this.panel1.Location = new System.Drawing.Point(424, 167);
+                        this.panel1.Name = "panel1";
+                        this.panel1.Size = new System.Drawing.Size(237, 158);
+                        this.panel1.TabIndex = 53;
                         // 
                         // EditarCampo
                         // 
                         this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
                         this.ClientSize = new System.Drawing.Size(688, 487);
+                        this.Controls.Add(this.panel1);
                         this.Controls.Add(this.EntradaPreimpreso);
                         this.Controls.Add(this.BotonColorFondoPredet);
-                        this.Controls.Add(this.PanelMuestra);
                         this.Controls.Add(this.EntradaAjusteTexto);
                         this.Controls.Add(this.ColorBorde);
                         this.Controls.Add(this.ColorTexto);
@@ -476,11 +483,12 @@ namespace Lfc.Comprobantes.Plantillas
                         this.Controls.SetChildIndex(this.ColorTexto, 0);
                         this.Controls.SetChildIndex(this.ColorBorde, 0);
                         this.Controls.SetChildIndex(this.EntradaAjusteTexto, 0);
-                        this.Controls.SetChildIndex(this.PanelMuestra, 0);
                         this.Controls.SetChildIndex(this.BotonColorFondoPredet, 0);
                         this.Controls.SetChildIndex(this.EntradaPreimpreso, 0);
+                        this.Controls.SetChildIndex(this.panel1, 0);
                         this.PanelMuestra.ResumeLayout(false);
                         this.PanelMuestraBorde.ResumeLayout(false);
+                        this.panel1.ResumeLayout(false);
                         this.ResumeLayout(false);
                         this.PerformLayout();
 
@@ -519,5 +527,6 @@ namespace Lfc.Comprobantes.Plantillas
                 protected Lui.Forms.Label label10;
                 protected Lui.Forms.Button BotonColorFondoPredet;
                 protected Lui.Forms.ComboBox EntradaPreimpreso;
+                private Lui.Forms.Panel panel1;
         }
 }
