@@ -32,7 +32,7 @@ namespace Lfc
 
 		private void BotonExcel_Click(object sender, System.EventArgs e)
 		{
-                        this.SaveFormat = FormatoExportar.ExcelXml;
+                        this.SaveFormat = FormatoExportar.Excel;
                         this.DialogResult = System.Windows.Forms.DialogResult.OK;
                         this.Hide();
 		}

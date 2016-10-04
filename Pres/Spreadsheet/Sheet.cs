@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using OfficeOpenXml;
+using System.Drawing;
 
 namespace Lazaro.Pres.Spreadsheet
 {
@@ -127,49 +128,127 @@ namespace Lazaro.Pres.Spreadsheet
                 }
                 
 
-                protected internal string ToHtml()
+                protected internal void ToHtml(System.IO.StreamWriter wr)
                 {
-                        System.Text.StringBuilder Result = new StringBuilder();
-
-                        Result.AppendLine(@"<table width=""100%"" class=""StyleTable"">");
-                        Result.AppendLine(@"<caption class=""StyleTableCaption"">" +  Lfx.Types.Strings.EscapeHtml(this.Name) + "</caption>");
+                        wr.WriteLine(@"<table width=""100%"" class=""StyleTable"">");
+                        wr.WriteLine(@"<caption class=""StyleTableCaption"">" +  Lfx.Types.Strings.EscapeHtml(this.Name) + "</caption>");
 
                         //Column headers
-                        Result.AppendLine(@"<thead class=""StyleTableHead"">");
-                        Result.AppendLine("<tr>");
+                        wr.WriteLine(@"<thead class=""StyleTableHead"">");
+                        wr.WriteLine("<tr>");
                         foreach (ColumnHeader ch in this.ColumnHeaders) {
-                                Result.AppendLine(@"<th class=""StyleColumnHeader"">" + Lfx.Types.Strings.EscapeHtml(ch.Text) + "</th>");
+                                wr.WriteLine(@"<th class=""StyleColumnHeader"">" + Lfx.Types.Strings.EscapeHtml(ch.Text) + "</th>");
                         }
-                        Result.AppendLine("</tr>");
-                        Result.AppendLine("</thead>");
+                        wr.WriteLine("</tr>");
+                        wr.WriteLine("</thead>");
 
                         //Data
-                        Result.AppendLine("<tbody>");
+                        wr.WriteLine("<tbody>");
                         foreach (Row rw in this.Rows) {
-                                Result.AppendLine(@"<tr class=""StyleDataRow"">");
+                                wr.WriteLine(@"<tr class=""StyleDataRow"">");
                                 foreach (Cell cl in rw.Cells) {
                                         string CellString = @"<td class=""StyleDataCell"">";
                                         CellString += Lfx.Types.Strings.EscapeHtml(cl.ToString());
                                         CellString += "</td>";
-                                        Result.AppendLine(CellString);
+                                        wr.WriteLine(CellString);
                                 }
-                                Result.AppendLine("</tr>");
+                                wr.WriteLine("</tr>");
                         }
-                        Result.AppendLine("</tbody>");
-                        Result.AppendLine("</table>");
-
-                        return Result.ToString();
+                        wr.WriteLine("</tbody>");
+                        wr.WriteLine("</table>");
                 }
 
-                protected internal string ToExcelXml()
-                {
-                        System.Text.StringBuilder Result = new StringBuilder();
 
+                protected internal void ToExcel(ExcelWorksheet sheet)
+                {
+                        sheet.Cells.Style.Font.Size = 10.5F;
+                        sheet.Cells.Style.Font.Name = "Calibri";
+
+                        //Column headers
+                        int Row = 1, Col = 1;
+                        foreach (ColumnHeader ch in this.ColumnHeaders) {
+                                sheet.Cells[Row, Col].Value = ch.Text;
+                                sheet.Cells[Row, Col].Style.Font.Bold = true;
+                                Col++;
+                        }
+
+                        //Data
+                        foreach (Row rw in this.Rows) {
+                                Col = 1;
+                                Row++;
+                                foreach (Cell cl in rw.Cells) {
+                                        if (cl.Formula != null) {
+                                                sheet.Cells[Row, Col].Formula = cl.Formula.ToString();
+                                        }
+
+                                        if (cl.Content != null) {
+                                                switch (cl.Content.GetType().ToString()) {
+                                                        case "System.Single":
+                                                        case "System.Double":
+                                                                sheet.Cells[Row, Col].Value = cl.Content;
+                                                                sheet.Cells[Row, Col].Style.Numberformat.Format = "0.00";
+                                                                break;
+                                                        case "System.Decimal":
+                                                                sheet.Cells[Row, Col].Value = cl.Content;
+                                                                break;
+                                                        case "System.Integer":
+                                                        case "System.Int16":
+                                                        case "System.Int32":
+                                                        case "System.Int64":
+                                                                sheet.Cells[Row, Col].Value = cl.Content;
+                                                                break;
+                                                        case "System.DateTime":
+                                                                DateTime clContent = (DateTime)cl.Content;
+                                                                if (clContent.Hour == 0 && clContent.Minute == 0 && clContent.Second == 0) {
+                                                                        sheet.Cells[Row, Col].Style.Numberformat.Format = "dd-mm-yyyy";
+                                                                        sheet.Cells[Row, Col].Formula = "=DATE(" + clContent.ToString("yyyy,MM,dd") + ")";
+                                                                } else {
+                                                                        sheet.Cells[Row, Col].Style.Numberformat.Format = "dd-mm-yyyy";
+                                                                        sheet.Cells[Row, Col].Value = clContent;
+                                                                }
+                                                                break;
+                                                        case "System.String":
+                                                                sheet.Cells[Row, Col].Value = cl.Content.ToString();
+                                                                break;
+                                                }
+                                        }
+                                        Col++;
+                                }
+                        }
+
+                        using (var range = sheet.Cells[1, 1, 1, this.ColumnHeaders.Count]) {
+                                range.Style.Font.Bold = false;
+                                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                                range.Style.Fill.BackgroundColor.SetColor(Color.LightSteelBlue);
+                                range.Style.Font.Color.SetColor(Color.Black);
+                                range.Style.ShrinkToFit = false;
+                        }
+
+                        Col = 1;
+                        foreach (ColumnHeader ch in this.ColumnHeaders) {
+                                switch(ch.DataType) {
+                                        case Lfx.Data.InputFieldTypes.Currency:
+                                                using (var range = sheet.Cells[2, Col, Row, Col]) {
+                                                        range.Style.Numberformat.Format = "\"$\"#,##0.00;[Red]\"$\"#,##0.00";
+                                                }
+                                                break;
+                                }
+                                Col++;
+                        }
+
+                        using (var range = sheet.Cells[1, 1, Row, this.ColumnHeaders.Count]) {
+                                range.AutoFitColumns();
+                        }
+                }
+
+
+                protected internal void ToExcelXml(System.IO.StreamWriter wr)
+                {
                         if (this.Name != null && this.Name.Length > 0)
-                                Result.AppendLine(@"<Worksheet ss:Name=""" + Lfx.Types.Strings.EscapeXml(this.Name.Substring(0, this.Name.Length > 31 ? 31 : this.Name.Length).Replace(":", "")) + @""">");
+                                wr.WriteLine(@"<Worksheet ss:Name=""" + Lfx.Types.Strings.EscapeXml(this.Name.Substring(0, this.Name.Length > 31 ? 31 : this.Name.Length).Replace(":", "")) + @""">");
                         else
-                                Result.AppendLine(@"<Worksheet ss:Name=""sin título"">");
-                        Result.AppendLine(@"<ss:Table>");
+                                wr.WriteLine(@"<Worksheet ss:Name=""sin título"">");
+                        wr.WriteLine(@"<ss:Table>");
 
                         //Column headers
                         int i = 0;
@@ -178,18 +257,18 @@ namespace Lazaro.Pres.Spreadsheet
                                 if (ch.Width > 0)
                                         ColDef += @" ss:Width=""" + ch.Width.ToString() + @"""";
                                 ColDef += @" ss:AutoFitWidth=""1"" />";
-                                Result.AppendLine(ColDef);
+                                wr.WriteLine(ColDef);
                         }
 
-                        Result.AppendLine(@"<ss:Row>");
+                        wr.WriteLine(@"<ss:Row>");
                         foreach (ColumnHeader ch in this.ColumnHeaders) {
-                                Result.AppendLine(@"<ss:Cell ss:StyleID=""StyleHeader""><Data ss:Type=""String"">" + Lfx.Types.Strings.EscapeXml(ch.Text) + @"</Data></ss:Cell>");
+                                wr.WriteLine(@"<ss:Cell ss:StyleID=""StyleHeader""><Data ss:Type=""String"">" + Lfx.Types.Strings.EscapeXml(ch.Text) + @"</Data></ss:Cell>");
                         }
-                        Result.AppendLine(@"</ss:Row>");
+                        wr.WriteLine(@"</ss:Row>");
 
                         //Data
                         foreach (Row rw in this.Rows) {
-                                Result.AppendLine(@"<ss:Row>");
+                                wr.WriteLine(@"<ss:Row>");
                                 foreach (Cell cl in rw.Cells) {
                                         string CellString = @"<ss:Cell ss:StyleID=""StyleData""";
                                         if (cl.Formula != null)
@@ -226,14 +305,12 @@ namespace Lazaro.Pres.Spreadsheet
                                                 }
                                         }
                                         CellString += @"</ss:Cell>";
-                                        Result.AppendLine(CellString);
+                                        wr.WriteLine(CellString);
                                 }
-                                Result.AppendLine(@"</ss:Row>");
+                                wr.WriteLine(@"</ss:Row>");
                         }
-                        Result.AppendLine(@"</ss:Table>");
-                        Result.AppendLine(@"</Worksheet>");
-
-                        return Result.ToString();
+                        wr.WriteLine(@"</ss:Table>");
+                        wr.WriteLine(@"</Worksheet>");
                 }
 
                 public void SortByGroupAndColumn(int column, bool ascending)

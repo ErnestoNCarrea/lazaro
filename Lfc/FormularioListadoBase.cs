@@ -1549,8 +1549,8 @@ namespace Lfc
                                                                 DialogoGuardar.Filter = "Formato HTML|*.htm;*.html";
                                                                 break;
                                                         case FormatoExportar.Excel:
-                                                                DialogoGuardar.DefaultExt = ".xls";
-                                                                DialogoGuardar.Filter = "Formato XML de Microsoft Excel|*.xls";
+                                                                DialogoGuardar.DefaultExt = ".xlsx";
+                                                                DialogoGuardar.Filter = "Microsoft Excel 2007-2013|*.xlsx";
                                                                 break;
                                                         case FormatoExportar.ExcelXml:
                                                                 DialogoGuardar.DefaultExt = ".xls";
@@ -1571,9 +1571,9 @@ namespace Lfc
                                                                         case FormatoExportar.Excel:
                                                                                 Workbook.SaveTo(FileName, Lazaro.Pres.Spreadsheet.SaveFormats.Excel);
                                                                                 break;
-                                                                        case FormatoExportar.ExcelXml:
-                                                                                Workbook.SaveTo(FileName, Lazaro.Pres.Spreadsheet.SaveFormats.ExcelXml);
-                                                                                break;
+                                                                        //case FormatoExportar.ExcelXml:
+                                                                        //        Workbook.SaveTo(FileName, Lazaro.Pres.Spreadsheet.SaveFormats.ExcelXml);
+                                                                        //        break;
                                                                 }
                                                         } catch (Exception ex) {
                                                                 Lfx.Workspace.Master.RunTime.Toast("No se puede guardar el archivo. " + ex.Message, "Error");

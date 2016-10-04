@@ -101,8 +101,8 @@ namespace Lfc
                         this.BotonExcel.Name = "BotonExcel";
                         this.BotonExcel.Size = new System.Drawing.Size(312, 80);
                         this.BotonExcel.SubLabelPos = Lui.Forms.SubLabelPositions.LongBottom;
-                        this.BotonExcel.Subtext = "Exporta los datos a una hoja de Microsoft Excel (en formato XML) para utilizar co" +
-    "n una aplicación de planilla de cálculos compatible.";
+                        this.BotonExcel.Subtext = "Exporta los datos a una hoja de Microsoft Excel, también compatible con LibreOffi" +
+    "ce.";
                         this.BotonExcel.TabIndex = 4;
                         this.BotonExcel.Text = "Exportar a Excel";
                         this.BotonExcel.Click += new System.EventHandler(this.BotonExcel_Click);
