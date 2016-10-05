@@ -112,7 +112,7 @@ namespace RunComponent
                         Texto.AppendLine(ex.StackTrace);
 
                         MailMessage Mensaje = new MailMessage();
-                        Mensaje.To.Add(new MailAddress("errores@lazarogestion.com"));
+                        Mensaje.To.Add(new MailAddress("error@lazarogestion.com"));
                         Mensaje.From = new MailAddress(Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString() + "@" + Lfx.Environment.SystemInformation.MachineName, Lbl.Sys.Config.Actual.UsuarioConectado.Nombre + " en " + Lbl.Sys.Config.Empresa.Nombre);
                         try {
                                 //No sé por qué, pero una vez dió un error al poner el asunto

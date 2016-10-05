@@ -210,6 +210,10 @@ namespace Lazaro.Pres.Spreadsheet
                                                         case "System.String":
                                                                 sheet.Cells[Row, Col].Value = cl.Content.ToString();
                                                                 break;
+
+                                                        case "Lazaro.Pres.Spreadsheet.Formula":
+                                                                sheet.Cells[Row, Col].Formula = cl.Content.ToString();
+                                                                break;
                                                 }
                                         }
                                         Col++;
@@ -224,6 +228,10 @@ namespace Lazaro.Pres.Spreadsheet
                                 range.Style.ShrinkToFit = false;
                         }
 
+                        using (var range = sheet.Cells[1, 1, Row, this.ColumnHeaders.Count]) {
+                                range.AutoFitColumns();
+                        }
+
                         Col = 1;
                         foreach (ColumnHeader ch in this.ColumnHeaders) {
                                 switch(ch.DataType) {
@@ -232,86 +240,14 @@ namespace Lazaro.Pres.Spreadsheet
                                                         range.Style.Numberformat.Format = "\"$\"#,##0.00;[Red]\"$\"#,##0.00";
                                                 }
                                                 break;
+                                        case Lfx.Data.InputFieldTypes.Date:
+                                                sheet.Column(2).Width *= 1.25;
+                                                break;
                                 }
                                 Col++;
                         }
-
-                        using (var range = sheet.Cells[1, 1, Row, this.ColumnHeaders.Count]) {
-                                range.AutoFitColumns();
-                        }
                 }
 
-
-                protected internal void ToExcelXml(System.IO.StreamWriter wr)
-                {
-                        if (this.Name != null && this.Name.Length > 0)
-                                wr.WriteLine(@"<Worksheet ss:Name=""" + Lfx.Types.Strings.EscapeXml(this.Name.Substring(0, this.Name.Length > 31 ? 31 : this.Name.Length).Replace(":", "")) + @""">");
-                        else
-                                wr.WriteLine(@"<Worksheet ss:Name=""sin título"">");
-                        wr.WriteLine(@"<ss:Table>");
-
-                        //Column headers
-                        int i = 0;
-                        foreach (ColumnHeader ch in this.ColumnHeaders) {
-                                string ColDef = @"<ss:Column ss:Index=""" + (++i).ToString() + @"""";
-                                if (ch.Width > 0)
-                                        ColDef += @" ss:Width=""" + ch.Width.ToString() + @"""";
-                                ColDef += @" ss:AutoFitWidth=""1"" />";
-                                wr.WriteLine(ColDef);
-                        }
-
-                        wr.WriteLine(@"<ss:Row>");
-                        foreach (ColumnHeader ch in this.ColumnHeaders) {
-                                wr.WriteLine(@"<ss:Cell ss:StyleID=""StyleHeader""><Data ss:Type=""String"">" + Lfx.Types.Strings.EscapeXml(ch.Text) + @"</Data></ss:Cell>");
-                        }
-                        wr.WriteLine(@"</ss:Row>");
-
-                        //Data
-                        foreach (Row rw in this.Rows) {
-                                wr.WriteLine(@"<ss:Row>");
-                                foreach (Cell cl in rw.Cells) {
-                                        string CellString = @"<ss:Cell ss:StyleID=""StyleData""";
-                                        if (cl.Formula != null)
-                                                CellString += @" ss:Formula=""" + Lfx.Types.Strings.EscapeXml(cl.Formula.ToString()) + @"""";
-
-                                        CellString += ">";
-                                        if (cl.Content != null) {
-                                                switch (cl.Content.GetType().ToString()) {
-                                                        case "System.Single":
-                                                        case "System.Double":
-                                                                CellString += @"<Data ss:Type=""Number"">" + Lfx.Types.Formatting.FormatNumber(System.Convert.ToDecimal(cl.Content), 8) + @"</Data>";
-                                                                break;
-                                                        case "System.Decimal":
-                                                                CellString += @"<Data ss:Type=""Number"">" + Lfx.Types.Formatting.FormatNumber(System.Convert.ToDecimal(cl.Content), 8) + @"</Data>";
-                                                                break;
-                                                        case "System.Integer":
-                                                        case "System.Int16":
-                                                        case "System.Int32":
-                                                        case "System.Int64":
-                                                                CellString += @"<Data ss:Type=""Number"">" + cl.Content.ToString() + @"</Data>";
-                                                                break;
-                                                        case "System.DateTime":
-                                                                CellString += @"<Data ss:Type=""String"">";
-                                                                DateTime clContent = (DateTime)cl.Content;
-                                                                if (clContent.Hour == 0 && clContent.Minute == 0 && clContent.Second == 0)
-                                                                        CellString += clContent.ToString(Lfx.Types.Formatting.DateTime.ShortDatePattern);
-                                                                else
-                                                                        CellString += clContent.ToString(Lfx.Types.Formatting.DateTime.FullDateTimePattern);
-                                                                CellString += @"</Data>";
-                                                                break;
-                                                        case "System.String":
-                                                                CellString += @"<Data ss:Type=""String"">" + Lfx.Types.Strings.EscapeXml(cl.Content.ToString()) + @"</Data>";
-                                                                break;
-                                                }
-                                        }
-                                        CellString += @"</ss:Cell>";
-                                        wr.WriteLine(CellString);
-                                }
-                                wr.WriteLine(@"</ss:Row>");
-                        }
-                        wr.WriteLine(@"</ss:Table>");
-                        wr.WriteLine(@"</Worksheet>");
-                }
 
                 public void SortByGroupAndColumn(int column, bool ascending)
                 {

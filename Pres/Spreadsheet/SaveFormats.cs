@@ -6,7 +6,6 @@ namespace Lazaro.Pres.Spreadsheet
 {
         public enum SaveFormats
         {
-                //ExcelXml,
                 Html,
                 Text,
                 Excel

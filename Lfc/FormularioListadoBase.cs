@@ -1552,10 +1552,6 @@ namespace Lfc
                                                                 DialogoGuardar.DefaultExt = ".xlsx";
                                                                 DialogoGuardar.Filter = "Microsoft Excel 2007-2013|*.xlsx";
                                                                 break;
-                                                        case FormatoExportar.ExcelXml:
-                                                                DialogoGuardar.DefaultExt = ".xls";
-                                                                DialogoGuardar.Filter = "Formato de Microsoft Excel|*.xls";
-                                                                break;
                                                 }
 
                                                 DialogoGuardar.FileName = this.Text.Replace(":", "");
@@ -1571,9 +1567,6 @@ namespace Lfc
                                                                         case FormatoExportar.Excel:
                                                                                 Workbook.SaveTo(FileName, Lazaro.Pres.Spreadsheet.SaveFormats.Excel);
                                                                                 break;
-                                                                        //case FormatoExportar.ExcelXml:
-                                                                        //        Workbook.SaveTo(FileName, Lazaro.Pres.Spreadsheet.SaveFormats.ExcelXml);
-                                                                        //        break;
                                                                 }
                                                         } catch (Exception ex) {
                                                                 Lfx.Workspace.Master.RunTime.Toast("No se puede guardar el archivo. " + ex.Message, "Error");

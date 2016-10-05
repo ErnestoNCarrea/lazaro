@@ -950,7 +950,6 @@ LEFT JOIN pg_attribute
                                 while ((DbConnection == null || DbConnection.State != System.Data.ConnectionState.Open) && intentos-- > 0) {
                                         try {
                                                 this.Open();
-                                                System.Threading.Thread.Sleep(50);
                                                 DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
                                         } catch {
                                                 System.Threading.Thread.Sleep(2000);

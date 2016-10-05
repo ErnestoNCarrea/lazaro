@@ -8,7 +8,6 @@ namespace Lfc
         {
                 Html,
                 Excel,
-                ExcelXml,
                 Imprimir,
                 ImprimirAvanzado
         }

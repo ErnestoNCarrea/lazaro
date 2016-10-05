@@ -53,9 +53,6 @@ namespace Lazaro.Pres.Spreadsheet
                                         case SaveFormats.Excel:
                                                 this.ToExcel(wr, sheet);
                                                 break;
-                                        //case SaveFormats.ExcelXml:
-                                        //        this.ToExcelXml(wr, sheet);
-                                        //        break;
                                         case SaveFormats.Html:
                                                 this.ToHtml(wr, sheet);
                                                 break;
@@ -113,11 +110,17 @@ namespace Lazaro.Pres.Spreadsheet
                                 if (sheet == null) {
                                         //All sheets
                                         foreach (Sheet sht in this.Sheets) {
+                                                if (string.IsNullOrWhiteSpace(sht.Name)) {
+                                                        sht.Name = "Planilla sin título";
+                                                }
                                                 ExcelWorksheet worksheet = Pkg.Workbook.Worksheets.Add(sht.Name);
                                                 sht.ToExcel(worksheet);
                                         }
                                 } else {
                                         //One sheet
+                                        if (string.IsNullOrWhiteSpace(sheet.Name)) {
+                                                sheet.Name = "Planilla sin título";
+                                        }
                                         ExcelWorksheet worksheet = Pkg.Workbook.Worksheets.Add(sheet.Name);
                                         sheet.ToExcel(worksheet);
                                 }
@@ -128,37 +131,6 @@ namespace Lazaro.Pres.Spreadsheet
                         return;
                 }
 
-
-                protected internal void ToExcelXml(System.IO.StreamWriter wr, Sheet sheet)
-                {
-                        wr.WriteLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
-                        wr.WriteLine(@"<?mso-application progid=""Excel.Sheet""?>");
-                        wr.WriteLine(@"<Workbook xmlns=""urn:schemas-microsoft-com:office:spreadsheet"" xmlns:c=""urn:schemas-microsoft-com:office:component:spreadsheet"" xmlns:html=""http://www.w3.org/TR/REC-html40"" xmlns:o=""urn:schemas-microsoft-com:office:office"" xmlns:ss=""urn:schemas-microsoft-com:office:spreadsheet"" xmlns:x2=""http://schemas.microsoft.com/office/excel/2003/xml"" xmlns:x=""urn:schemas-microsoft-com:office:excel"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">");
-                        wr.WriteLine(@"  <Styles>
-    <Style ss:ID=""Default"" ss:Name=""Normal"">
-      <Alignment ss:Vertical=""Bottom"" />
-    </Style>
-    <Style ss:ID=""StyleData"">
-      <Font x:FontName=""Segoe IU"" />
-    </Style>
-    <Style ss:ID=""StyleHeader"">
-      <Font x:FontName=""Segoe IU"" ss:Bold=""1"" />
-      <Interior ss:Color=""#C5D9F1"" ss:Pattern=""Solid"" />
-    </Style>
-   </Styles>");
-
-                        if (sheet == null) {
-                                //All sheets
-                                foreach (Sheet sht in Sheets) {
-                                        sht.ToExcelXml(wr);
-                                }
-                        } else {
-                                //One sheet
-                                sheet.ToExcelXml(wr);
-                        }
-
-                        wr.WriteLine("</Workbook>");
-                }
 
                 public Sheet GetSheetByName(string name)
                 {
