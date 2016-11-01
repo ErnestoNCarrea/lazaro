@@ -314,23 +314,13 @@ namespace Lbl.Comprobantes
                 /// </summary>
                 public decimal ImporteConIvaFinalAlicuota(int idAlicuota)
                 {
-                        if (this.ElementoPadre == null) {
-                                return 0m;
-                        } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                Lbl.Impuestos.Alicuota AlicArticulo;
-                                if (this.Articulo == null)
-                                        AlicArticulo = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
-                                else
-                                        AlicArticulo = this.Articulo.ObtenerAlicuota();
+                        Lbl.Impuestos.Alicuota Alic = this.ObtenerAlicuota();
 
-                                if (AlicArticulo != null && AlicArticulo.Id == idAlicuota) {
-                                        if (this.IvaDiscriminado()) {
-                                                return (this.ImporteUnitario + this.ImporteIvaUnitario) * this.Cantidad * this.FactorDescuentoRecargo;
-                                        } else {
-                                                return this.ImporteUnitario * this.Cantidad * this.FactorDescuentoRecargo;
-                                        }
+                        if (Alic != null && Alic.Id == idAlicuota) {
+                                if (this.IvaDiscriminado()) {
+                                        return (this.ImporteUnitario + this.ImporteIvaUnitario) * this.Cantidad * this.FactorDescuentoRecargo;
                                 } else {
-                                        return 0m;
+                                        return this.ImporteUnitario * this.Cantidad * this.FactorDescuentoRecargo;
                                 }
                         } else {
                                 return 0m;
@@ -346,17 +336,35 @@ namespace Lbl.Comprobantes
                 /// </summary>
                 public decimal ImporteIvaFinalAlicuota(int idAlicuota)
                 {
-                        if (this.ElementoPadre == null) {
-                                return 0m;
-                        } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                if (this.Alicuota != null && this.Alicuota.Id == idAlicuota) {
-                                        return this.ImporteIvaUnitario * this.Cantidad * this.FactorDescuentoRecargo;
-                                } else {
-                                        return 0m;
-                                }
+                        var Alic = this.ObtenerAlicuota();
+
+                        if (this.Alicuota != null && this.Alicuota.Id == idAlicuota) {
+                                return this.ImporteIvaUnitario * this.Cantidad * this.FactorDescuentoRecargo;
                         } else {
                                 return 0m;
                         }
+                }
+
+
+                /// <summary>
+                /// Obtiene la alícuota utilizada para este renglón.
+                /// </summary>
+                public Lbl.Impuestos.Alicuota ObtenerAlicuota()
+                {
+                        if(this.Alicuota != null) {
+                                return this.Alicuota;
+                        }
+
+                        if(this.Articulo != null) {
+                                var Res = this.Articulo.ObtenerAlicuota(); ;
+                                if(Res == null) {
+                                        return Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
+                                } else {
+                                        return Res;
+                                }
+                        }
+
+                        return null;
                 }
 
 
@@ -377,22 +385,11 @@ namespace Lbl.Comprobantes
                 /// </summary>
                 public decimal ImporteSinIvaFinalAlicuota(int idAlicuota)
                 {
-                        if (this.ElementoPadre == null) {
-                                return 0;
-                        } else if (ElementoPadre is Lbl.Comprobantes.ComprobanteConArticulos) {
-                                //Lbl.Comprobantes.ComprobanteConArticulos Comprob = ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                Lbl.Impuestos.Alicuota AlicArticulo;
-                                if (this.Articulo == null)
-                                        AlicArticulo = Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
-                                else
-                                        AlicArticulo = this.Articulo.ObtenerAlicuota();
-
-                                if (AlicArticulo != null && AlicArticulo.Id == idAlicuota)
-                                        return this.ImporteSinIvaFinal;
-                                else
-                                        return 0;
+                        var Alic = this.ObtenerAlicuota();
+                        if(Alic.Id == idAlicuota) {
+                                return this.ImporteSinIvaFinal;
                         } else {
-                                return 0;
+                                return 0m;
                         }
                 }
 
@@ -452,14 +449,6 @@ namespace Lbl.Comprobantes
                         {
                                 this.Registro["orden"] = value;
                         }
-                }
-
-                public Lbl.Impuestos.Alicuota ObtenerAlicuota()
-                {
-                        if (this.Articulo == null)
-                                return Lbl.Sys.Config.Empresa.AlicuotaPredeterminada;
-                        else
-                                return this.Articulo.ObtenerAlicuota();
                 }
 
 

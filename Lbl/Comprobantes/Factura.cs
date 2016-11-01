@@ -18,9 +18,12 @@ namespace Lbl.Comprobantes
                 public override void Crear()
                 {
                         base.Crear();
-                        this.Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra["FB"];
-                        if (Lbl.Sys.Config.Actual.Comprobantes.IdClientePredeterminado > 0)
+                        if (Lbl.Sys.Config.Actual.Comprobantes.IdClientePredeterminado > 0) {
                                 this.Cliente = new Personas.Persona(this.Connection, Lbl.Sys.Config.Actual.Comprobantes.IdClientePredeterminado);
+                                this.Tipo = this.Cliente.ObtenerTipoComprobante();
+                        } else {
+                                this.Tipo = Lbl.Comprobantes.Tipo.TodosPorLetra["FB"];
+                        }
                 }
         }
 }

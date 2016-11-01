@@ -997,6 +997,16 @@ namespace Lcc.Entrada.Articulos
                 protected void RecalcularImporteFinal()
                 {
                         if(m_DiscriminarIva) {
+                                if(m_AplicarIva && this.m_Alicuota != null) {
+                                        decimal Iva = this.ImporteUnitario * (this.m_Alicuota.Porcentaje / 100m);
+                                        if(Math.Abs(this.ImporteIvaUnitario - Iva) > 0.01m) {
+                                                this.ImporteIvaUnitario = Iva;
+                                        }
+                                } else {
+                                        if(this.ImporteIvaUnitario != 0m) {
+                                                this.ImporteIvaUnitario = 0m;
+                                        }
+                                }
                                 EntradaIva.ValueDecimal = this.ImporteIvaUnitario;
                         } else {
                                 EntradaIva.ValueDecimal = 0m;

@@ -772,7 +772,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.Label16.Location = new System.Drawing.Point(1, 3);
                         this.Label16.Name = "Label16";
-                        this.Label16.Size = new System.Drawing.Size(208, 24);
+                        this.Label16.Size = new System.Drawing.Size(209, 24);
                         this.Label16.TabIndex = 0;
                         this.Label16.Text = "Cliente predeterminado";
                         this.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -783,7 +783,7 @@ namespace Lazaro.WinMain.Config
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaClientePredet.AutoTab = true;
                         this.EntradaClientePredet.CanCreate = true;
-                        this.EntradaClientePredet.Location = new System.Drawing.Point(216, 40);
+                        this.EntradaClientePredet.Location = new System.Drawing.Point(209, 3);
                         this.EntradaClientePredet.MaxLength = 200;
                         this.EntradaClientePredet.Name = "EntradaClientePredet";
                         this.EntradaClientePredet.NombreTipo = "Lbl.Personas.Persona";
@@ -987,7 +987,6 @@ namespace Lazaro.WinMain.Config
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.FrmComprobantes.Controls.Add(this.panel2);
-                        this.FrmComprobantes.Controls.Add(this.EntradaClientePredet);
                         this.FrmComprobantes.Location = new System.Drawing.Point(154, 16);
                         this.FrmComprobantes.Name = "FrmComprobantes";
                         this.FrmComprobantes.Size = new System.Drawing.Size(612, 441);
@@ -997,6 +996,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // panel2
                         // 
+                        this.panel2.Controls.Add(this.EntradaClientePredet);
                         this.panel2.Controls.Add(this.Label16);
                         this.panel2.Controls.Add(this.EntradaPVRC);
                         this.panel2.Controls.Add(this.label3);
@@ -1183,10 +1183,10 @@ namespace Lazaro.WinMain.Config
                         this.Controls.Add(this.LabelTab2);
                         this.Controls.Add(this.LabelTab1);
                         this.Controls.Add(this.buttonPanel1);
-                        this.Controls.Add(this.FrmGeneral);
                         this.Controls.Add(this.FrmComprobantes);
                         this.Controls.Add(this.FrmArticulos);
                         this.Controls.Add(this.FrmAvanzado);
+                        this.Controls.Add(this.FrmGeneral);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

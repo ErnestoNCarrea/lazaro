@@ -558,6 +558,19 @@ namespace Lbl.Comprobantes
 
 
                 /// <summary>
+                /// Devuelve el importe gravado para una alícuota de IVA.
+                /// </summary>
+                public decimal ImporteGravadoAlicuota(int idAlicuota)
+                {
+                        decimal Res = 0;
+                        foreach (DetalleArticulo Det in this.Articulos) {
+                                Res += Det.ImporteSinIvaFinalAlicuota(idAlicuota);
+                        }
+                        return Math.Round(Res, 4);
+                }
+
+
+                /// <summary>
                 /// Devuelve la cantidad de IVA que este comprobante lleva de una alícuota en particular, o 0 si este artículo no se le aplica esa alícuota.
                 /// Útil para Paraguay, donde por cada renglón de la factura van dos columnas, una con el importe IVA tasa regular y
                 /// otra con la tasa reducida (o cero). Una de las dos columnas puede estar en blanco.

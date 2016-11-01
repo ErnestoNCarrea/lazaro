@@ -362,7 +362,7 @@ namespace Lazaro.WinMain
                                                         }
                                                 }
 
-                                                if (Prog.IsDone) {
+                                                if (Prog.IsDone || Prog.IsRunning == false) {
                                                         if (Operaciones.Contains(Prog))
                                                                 Operaciones.Remove(Prog);
 

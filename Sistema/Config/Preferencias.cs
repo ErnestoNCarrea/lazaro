@@ -277,8 +277,8 @@ namespace Lazaro.WinMain.Config
                 protected void MostrarPestanias()
                 {
                         FrmGeneral.Visible = CurrentTab == 1;
-                        FrmArticulos.Visible = CurrentTab == 2;
-                        FrmComprobantes.Visible = CurrentTab == 3;
+                        FrmComprobantes.Visible = CurrentTab == 2;
+                        FrmArticulos.Visible = CurrentTab == 3;
                         FrmAvanzado.Visible = CurrentTab == 4;
 
                         LabelTab1.Left = CurrentTab == 1 ? 16 : 12;

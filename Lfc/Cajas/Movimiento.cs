@@ -10,7 +10,7 @@ namespace Lfc.Cajas
 
                 public Movimiento()
                 {
-                        if (Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(typeof(Lbl.Cajas.Caja), Lbl.Sys.Permisos.Operaciones.Administrar) == false) {
+                        if (Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(typeof(Lbl.Cajas.Caja), Lbl.Sys.Permisos.Operaciones.Mover) == false) {
                                 this.DialogResult = System.Windows.Forms.DialogResult.Abort;
                                 this.Close();
                                 return;
@@ -67,7 +67,7 @@ namespace Lfc.Cajas
 
                 private void EntradaObs_Enter(object sender, System.EventArgs e)
                 {
-                        if (EntradaObs.Text.Length == 0 && CajaDestino != null && CajaDestino != null && CajaOrigen.Id != CajaDestino.Id) {
+                        if (EntradaObs.Text.Length == 0 && CajaOrigen != null && CajaDestino != null && CajaOrigen.Id != CajaDestino.Id) {
                                 EntradaObs.Text = "Movimiento entre " + CajaOrigen.ToString() + " y " + CajaDestino.ToString();
                         }
                 }

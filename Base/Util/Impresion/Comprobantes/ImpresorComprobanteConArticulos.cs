@@ -193,8 +193,22 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                                 Res += System.Environment.NewLine + "Recargo: " + Lfx.Types.Formatting.FormatNumberForPrint(this.Comprobante.Descuento, 2) + "%";
                                         return Res;
 
+                                case "ARTICULOS.UNITARIOSORIGINALES":
+                                case "ARTÍCULOS.UNITARIOSORIGINALES":
+                                        Res = null;
+                                        for (int i = 0; i < this.Comprobante.Articulos.Count; i++) {
+                                                Lbl.Comprobantes.DetalleArticulo Det = this.Comprobante.Articulos[i];
+                                                string Linea = Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteUnitario, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
+                                                if (Res == null)
+                                                        Res = Linea;
+                                                else
+                                                        Res += System.Environment.NewLine + Linea;
+                                        }
+                                        return Res;
+
                                 case "ARTICULOS.UNITARIOS":
                                 case "ARTÍCULOS.UNITARIOS":
+                                case "ARTÍCULOS.UNITARIOSFINALES":
                                 case "PRECIOS":
                                         Res = null;
                                         for (int i = 0; i < this.Comprobante.Articulos.Count; i++) {

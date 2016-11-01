@@ -114,6 +114,7 @@ namespace Lfx.Types
                 public void Advance(int advanceAmount)
                 {
                         this.Value += advanceAmount;
+                        this.IsRunning = true;
                         if (Lfx.Workspace.Master != null)
                                 Lfx.Workspace.Master.RunTime.NotifyProgress(this);
                 }
@@ -125,6 +126,17 @@ namespace Lfx.Types
                         this.IsDone = true;
                         this.IsRunning = false;
                         this.Status = "Terminado.";
+                        if (Lfx.Workspace.Master != null)
+                                Lfx.Workspace.Master.RunTime.NotifyProgress(this);
+                }
+
+
+                public void Abort()
+                {
+                        Console.WriteLine("Abortar: " + this.Name);
+                        this.IsDone = false;
+                        this.IsRunning = false;
+                        this.Status = "Abortado.";
                         if (Lfx.Workspace.Master != null)
                                 Lfx.Workspace.Master.RunTime.NotifyProgress(this);
                 }

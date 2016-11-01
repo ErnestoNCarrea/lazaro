@@ -110,7 +110,7 @@ namespace Lazaro.Base.Util.Comprobantes
                                 var Alicuotas = comprobante.AlicuotasUsadas();
                                 foreach (Lbl.Impuestos.Alicuota Alic in Alicuotas.Values) {
                                         decimal ImporteIva = comprobante.TotalIvaAlicuota(Alic.Id);
-                                        decimal ImporteGravado = comprobante.TotalConIvaAlicuota(Alic.Id) - ImporteIva;
+                                        decimal ImporteGravado = comprobante.ImporteGravadoAlicuota(Alic.Id);
 
                                         ComprobanteAsociado.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
                                         {

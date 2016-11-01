@@ -116,12 +116,8 @@ namespace Lfx.Data
                         if (string.IsNullOrEmpty(Port) == false)
                                 ConnectionString.Append("PORT=" + Port + ";");
 
-                        if (this.Handle > 0) {
-                                // En conexiones sucesivas, puede seleccionar la base de datos al conectar,
-                                // pero no es la conexión master (handle 0).
-                                if (string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false)
-                                        ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
-                        }
+                        if (string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false)
+                                ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
                         ConnectionString.Append("UID=" + Lfx.Data.DataBaseCache.DefaultCache.UserName + ";");
                         ConnectionString.Append("PWD=" + Lfx.Data.DataBaseCache.DefaultCache.Password + ";");
 
@@ -131,16 +127,6 @@ namespace Lfx.Data
                                 DbConnection.Open();
                         } catch (Exception ex) {
                                 throw ex;
-                        }
-
-                        if (this.Handle == 0 && string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false) {
-                                // En la conexión master (handle 0) selecciono la base de datos después de conectar, para dar oportunidad de crearla si no existe
-                                try {
-                                        DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
-                                } catch {
-                                        this.ExecuteSql("CREATE DATABASE " + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
-                                        DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
-                                }
                         }
 
                         this.SetupConnection(this.DbConnection);
@@ -1390,6 +1376,7 @@ LEFT JOIN pg_attribute
                         if (Lfx.Workspace.Master.TraceMode)
                                 Lfx.Workspace.Master.DebugLog(this.Handle, selectCommand);
 
+                        this.EsperarFinDeLectura();
                         var Adaptador = Lfx.Data.DataBaseCache.DefaultCache.Provider.GetAdapter(selectCommand, this.DbConnection);
                         lock (Adaptador) {
                                 using (System.Data.DataSet Lector = new System.Data.DataSet()) {
@@ -1413,6 +1400,21 @@ LEFT JOIN pg_attribute
                                 }
                         }
                 }
+
+
+                protected void EsperarFinDeLectura()
+                {
+                        // Intento asegurarme de que no esté leyendo
+                        int Intentos = 0;
+                        while (this.DbConnection.State == ConnectionState.Fetching) {
+                                System.Threading.Thread.Sleep(100);
+                                Intentos++;
+                                if (Intentos == 100) {
+                                        break;
+                                }
+                        }
+                }
+
 
                 private void LogError(string texto)
                 {
