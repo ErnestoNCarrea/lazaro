@@ -62,7 +62,7 @@
   <Constraint name="articulos_id_caja" table="articulos" column="id_caja" reference_table="cajas" reference_column="id_caja" />
   <Constraint name="articulos_id_margen" table="articulos" column="id_margen" reference_table="margenes" reference_column="id_margen" />
 
-  
+
   <Table name="articulos_categorias" lsdet="1" label="Categorías de Artículos">
     <Column name="id_categoria" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -86,7 +86,7 @@
   <Constraint name="articulos_categorias_id_rubro" table="articulos_categorias" column="id_rubro" reference_table="articulos_rubros" reference_column="id_rubro" />
   <Constraint name="articulos_categorias_id_alicuota" table="articulos_categorias" column="id_alicuota" reference_table="alicuotas" reference_column="id_alicuota" />
 
-  
+
   <Table name="articulos_codigos" label="Códigos de Artículos">
     <Column name="id_codigo" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="50" />
@@ -96,7 +96,7 @@
   </Table>
   <Constraint name="articulos_codigos_id_proveedor" table="articulos_codigos" column="id_proveedor" reference_table="personas" reference_column="id_persona" />
 
-  
+
   <Table name="articulos_imagenes" label="Imágenes de Artículos">
     <Column name="id_articulo" inputtype="Relation" nullable="0" primary_key="1" default="0" />
     <Column name="imagen" datatype="Blob" nullable="1" />
@@ -104,7 +104,7 @@
   </Table>
   <Constraint name="articulos_imagenes_id_articulo" table="articulos_imagenes" column="id_articulo" reference_table="articulos" reference_column="id_articulo" />
 
-  
+
   <Table name="articulos_movim" label="Movimientos de Artículos">
     <Column name="id_movim" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_articulo" inputtype="Relation" nullable="0" default="0" />
@@ -127,7 +127,7 @@
   <Constraint name="articulos_movim_id_articulo" table="articulos_movim" column="id_articulo" reference_table="articulos" reference_column="id_articulo" />
   <Constraint name="articulos_movim_id_comprob" table="articulos_movim" column="id_comprob" reference_table="comprob" reference_column="id_comprob" />
 
-  
+
   <Table name="articulos_precios" label="Precios de Artículos">
     <Column name="id_precio" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_articulo" inputtype="Relation" nullable="0" default="0" />
@@ -219,7 +219,7 @@
     <Index table="bancos" name="PRIMARY" columns="id_banco" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="bancos_cheques" lsdet="1" label="Cheques">
     <Column name="id_cheque" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" lenght="200" />
@@ -261,7 +261,7 @@
   <Constraint name="bancos_cheques_id_cliente" table="bancos_cheques" column="id_cliente" reference_table="personas" reference_column="id_persona" />
   <Constraint name="bancos_cheques_id_chequera" table="bancos_cheques" column="id_chequera" reference_table="chequeras" reference_column="id_chequera" />
 
-  
+
   <Table name="chequeras" lsdet="1" label="Chequeras">
     <Column name="id_chequera" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" lenght="200" />
@@ -284,7 +284,7 @@
   <Constraint name="chequeras_id_banco" table="chequeras" column="id_banco" reference_table="bancos" reference_column="id_banco" />
   <Constraint name="chequeras_id_caja" table="chequeras" column="id_caja" reference_table="cajas" reference_column="id_caja" />
 
-  
+
   <Table name="ciudades" lsdet="1" label="Localidades">
     <Column name="id_ciudad" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" label="Nombre" required="1" nullable="0" lenght="200" />
@@ -320,10 +320,10 @@
     <Index table="consultas" name="PRIMARY" columns="id_consulta" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="consultas_parametros" lsdet="1" label="Parámetros de consultas">
     <Column name="id_parametro" datatype="Serial" nullable="0" primary_key="1" />
-    <Column name="id_consulta" inputtype="Relation" nullable="0" 
+    <Column name="id_consulta" inputtype="Relation" nullable="0"
             relation_table="consultas" relation_key="id_consulta" relation_detail="nombre" />
     <Column name="nombre" inputtype="Text" label="Nombre" required="1" nullable="0" lenght="200" />
     <Column name="variable" inputtype="Text" label="Variable" required="1" nullable="0" lenght="50" />
@@ -333,8 +333,8 @@
     <Index table="consultas_parametros" name="consultas_parametros_id_consulta" columns="id_consulta" unique="0" primary="0" />
   </Table>
   <Constraint name="consultas_parametros_id_consulta" table="consultas_parametros" column="id_consulta" reference_table="consultas" reference_column="id_consulta" />
-  
-  
+
+
   <Table name="ctacte" label="Movimientos de cuentas corrientes">
     <Column name="id_movim" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="auto" inputtype="Bool" nullable="0" default="0" />
@@ -359,7 +359,7 @@
   <Constraint name="ctacte_id_comprob" table="ctacte" column="id_comprob" reference_table="comprob" reference_column="id_comprob" />
   <Constraint name="ctacte_id_recibo" table="ctacte" column="id_recibo" reference_table="recibos" reference_column="id_recibo" />
 
-  
+
   <Table name="cajas" lsdet="1" label="Cajas">
     <Column name="id_caja" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_banco" inputtype="Relation" nullable="1" />
@@ -379,8 +379,8 @@
   </Table>
   <Constraint name="cajas_id_moneda" table="cajas" column="id_moneda" reference_table="monedas" reference_column="id_moneda" />
   <Constraint name="cajas_id_banco" table="cajas" column="id_banco" reference_table="bancos" reference_column="id_banco" />
-  
-  
+
+
   <Table name="cajas_movim" label="Movimientos de Cajas">
     <Column name="id_movim" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_caja" inputtype="Relation" nullable="0" default="0" />
@@ -426,8 +426,8 @@
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="conceptos" name="PRIMARY" columns="id_concepto" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="documentos_tipos" lsdet="1" label="Tipos de Comprobante">
     <Column name="id_tipo" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="letra" datatype="VarChar" nullable="0" lenght="50" />
@@ -494,6 +494,8 @@
     <Column name="otrosgastos" inputtype="Currency" />
     <Column name="compra" inputtype="Bool" nullable="0" />
     <Column name="series" datatype="Text" nullable="1" />
+    <Column name="cae_numero" inputtype="Text" nullable="1" lenght="50" />
+    <Column name="cae_vencimiento" inputtype="DateTime" nullable="1" />
     <Index table="comprob" name="comprob_id_cliente" columns="id_cliente" unique="0" primary="0" />
     <Index table="comprob" name="comprob_id_comprob_orig" columns="id_comprob_orig" unique="0" primary="0" />
     <Index table="comprob" name="comprob_id_formapago" columns="id_formapago" unique="0" primary="0" />
@@ -527,12 +529,13 @@
   <Constraint name="comprob_comprob_id_comprob" table="comprob_comprob" column="id_comprob" reference_table="comprob" reference_column="id_comprob" />
   <Constraint name="comprob_comprob_id_comprob_rel" table="comprob_comprob" column="id_comprob_rel" reference_table="comprob" reference_column="id_comprob" />
 
-  
+
   <Table name="comprob_detalle" label="Detalles de Comprobantes">
     <Column name="id_comprob_detalle" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_comprob" inputtype="Relation" nullable="0" default="0" />
     <Column name="orden" inputtype="TinyInt" nullable="0" default="0" />
     <Column name="id_articulo" inputtype="Relation" nullable="1" />
+    <Column name="id_alicuota" inputtype="Relation" nullable="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
     <Column name="descripcion" datatype="Text" nullable="1" />
     <Column name="cantidad" datatype="Numeric" nullable="0" lenght="14" precision="4" default="0" />
@@ -548,8 +551,10 @@
     <Index table="comprob_detalle" name="comprob_detalle_id_comprob_id_articulo" columns="id_comprob,id_articulo" unique="0" primary="0" />
     <Index table="comprob_detalle" name="comprob_detalle_id_comprob" columns="id_comprob" unique="0" primary="0" />
     <Index table="comprob_detalle" name="comprob_detalle_id_articulo" columns="id_articulo" unique="0" primary="0" />
+    <Index table="comprob_detalle" name="comprob_detalle_id_alicuota" columns="id_alicuota" unique="0" primary="0" />
   </Table>
   <Constraint name="comprob_detalle_id_articulo" table="comprob_detalle" column="id_articulo" reference_table="articulos" reference_column="id_articulo" />
+  <Constraint name="comprob_detalle_id_alicuota" table="comprob_detalle" column="id_alicuota" reference_table="alicuotas" reference_column="id_alicuota" />
   <Constraint name="comprob_detalle_id_comprob" table="comprob_detalle" column="id_comprob" reference_table="comprob" reference_column="id_comprob" />
 
 
@@ -559,8 +564,8 @@
     <Index table="comprob_imagenes" name="PRIMARY" columns="id_comprob" unique="1" primary="1" />
     <OldIndex table="comprob_imagenes" name="comprob_imagenes_id_comprob" columns="id_comprob" unique="0" primary="0" />
   </Table>
-  
-  
+
+
   <Table name="formaspago" lsdet="1" label="Formas de pago">
     <Column name="id_formapago" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -737,6 +742,7 @@
             relation_table="personas_grupos" relation_key="id_grupo" relation_detail="nombre" />
     <Column name="nombre" inputtype="Text" section="Personas físicas" label="Nombre" nullable="1" lenght="50" />
     <Column name="apellido" inputtype="Text" section="Personas físicas" label="Apellido" nullable="1" lenght="50" />
+    <Column name="nombre_fantasia" inputtype="Text" section="Personas jurídicas" label="Nombre fantasía" nullable="1" lenght="200" />
     <Column name="razon_social" inputtype="Text" section="Personas jurídicas" label="Razón social" nullable="1" lenght="200" />
     <Column name="nombreusuario" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="contrasena" datatype="VarChar" nullable="1" lenght="200" />
@@ -744,6 +750,7 @@
     <Column name="contrasena_fecha" datatype="DateTime" nullable="1" />
     <Column name="id_tipo_doc" inputtype="Relation" section="Personas físicas" label="Tipo de documento" nullable="1"
             relation_table="tipo_doc" relation_key="id_tipo_doc" relation_detail="nombre" />
+    <Column name="genero" inputtype="Integer" label="Genero" nullable="1" default="NULL" />
     <Column name="num_doc" inputtype="Text" section="Personas físicas" label="Documento" nullable="1" lenght="50" />
     <Column name="id_tipo_cuit" inputtype="Relation" section="Personas jurídicas" label="Tipo de clave tributaria" nullable="1"
             relation_table="tipo_doc" relation_key="id_tipo_doc" relation_detail="nombre" />
@@ -824,7 +831,7 @@
   </Table>
   <Constraint name="personas_imagenes_id_persona" table="personas_imagenes" column="id_persona" reference_table="personas" reference_column="id_persona" />
 
-  
+
   <Table name="personas_tipos" lsdet="1" label="Tipos de Persona">
     <Column name="id_tipo_persona" inputtype="Serial" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -833,8 +840,8 @@
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="personas_tipos" name="PRIMARY" columns="id_tipo_persona" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="pvs" lsdet="1" label="Puntos de Venta">
     <Column name="id_pv" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -855,6 +862,7 @@
     <Column name="bps" datatype="SmallInt" nullable="0" default="0" />
     <Column name="ultimoz" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="detalonario" inputtype="Bool" nullable="0" default="0" />
+    <Column name="variante" datatype="TinyInt" nullable="0" default="0" />
     <Column name="lsa" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="id_impresora" inputtype="Relation" nullable="1" />
     <Index table="pvs" name="PRIMARY" columns="id_pv" unique="1" primary="1" />
@@ -896,7 +904,7 @@
   <Constraint name="recibos_id_sucursal" table="recibos" column="id_sucursal" reference_table="sucursales" reference_column="id_sucursal" />
   <Constraint name="recibos_id_concepto" table="recibos" column="id_concepto" reference_table="conceptos" reference_column="id_concepto" />
 
-  
+
   <Table name="recibos_comprob" label="Recibos/Comprobantes">
     <Column name="id_recibo" inputtype="Relation" nullable="0" primary_key="1" default="0" />
     <Column name="id_comprob" inputtype="Relation" nullable="0" primary_key="1" default="0" />
@@ -915,7 +923,7 @@
     <Index table="recibos_imagenes" name="PRIMARY" columns="id_recibo" unique="1" primary="1" />
     <OldIndex table="recibos_imagenes" name="recibos_imagenes_id_recibo" columns="id_recibo" unique="0" primary="0" />
   </Table>
-  
+
 
   <Table name="situaciones" lsdet="1" label="Situaciones de Artículos">
     <Column name="id_situacion" datatype="Serial" nullable="0" primary_key="1" />
@@ -929,8 +937,8 @@
     <Column name="comprob2" datatype="VarChar" nullable="0" lenght="50" />
     <Index table="situaciones" name="PRIMARY" columns="id_situacion" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="sucursales" lsdet="1" label="Sucursales">
     <Column name="id_sucursal" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -954,6 +962,14 @@
   <Constraint name="sucursales_id_caja_diaria" table="sucursales" column="id_caja_diaria" reference_table="cajas" reference_column="id_caja" />
   <Constraint name="sucursales_id_caja_cheques" table="sucursales" column="id_caja_cheques" reference_table="cajas" reference_column="id_caja" />
 
+  
+  <Table name="sys_blobs" label="Imágenes varias">
+    <Column name="id_blob" datatype="Serial" nullable="0" primary_key="1" />
+    <Column name="imagen" datatype="Blob" nullable="1" />
+    <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
+    <Index table="sys_blobs" name="PRIMARY" columns="id_blob" unique="1" primary="1" />
+  </Table>
+
 
   <Table name="sys_permisos" label="Permisos">
     <Column name="id_permiso" datatype="Serial" nullable="0" primary_key="1" />
@@ -964,8 +980,8 @@
     <Index table="sys_permisos" name="PRIMARY" columns="id_permiso" unique="1" primary="1" />
     <Index table="sys_permisos" name="sys_permisos_id_persona" columns="id_persona" />
   </Table>
-  
-  
+
+
   <Table name="sys_permisos_objetos" label="Objetos de Permisos">
     <Column name="id_objeto" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -983,7 +999,7 @@
     <Index table="sys_permisos_objetos" name="PRIMARY" columns="id_objeto" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="sys_comments" label="Comentarios">
     <Column name="id_comment" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="tablas" datatype="VarChar" nullable="0" lenght="200" />
@@ -996,7 +1012,7 @@
   </Table>
   <Constraint name="sys_comments_id_persona" table="sys_comments" column="id_persona" reference_table="personas" reference_column="id_persona" />
 
-  
+
   <Table name="sys_components" label="Componentes">
     <Column name="id_component" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -1011,18 +1027,18 @@
     <Column name="url_act" datatype="VarChar" nullable="1" lenght="200" />
     <Index table="sys_components" name="PRIMARY" columns="id_component" unique="1" primary="1" />
   </Table>
-  
+
 
   <Table name="sys_config" label="Configuración">
-    <Column name="estacion" datatype="VarChar" nullable="0" primary_key="1" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="0" primary_key="1" lenght="64" />
     <Column name="grupo" datatype="VarChar" nullable="0" lenght="200" />
     <Column name="id_sucursal" inputtype="Relation" nullable="0" primary_key="1" default="0" />
-    <Column name="nombre" inputtype="Text" nullable="0" primary_key="1" lenght="200" />
-    <Column name="valor" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="nombre" inputtype="Text" nullable="0" primary_key="1" lenght="64" />
+    <Column name="valor" datatype="Memo" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="sys_config" name="PRIMARY" columns="estacion,id_sucursal,nombre" unique="1" primary="1" />
   </Table>
-  
+
   <Table name="sys_labels" label="Etiquetas">
     <Column name="id_label" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -1033,7 +1049,7 @@
     <Index table="sys_labels" name="PRIMARY" columns="id_label" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="sys_labels_values" label="Valores de Etiquetas">
     <Column name="id_label" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="item_id" inputtype="Relation" nullable="0" primary_key="1" />
@@ -1043,7 +1059,7 @@
   </Table>
   <Constraint name="sys_labels_values_id_label" table="sys_labels_values" column="id_label" reference_table="sys_labels" reference_column="id_label" />
 
-  
+
   <Table name="sys_log" label="Registro de actividades">
     <Column name="id_log" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
@@ -1095,7 +1111,7 @@
   <Constraint name="sys_mensajes_id_destinatario" table="sys_mensajes" column="id_destinatario" reference_table="personas" reference_column="id_persona" />
   <Constraint name="sys_mensajes_id_grupo" table="sys_mensajes" column="id_grupo" reference_table="personas_grupos" reference_column="id_grupo" />
 
-  
+
   <Table name="sys_plantillas" lsdet="1" label="Plantillas de Comprobantes">
     <Column name="id_plantilla" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -1117,7 +1133,7 @@
     <Index table="sys_plantillas" name="PRIMARY" columns="id_plantilla" unique="1" primary="1" />
     <Index table="sys_plantillas" name="sys_plantillas_codigo" columns="codigo" unique="1" primary="0" />
   </Table>
-  
+
 
   <Table name="sys_plantillas_imagenes" label="Imágenes de Plantillas">
     <Column name="id_plantilla" inputtype="Relation" nullable="0" primary_key="1" default="0" />
@@ -1141,8 +1157,8 @@
     <Index table="sys_programador" name="PRIMARY" columns="id_evento" unique="1" primary="1" />
     <Index table="sys_programador" name="sys_programador_estado_estacion_componente" columns="estado,estacion,componente" unique="0" primary="0" />
   </Table>
-  
- 
+
+
   <Table name="sys_quickpaste" label="Pegádo Rápido">
     <Column name="id_paste" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="texto" datatype="Text" nullable="0" />
@@ -1152,7 +1168,7 @@
     <Index table="sys_quickpaste" name="PRIMARY" columns="id_paste" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="sys_tags" label="Tags">
     <Column name="id_tag" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="tablename" datatype="VarChar" nullable="0" lenght="200" />
@@ -1167,8 +1183,8 @@
     <Column name="extra" datatype="Text" nullable="1" />
     <Index table="sys_tags" name="PRIMARY" columns="id_tag" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="talonarios" lsdet="1" label="Talonarios de Comprobantes">
     <Column name="id_talonario" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="tipo_comprob" datatype="VarChar" nullable="0" lenght="50" />
@@ -1179,7 +1195,7 @@
     <Index table="talonarios" name="PRIMARY" columns="id_talonario" unique="1" primary="1" />
   </Table>
 
-  
+
   <Table name="tarjetas_cupones" lsdet="1" label="Cupones de Tarjetas">
     <Column name="id_cupon" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -1287,6 +1303,7 @@
     <Column name="orden" inputtype="TinyInt" nullable="0" default="0" />
     <Column name="cantidad" datatype="Numeric" nullable="0" lenght="14" precision="4" default="0" />
     <Column name="precio" inputtype="Currency" default="0" />
+    <Column name="descuento" datatype="Numeric" nullable="0" lenght="14" precision="4" default="0" />
     <Index table="tickets_articulos" name="PRIMARY" columns="id_ticket_articulo" unique="1" primary="1" />
     <Index table="tickets_articulos" name="tickets_articulos_id_ticket" columns="id_ticket" unique="0" primary="0" />
     <Index table="tickets_articulos" name="tickets_articulos_id_articulo" columns="id_articulo" unique="0" primary="0" />
@@ -1294,7 +1311,7 @@
   <Constraint name="tickets_articulos_id_ticket" table="tickets_articulos" column="id_ticket" reference_table="tickets" reference_column="id_ticket" />
   <Constraint name="tickets_articulos_id_articulo" table="tickets_articulos" column="id_articulo" reference_table="articulos" reference_column="id_articulo" />
 
-  
+
   <Table name="tickets_estados" label="Estados de Tareas">
     <Column name="id_ticket_estado" datatype="Serial" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" default="0" />
@@ -1302,8 +1319,8 @@
     <Column name="estado" inputtype="TinyInt" label="Estado" nullable="0" default="0" />
     <Index table="tickets_estados" name="PRIMARY" columns="id_ticket_estado" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="tickets_eventos" label="Eventos de Tareas">
     <Column name="id_evento" datatype="Serial" />
     <Column name="id_ticket" inputtype="Relation" nullable="0" default="0" />
@@ -1329,8 +1346,8 @@
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="tickets_tipos" name="PRIMARY" columns="id_tipo_ticket" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="tipo_doc" lsdet="1" label="Tipos de Documento">
     <Column name="id_tipo_doc" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -1341,8 +1358,8 @@
     <Column name="tipo" inputtype="TinyInt" label="Física/Jurídica" nullable="0" />
     <Index table="tipo_doc" name="PRIMARY" columns="id_tipo_doc" unique="1" primary="1" />
   </Table>
-  
-  
+
+
   <Table name="vencimientos" lsdet="1" label="Vencimientos">
     <Column name="id_vencimiento" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />

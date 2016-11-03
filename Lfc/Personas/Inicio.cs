@@ -71,7 +71,7 @@ namespace Lfc.Personas
                                         new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lfx.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
                                         new Lazaro.Pres.Filters.SetFilter("Estado", "personas.estado", new string[] {"Todos|-1", "Activos|1", "Inactivos|0"}, "1"),
                                         new Lazaro.Pres.Filters.SetFilter("Genero", "personas.genero", new string[] {"Todos|-1", "Masculino|1", "Femenino|2"}, "-1"),
-                                        new Lazaro.Pres.Filters.SetFilter("Estado de crédito", "personas.estadocredito", new string[] { "Cualquiera|-1", "Normal|0", "En plan de pago|5", "Suspendido|10" }, "-1"),
+                                        new Lazaro.Pres.Filters.SetFilter("Estado de crédito", "personas.estadocredito", new string[] { "Cualquiera|-1", "Normal|0", "En plan de pago|5", "Suspendido|10","Judicializado|100","Moroso Negligente|105" }, "-1"),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha de alta", "personas.fechaalta", new Lfx.Types.DateRange("*")),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha de baja", "personas.fechabaja", new Lfx.Types.DateRange("*"))
                                 }

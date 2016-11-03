@@ -10,6 +10,7 @@ namespace Lbl.Personas
 		EnPlanDePagos = 5,
 		Suspendido = 10,
 		SuspendidoPermanente = 100,
+                MorosoNegligente = 105,
                 Judicializado = 110
 	}
 }
