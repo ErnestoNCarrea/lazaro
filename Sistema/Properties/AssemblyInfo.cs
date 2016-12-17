@@ -14,7 +14,7 @@ using System.Security.Permissions;
 [assembly: AssemblyDescription("Sistema de gestión comercial Lázaro")]
 [assembly: AssemblyCompany("Ernesto N. Carrea")]
 [assembly: AssemblyProduct("Lázaro")]
-[assembly: AssemblyCopyright("Copyright 2004-2015 Ernesto N. Carrea")]
+[assembly: AssemblyCopyright("Copyright 2004-2016 Ernesto N. Carrea")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: CLSCompliant(true)]

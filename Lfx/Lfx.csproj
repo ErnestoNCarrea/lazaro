@@ -99,6 +99,10 @@
       <HintPath>..\packages\MicroLite.6.3.2\lib\net40-client\MicroLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.9.9\lib\net40\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -221,7 +225,7 @@
     </EmbeddedResource>
     <Compile Include="Data\TagCollection.cs" />
     <Compile Include="Data\FieldCollection.cs" />
-    <Compile Include="Data\Providers\MySql.cs" />
+    <Compile Include="Data\Providers\MySqlProvider.cs" />
     <Compile Include="Data\Providers\Odbc.cs" />
     <Compile Include="Data\Providers\Provider.cs" />
   </ItemGroup>
@@ -268,6 +272,7 @@
     <Content Include="Lazaro.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

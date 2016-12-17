@@ -56,7 +56,7 @@ namespace Lfx.Data
                                         break;
                                 case AccessModes.MySql:
                                         if (Lfx.Data.DataBaseCache.DefaultCache.Provider == null)
-                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.MySql();
+                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.MySqlProvider();
                                         ConnectionString.Append("Convert Zero Datetime=true;");
                                         ConnectionString.Append("Connection Timeout=10;");
                                         ConnectionString.Append("Default Command Timeout=30;");

@@ -44,7 +44,7 @@ namespace Lui.LogOn
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.Titulo.Location = new System.Drawing.Point(36, 36);
                         this.Titulo.Name = "Titulo";
-                        this.Titulo.Size = new System.Drawing.Size(400, 24);
+                        this.Titulo.Size = new System.Drawing.Size(400, 32);
                         this.Titulo.TabIndex = 0;
                         this.Titulo.Text = "Para continuar, por favor escriba su contraseña";
                         this.Titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

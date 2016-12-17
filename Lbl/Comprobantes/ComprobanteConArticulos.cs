@@ -73,6 +73,10 @@ namespace Lbl.Comprobantes
                         if (this.Anulado)
                                 return;
 
+                        if(string.IsNullOrWhiteSpace(this.CaeNumero) == false) {
+                                throw new InvalidOperationException("No se puede anular un comprobante electrónico.");
+                        }
+
                         // Marco la factura como anulada
                         qGen.Update Act = new qGen.Update(this.TablaDatos);
                         Act.Fields.AddWithValue("anulada", 1);
@@ -839,7 +843,7 @@ namespace Lbl.Comprobantes
                                 if (m_Articulos == null) {
                                         m_Articulos = new ColeccionDetalleArticulos(this);
                                         if (this.Existe) {
-                                                System.Data.DataTable Dets = this.Connection.Select("SELECT * FROM comprob_detalle WHERE id_comprob=" + this.Id.ToString());
+                                                System.Data.DataTable Dets = this.Connection.Select("SELECT * FROM comprob_detalle WHERE id_comprob=" + this.Id.ToString() + " ORDER BY orden");
                                                 foreach (System.Data.DataRow Det in Dets.Rows) {
                                                         Comprobantes.DetalleArticulo DetArt = new DetalleArticulo(this, (Lfx.Data.Row)Det);
                                                         m_Articulos.Add(DetArt);
