@@ -15,12 +15,12 @@ namespace Lbl.Articulos
                 }
 
 
-		public static System.Drawing.Image ProductImage(Lfx.Data.Connection dataBase, int productId)
+		public static System.Drawing.Image ProductImage(Lfx.Data.IConnection dataBase, int productId)
 		{
 			return ProductImage(dataBase, productId, DownloadImage.PreferCacheOnSlowLinks);
 		}
 
-		public static System.Drawing.Image ProductImage(Lfx.Data.Connection dataBase, int productId, DownloadImage downloadImage)
+		public static System.Drawing.Image ProductImage(Lfx.Data.IConnection dataBase, int productId, DownloadImage downloadImage)
 		{
 			string CachePath = Lfx.Environment.Folders.CacheFolder;
 			string ImageFileName = "product_" + productId.ToString() + ".jpg";
@@ -65,7 +65,7 @@ namespace Lbl.Articulos
 			return null;
 		}
 
-		public static System.Drawing.Image CategoryImage(Lfx.Data.Connection dataBase, int categoryId, DownloadImage downloadImage)
+		public static System.Drawing.Image CategoryImage(Lfx.Data.IConnection dataBase, int categoryId, DownloadImage downloadImage)
 		{
 			string CachePath = Lfx.Environment.Folders.CacheFolder;
 			string ImageFileName = "product_category_" + categoryId.ToString() + ".jpg";

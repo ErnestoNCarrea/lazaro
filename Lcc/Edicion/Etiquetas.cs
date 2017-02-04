@@ -48,7 +48,7 @@ namespace Lcc.Edicion
                 {
                         Lista.SuspendLayout();
                         Lista.Items.Clear();
-                        Lfx.Data.Table TablaEtiquetas = this.Connection.Tables["sys_labels"];
+                        Lfx.Data.Table TablaEtiquetas = Lfx.Workspace.Master.Tables["sys_labels"];
                         TablaEtiquetas.PreLoad();
                         foreach (Lfx.Data.Row Rw in TablaEtiquetas.FastRows.Values) {
                                 Lbl.Etiqueta Eti = new Lbl.Etiqueta(this.Connection, Rw);

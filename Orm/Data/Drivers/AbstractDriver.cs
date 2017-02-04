@@ -5,8 +5,7 @@ using System.Reflection;
 namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
-        /// Representa un proveedor ADO.NET, el cual se carga en tiempo de ejecución a través de System.Reflection para no
-        /// agregar dependencias en tiempo de diseño. La única dependencia en tiempo de diseño es System.Data.Odbc.
+        /// A generic, abstract driver for other drivers to derive from.
         /// </summary>
         public abstract class AbstractDriver : IDriver
         {

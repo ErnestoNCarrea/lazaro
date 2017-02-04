@@ -13,13 +13,13 @@ namespace Lbl.Cajas
                 private Lbl.Entidades.Moneda m_Moneda = null;
 
 		//Heredar constructores
-                public Caja(Lfx.Data.Connection dataBase) 
+                public Caja(Lfx.Data.IConnection dataBase) 
                         : base(dataBase) { }
 
-		public Caja(Lfx.Data.Connection dataBase, int itemId)
+		public Caja(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Caja(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Caja(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

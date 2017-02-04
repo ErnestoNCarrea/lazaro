@@ -21,13 +21,13 @@ namespace Lbl.Tareas
                 public Lbl.Comprobantes.ComprobanteFacturable Factura { get; set; }
                 public Lbl.Tareas.Tipo Tipo;
 
-                public Tarea(Lfx.Data.Connection dataBase)
+                public Tarea(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Tarea(Lfx.Data.Connection dataBase, int itemId)
+                public Tarea(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Tarea(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Tarea(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

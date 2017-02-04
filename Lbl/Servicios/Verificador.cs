@@ -6,9 +6,9 @@ namespace Lbl.Servicios
 {
         public class Verificador
         {
-                public Lfx.Data.Connection DataBase;
+                public Lfx.Data.IConnection DataBase;
 
-                public Verificador(Lfx.Data.Connection dataBase)
+                public Verificador(Lfx.Data.IConnection dataBase)
                 {
                         this.DataBase = dataBase;
                 }

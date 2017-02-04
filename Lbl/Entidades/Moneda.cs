@@ -13,13 +13,13 @@ namespace Lbl.Entidades
         public class Moneda : ElementoDeDatos
         {
                 //Heredar constructor
-                public Moneda(Lfx.Data.Connection dataBase)
+                public Moneda(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Moneda(Lfx.Data.Connection dataBase, int itemId)
+                public Moneda(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public Moneda(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Moneda(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

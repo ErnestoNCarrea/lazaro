@@ -14,13 +14,13 @@ namespace Lbl.Impresion
         public class Impresora : ElementoDeDatos
         {
                 //Heredar constructor
-		public Impresora(Lfx.Data.Connection dataBase)
+		public Impresora(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Impresora(Lfx.Data.Connection dataBase, int itemId)
+		public Impresora(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Impresora(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Impresora(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 
@@ -211,7 +211,7 @@ namespace Lbl.Impresion
                         }
                 }
 
-                public static Lbl.Impresion.Impresora InstanciarImpresoraLocal(Lfx.Data.Connection dataBase, string nombreImpresora)
+                public static Lbl.Impresion.Impresora InstanciarImpresoraLocal(Lfx.Data.IConnection dataBase, string nombreImpresora)
                 {
                         Lbl.Impresion.Impresora Impr = new Lbl.Impresion.Impresora(dataBase);
                         Impr.Clase = Lbl.Impresion.ClasesImpresora.Papel;

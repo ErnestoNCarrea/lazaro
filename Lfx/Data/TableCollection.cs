@@ -5,9 +5,9 @@ namespace Lfx.Data
 {
         public class TableCollection : List<Lfx.Data.Table>
         {
-                protected Connection DataBase;
+                protected IConnection DataBase;
 
-                public TableCollection(Connection dataBase)
+                public TableCollection(IConnection dataBase)
                 {
                         this.DataBase = dataBase;
                 }

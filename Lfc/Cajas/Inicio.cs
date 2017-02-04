@@ -48,14 +48,14 @@ namespace Lfc.Cajas
                         this.Contadores.Add(new Contador("Total", Lui.Forms.DataTypes.Currency, "$", null));
                         this.Contadores.Add(new Contador("Activos", Lui.Forms.DataTypes.Currency, "$", null));
 
-                        this.Connection.Tables["bancos"].PreLoad();
+                        Lfx.Workspace.Master.Tables["bancos"].PreLoad();
                 }
 
                 protected override void OnItemAdded(ListViewItem item, Lfx.Data.Row row)
 		{
                         int IdBanco = Lfx.Types.Parsing.ParseInt(item.SubItems["cajas.id_banco"].Text);
                         if (IdBanco != 0)
-                                item.SubItems["cajas.id_banco"].Text = this.Connection.Tables["bancos"].FastRows[IdBanco].Fields["nombre"].ValueString;
+                                item.SubItems["cajas.id_banco"].Text = Lfx.Workspace.Master.Tables["bancos"].FastRows[IdBanco].Fields["nombre"].ValueString;
 
                         int IdCaja = Lfx.Types.Parsing.ParseInt(item.Text);
                         decimal Saldo = this.Connection.FieldDecimal("SELECT saldo FROM cajas_movim WHERE id_caja=" + IdCaja.ToString() + " ORDER BY id_movim DESC LIMIT 1");

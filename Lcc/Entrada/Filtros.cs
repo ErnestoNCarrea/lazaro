@@ -74,7 +74,7 @@ namespace Lcc.Entrada
                                         EntradaRelacion.Size = new System.Drawing.Size(160, 24);
                                         EntradaRelacion.Relation = FiltroRelacion.Relation;
                                         if (FiltroRelacion.Filter != null)
-                                                EntradaRelacion.Filter = FiltroRelacion.Filter.ToString();
+                                                EntradaRelacion.Filter = Lfx.Workspace.Master.Formatter.SqlText(FiltroRelacion.Filter);
                                         EntradaRelacion.Elemento = (Lbl.IElementoDeDatos)FiltroRelacion.Elemento;
                                         EntradaRelacion.Dock = DockStyle.Top;
                                         Entrada = EntradaRelacion;

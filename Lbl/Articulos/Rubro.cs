@@ -11,13 +11,13 @@ namespace Lbl.Articulos
 	{
                 private Lbl.Impuestos.Alicuota m_Alicuota = null;
 
-		public Rubro(Lfx.Data.Connection dataBase) 
+		public Rubro(Lfx.Data.IConnection dataBase) 
                         : base(dataBase) { }
 
-		public Rubro(Lfx.Data.Connection dataBase, int itemId)
+		public Rubro(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Rubro(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Rubro(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 		public override Lfx.Types.OperationResult Guardar()

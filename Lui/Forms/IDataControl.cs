@@ -7,7 +7,7 @@ namespace Lui.Forms
                 [EditorBrowsable(EditorBrowsableState.Never),
                         Browsable(false),
                         DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                Lfx.Data.Connection Connection
+                Lfx.Data.IConnection Connection
                 {
                         get;
                 }

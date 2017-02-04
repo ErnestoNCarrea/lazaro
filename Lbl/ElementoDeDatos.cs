@@ -14,7 +14,7 @@ namespace Lbl
         [Serializable]
         public abstract class ElementoDeDatos : System.MarshalByRefObject, IElementoDeDatos
 	{
-                public Lfx.Data.Connection Connection { get; set; }
+                public Lfx.Data.IConnection Connection { get; set; }
 
                 public object Tag { get; set; }
 
@@ -30,19 +30,19 @@ namespace Lbl
                 [NonSerialized]
                 protected ColeccionGenerica<Etiqueta> m_Etiquetas = null, m_EtiquetasOriginal = null;
 
-		protected ElementoDeDatos(Lfx.Data.Connection conn)
+		protected ElementoDeDatos(Lfx.Data.IConnection conn)
 		{
 			this.Connection = conn;
 		}
 
-                protected ElementoDeDatos(Lfx.Data.Connection conn, int itemId)
+                protected ElementoDeDatos(Lfx.Data.IConnection conn, int itemId)
                         : this(conn)
                 {
                         m_ItemId = itemId;
                         this.Cargar();
                 }
 
-                protected ElementoDeDatos(Lfx.Data.Connection conn, Lfx.Data.Row row)
+                protected ElementoDeDatos(Lfx.Data.IConnection conn, Lfx.Data.Row row)
                         : this(conn)
                 {
                         this.FromRow(row);
@@ -118,14 +118,16 @@ namespace Lbl
                                         m_Etiquetas = null;
                                         Lfx.Data.Row Reg = null;
                                         if (this.Id != 0) {
-                                                if ((this.Connection.InTransaction == false || this.Connection.Tables[this.TablaDatos].AlwaysCache)
-                                                        && this.CampoId == this.Connection.Tables[this.TablaDatos].PrimaryKey)
+                                                if ((this.Connection.InTransaction == false || Lfx.Workspace.Master.Tables[this.TablaDatos].AlwaysCache)
+                                                        && this.CampoId == Lfx.Workspace.Master.Tables[this.TablaDatos].PrimaryKey
+                                                        && this.Connection.InTransaction == false) {
                                                         // Si estoy accediendo a través de una clave primaria y no estoy en una transacción
                                                         // puedo usar directamente DataBase.Tables.FastRows, que es cacheable
-                                                        Reg = this.Connection.Tables[this.TablaDatos].FastRows[this.Id];
-                                                else
+                                                        Reg = Lfx.Workspace.Master.Tables[this.TablaDatos].FastRows[this.Id];
+                                                } else {
                                                         //De lo contrario uso DataBase.Row que termina en un SELECT común
                                                         Reg = this.Connection.Row(this.TablaDatos, this.CampoId, this.Id);
+                                                }
                                         }
 
                                         this.FromRow(Reg);
@@ -324,10 +326,11 @@ namespace Lbl
                                 if (m_Imagen == null && m_ImagenCambio == false) {
                                         // FIXME: Para los artículos sin imagen, evitar hacer esta consulta cada vez que se accede a la propiedad
                                         Lfx.Data.Row Imagen = null;
-                                        if(Connection.Tables[this.TablaImagenes].PrimaryKey == null)
+                                        if (Lfx.Workspace.Master.Tables[this.TablaImagenes].PrimaryKey == null || this.Connection.InTransaction) {
                                                 Imagen = Connection.Row(this.TablaImagenes, "imagen", this.CampoId, this.Id);
-                                        else
-                                                Imagen = Connection.Tables[this.TablaImagenes].FastRows[this.Id];
+                                        } else {
+                                                Imagen = Lfx.Workspace.Master.Tables[this.TablaImagenes].FastRows[this.Id];
+                                        }
 
                                         if (Imagen != null && Imagen["imagen"] != null && ((byte[])(Imagen["imagen"])).Length > 5) {
                                                 byte[] ByteArr = ((byte[])(Imagen["imagen"]));
@@ -413,7 +416,7 @@ namespace Lbl
                                  this.ActualizarId();
                         } else {
                                 // Es un registro antiguo, lo elimino de la caché
-                                this.Connection.Tables[this.TablaDatos].FastRows.RemoveFromCache(this.Id);
+                                Lfx.Workspace.Master.Tables[this.TablaDatos].FastRows.RemoveFromCache(this.Id);
                         }
                         this.Registro.IsModified = false;
                         this.Registro.IsNew = false;
@@ -525,7 +528,7 @@ namespace Lbl
                         System.Text.StringBuilder Extra1 = null;
                         try {
                                 // Genero una lista de cambios
-                                foreach (Lfx.Data.Field Fl in this.m_Registro.Fields) {
+                                foreach (Lazaro.Orm.Data.Field Fl in this.m_Registro.Fields) {
                                         object ValorOriginal = null, ValorNuevo = this.m_Registro[Fl.ColumnName];
                                         if (this.m_RegistroOriginal != null && this.m_RegistroOriginal.Fields != null)
                                                 ValorOriginal = this.m_RegistroOriginal[Fl.ColumnName];
@@ -582,7 +585,7 @@ namespace Lbl
 
                 protected virtual void AgregarTags(qGen.Command comando, Lfx.Data.Row registro, string tabla)
                 {
-                        Lfx.Data.Table Tabla = this.Connection.Tables[tabla];
+                        Lfx.Data.Table Tabla = Lfx.Workspace.Master.Tables[tabla];
                         if (Tabla.Tags != null && Tabla.Tags.Count > 0) {
                                 foreach (Lfx.Data.Tag Tg in Tabla.Tags) {
                                         if (Tg.Nullable == false && registro[Tg.FieldName] == null) {
@@ -732,7 +735,7 @@ namespace Lbl
                                 throw new InvalidOperationException("No se puede cargar el registro desde la tabla " + this.TablaDatos + " porque no tiene Id.");
                         } else {
                                 // Quito el registro de la caché
-                                this.Connection.Tables[this.TablaDatos].FastRows.RemoveFromCache(this.Id);
+                                Lfx.Workspace.Master.Tables[this.TablaDatos].FastRows.RemoveFromCache(this.Id);
                         }
 
                         // En realidad, lo único que hago es vaciar los valores en memoria y dejo que this.Registro.Get() lo cargue.

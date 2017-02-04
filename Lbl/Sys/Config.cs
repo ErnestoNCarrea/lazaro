@@ -138,7 +138,7 @@ namespace Lbl.Sys
                 /// <summary>
                 /// Escribe un evento en la tabla sys_log. Se utiliza para registrar operaciones de datos (altas, bajas, ingresos, egresos, etc.)
                 /// </summary>
-                public static void ActionLog(Lfx.Data.Connection conn, Log.Acciones action, IElementoDeDatos elemento, string extra1)
+                public static void ActionLog(Lfx.Data.IConnection conn, Log.Acciones action, IElementoDeDatos elemento, string extra1)
                 {
                         try {
                                 qGen.Insert Comando = new qGen.Insert(conn, "sys_log");

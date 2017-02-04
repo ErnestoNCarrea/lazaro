@@ -7,7 +7,7 @@ namespace Lbl.Comprobantes
         {
                 private Lbl.ElementoDeDatos m_ElementoPadre = null;
 
-                public ColeccionDetalleArticulos(Lfx.Data.Connection dataBase)
+                public ColeccionDetalleArticulos(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
                 public ColeccionDetalleArticulos(Lbl.ElementoDeDatos elementoPadre)

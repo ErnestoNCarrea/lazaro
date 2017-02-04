@@ -48,7 +48,7 @@ namespace Lui.Forms
 					itm = Listado.Items.Add(new ListViewItem (new string[] {(string)RowEstacion["estacion"], (string)RowEstacion["estacion"]}));
 					itm.Selected = (this.Estacion == (string)RowEstacion["estacion"]);
 				}
-			}		
+			}	
 		}
 	}
 }

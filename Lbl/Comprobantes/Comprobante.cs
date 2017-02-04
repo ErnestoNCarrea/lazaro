@@ -15,13 +15,13 @@ namespace Lbl.Comprobantes
                 private Tipo m_Tipo;
 
 		//Heredar constructor
-		protected Comprobante(Lfx.Data.Connection dataBase)
+		protected Comprobante(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                protected Comprobante(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                protected Comprobante(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
 			: base(dataBase, row) { }
 
-                protected Comprobante(Lfx.Data.Connection dataBase, int itemId)
+                protected Comprobante(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
 
@@ -214,7 +214,7 @@ namespace Lbl.Comprobantes
                 }
 
 
-		public static string FacturasDeUnRecibo(Lfx.Data.Connection dataBase, int ReciboId)
+		public static string FacturasDeUnRecibo(Lfx.Data.IConnection dataBase, int ReciboId)
 		{
 			System.Text.StringBuilder Facturas = new System.Text.StringBuilder();
 			System.Data.DataTable TablaFacturas = dataBase.Select("SELECT id_comprob FROM recibos_comprob WHERE id_recibo=" + ReciboId.ToString());
@@ -315,9 +315,9 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el tipo y número de un comprobante (por ejemplo: B 0001-00000135).
                 /// </summary>
-		public static string TipoYNumeroCompleto(Lfx.Data.Connection connection, int itemId)
+		public static string TipoYNumeroCompleto(Lfx.Data.IConnection connection, int itemId)
 		{
-                        Lfx.Data.Row Comp = connection.Tables["comprob"].FastRows[itemId];
+                        Lfx.Data.Row Comp = Lfx.Workspace.Master.Tables["comprob"].FastRows[itemId];
 
 			if (Comp == null)
 				return "";
@@ -328,9 +328,14 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el número de un comprobante (por ejemplo: 0001-00000135).
                 /// </summary>
-                public static string NumeroCompleto(Lfx.Data.Connection connection, int itemId)
+                public static string NumeroCompleto(Lfx.Data.IConnection connection, int itemId)
                 {
-                        Lfx.Data.Row Comp = connection.Tables["comprob"].FastRows[itemId];
+                        Lfx.Data.Row Comp;
+                        if (connection.InTransaction) {
+                                Comp = connection.Row("comprob", "id_comprob", itemId);
+                        } else {
+                                Comp = Lfx.Workspace.Master.Tables["comprob"].FastRows[itemId];
+                        }
 
                         if (Comp == null)
                                 return "";
@@ -338,7 +343,7 @@ namespace Lbl.Comprobantes
                                 return System.Convert.ToInt32(Comp["pv"]).ToString("0000") + "-" + System.Convert.ToInt32(Comp["numero"]).ToString("00000000");
                 }
 
-		public static string NombreCompletoRecibo(Lfx.Data.Connection dataBase, int iId)
+		public static string NombreCompletoRecibo(Lfx.Data.IConnection dataBase, int iId)
 		{
 			// Toma el Id del recibo y devuelve el tipo y número (por ejemplo: "Recibo #003" o "Comprobante de Pago #256")
 			Lfx.Data.Row TmpRecibo = dataBase.Row("recibos", "id_recibo", iId);

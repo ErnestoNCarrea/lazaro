@@ -125,7 +125,7 @@ namespace Lcc.Edicion.Comprobantes
                         return new Lfx.Types.SuccessOperationResult();
                 }
 
-                public virtual Lbl.Comprobantes.Cobro ToCobro(Lfx.Data.Connection dataBase)
+                public virtual Lbl.Comprobantes.Cobro ToCobro(Lfx.Data.IConnection dataBase)
                 {
                         switch (this.ElementoCobro.FormaDePago.Tipo) {
                                 case Lbl.Pagos.TiposFormasDePago.Efectivo:
@@ -361,7 +361,7 @@ namespace Lcc.Edicion.Comprobantes
 
                 private void EntradaPlan_TextChanged(object sender, EventArgs e)
                 {
-                        Lfx.Data.Row Plan = this.Connection.Tables["tarjetas_planes"].FastRows[EntradaPlan.ValueInt];
+                        Lfx.Data.Row Plan = Lfx.Workspace.Master.Tables["tarjetas_planes"].FastRows[EntradaPlan.ValueInt];
 
                         if (Plan != null) {
                                 EntradaCuotas.ValueInt = System.Convert.ToInt32(Plan["cuotas"]);

@@ -147,6 +147,10 @@
       <Project>{bc643fe8-57ff-4e26-aaf2-19b229be9b16}</Project>
       <Name>Lfx</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orm\Orm.csproj">
+      <Project>{01085c08-19ad-4390-9822-1895ac99167a}</Project>
+      <Name>Orm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pres\Pres.csproj">
       <Project>{adb0cdc0-f816-40ac-a3d9-7951254f6fb4}</Project>
       <Name>Pres</Name>

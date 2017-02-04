@@ -6,13 +6,13 @@ namespace Lbl.Comprobantes
         public class Factura : ComprobanteFacturable
         {
                  //Heredar constructor
-                public Factura(Lfx.Data.Connection dataBase)
+                public Factura(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Factura(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Factura(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
 			: base(dataBase, row) { }
 
-                public Factura(Lfx.Data.Connection dataBase, int itemId)
+                public Factura(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
                 public override void Crear()

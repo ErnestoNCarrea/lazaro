@@ -11,7 +11,7 @@ namespace Lbl.Servicios.Importar
         {
                 public string Dsn { get; set; }
 
-                public FiltroOdbc(Lfx.Data.Connection dataBase, Opciones opciones)
+                public FiltroOdbc(Lfx.Data.IConnection dataBase, Opciones opciones)
                         : base(dataBase, opciones) { }
 
 

@@ -8,7 +8,7 @@ namespace Lfx.Services
         public class Scheduler : IDisposable
         {
                 private Lfx.Workspace Workspace;
-                private Lfx.Data.Connection m_DataBase = null;
+                private Lfx.Data.IConnection m_DataBase = null;
                 private DateTime m_LastGetTask = DateTime.MinValue;
 
                 public Scheduler(Workspace workspace)
@@ -41,12 +41,12 @@ namespace Lfx.Services
                         }
                 }
 
-                private Lfx.Data.Connection DataBase
+                private Lfx.Data.IConnection DataBase
                 {
                         get
                         {
                                 if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Programador de tareas");
+                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Programador de tareas") as Lfx.Data.IConnection;
                                         m_DataBase.RequiresTransaction = false;
                                 }
                                 return m_DataBase;

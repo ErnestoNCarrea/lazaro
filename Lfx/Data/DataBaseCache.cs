@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using Lazaro.Orm.Data.Drivers;
+using qGen;
+using Lazaro.Orm.Data;
 
 namespace Lfx.Data
 {
@@ -10,14 +12,13 @@ namespace Lfx.Data
         {
                 public static DataBaseCache DefaultCache;
 
-                private Lfx.Data.Connection Connection;
+                public Lfx.Data.IConnection Connection { get; set; }
 
-                public DataBaseCache(Lfx.Data.Connection connection)
+                public DataBaseCache(Lfx.Data.IConnection connection)
                 {
                         this.Connection = connection;
                 }
                 
-                public IDriver Provider = null;
                 public string OdbcDriver = null;
                 public string ServerName = null, DataBaseName, UserName, Password;
                 public bool SlowLink = false, Mars = true, Pooling = true;

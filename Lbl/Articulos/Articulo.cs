@@ -19,13 +19,13 @@ namespace Lbl.Articulos
                 public decimal ExistenciasInicial { get; set; }
 
 		//Heredar constructor
-		public Articulo(Lfx.Data.Connection dataBase) 
+		public Articulo(Lfx.Data.IConnection dataBase) 
                         : base(dataBase) { }
 
-		public Articulo(Lfx.Data.Connection dataBase, int itemId)
+		public Articulo(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Articulo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Articulo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

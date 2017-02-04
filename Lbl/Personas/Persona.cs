@@ -21,13 +21,13 @@ namespace Lbl.Personas
                 private Lbl.Personas.Persona m_Vendedor = null;
 
                 // Heredar constructores
-                public Persona(Lfx.Data.Connection dataBase)
+                public Persona(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Persona(Lfx.Data.Connection dataBase, int itemId)
+		public Persona(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Persona(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Persona(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public override void Crear()

@@ -11,7 +11,7 @@ namespace Lfx.Config
         {
                 private string m_ConfigFileName;
                 private System.Xml.XmlDocument ConfigDocument;
-                private Lfx.Data.Connection m_DataBase;
+                private Lfx.Data.IConnection m_DataBase;
 
                 public Lfx.Config.ProductsConfig Productos;
                 public Lfx.Config.CurrencyConfig Moneda;
@@ -58,13 +58,14 @@ namespace Lfx.Config
                         }
                 }
 
-                public Lfx.Data.Connection DataBase
+                public Lfx.Data.IConnection DataBase
                 {
                         get
                         {
                                 if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de configuración");
+                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de configuración") as Lfx.Data.IConnection;
                                         m_DataBase.RequiresTransaction = false;
+                                        m_DataBase.Open();
                                 }
                                 return m_DataBase;
                         }
@@ -332,15 +333,15 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("id_sucursal", Lazaro.Orm.ColumnTypes.Integer, branch));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, "*"));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("id_sucursal", Lazaro.Orm.ColumnTypes.Integer, branch));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, "*"));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 DataBase.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                UpdateCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
@@ -367,14 +368,14 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, terminalName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, terminalName));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 DataBase.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                UpdateCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));

@@ -11,13 +11,13 @@ namespace Lbl.Personas
 	{
                 private Grupo m_Parent = null;
 
-		public Grupo(Lfx.Data.Connection dataBase)
+		public Grupo(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Grupo(Lfx.Data.Connection dataBase, int itemId)
+		public Grupo(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Grupo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Grupo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

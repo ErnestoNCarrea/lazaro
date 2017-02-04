@@ -10,20 +10,20 @@ namespace Lbl.Comprobantes
         public class ReciboDePago : Recibo
         {
                 //Heredar constructor
-                public ReciboDePago(Lfx.Data.Connection dataBase)
+                public ReciboDePago(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public ReciboDePago(Lfx.Data.Connection dataBase, Personas.Persona cliente)
+                public ReciboDePago(Lfx.Data.IConnection dataBase, Personas.Persona cliente)
                         : this(dataBase)
                 {
                         this.Crear();
                         this.Cliente = cliente;
                 }
 
-                public ReciboDePago(Lfx.Data.Connection dataBase, int idRecibo)
+                public ReciboDePago(Lfx.Data.IConnection dataBase, int idRecibo)
                         : base(dataBase, idRecibo) { }
 
-                public ReciboDePago(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public ReciboDePago(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public override void Crear()

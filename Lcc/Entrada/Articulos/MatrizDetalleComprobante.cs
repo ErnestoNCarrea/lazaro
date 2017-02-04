@@ -77,7 +77,7 @@ namespace Lcc.Entrada.Articulos
                 }
 
 
-                public Lbl.Comprobantes.ColeccionDetalleArticulos ObtenerArticulos(Lfx.Data.Connection dataBase)
+                public Lbl.Comprobantes.ColeccionDetalleArticulos ObtenerArticulos(Lfx.Data.IConnection dataBase)
                 {
                         m_Articulos = new Lbl.Comprobantes.ColeccionDetalleArticulos(dataBase);
                         int i = 1;

@@ -129,17 +129,9 @@
     <Compile Include="Components\TryFunction.cs" />
     <Compile Include="Data\Aggregate.cs" />
     <Compile Include="Data\Grouping.cs" />
+    <Compile Include="Data\IConnection.cs" />
     <Compile Include="Data\InputFieldTypes.cs" />
-    <Compile Include="Data\qGen\BeginTransactionCommand.cs" />
-    <Compile Include="Data\qGen\CommitCommand.cs" />
-    <Compile Include="Data\qGen\ICommand.cs" />
-    <Compile Include="Data\qGen\ITableCommand.cs" />
-    <Compile Include="Data\qGen\JoinCollection.cs" />
-    <Compile Include="Data\qGen\RollBackCommand.cs" />
-    <Compile Include="Data\qGen\SetCommand.cs" />
-    <Compile Include="Data\qGen\TextCommand.cs" />
     <Compile Include="Data\Structure.cs" />
-    <Compile Include="Data\Transaction.cs" />
     <Compile Include="RuntimeServices.cs" />
     <Compile Include="Types\DomainException.cs" />
     <Compile Include="Types\Exceptions\Exception.cs" />
@@ -147,6 +139,7 @@
     <Compile Include="Types\Ini.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Types\NullableDateTime.cs" />
     <Compile Include="Types\StringAlignment.cs" />
     <Compile Include="Updates\CompressionFormats.cs" />
     <Compile Include="Updates\File.cs" />
@@ -167,23 +160,8 @@
     <Compile Include="Data\ColumnDefinition.cs" />
     <Compile Include="Data\ConstraintDefinition.cs" />
     <Compile Include="Data\DataBaseCache.cs" />
-    <Compile Include="Data\Field.cs" />
     <Compile Include="Data\AggregationFunctions.cs" />
     <Compile Include="Data\IndexDefinition.cs" />
-    <Compile Include="Data\qGen\BuilkInsert.cs" />
-    <Compile Include="Data\qGen\Command.cs" />
-    <Compile Include="Data\qGen\Condition.cs" />
-    <Compile Include="Data\qGen\Delete.cs" />
-    <Compile Include="Data\qGen\Enums.cs" />
-    <Compile Include="Data\qGen\Expression.cs" />
-    <Compile Include="Data\qGen\Insert.cs" />
-    <Compile Include="Data\qGen\Join.cs" />
-    <Compile Include="Data\qGen\Select.cs" />
-    <Compile Include="Data\qGen\TableCommand.cs" />
-    <Compile Include="Data\qGen\Update.cs" />
-    <Compile Include="Data\qGen\Where.cs" />
-    <Compile Include="Data\qGen\Window.cs" />
-    <Compile Include="Data\Relation.cs" />
     <Compile Include="Data\Row.cs" />
     <Compile Include="Data\RowCollection.cs" />
     <Compile Include="Data\Table.cs" />
@@ -204,7 +182,6 @@
     <Compile Include="Types\Evaluator.cs" />
     <Compile Include="Types\Currency.cs" />
     <Compile Include="Types\Formatting.cs" />
-    <Compile Include="Types\NullableDateTime.cs" />
     <Compile Include="Types\Object.cs" />
     <Compile Include="Types\OperationProgress.cs" />
     <Compile Include="Types\OperationResult.cs" />
@@ -217,7 +194,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Data\TagCollection.cs" />
-    <Compile Include="Data\FieldCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -12,13 +12,13 @@ namespace Lbl.Cajas
                 private static Concepto m_IngresosPorFacturacion = null, m_AjustesYMovimientos = null;
 
                 //Heredar constructor
-                public Concepto(Lfx.Data.Connection dataBase)
+                public Concepto(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Concepto(Lfx.Data.Connection dataBase, int itemId)
+		public Concepto(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Concepto(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Concepto(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public int Direccion

@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
+using Lazaro.Orm.Data;
 
 namespace Lbl.Servicios
 {
@@ -10,11 +11,11 @@ namespace Lbl.Servicios
         /// </summary>
         public class Desduplicador
         {
-                public Lfx.Data.Connection DataBase;
+                public Lfx.Data.IConnection DataBase;
                 public string TablaOriginal, CampoIdOriginal;
                 public int IdOriginal, IdDuplicado;
 
-                public Desduplicador(Lfx.Data.Connection dataBase, string tablaOriginal, string campoIdOriginal, int idOriginal, int idDuplicado)
+                public Desduplicador(Lfx.Data.IConnection dataBase, string tablaOriginal, string campoIdOriginal, int idOriginal, int idDuplicado)
                 {
                         this.DataBase = dataBase;
                         this.TablaOriginal = tablaOriginal;
@@ -41,8 +42,8 @@ namespace Lbl.Servicios
                         }
 
                         // Busco una lista de relaciones entre tablas
-                        System.Collections.Generic.List<Lfx.Data.Relation> Rels = this.ListaRelaciones();
-                        foreach (Lfx.Data.Relation Rel in Rels) {
+                        var Rels = this.ListaRelaciones();
+                        foreach (Lazaro.Orm.Data.Relation Rel in Rels) {
                                 // Cambio todas las referencias que apuntan al registro duplicado hacia el registro original
                                 qGen.Update Upd = new qGen.Update(Rel.ReferenceTable);
                                 Upd.Fields.AddWithValue(Rel.ReferenceColumn, IdOriginal);
@@ -70,12 +71,12 @@ namespace Lbl.Servicios
                                 Trans.Commit();
                 }
 
-                public System.Collections.Generic.List<Lfx.Data.Relation> ListaRelaciones()
+                public IList<Relation> ListaRelaciones()
                 {
-                        System.Collections.Generic.List<Lfx.Data.Relation> Res = new List<Lfx.Data.Relation>();
+                        var Res = new List<Relation>();
                         foreach (Lfx.Data.ConstraintDefinition Cons in Lfx.Workspace.Master.Structure.Constraints.Values) {
                                 if (Cons.ReferenceTable == TablaOriginal && Cons.ReferenceColumn == CampoIdOriginal) {
-                                        Lfx.Data.Relation Rel = new Lfx.Data.Relation(CampoIdOriginal, Cons.TableName, Cons.Column, null);
+                                        var Rel = new Relation(CampoIdOriginal, Cons.TableName, Cons.Column, null);
                                         Res.Add(Rel);
                                 }
                         }
@@ -85,7 +86,7 @@ namespace Lbl.Servicios
                                         foreach (Lfx.Data.ColumnDefinition Col in Tab.Columns.Values) {
                                                 if (Col.Name == CampoIdOriginal) {
                                                         bool Found = false;
-                                                        foreach (Lfx.Data.Relation Rel in Res) {
+                                                        foreach (Lazaro.Orm.Data.Relation Rel in Res) {
                                                                 if (Rel.ReferenceTable == Tab.Name && Rel.ReferenceColumn == Col.Name) {
                                                                         Found = true;
                                                                         break;

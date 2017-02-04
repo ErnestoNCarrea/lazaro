@@ -9,13 +9,13 @@ namespace Lbl.Sys
         [Lbl.Atributos.Presentacion()]
 	public class Blob : ElementoDeDatos, IElementoConImagen
 	{
-		public Blob(Lfx.Data.Connection dataBase)
+		public Blob(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Blob(Lfx.Data.Connection dataBase, int itemId)
+		public Blob(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Blob(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Blob(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public override Lfx.Types.OperationResult Guardar()

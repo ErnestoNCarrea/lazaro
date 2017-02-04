@@ -15,13 +15,13 @@ namespace Lbl.Tareas
                 private Tarea m_Tarea = null;
                 private Lbl.Personas.Persona m_Persona = null;
 
-                public Novedad(Lfx.Data.Connection dataBase)
+                public Novedad(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Novedad(Lfx.Data.Connection dataBase, int itemId)
+                public Novedad(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public Novedad(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Novedad(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

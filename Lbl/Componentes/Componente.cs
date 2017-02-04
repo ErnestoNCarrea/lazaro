@@ -19,13 +19,13 @@ namespace Lbl.Componentes
                 public bool Disabled { get; set; }
 
                 //Heredar constructor
-                public Componente(Lfx.Data.Connection dataBase)
+                public Componente(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Componente(Lfx.Data.Connection dataBase, int itemId)
+                public Componente(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public Componente(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Componente(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

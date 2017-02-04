@@ -7,13 +7,13 @@ namespace Lbl.Comprobantes
 	public class Remito : ComprobanteConArticulos
 	{
 		//Heredar constructor
-                public Remito(Lfx.Data.Connection dataBase)
+                public Remito(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Remito(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Remito(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
 			: base(dataBase, row) { }
 
-                public Remito(Lfx.Data.Connection dataBase, int itemId)
+                public Remito(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
                 public override void Crear()

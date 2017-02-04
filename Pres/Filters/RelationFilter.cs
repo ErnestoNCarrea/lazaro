@@ -1,3 +1,4 @@
+using Lazaro.Orm.Data;
 using System;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ namespace Lazaro.Pres.Filters
         [Serializable]
         public class RelationFilter : Filter
         {
-                public Lfx.Data.Relation Relation { get; set; }
+                public Relation Relation { get; set; }
                 public qGen.Where Filter { get; set; }
 
                 public int ElementId { get; set; }
@@ -16,14 +17,14 @@ namespace Lazaro.Pres.Filters
                 {
                 }
 
-                public RelationFilter(string label, Lfx.Data.Relation relation)
+                public RelationFilter(string label, Relation relation)
                         : this(label, relation.Column)
                 {
                         this.Relation = relation;
                 }
 
 
-                public RelationFilter(string label, Lfx.Data.Relation relation, qGen.Where filter)
+                public RelationFilter(string label, Relation relation, qGen.Where filter)
                         : this(label, relation)
                 {
                         this.Filter = filter;

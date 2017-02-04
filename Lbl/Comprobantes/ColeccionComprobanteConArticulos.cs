@@ -6,10 +6,10 @@ namespace Lbl.Comprobantes
 {
         public class ColeccionComprobanteConArticulos : Lbl.ColeccionGenerica<ComprobanteConArticulos>
         {
-                public ColeccionComprobanteConArticulos(Lfx.Data.Connection dataBase)
+                public ColeccionComprobanteConArticulos(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public ColeccionComprobanteConArticulos(Lfx.Data.Connection dataBase, System.Data.DataTable tabla)
+                public ColeccionComprobanteConArticulos(Lfx.Data.IConnection dataBase, System.Data.DataTable tabla)
                         : base(dataBase, tabla) { }
 
                 public decimal Total

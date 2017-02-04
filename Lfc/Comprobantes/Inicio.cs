@@ -285,7 +285,7 @@ namespace Lfc.Comprobantes
 
                         int IdVendedor = row.Fields["id_vendedor"].ValueInt;
                         if (IdVendedor > 0) {
-                                Lfx.Data.Row Vend = this.Connection.Tables["personas"].FastRows[IdVendedor];
+                                Lfx.Data.Row Vend = Lfx.Workspace.Master.Tables["personas"].FastRows[IdVendedor];
                                 if (Vend != null)
                                         item.SubItems["comprob.id_vendedor"].Text = Vend.Fields["nombre_visible"].Value.ToString();
                         }

@@ -13,13 +13,13 @@ namespace Lbl.Sys.Permisos
         public class Objeto : ElementoDeDatos
         {
                 //Heredar constructor
-		public Objeto(Lfx.Data.Connection dataBase)
+		public Objeto(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Objeto(Lfx.Data.Connection dataBase, int itemId)
+		public Objeto(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Objeto(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Objeto(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

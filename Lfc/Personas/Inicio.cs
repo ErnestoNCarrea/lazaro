@@ -66,9 +66,9 @@ namespace Lfc.Personas
                                 Filters = new Lazaro.Pres.Filters.FilterCollection()
                                 {
                                         new Lazaro.Pres.Filters.SetFilter("Categoría", "personas.tipo", new string[] { "Todos|0", "Clientes|1", "Proveedores|2", "Usuarios del sistema|4" }, "1"),
-                                        new Lazaro.Pres.Filters.RelationFilter("Grupo", new Lfx.Data.Relation("personas.id_grupo", "personas_grupos", "id_grupo")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Sub grupo", new Lfx.Data.Relation("personas.id_subgrupo", "personas_grupos", "id_grupo")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lfx.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
+                                        new Lazaro.Pres.Filters.RelationFilter("Grupo", new Lazaro.Orm.Data.Relation("personas.id_grupo", "personas_grupos", "id_grupo")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Sub grupo", new Lazaro.Orm.Data.Relation("personas.id_subgrupo", "personas_grupos", "id_grupo")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lazaro.Orm.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
                                         new Lazaro.Pres.Filters.SetFilter("Estado", "personas.estado", new string[] {"Todos|-1", "Activos|1", "Inactivos|0"}, "1"),
                                         new Lazaro.Pres.Filters.SetFilter("Genero", "personas.genero", new string[] {"Todos|-1", "Masculino|1", "Femenino|2"}, "-1"),
                                         new Lazaro.Pres.Filters.SetFilter("Estado de crédito", "personas.estadocredito", new string[] { "Cualquiera|-1", "Normal|0", "En plan de pago|5", "Suspendido|10","Judicializado|100","Moroso Negligente|105" }, "-1"),
@@ -96,7 +96,7 @@ namespace Lfc.Personas
                 protected override void OnLoad(EventArgs e)
                 {
                         if (this.Connection != null) {
-                                Lfx.Data.TagCollection Tags = this.Connection.Tables["personas"].Tags;
+                                Lfx.Data.TagCollection Tags = Lfx.Workspace.Master.Tables["personas"].Tags;
                                 foreach (Lfx.Data.Tag Tg in Tags) {
                                         if (Tg.FieldType == Lazaro.Orm.ColumnTypes.Text || Tg.FieldType == Lazaro.Orm.ColumnTypes.VarChar)
                                                 this.Definicion.ExtraSearchColumns.Add(new Lazaro.Pres.Field(Tg.TableName + "." + Tg.FieldName, Tg.Label, Tg.InputFieldType));
@@ -127,7 +127,7 @@ namespace Lfc.Personas
 
                         int IdSubGrupo = row.Fields["personas.id_subgrupo"].ValueInt;
                         if (IdSubGrupo != 0) {
-                                Lfx.Data.Row SubGrupo = this.Connection.Tables["personas_grupos"].FastRows[IdSubGrupo];
+                                Lfx.Data.Row SubGrupo = Lfx.Workspace.Master.Tables["personas_grupos"].FastRows[IdSubGrupo];
                                 if (SubGrupo != null)
                                         item.SubItems["personas.id_subgrupo"].Text = SubGrupo.Fields["personas.nombre"].ValueString;
                         }
@@ -179,7 +179,7 @@ namespace Lfc.Personas
                                 this.CustomFilters.AddWithValue("personas.fechabaja", FechaBaja.From, FechaBaja.To);
 
                         // Cargo la tabla en memoria, ya que la voy a usar mucho
-                        this.Connection.Tables["personas_grupos"].PreLoad();
+                        Lfx.Workspace.Master.Tables["personas_grupos"].PreLoad();
 
                         base.OnBeginRefreshList();
                 }

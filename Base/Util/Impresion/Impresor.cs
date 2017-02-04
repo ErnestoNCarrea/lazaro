@@ -9,7 +9,7 @@ namespace Lazaro.Base.Util.Impresion
         {
                 public Lbl.Impresion.Impresora Impresora = null;
                 protected const double mm = 3.937007874015748031496062992126;
-                protected Lfx.Data.Connection m_DataBase = null;
+                protected Lfx.Data.IConnection m_DataBase = null;
                 public IDbTransaction Transaction = null;
 
                 public int PaginaNumero { get; set; }
@@ -19,7 +19,7 @@ namespace Lazaro.Base.Util.Impresion
                         this.Transaction = transaction;
                 }
 
-                public Lfx.Data.Connection Connection
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {

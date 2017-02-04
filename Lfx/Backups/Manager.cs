@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Text.RegularExpressions;
+using qGen;
 
 namespace Lfx.Backups
 {
@@ -402,7 +403,7 @@ namespace Lfx.Backups
                                 } */
 
                                 Progreso.ChangeStatus("Eliminando datos actuales");
-                                using (Lfx.Data.Connection DataBase = Lfx.Workspace.Master.GetNewConnection("Restauración de copia de seguridad")) {
+                                using (Lfx.Data.IConnection DataBase = Lfx.Workspace.Master.GetNewConnection("Restauración de copia de seguridad") as Lfx.Data.IConnection) {
 
                                         Progreso.ChangeStatus("Acomodando estructuras");
                                         Lfx.Workspace.Master.Structure.TagList.Clear();

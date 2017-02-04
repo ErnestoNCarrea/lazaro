@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Lazaro.Orm;
+using Lazaro.Orm.Data;
 
 namespace Lfx.Data
 {

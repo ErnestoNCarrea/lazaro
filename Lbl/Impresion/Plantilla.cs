@@ -17,13 +17,13 @@ namespace Lbl.Impresion
                 public System.Drawing.Font Font;
 
 		//Heredar constructor
-		public Plantilla(Lfx.Data.Connection dataBase)
+		public Plantilla(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Plantilla(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Plantilla(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                public Plantilla(Lfx.Data.Connection dataBase, int itemId)
+                public Plantilla(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
 

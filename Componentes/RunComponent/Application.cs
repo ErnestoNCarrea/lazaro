@@ -41,7 +41,7 @@ namespace RunComponent
 
                         if (ComponentName != null && FunctionName != null) {
                                 //Console.WriteLine("Ejecutando " + ComponentName + "." + FunctionName);
-                                Lbl.Componentes.Componente Comp = new Lbl.Componentes.Componente(Lfx.Workspace.Master.GetNewConnection(ComponentName));
+                                Lbl.Componentes.Componente Comp = new Lbl.Componentes.Componente(Lfx.Workspace.Master.GetNewConnection(ComponentName) as Lfx.Data.Connection);
                                 Comp.Crear();
                                 Comp.Nombre = ComponentName;
                                 Comp.EspacioNombres = ComponentName;

@@ -80,7 +80,7 @@ namespace Lazaro.WinMain
                                         break;
 
                                 case "VENTRE":
-                                        Lfx.Data.Connection ConexionFiltro = Lfx.Workspace.Master.GetNewConnection("Importar datos");
+                                        var ConexionFiltro = Lfx.Workspace.Master.GetNewConnection("Importar datos") as Lfx.Data.Connection;
 
                                         string Opciones = Lfx.Types.Strings.GetNextToken(ref comando, " ").Trim().ToUpperInvariant();
                                         Lbl.Servicios.Importar.Opciones OpcionesFiltro = new Lbl.Servicios.Importar.Opciones();
@@ -310,7 +310,7 @@ namespace Lazaro.WinMain
                                         
                                         Lfx.Types.OperationResult ResultadoImpresion;
 
-                                        using (Lfx.Data.Connection DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante"))
+                                        using (var DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante") as Lfx.Data.Connection)
                                         using (System.Data.IDbTransaction Trans = DataBaseImprimir.BeginTransaction()) {
                                                 var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
                                                 var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
@@ -339,7 +339,7 @@ namespace Lazaro.WinMain
                                         int itemId = Lfx.Types.Parsing.ParseInt(Lfx.Types.Strings.GetNextToken(ref comando, " ").Trim());
                                         Type TipoElem = Lbl.Instanciador.InferirTipo(SubComandoImprimir);
                                         if (TipoElem != null && itemId > 0) {
-                                                using (Lfx.Data.Connection DbImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir " + TipoElem.ToString() + " " + itemId.ToString())) {
+                                                using (var DbImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir " + TipoElem.ToString() + " " + itemId.ToString()) as Lfx.Data.Connection) {
                                                         Lbl.IElementoDeDatos Elem = Lbl.Instanciador.Instanciar(TipoElem, DbImprimir, itemId);
                                                         Lfx.Types.OperationResult Res;
                                                         using (System.Data.IDbTransaction Trans = DbImprimir.BeginTransaction()) {
@@ -403,7 +403,7 @@ namespace Lazaro.WinMain
                         if (Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(TipoLbl, Lbl.Sys.Permisos.Operaciones.Ver) == false)
                                 return new Lfx.Types.NoAccessOperationResult();
 
-                        Lfx.Data.Connection DataBase = Lfx.Workspace.Master.GetNewConnection("Editar " + (AtrNombre == null ? SubComando : AtrNombre.NombreSingular));
+                        var DataBase = Lfx.Workspace.Master.GetNewConnection("Editar " + (AtrNombre == null ? SubComando : AtrNombre.NombreSingular)) as Lfx.Data.Connection;
                         Lbl.IElementoDeDatos Elemento = null;
                         if (crear) {
                                 Elemento = Lbl.Instanciador.Instanciar(TipoLbl, DataBase);

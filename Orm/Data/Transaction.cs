@@ -1,14 +1,14 @@
 using System;
 using System.Data;
 
-namespace Lfx.Data
+namespace Lazaro.Orm.Data
 {
         public class Transaction : IDbTransaction
         {
                 internal IDbTransaction DbTransaction = null;
-                private Connection DataConnection = null;
+                private IConnection DataConnection = null;
 
-                public Transaction(Connection connection, IsolationLevel isolationLevel)
+                public Transaction(IConnection connection, IsolationLevel isolationLevel)
                 {
                         this.DataConnection = connection;
                         this.DbTransaction = connection.DbConnection.BeginTransaction(isolationLevel);

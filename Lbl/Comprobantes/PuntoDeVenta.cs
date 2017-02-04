@@ -20,13 +20,13 @@ namespace Lbl.Comprobantes
                 public Lbl.Entidades.Sucursal Sucursal;
                 public Lbl.Impresion.Impresora Impresora;
 
-                public PuntoDeVenta(Lfx.Data.Connection dataBase)
+                public PuntoDeVenta(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public PuntoDeVenta(Lfx.Data.Connection dataBase, int itemId)
+                public PuntoDeVenta(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public PuntoDeVenta(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public PuntoDeVenta(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

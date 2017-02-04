@@ -30,7 +30,7 @@ namespace Lfc.CuentasCorrientes
                                 TableName = "ctacte",
                                 KeyColumn = new Lazaro.Pres.Field("ctacte.id_movim", "Cód.", Lfx.Data.InputFieldTypes.Serial, 0),
                                 Columns = new Lazaro.Pres.FieldCollection() {
-                                        new Lazaro.Pres.Field("personas.nombre_visible", "Persona", 320, new Lfx.Data.Relation("id_cliente", "personas", "id_persona")),
+                                        new Lazaro.Pres.Field("personas.nombre_visible", "Persona", 320, new Lazaro.Orm.Data.Relation("id_cliente", "personas", "id_persona")),
                                         new Lazaro.Pres.Field("ctacte.id_concepto", "Concepto", Lfx.Data.InputFieldTypes.Relation, 0),
                                         new Lazaro.Pres.Field("ctacte.concepto", "Concepto", Lfx.Data.InputFieldTypes.Text, 320),
                                         new Lazaro.Pres.Field("ctacte.fecha", "Fecha.", Lfx.Data.InputFieldTypes.Date, 100),
@@ -41,10 +41,10 @@ namespace Lfc.CuentasCorrientes
                                         new Lazaro.Pres.Field("ctacte.id_recibo", "Recibo", Lfx.Data.InputFieldTypes.Relation, 0)
                                 },
                                 Filters = new Lazaro.Pres.Filters.FilterCollection() {
-                                        new Lazaro.Pres.Filters.RelationFilter("Cliente", new Lfx.Data.Relation("ctacte.id_cliente", "personas", "id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Cliente", new Lazaro.Orm.Data.Relation("ctacte.id_cliente", "personas", "id_persona", "nombre_visible")),
                                         new Lazaro.Pres.Filters.SetFilter("Tipo", "personas.tipo", new string[] { "Todos|0", "Clientes|1", "Proveedores|2" }, "0"),
-                                        new Lazaro.Pres.Filters.RelationFilter("Grupo", new Lfx.Data.Relation("personas.id_grupo", "personas_grupos", "id_grupo")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lfx.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Grupo", new Lazaro.Orm.Data.Relation("personas.id_grupo", "personas_grupos", "id_grupo")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lazaro.Orm.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad")),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha", "ctacte.fecha", new Lfx.Types.DateRange("*"))
                                 },
                                 OrderBy = "personas.nombre_visible"
@@ -165,7 +165,7 @@ namespace Lfc.CuentasCorrientes
 
                 protected override Lfx.Types.OperationResult OnEdit(int itemId)
                 {
-                        Lfx.Data.Row Movim = this.Connection.Tables["ctacte"].FastRows[itemId];
+                        Lfx.Data.Row Movim = Lfx.Workspace.Master.Tables["ctacte"].FastRows[itemId];
                         if (this.Cliente == null) {
                                 this.Cliente = new Lbl.Personas.Persona(this.Connection, System.Convert.ToInt32(Movim["id_cliente"]));
                                 ((Lazaro.Pres.Filters.RelationFilter)(this.Definicion.Filters["ctacte.id_cliente"])).Value = this.Cliente;

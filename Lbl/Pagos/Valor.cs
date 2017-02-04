@@ -13,17 +13,17 @@ namespace Lbl.Pagos
                 public Lbl.Comprobantes.Recibo Recibo;
 
                 //Heredar constructor
-		public Valor(Lfx.Data.Connection dataBase)
+		public Valor(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Valor(Lfx.Data.Connection dataBase, int idValor)
+                public Valor(Lfx.Data.IConnection dataBase, int idValor)
 			: this(dataBase)
 		{
                         m_ItemId = idValor;
                         this.Cargar();
 		}
 
-                public Valor(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Valor(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

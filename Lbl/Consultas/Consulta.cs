@@ -16,13 +16,13 @@ namespace Lbl.Consultas
                 private Lbl.ColeccionGenerica<Parametro> m_Parametros = null;
 
                 //Heredar constructor
-		public Consulta(Lfx.Data.Connection dataBase)
+		public Consulta(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Consulta(Lfx.Data.Connection dataBase, int itemId)
+		public Consulta(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Consulta(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Consulta(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

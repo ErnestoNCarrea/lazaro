@@ -12,20 +12,20 @@ namespace Lbl.Comprobantes
                 private ColeccionComprobanteImporte m_Facturas = null;
 
                 //Heredar constructor
-                public Recibo(Lfx.Data.Connection dataBase)
+                public Recibo(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Recibo(Lfx.Data.Connection dataBase, Personas.Persona cliente)
+                public Recibo(Lfx.Data.IConnection dataBase, Personas.Persona cliente)
                         : this(dataBase)
                 {
                         this.Crear();
                         this.Cliente = cliente;
                 }
 
-                public Recibo(Lfx.Data.Connection dataBase, int idRecibo)
+                public Recibo(Lfx.Data.IConnection dataBase, int idRecibo)
                         : base(dataBase, idRecibo) { }
 
-                public Recibo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Recibo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

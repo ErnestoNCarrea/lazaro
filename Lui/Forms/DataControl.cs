@@ -7,13 +7,13 @@ namespace Lui.Forms
 {
         public class DataControl : EditableControl, IDataControl, IEditableControl
         {
-                protected Lfx.Data.Connection m_DataBase = null;
+                protected Lfx.Data.IConnection m_DataBase = null;
 
                 /// <summary>
                 /// IDataControl
                 /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), System.ComponentModel.Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public Lfx.Data.Connection Connection
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {

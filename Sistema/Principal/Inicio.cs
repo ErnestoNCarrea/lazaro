@@ -161,7 +161,7 @@ namespace Lazaro.WinMain.Principal
                                                 if (DialogoArchivo.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                                                         using (System.IO.Stream Archivo = System.IO.File.OpenRead(DialogoArchivo.FileName))
                                                         using (System.IO.StreamReader Lector = new System.IO.StreamReader(Archivo, System.Text.Encoding.Default))
-                                                        using (Lfx.Data.Connection ConexionActualizar = Lfx.Workspace.Master.GetNewConnection("Inyectar SQL"))
+                                                        using (var ConexionActualizar = Lfx.Workspace.Master.GetNewConnection("Inyectar SQL") as Lfx.Data.Connection)
                                                         using (IDbTransaction Trans = ConexionActualizar.BeginTransaction()) {
                                                                 string SqlActualizacion = ConexionActualizar.CustomizeSql(Lector.ReadToEnd());
                                                                 do {

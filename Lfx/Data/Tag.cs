@@ -1,5 +1,6 @@
 using System;
 using Lazaro.Orm;
+using Lazaro.Orm.Data;
 
 namespace Lfx.Data
 {
@@ -14,10 +15,10 @@ namespace Lfx.Data
                 public Lfx.Data.InputFieldTypes InputFieldType = InputFieldTypes.Text;
                 public object Value { get; set; }
                 public object DefaultValue { get; set; }
-                public Connection DataBase { get; set; }
-                public Lfx.Data.Relation Relation { get; set; }
+                public IConnection DataBase { get; set; }
+                public Relation Relation { get; set; }
 
-                public Tag(Connection dataBase, string tableName, Lfx.Data.Row fromRow)
+                public Tag(IConnection dataBase, string tableName, Lfx.Data.Row fromRow)
                 {
                         this.DataBase = dataBase;
                         this.TableName = tableName;
@@ -36,7 +37,7 @@ namespace Lfx.Data
                                         if(RelationFields.Length >= 2)
                                                 ReferenceColumn = RelationFields[1];
                                         else
-                                                ReferenceColumn = dataBase.Tables[ReferenceTable].PrimaryKey;
+                                                ReferenceColumn = Lfx.Workspace.Master.Tables[ReferenceTable].PrimaryKey;
 
                                         if(RelationFields.Length >= 3)
                                                 DetailColumn = RelationFields[2];

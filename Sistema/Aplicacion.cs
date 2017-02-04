@@ -522,7 +522,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                         if (Pregunta.ShowDialog() == DialogResult.OK) {
                                                 Lfx.Types.OperationResult Res;
-                                                using (Lfx.Data.Connection DataBase = Lfx.Workspace.Master.GetNewConnection("Preparar almacén de datos")) {
+                                                using (Lfx.Data.IConnection DataBase = Lfx.Workspace.Master.GetNewConnection("Preparar almacén de datos") as Lfx.Data.Connection) {
                                                         DataBase.RequiresTransaction = false;
                                                         Res = Lfx.Workspace.Master.Prepare(null);
                                                 }
@@ -535,7 +535,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                         }
 
                         // Configuro el nivel de aislación predeterminado
-                        Lfx.Data.DataBaseCache.DefaultCache.DefaultIsolationLevel = (System.Data.IsolationLevel)(Enum.Parse(typeof(System.Data.IsolationLevel), Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Datos.Aislacion", "Serializable")));
+                        // FIXME: no puedo obtener esto de la BD (System.Data.IsolationLevel)(Enum.Parse(typeof(System.Data.IsolationLevel), Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Datos.Aislacion", "Serializable")));
+                        Lfx.Data.DataBaseCache.DefaultCache.DefaultIsolationLevel = System.Data.IsolationLevel.Serializable;
 
                         return iniciarReturn;
                 }

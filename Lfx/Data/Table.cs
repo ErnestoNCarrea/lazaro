@@ -6,12 +6,12 @@ namespace Lfx.Data
         {
                 public string Name;
                 public bool AlwaysCache = false, Cacheable = true;
-                public Connection Connection;
+                public IConnection Connection;
 
                 private string m_PrimaryKey = null;
 		protected RowCollection m_Rows = null;
 
-                public Table(Connection connection, string name)
+                public Table(IConnection connection, string name)
                 {
 			this.Connection = connection;
                         this.Name = name;

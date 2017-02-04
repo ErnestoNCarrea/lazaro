@@ -6,7 +6,7 @@ using MySql.Data.MySqlClient;
 namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
-        /// Proveedor compatible con MySql Connector/NET versión 6. Requiere la presencia de MySql.Data.dll en el directorio del programa.
+        /// Driver using MySql.Data.dll
         /// </summary>
         public class MySqlDriver : AbstractDriver, IDriver
         {
@@ -42,8 +42,6 @@ namespace Lazaro.Orm.Data.Drivers
                 public override IDbDataAdapter GetAdapter(string commandText, IDbConnection connection)
                 {
                         return new MySqlDataAdapter(commandText, connection as MySqlConnection);
-                        //object[] Params = new object[] { commandText, connection };
-                        //return ((System.Data.IDbDataAdapter)(this.Assembly.CreateInstance(this.NameSpace + "." + this.AdapterClass, false, BindingFlags.Default, null, Params, System.Globalization.CultureInfo.CurrentCulture, null)));
                 }
 
                 public override IDbDataParameter GetParameter()

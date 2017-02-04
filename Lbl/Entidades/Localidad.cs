@@ -17,13 +17,13 @@ namespace Lbl.Entidades
                 private Pais m_Pais = null;
 
 		//Heredar constructor
-		public Localidad(Lfx.Data.Connection dataBase)
+		public Localidad(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Localidad(Lfx.Data.Connection dataBase, int itemId)
+		public Localidad(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Localidad(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Localidad(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

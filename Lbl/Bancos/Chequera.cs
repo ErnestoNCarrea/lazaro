@@ -14,13 +14,13 @@ namespace Lbl.Bancos
                 public Lbl.Entidades.Sucursal Sucursal;
 
                 //Heredar constructor
-                public Chequera(Lfx.Data.Connection dataBase)
+                public Chequera(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Chequera(Lfx.Data.Connection dataBase, int itemId)
+                public Chequera(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Chequera(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Chequera(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 
@@ -143,7 +143,7 @@ namespace Lbl.Bancos
 				Connection.Execute(Actua);
 				
 				Actua = new qGen.Update("bancos_cheques");
-				Actua.Fields.Add(new Lfx.Data.Field("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
+				Actua.Fields.Add(new Lazaro.Orm.Data.Field("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
 				Actua.WhereClause = new qGen.Where();
                                 Actua.WhereClause.AddWithValue("emitido", 1);
                                 Actua.WhereClause.AddWithValue("id_banco", this.Banco.Id);

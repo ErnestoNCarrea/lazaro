@@ -18,13 +18,13 @@ namespace Lbl.Entidades
                 private Lbl.Articulos.Situacion m_SituacionOrigen = null;
 
 		//Heredar constructor
-		public Sucursal(Lfx.Data.Connection dataBase)
+		public Sucursal(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Sucursal(Lfx.Data.Connection dataBase, int itemId)
+		public Sucursal(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Sucursal(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Sucursal(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

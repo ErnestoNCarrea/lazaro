@@ -16,9 +16,19 @@ namespace System
                         return lDateTimeValue.Value;
                 }
 
+                public static implicit operator DbDateTime(NullableDateTime lDateTimeValue)
+                {
+                        return new DbDateTime(lDateTimeValue.Value);
+                }
+
                 public static implicit operator NullableDateTime(DateTime dateTimeValue)
                 {
                         return new NullableDateTime(dateTimeValue);
+                }
+
+                public static implicit operator NullableDateTime(DbDateTime dateTimeValue)
+                {
+                        return new NullableDateTime(dateTimeValue.Value);
                 }
 
                 public override string ToString()

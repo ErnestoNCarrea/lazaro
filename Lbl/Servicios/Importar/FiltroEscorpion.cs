@@ -9,7 +9,7 @@ namespace Lbl.Servicios.Importar
         /// </summary>
         public class FiltroEscorpion : FiltroOdbc
         {
-                public FiltroEscorpion(Lfx.Data.Connection dataBase, Opciones opciones)
+                public FiltroEscorpion(Lfx.Data.IConnection dataBase, Opciones opciones)
                         : base(dataBase, opciones)
                 {
                         this.Nombre = "Escorpión Sistemas";

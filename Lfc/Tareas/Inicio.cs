@@ -42,9 +42,9 @@ namespace Lfc.Tareas
 
                                 Filters = new Lazaro.Pres.Filters.FilterCollection() 
                                 {
-                                        new Lazaro.Pres.Filters.RelationFilter("Cliente", new Lfx.Data.Relation("tickets.id_persona", "personas", "id_persona", "nombre_visible")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lfx.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
-                                        new Lazaro.Pres.Filters.RelationFilter("Tipo", new Lfx.Data.Relation("tickets.id_tipo_ticket", "tickets_tipos", "id_tipo_ticket")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Cliente", new Lazaro.Orm.Data.Relation("tickets.id_persona", "personas", "id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Localidad", new Lazaro.Orm.Data.Relation("personas.id_ciudad", "ciudades", "id_ciudad"), new qGen.Where("id_provincia", qGen.ComparisonOperators.NotEqual, null)),
+                                        new Lazaro.Pres.Filters.RelationFilter("Tipo", new Lazaro.Orm.Data.Relation("tickets.id_tipo_ticket", "tickets_tipos", "id_tipo_ticket")),
                                         new Lazaro.Pres.Filters.SetFilter("Estado", "tickets.estado", new string[] {
                                                 "Todos|todos",
                                                 "Sin Terminar|<30", 
@@ -188,7 +188,7 @@ namespace Lfc.Tareas
                 {
                         int IdEncargado = row.Fields["tickets.id_tecnico_recibe"].ValueInt;
                         if (IdEncargado > 0)
-                                item.SubItems["tickets.id_tecnico_recibe"].Text = this.Connection.Tables["personas"].FastRows[IdEncargado].Fields["nombre"].ValueString;
+                                item.SubItems["tickets.id_tecnico_recibe"].Text = Lfx.Workspace.Master.Tables["personas"].FastRows[IdEncargado].Fields["nombre"].ValueString;
 
                         int IdEstado = row.Fields["tickets.estado"].ValueInt;
                         DateTime FechaLimite = row.Fields["tickets.entrega_limite"].ValueDateTime;

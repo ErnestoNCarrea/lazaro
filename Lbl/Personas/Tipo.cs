@@ -8,13 +8,13 @@ namespace Lbl.Personas
         [Lbl.Atributos.Presentacion()]
         public class Tipo : Lbl.ElementoDeDatos, Lbl.ICamposBaseEstandar
         {
-                public Tipo(Lfx.Data.Connection dataBase)
+                public Tipo(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Tipo(Lfx.Data.Connection dataBase, int itemId)
+		public Tipo(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Tipo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Tipo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
         }
 }

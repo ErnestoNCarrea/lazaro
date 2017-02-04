@@ -12,13 +12,13 @@ namespace Lbl.Impuestos
         [Lbl.Atributos.Presentacion()]
 	public class SituacionTributaria : ElementoDeDatos
 	{
-		public SituacionTributaria(Lfx.Data.Connection dataBase)
+		public SituacionTributaria(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public SituacionTributaria(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public SituacionTributaria(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-		public SituacionTributaria(Lfx.Data.Connection dataBase, int itemId)
+		public SituacionTributaria(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
 

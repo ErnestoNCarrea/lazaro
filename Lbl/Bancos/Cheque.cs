@@ -17,23 +17,23 @@ namespace Lbl.Bancos
                 public Lbl.Comprobantes.ComprobanteConArticulos Factura;
                 
                 //Heredar constructor
-		public Cheque(Lfx.Data.Connection dataBase)
+		public Cheque(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Cheque(Lfx.Data.Connection dataBase, int itemId)
+		public Cheque(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Cheque(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Cheque(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                public Cheque(Lfx.Data.Connection dataBase, Lbl.Comprobantes.ComprobanteConArticulos factura)
+                public Cheque(Lfx.Data.IConnection dataBase, Lbl.Comprobantes.ComprobanteConArticulos factura)
                         : this(dataBase)
                 {
                         m_ItemId = this.Connection.FieldInt("SELECT MAX(id_cheque) FROM bancos_cheques WHERE id_comprob=" + factura.Id.ToString());
                         this.Cargar();
                 }
 
-                public Cheque(Lfx.Data.Connection dataBase, decimal importe, int numero, string emisor, NullableDateTime fechaEmision, NullableDateTime fechaCobro, Bancos.Banco banco)
+                public Cheque(Lfx.Data.IConnection dataBase, decimal importe, int numero, string emisor, NullableDateTime fechaEmision, NullableDateTime fechaCobro, Bancos.Banco banco)
 			: this(dataBase)
 		{
 			this.Importe = importe;

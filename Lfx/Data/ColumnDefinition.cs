@@ -17,7 +17,7 @@ namespace Lfx.Data
                 public string Label, Section;
                 private InputFieldTypes m_InputFieldType;
                 public bool Required = false;
-                public Lfx.Data.Relation Relation;
+                public Relation Relation;
 
                 public ColumnDefinition()
                 {

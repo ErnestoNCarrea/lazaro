@@ -18,13 +18,13 @@ namespace Lbl.Impresion
                 public Lbl.Comprobantes.PuntoDeVenta PuntoDeVenta = null;
 
                 //Heredar constructor
-		public TipoImpresora(Lfx.Data.Connection dataBase)
+		public TipoImpresora(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public TipoImpresora(Lfx.Data.Connection dataBase, int itemId)
+		public TipoImpresora(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public TipoImpresora(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public TipoImpresora(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

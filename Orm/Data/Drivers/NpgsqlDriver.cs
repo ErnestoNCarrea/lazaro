@@ -3,9 +3,9 @@ using System.Collections.Generic;
 namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
-        /// Proveedor compatible con Npgsql versión 2. Requiere la presencia de Npgsql.dll en el directorio del programa.
+        /// Driver for Npgsql versión 2. Untested.
         /// </summary>
-        public class NpgsqlDriver : AbstractDriver
+        public class NpgsqlDriver : AbstractDriver, IDriver
         {
                 public NpgsqlDriver() :
                         base("Npgsql",

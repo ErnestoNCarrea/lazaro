@@ -43,7 +43,7 @@ namespace Lfc.Log
                         Lbl.ColeccionGenerica<Lbl.Sys.Log.Entrada> Logs = new Lbl.ColeccionGenerica<Lbl.Sys.Log.Entrada>(this.Connection, LogsTable);
                         for (int i = 0; i < Logs.Count; i++) {
                                 Lbl.Sys.Log.Entrada Log = Logs[i];
-                                Lfx.Data.Row Usuario = this.Connection.Tables["personas"].FastRows[Log.IdUsuario];
+                                Lfx.Data.Row Usuario = Lfx.Workspace.Master.Tables["personas"].FastRows[Log.IdUsuario];
                                 ListViewItem Itm = ListaHistoral.Items.Add(Lfx.Types.Formatting.FormatSmartDateAndTime(Log.Fecha));
                                 if (Usuario == null)
                                         Itm.SubItems.Add("");

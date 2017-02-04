@@ -33,12 +33,12 @@ namespace Lazaro.WinMain.Principal
                 }
 
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public Lfx.Data.Connection DataBase
+                public Lfx.Data.IConnection DataBase
                 {
                         get
                         {
                                 if (m_DataBase == null)
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Formulario principal: Barra inferior");
+                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Formulario principal: Barra inferior") as Lfx.Data.Connection;
                                 return m_DataBase;
                         }
                 }

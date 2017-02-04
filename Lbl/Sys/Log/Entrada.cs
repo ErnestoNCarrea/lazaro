@@ -10,10 +10,10 @@ namespace Lbl.Sys.Log
         public class Entrada : Lbl.ElementoDeDatos
         {
                 //Heredar constructor
-                public Entrada(Lfx.Data.Connection dataBase, int itemId)
+                public Entrada(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Entrada(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Entrada(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

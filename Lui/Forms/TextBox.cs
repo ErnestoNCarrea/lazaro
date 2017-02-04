@@ -480,12 +480,13 @@ namespace Lui.Forms
 
 		private void MenuItemPegadoRapidoAgregar_Click(object sender, System.EventArgs e)
 		{
-                        qGen.Insert Comando = new qGen.Insert("sys_quickpaste");
+                        // FIXME: almacenar esto en otro lado, no en la BD
+                        /* qGen.Insert Comando = new qGen.Insert("sys_quickpaste");
 			Comando.Fields.AddWithValue("texto", this.Text);
 			Comando.Fields.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
 			Comando.Fields.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
 			Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        Lfx.Workspace.Master.MasterConnection.Execute(Comando);
+                        Lfx.Workspace.Master.MasterConnection.Execute(Comando); */
 		}
 
 

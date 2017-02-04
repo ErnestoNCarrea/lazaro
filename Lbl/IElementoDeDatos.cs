@@ -7,7 +7,7 @@ namespace Lbl
 {
         public interface IElementoDeDatos : IEquatable<ElementoDeDatos>
         {
-                Lfx.Data.Connection Connection { get; set;  }
+                Lfx.Data.IConnection Connection { get; set;  }
                 int Id { get; }
                 string TablaDatos { get; }
                 string TablaImagenes { get; }

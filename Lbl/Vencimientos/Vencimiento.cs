@@ -12,13 +12,13 @@ namespace Lbl.Vencimientos
                 public Cajas.Concepto Concepto;
 
                 //Heredar constructor
-                public Vencimiento(Lfx.Data.Connection dataBase)
+                public Vencimiento(Lfx.Data.IConnection dataBase)
                         : base(dataBase) {}
 
-                public Vencimiento(Lfx.Data.Connection dataBase, int itemId)
+                public Vencimiento(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Vencimiento(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Vencimiento(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public override void Crear()

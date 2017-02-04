@@ -12,12 +12,13 @@ namespace Lbl.Articulos
                 protected Rubro m_Rubro = null;
                 protected Impuestos.Alicuota m_Alicuota = null;
 
-		public Categoria(Lfx.Data.Connection dataBase) : base(dataBase) { }
+		public Categoria(Lfx.Data.IConnection dataBase)
+                        : base(dataBase) { }
 
-		public Categoria(Lfx.Data.Connection dataBase, int itemId)
+		public Categoria(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Categoria(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Categoria(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 		

@@ -17,7 +17,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 private Lfx.Workspace m_Workspace;
                 private EstadoServidorFiscal m_EstadoServidor = EstadoServidorFiscal.Esperando;
                 private System.Text.StringBuilder m_TextEmulacion;
-                public Lfx.Data.Connection DataBase;
+                public Lfx.Data.IConnection DataBase;
 
                 public event NotificacionEventHandler Notificacion;
 
@@ -26,7 +26,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 public Impresora(Lfx.Workspace workspace)
                 {
                         Lfx.Workspace.Master = workspace;
-                        this.DataBase = Lfx.Workspace.Master.GetNewConnection("Servidor fiscal");
+                        this.DataBase = Lfx.Workspace.Master.GetNewConnection("Servidor fiscal") as Lfx.Data.Connection;
                         m_EstadoServidor = EstadoServidorFiscal.Esperando;
                 }
 

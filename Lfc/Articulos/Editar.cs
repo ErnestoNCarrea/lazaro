@@ -33,23 +33,23 @@ namespace Lfc.Articulos
 
                                 Lfx.Data.Row Nombre = null;
 
-                                Nombre = this.Connection.Tables["articulos_codigos"].FastRows[1];
+                                Nombre = Lfx.Workspace.Master.Tables["articulos_codigos"].FastRows[1];
                                 if (Nombre != null)
                                         EtiquetaCodigo1.Text = Nombre["nombre"].ToString();
 
-                                Nombre = this.Connection.Tables["articulos_codigos"].FastRows[2];
+                                Nombre = Lfx.Workspace.Master.Tables["articulos_codigos"].FastRows[2];
                                 if (Nombre != null)
                                         EtiquetaCodigo2.Text = Nombre["nombre"].ToString();
 
-                                Nombre = this.Connection.Tables["articulos_codigos"].FastRows[3];
+                                Nombre = Lfx.Workspace.Master.Tables["articulos_codigos"].FastRows[3];
                                 if (Nombre != null)
                                         EtiquetaCodigo3.Text = Nombre["nombre"].ToString();
 
-                                Nombre = this.Connection.Tables["articulos_codigos"].FastRows[4];
+                                Nombre = Lfx.Workspace.Master.Tables["articulos_codigos"].FastRows[4];
                                 if (Nombre != null)
                                         EtiquetaCodigo4.Text = Nombre["nombre"].ToString();
 
-                                this.Margenes = new Lbl.ColeccionGenerica<Lbl.Articulos.Margen>(this.Connection, this.Connection.Tables["margenes"]);
+                                this.Margenes = new Lbl.ColeccionGenerica<Lbl.Articulos.Margen>(this.Connection, Lfx.Workspace.Master.Tables["margenes"]);
 
                                 int i = 0;
                                 string[] ListaMargenes = new string[this.Margenes.Count + 1];

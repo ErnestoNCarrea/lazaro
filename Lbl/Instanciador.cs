@@ -14,7 +14,7 @@ namespace Lbl
                 /// <summary>
                 /// Crea una instancia de un Lbl.ElementoDeDatos nuevo.
                 /// </summary>
-                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.Connection dataBase)
+                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.IConnection dataBase)
                 {
                         System.Reflection.ConstructorInfo TConstr = tipo.GetConstructor(new Type[] { typeof(Lfx.Data.Connection) });
                         Lbl.IElementoDeDatos Res = (Lbl.IElementoDeDatos)(TConstr.Invoke(new object[] { dataBase }));
@@ -24,7 +24,7 @@ namespace Lbl
                 /// <summary>
                 /// Crea una instancia de un Lbl.ElementoDeDatos a partir de un registro de base de datos.
                 /// </summary>
-                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                 {
                         System.Reflection.ConstructorInfo TConstr = tipo.GetConstructor(new Type[] { typeof(Lfx.Data.Connection), typeof(Lfx.Data.Row) });
                         Lbl.IElementoDeDatos Res = (Lbl.IElementoDeDatos)(TConstr.Invoke(new object[] { dataBase, row }));
@@ -34,7 +34,7 @@ namespace Lbl
                 /// <summary>
                 /// Crea una instancia de un Lbl.ElementoDeDatos a partir de un id de registro.
                 /// </summary>
-                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.Connection dataBase, int id)
+                public static IElementoDeDatos Instanciar(Type tipo, Lfx.Data.IConnection dataBase, int id)
                 {
                         System.Reflection.ConstructorInfo TConstr = tipo.GetConstructor(new Type[] { typeof(Lfx.Data.Connection), typeof(int) });
                         Lbl.IElementoDeDatos Res = (Lbl.IElementoDeDatos)(TConstr.Invoke(new object[] { dataBase, id }));
@@ -44,7 +44,7 @@ namespace Lbl
                 /// <summary>
                 /// Crea una instancia de un Lbl.ElementoDeDatos a partir de un registro de base de datos.
                 /// </summary>
-                public static T Instanciar<T>(Lfx.Data.Connection dataBase, Lfx.Data.Row row) where T : Lbl.ElementoDeDatos
+                public static T Instanciar<T>(Lfx.Data.IConnection dataBase, Lfx.Data.Row row) where T : Lbl.ElementoDeDatos
                 {
                         Type tipo = typeof(T);
                         System.Reflection.ConstructorInfo TConstr = tipo.GetConstructor(new Type[] { typeof(Lfx.Data.Connection), typeof(Lfx.Data.Row) });

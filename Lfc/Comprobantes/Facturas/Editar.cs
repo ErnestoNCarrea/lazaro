@@ -488,7 +488,7 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                 private void CrearReciboParaEstaFactura()
                 {
                         Lbl.Comprobantes.ComprobanteConArticulos Factura = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
-                        Lbl.Comprobantes.ReciboDeCobro Recibo = new Lbl.Comprobantes.ReciboDeCobro(Lfx.Workspace.Master.GetNewConnection("Nuevo recibo para " + Factura.ToString()));
+                        Lbl.Comprobantes.ReciboDeCobro Recibo = new Lbl.Comprobantes.ReciboDeCobro(Lfx.Workspace.Master.GetNewConnection("Nuevo recibo para " + Factura.ToString()) as Lfx.Data.Connection);
                         Recibo.Crear();
                         Recibo.Facturas.AddWithValue(Factura, Factura.ImporteImpago);
                         Recibo.Cliente = Factura.Cliente;

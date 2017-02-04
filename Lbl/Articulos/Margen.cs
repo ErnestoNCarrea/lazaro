@@ -9,12 +9,13 @@ namespace Lbl.Articulos
         [Lbl.Atributos.Presentacion()]
 	public class Margen : ElementoDeDatos
 	{
-		public Margen(Lfx.Data.Connection dataBase) : base(dataBase) { }
+		public Margen(Lfx.Data.IConnection dataBase) 
+                        : base(dataBase) { }
 
-		public Margen(Lfx.Data.Connection dataBase, int itemId)
+		public Margen(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Margen(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Margen(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

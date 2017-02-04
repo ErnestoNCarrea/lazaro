@@ -11,7 +11,7 @@ namespace Lbl.Servicios.Importar
         {
                 protected System.Data.IDbConnection ConexionExterna { get; set; }
                 protected Lfx.Types.OperationProgress Progreso;
-                protected Lfx.Data.Connection Connection { get; set; }
+                protected Lfx.Data.IConnection Connection { get; set; }
                 protected IDictionary<string, IDictionary<string, object>> CacheConversiones = new Dictionary<string, IDictionary<string, object>>();
 
                 public Opciones Opciones { get; set; }
@@ -19,7 +19,7 @@ namespace Lbl.Servicios.Importar
                 public string Nombre = "Filtro de importación genérico";
                 public IList<Reemplazo> Reemplazos = new List<Reemplazo>();
 
-                public Filtro(Lfx.Data.Connection dataBase, Opciones opciones)
+                public Filtro(Lfx.Data.IConnection dataBase, Opciones opciones)
                 {
                         this.Connection = dataBase;
                         this.Opciones = opciones;
@@ -185,7 +185,7 @@ namespace Lbl.Servicios.Importar
                 {
                         Lfx.Data.Row internalRow = new Lfx.Data.Row();
                         internalRow.IsNew = true;
-                        internalRow.Table = this.Connection.Tables[mapa.TablaLazaro];
+                        internalRow.Table = Lfx.Workspace.Master.Tables[mapa.TablaLazaro];
 
                         foreach (MapaDeColumna Col in mapa.MapaDeColumnas) {
                                 object FieldValue = null;
@@ -280,7 +280,7 @@ namespace Lbl.Servicios.Importar
                                                         ImportTag.FieldType = Lazaro.Orm.ColumnTypes.VarChar;
                                                         ImportTag.Nullable = true;
                                                         ImportTag.Internal = true;
-                                                        this.Connection.Tables[Map.TablaLazaro].Tags.Add(ImportTag);
+                                                        Lfx.Workspace.Master.Tables[Map.TablaLazaro].Tags.Add(ImportTag);
                                                         ImportTag.Save();
                                                         TablasModificadas.Add(Map.TablaLazaro);
                                                         Lfx.Workspace.Master.Structure.LoadBuiltIn();
@@ -305,7 +305,7 @@ namespace Lbl.Servicios.Importar
                 /// </summary>
                 public void ProcesarRemplazos(MapaDeTabla mapa, ref Lfx.Data.Row row)
                 {
-                        foreach (Lfx.Data.Field Fld in row.Fields) {
+                        foreach (Lazaro.Orm.Data.Field Fld in row.Fields) {
                                 foreach (Reemplazo Rmp in this.Reemplazos) {
                                         if (Fld.DataType == Rmp.Tipo 
                                                 && (Rmp.NombreCampo == null || Rmp.NombreCampo == Fld.ColumnName
@@ -334,7 +334,7 @@ namespace Lbl.Servicios.Importar
                 /// <returns></returns>
                 protected Lbl.IElementoDeDatos CargarElemento(MapaDeTabla mapa, Lfx.Data.Row row)
                 {
-                        return Lbl.Instanciador.Instanciar(mapa.TipoElemento, this.Connection, row.Fields[this.Connection.Tables[mapa.TablaLazaro].PrimaryKey].ValueInt);
+                        return Lbl.Instanciador.Instanciar(mapa.TipoElemento, this.Connection, row.Fields[Lfx.Workspace.Master.Tables[mapa.TablaLazaro].PrimaryKey].ValueInt);
                 }
 
 

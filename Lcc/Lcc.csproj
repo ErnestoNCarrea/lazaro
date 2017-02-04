@@ -254,6 +254,10 @@
       <Project>{FD8409C3-35CF-4F30-8898-F4CC17FC35D6}</Project>
       <Name>Lui</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orm\Orm.csproj">
+      <Project>{01085c08-19ad-4390-9822-1895ac99167a}</Project>
+      <Name>Orm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Pres\Pres.csproj">
       <Project>{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}</Project>
       <Name>Pres</Name>

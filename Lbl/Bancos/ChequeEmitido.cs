@@ -8,13 +8,13 @@ namespace Lbl.Bancos
 	public class ChequeEmitido : Cheque
 	{
                 //Heredar constructor
-		public ChequeEmitido(Lfx.Data.Connection dataBase)
+		public ChequeEmitido(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public ChequeEmitido(Lfx.Data.Connection dataBase, int itemId)
+		public ChequeEmitido(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public ChequeEmitido(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public ChequeEmitido(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

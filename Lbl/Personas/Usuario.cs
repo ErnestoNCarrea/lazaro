@@ -17,13 +17,13 @@ namespace Lbl.Personas
                 public Sys.Permisos.ListaDePermisos Pemisos = null;
 
                 // Heredar constructores
-                public Usuario(Lfx.Data.Connection dataBase)
+                public Usuario(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Usuario(Lfx.Data.Connection dataBase, int itemId)
+		public Usuario(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Usuario(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Usuario(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

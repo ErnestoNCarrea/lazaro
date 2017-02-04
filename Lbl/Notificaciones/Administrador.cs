@@ -12,7 +12,7 @@ namespace Lbl.Notificaciones
 
                 public static Administrador Principal = null;
 
-                private Lfx.Data.Connection m_DataBase = null;
+                private Lfx.Data.IConnection m_DataBase = null;
                 private int LastMessageId { get; set; }
                 private System.Timers.Timer PollTimer;
 
@@ -31,12 +31,12 @@ namespace Lbl.Notificaciones
                 }
 
 
-                private Lfx.Data.Connection Connection
+                private Lfx.Data.IConnection Connection
                 {
                         get
                         {
                                 if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de notificaciones");
+                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de notificaciones") as Lfx.Data.IConnection;
                                         m_DataBase.RequiresTransaction = false;
                                 }
                                 return m_DataBase;

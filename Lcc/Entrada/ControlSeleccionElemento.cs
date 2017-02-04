@@ -11,7 +11,7 @@ namespace Lcc.Entrada
         public class ControlSeleccionElemento : ControlEntrada
         {
                 private string m_NombreElementoTipo = null;
-                public Lfx.Data.Relation Relation = new Lfx.Data.Relation();
+                public Lazaro.Orm.Data.Relation Relation = new Lazaro.Orm.Data.Relation();
                 
                 protected int m_ItemId;
                 protected Lfx.Data.Row CurrentRow = null;

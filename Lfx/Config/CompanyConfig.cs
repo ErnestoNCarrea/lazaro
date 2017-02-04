@@ -19,7 +19,7 @@ namespace Lfx.Config
                         get
                         {
                                 if (m_Sucursal == null)
-                                        m_Sucursal = ConfigManager.DataBase.Tables["sucursales"].FastRows[this.SucursalActual];
+                                        m_Sucursal = Lfx.Workspace.Master.Tables["sucursales"].FastRows[this.SucursalActual];
                                 return m_Sucursal;
                         }
                 }

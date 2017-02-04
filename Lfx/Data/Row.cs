@@ -1,3 +1,4 @@
+using Lazaro.Orm.Data;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -85,7 +86,7 @@ namespace Lfx.Data
                 {
                         Lfx.Data.Row Res = new Lfx.Data.Row();
                         Res.DataTable = this.DataTable;
-                        foreach (Lfx.Data.Field Fld in this.Fields) {
+                        foreach (Lazaro.Orm.Data.Field Fld in this.Fields) {
                                 Res.Fields.Add(Fld.Clone());
                         }
                         Res.IsModified = this.IsModified;

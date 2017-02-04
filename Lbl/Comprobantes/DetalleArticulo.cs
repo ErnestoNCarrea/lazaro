@@ -14,10 +14,10 @@ namespace Lbl.Comprobantes
                 private Lbl.ElementoDeDatos m_ElementoPadre = null;
 
 		//Heredar constructor
-                public DetalleArticulo(Lfx.Data.Connection dataBase)
+                public DetalleArticulo(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public DetalleArticulo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public DetalleArticulo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public DetalleArticulo(Lbl.ElementoDeDatos elementoPadre)

@@ -31,7 +31,7 @@ namespace Lcc.Edicion
                                 Lbl.Sys.Log.Entrada Log = new Lbl.Sys.Log.Entrada(this.Connection, (Lfx.Data.Row)Com);
                                 ListViewItem Itm = ListaComentarios.Items.Add(Log.Id.ToString());
                                 Itm.SubItems.Add(Lfx.Types.Formatting.FormatShortSmartDateAndTime(Log.Fecha));
-                                Itm.SubItems.Add(this.Elemento.Connection.Tables["personas"].FastRows[Log.IdUsuario].Fields["nombre_visible"].Value.ToString());
+                                Itm.SubItems.Add(Lfx.Workspace.Master.Tables["personas"].FastRows[Log.IdUsuario].Fields["nombre_visible"].Value.ToString());
                                 Itm.SubItems.Add(Log.Carga);
                         }
 

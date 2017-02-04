@@ -23,8 +23,8 @@ namespace Lcc.Edicion
                 public override void ActualizarControl()
                 {
                         Lazaro.Pres.Forms.Section Sect = new Lazaro.Pres.Forms.Section("Campos adicionales");
-                        this.Tabla = m_Elemento.Connection.Tables[m_Elemento.TablaDatos];
-                        Tabla.Connection = this.Connection;
+                        this.Tabla = Lfx.Workspace.Master.Tables[m_Elemento.TablaDatos];
+                        //Tabla.Connection = this.Connection;
                         if (Tabla.Tags != null) {
                                 foreach (Lfx.Data.Tag Tg in Tabla.Tags) {
                                         if (Tg.Internal == false) {

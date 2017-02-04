@@ -7,7 +7,7 @@ namespace Lui.Forms
 {
         public partial class Form : System.Windows.Forms.Form, IDataForm, IDisplayStyleControl
 	{
-                private Lfx.Data.Connection m_Connection = null;
+                private Lfx.Data.IConnection m_Connection = null;
                 private string m_StockImage = null;
                 private Lazaro.Pres.DisplayStyles.IDisplayStyle m_DisplayStyle = Lazaro.Pres.DisplayStyles.Template.Current.Default;
 
@@ -58,12 +58,12 @@ namespace Lui.Forms
                 /// <summary>
                 /// IDataControl
                 /// </summary>
-                public Lfx.Data.Connection Connection
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {
                                 if (m_Connection == null && Lfx.Workspace.Master != null) {
-                                        m_Connection = Lfx.Workspace.Master.GetNewConnection(this.Text);
+                                        m_Connection = Lfx.Workspace.Master.GetNewConnection(this.Text) as Lfx.Data.Connection;
 
                                         // Marco para deshechar la conexión que estoy creando
                                         DisposeConnection = true;

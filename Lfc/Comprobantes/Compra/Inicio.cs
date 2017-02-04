@@ -67,7 +67,7 @@ namespace Lfc.Comprobantes.Compra
                                                 "No pedidos|-1",
 						"Pedidos|100",
                                                 "Cancelados|200" }, "-2"),
-                                        new Lazaro.Pres.Filters.RelationFilter("Proveedor", new Lfx.Data.Relation("comprob.id_cliente", "personas", "id_persona", "nombre_visible"), new qGen.Where("(tipo&2)=2")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Proveedor", new Lazaro.Orm.Data.Relation("comprob.id_cliente", "personas", "id_persona", "nombre_visible"), new qGen.Where("(tipo&2)=2")),
                                         new Lazaro.Pres.Filters.DateRangeFilter("Fecha", "comprob.fecha", new Lfx.Types.DateRange("mes-0"))
                                 }
                         };

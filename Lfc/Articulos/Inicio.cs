@@ -51,11 +51,11 @@ namespace Lfc.Articulos
 
                                 Filters = new Lazaro.Pres.Filters.FilterCollection()
                                 {
-                                        new Lazaro.Pres.Filters.RelationFilter("Rubro", new Lfx.Data.Relation("id_rubro", "articulos_rubros", "id_rubro")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Categoría", new Lfx.Data.Relation("id_categoria", "articulos_categorias", "id_categoria")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Marca", new Lfx.Data.Relation("id_marca", "marcas", "id_marca")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Proveedor", new Lfx.Data.Relation("id_proveedor", "personas", "id_persona", "nombre_visible")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Situación", new Lfx.Data.Relation("id_situacion", "articulos_situaciones", "id_situacion")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Rubro", new Lazaro.Orm.Data.Relation("id_rubro", "articulos_rubros", "id_rubro")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Categoría", new Lazaro.Orm.Data.Relation("id_categoria", "articulos_categorias", "id_categoria")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Marca", new Lazaro.Orm.Data.Relation("id_marca", "marcas", "id_marca")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Proveedor", new Lazaro.Orm.Data.Relation("id_proveedor", "personas", "id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Situación", new Lazaro.Orm.Data.Relation("id_situacion", "articulos_situaciones", "id_situacion")),
                                         new Lazaro.Pres.Filters.SetFilter("Existencias", "stock_actual", new string[] { "Cualquiera|*", "En existencia|cs", "Sin existencia|ss", "Con faltante|faltante", "Con faltante (incluyendo pedidos)|faltanteip", "Con pedidos|pedido", "A pedir|apedir" }, "*")
                                 }
                         };
@@ -197,22 +197,22 @@ namespace Lfc.Articulos
                 {
                         string SelectValorizacion = "SELECT SUM(costo*stock_actual) FROM articulos";
                         if (this.Definicion.Joins != null && this.Definicion.Joins.Count > 0) {
-                                foreach (qGen.Join Jo in this.Definicion.Joins) {
-                                        SelectValorizacion += Jo.ToString();
+                                foreach (var Jo in this.Definicion.Joins) {
+                                        SelectValorizacion += this.Connection.Factory.Formatter.SqlText(Jo);
                                 }
                         }
                         if (this.CustomFilters.Count > 0)
-                                SelectValorizacion += " WHERE " + this.CustomFilters.ToString();
+                                SelectValorizacion += " WHERE " + Lfx.Workspace.Master.Formatter.SqlText(this.CustomFilters);
                         this.Contadores[0].Total = this.Connection.FieldDecimal(SelectValorizacion);
 
                         SelectValorizacion = "SELECT SUM(pvp*stock_actual) FROM articulos";
                         if (this.Definicion.Joins != null && this.Definicion.Joins.Count > 0) {
                                 foreach (qGen.Join Jo in this.Definicion.Joins) {
-                                        SelectValorizacion += Jo.ToString();
+                                        SelectValorizacion += this.Connection.Factory.Formatter.SqlText(Jo);
                                 }
                         }
                         if (this.CustomFilters.Count > 0)
-                                SelectValorizacion += " WHERE " + this.CustomFilters.ToString();
+                                SelectValorizacion += " WHERE " + this.Connection.Factory.Formatter.SqlText(this.CustomFilters);
                         this.Contadores[1].Total = this.Connection.FieldDecimal(SelectValorizacion);
 
                         base.OnEndRefreshList();

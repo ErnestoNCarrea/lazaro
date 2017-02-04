@@ -1,4 +1,8 @@
- using System;
+using Lazaro.Orm.Data;
+using Lazaro.Orm.Data.Drivers;
+using Lfx.Data;
+using qGen;
+using System;
 using System.Collections.Generic;
 
 namespace Lfx
@@ -6,10 +10,10 @@ namespace Lfx
         /// <summary>
         /// Proporciona un espacio de trabajo que incluye acceso a los datos y a la configuración.
         /// </summary>
-        public class Workspace : System.MarshalByRefObject, IDisposable
+        public class Workspace : System.MarshalByRefObject, IDisposable, IConnectionFactory
         {
                 public static Lfx.Workspace Master = null;
-                private Lfx.Data.Connection m_MasterConnection = null;
+                private Lfx.Data.IConnection m_MasterConnection = null;
                 public Data.Structure Structure = new Data.Structure();
 
                 public const int VersionUltima = 25;
@@ -27,6 +31,11 @@ namespace Lfx
                 public List<Data.Connection> ActiveConnections = new List<Data.Connection>();
                 public string ServerVersion { get; set; }
                 public object MainForm { get; set; }
+
+                public IDriver Driver { get; set; }
+                public IFormatter Formatter { get; set; }
+
+                private TableCollection m_Tables = null;
 
                 public Workspace()
                         : this("default")
@@ -54,15 +63,10 @@ namespace Lfx
                                 this.RunTime = new Lfx.RunTimeServices();
                         }
 
-                        if (m_MasterConnection == null) {
-                                m_MasterConnection = new Lfx.Data.Connection(this, this.Name);
-                                m_MasterConnection.RequiresTransaction = false;
-                        }
-
                         if (Lfx.Data.DataBaseCache.DefaultCache == null)
                                 Lfx.Data.DataBaseCache.DefaultCache = new Lfx.Data.DataBaseCache(m_MasterConnection);
 
-                        if (this.MasterConnection.AccessMode == Lfx.Data.AccessModes.Undefined) {
+                        if (this.MasterConnection == null) {
                                 switch (this.CurrentConfig.ReadLocalSettingString("Data", "ConnectionType", "mysql")) {
                                         case "odbc":
                                                 Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
@@ -103,8 +107,15 @@ namespace Lfx
                                 Lfx.Data.DataBaseCache.DefaultCache.SlowLink = true;
                         }
 
-                        if (openConnection)
+                        if (m_MasterConnection == null) {
+                                m_MasterConnection = this.GetNewConnection(this.Name) as Lfx.Data.IConnection;
+                                m_MasterConnection.RequiresTransaction = false;
+                                Lfx.Data.DataBaseCache.DefaultCache.Connection = m_MasterConnection;
+                        }
+
+                        if (openConnection) {
                                 m_MasterConnection.Open();
+                        }
 
                         // Personalizo los valores de CultureInfo
                         this.CultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
@@ -124,6 +135,19 @@ namespace Lfx
                         System.Threading.Thread.CurrentThread.CurrentCulture = this.CultureInfo;
                         System.Threading.Thread.CurrentThread.CurrentUICulture = this.CultureInfo;
                 }
+
+
+                public TableCollection Tables
+                {
+                        get
+                        {
+                                if (m_Tables == null) {
+                                        m_Tables = Lfx.Workspace.Master.MasterConnection.GetTables();
+                                }
+                                return m_Tables;
+                        }
+                }
+
 
                 public void InitUpdater()
                 {
@@ -158,7 +182,7 @@ namespace Lfx
                                 return this.Name;
                 }
 
-                public Lfx.Data.Connection MasterConnection
+                public Lfx.Data.IConnection MasterConnection
                 {
                         get
                         {
@@ -192,9 +216,30 @@ namespace Lfx
                         //GC.SuppressFinalize(this);
                 }
 
-                public Lfx.Data.Connection GetNewConnection(string ownerName)
+                public Lazaro.Orm.Data.IConnection GetNewConnection(string ownerName)
                 {
                         Lfx.Data.Connection Res = new Lfx.Data.Connection(this, ownerName);
+
+                        switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
+                                case AccessModes.MySql:
+                                        if (this.Driver == null) {
+                                                this.Driver = new Lazaro.Orm.Data.Drivers.MySqlDriver();
+                                                this.Formatter = new qGen.MySqlFormatter();
+                                                Lfx.Data.DataBaseCache.DefaultCache.OdbcDriver = null;
+                                                Lfx.Data.DataBaseCache.DefaultCache.Mars = false;
+                                                Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
+                                        }
+                                        break;
+                                case AccessModes.Npgsql:
+                                        throw new NotImplementedException("Soporte PostgreSQL no implementado");
+                                case AccessModes.MSSql:
+                                        throw new NotImplementedException("Soporte SQL Server no implementado");
+                                case AccessModes.Odbc:
+                                        throw new NotImplementedException("Soporte ODBC no implementado");
+                        }
+
+                        this.ActiveConnections.Add(Res);
+
                         return Res;
                 }
 
@@ -233,7 +278,7 @@ namespace Lfx
                 /// <param name="noTocarDatos">Actualizar sólo la estructura. No incorpora ni modifica datos.</param>
                 public void CheckAndUpdateDataBaseVersion(bool ignorarFecha, bool noTocarDatos)
                 {
-                        using (Lfx.Data.Connection Conn = Lfx.Workspace.Master.GetNewConnection("Verificar estructura de la base de datos")) {
+                        using (Lfx.Data.IConnection Conn = Lfx.Workspace.Master.GetNewConnection("Verificar estructura de la base de datos") as Lfx.Data.IConnection) {
                                 Conn.RequiresTransaction = false;
                                 int VersionActual = this.CurrentConfig.ReadGlobalSetting<int>("Sistema.DB.Version", 0);
 
@@ -395,7 +440,7 @@ namespace Lfx
                         return System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Lfx." + nombre);
                 }
 
-                private static void InyectarSqlDesdeRecurso(Lfx.Data.Connection dataBase, string archivo)
+                private static void InyectarSqlDesdeRecurso(Lfx.Data.IConnection dataBase, string archivo)
                 {
                         dataBase.RequiresTransaction = false;
                         System.IO.Stream RecursoActualizacion = Lfx.Workspace.ObtenerRecurso(archivo);
@@ -428,7 +473,7 @@ namespace Lfx
                 /// <param name="dataBase">PrintDataBase mediante el cual se accede a la base de datos.</param>
                 /// <param name="omitPreAndPostSql">Omitir la ejecución de comandos Pre- y Post-actualización de estructura. Esto es útil cuando se actualiza una estructura vacía, por ejemplo al crear una base de datos nueva.</param>
                 /// /// <param name="progreso">El objeto sobre el cual reportar el progreso.</param>
-                public void CheckAndUpdateDataBaseStructure(Lfx.Data.Connection dataBase, bool omitPreAndPostSql, Lfx.Types.OperationProgress progreso)
+                public void CheckAndUpdateDataBaseStructure(Lfx.Data.IConnection dataBase, bool omitPreAndPostSql, Lfx.Types.OperationProgress progreso)
                 {
                         progreso.ChangeStatus("Verificando estructuras de datos");
 

@@ -13,16 +13,16 @@ namespace Lbl.Comprobantes
                 public ColeccionGenerica<Lbl.Impresion.TipoImpresora> m_Impresoras = null;
 
                 //Heredar constructor
-                public Tipo(Lfx.Data.Connection dataBase)
+                public Tipo(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Tipo(Lfx.Data.Connection dataBase, int itemId)
+                public Tipo(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public Tipo(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Tipo(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                public Tipo(Lfx.Data.Connection dataBase, string nomenclatura)
+                public Tipo(Lfx.Data.IConnection dataBase, string nomenclatura)
                         : base(dataBase)
                 {
                         Lfx.Data.Row Rw = this.Connection.FirstRowFromSelect("SELECT * FROM documentos_tipos WHERE letra='" + nomenclatura + "'");

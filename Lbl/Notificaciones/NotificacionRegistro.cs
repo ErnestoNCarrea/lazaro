@@ -12,13 +12,13 @@ namespace Lbl.Notificaciones
         public class NotificacionRegistro : ElementoDeDatos, INotificacion
         {
                 //Heredar constructor
-                public NotificacionRegistro(Lfx.Data.Connection dataBase)
+                public NotificacionRegistro(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public NotificacionRegistro(Lfx.Data.Connection dataBase, int itemId)
+                public NotificacionRegistro(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public NotificacionRegistro(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public NotificacionRegistro(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

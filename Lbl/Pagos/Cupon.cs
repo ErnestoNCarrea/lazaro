@@ -20,23 +20,23 @@ namespace Lbl.Pagos
                 private Personas.Persona m_Cliente, m_Vendedor;
 
 		//Heredar constructor
-		public Cupon(Lfx.Data.Connection dataBase)
+		public Cupon(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Cupon(Lfx.Data.Connection dataBase, int itemId)
+                public Cupon(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Cupon(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Cupon(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                /* public Cupon(Lfx.Data.Connection dataBase, Lbl.Comprobantes.ComprobanteConArticulos factura)
+                /* public Cupon(Lfx.Data.IConnection dataBase, Lbl.Comprobantes.ComprobanteConArticulos factura)
                         : this(dataBase)
                 {
                         m_ItemId = dataBase.FieldInt("SELECT MAX(id_cupon) FROM tarjetas_cupones WHERE id_comprob=" + factura.Id.ToString());
                         this.Cargar();
                 } */
 
-                public Cupon(Lfx.Data.Connection dataBase, decimal importe, Pagos.FormaDePago tarjeta, Pagos.Plan plan, string numero, string autorizacion)
+                public Cupon(Lfx.Data.IConnection dataBase, decimal importe, Pagos.FormaDePago tarjeta, Pagos.Plan plan, string numero, string autorizacion)
 			: this(dataBase)
 		{
 			Importe = importe;

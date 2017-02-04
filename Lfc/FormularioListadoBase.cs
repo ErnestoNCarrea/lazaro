@@ -318,8 +318,8 @@ namespace Lfc
                                         case Keys.U:
                                                 e.Handled = true;
                                                 foreach (Lazaro.Pres.Field Fld in this.Definicion.Columns) {
-                                                        if (FormFieldToSubItem.ContainsKey(Lfx.Data.Field.GetNameOnly(Fld.Name)))
-                                                                Listado.Columns[FormFieldToSubItem[Lfx.Data.Field.GetNameOnly(Fld.Name)]].Width = Fld.Width;
+                                                        if (FormFieldToSubItem.ContainsKey(Lazaro.Orm.Data.Field.GetNameOnly(Fld.Name)))
+                                                                Listado.Columns[FormFieldToSubItem[Lazaro.Orm.Data.Field.GetNameOnly(Fld.Name)]].Width = Fld.Width;
                                                 }
                                                 break;
                                 }
@@ -588,8 +588,8 @@ namespace Lfc
                         if (itemId > 0 && this.Definicion.ElementoTipo != null && Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(this.Definicion.ElementoTipo, Lbl.Sys.Permisos.Operaciones.Ver)) {
                                 Lfc.FormularioEdicion FormNuevo = null;
                                 try {
-                                        Lfx.Data.Connection NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + this.Definicion.ElementoTipo.ToString() + " " + itemId);
-                                        Lbl.IElementoDeDatos Elem = Lbl.Instanciador.Instanciar(this.Definicion.ElementoTipo, NuevaDb, itemId);
+                                        var NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + this.Definicion.ElementoTipo.ToString() + " " + itemId) as Lfx.Data.Connection;
+                                        var Elem = Lbl.Instanciador.Instanciar(this.Definicion.ElementoTipo, NuevaDb, itemId);
                                         FormNuevo = Lfc.Instanciador.InstanciarFormularioEdicion(Elem);
                                 } catch (Exception ex) {
                                         return new Lfx.Types.FailureOperationResult(ex.Message);
@@ -688,7 +688,7 @@ namespace Lfc
                                 return;
                         }
 
-                        if (Lfx.Data.Field.HaveSameName(nuevoOrden, this.Definicion.KeyColumn.Name)) {
+                        if (Lazaro.Orm.Data.Field.HaveSameName(nuevoOrden, this.Definicion.KeyColumn.Name)) {
                                 this.Sorter.DataType = this.Definicion.KeyColumn.DataType;
                                 this.Sorter.SortColumn = 0;
                         } else if (Listado.Columns.ContainsKey(nuevoOrden)) {
@@ -821,7 +821,7 @@ namespace Lfc
                 protected qGen.Select SelectCommand(string agrFunction, string onField, qGen.Where additionalFilters)
                 {
                         if (this.Connection != null && this.Definicion != null && this.Definicion.TableName != null) {
-                                qGen.Select ComandoSelect = new qGen.Select(this.Connection.SqlMode);
+                                qGen.Select ComandoSelect = new qGen.Select();
 
                                 // Genero la lista de tablas, con JOIN y todo
                                 string ListaTablas = null;
@@ -1029,7 +1029,7 @@ namespace Lfc
                                 foreach (System.Data.DataRow DtRow in Tabla.Rows) {
                                         Lfx.Data.Row Registro = (Lfx.Data.Row)DtRow;
 
-                                        string NombreCampoId = Lfx.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
+                                        string NombreCampoId = Lazaro.Orm.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
                                         int ItemId = Registro.Fields[NombreCampoId].ValueInt;
 
                                         if (CancelFill) {
@@ -1198,7 +1198,7 @@ namespace Lfc
                         for (int FieldNum = 0; FieldNum < useFields.Count; FieldNum++) {
                                 if (useFields[FieldNum].Printable) {
 
-                                        string FieldName = Lfx.Data.Field.GetNameOnly(useFields[FieldNum].Name);
+                                        string FieldName = Lazaro.Orm.Data.Field.GetNameOnly(useFields[FieldNum].Name);
 
                                         if (FieldNum >= 0) {
                                                 Lazaro.Pres.Spreadsheet.Cell NewCell = Reng.Cells.Add();
@@ -1605,7 +1605,7 @@ namespace Lfc
                                 for (int i = 0; i <= useFields.Count - 1; i++) {
                                         if (useFields[i].Printable) {
                                                 Lazaro.Pres.Spreadsheet.ColumnHeader ColHead = new Lazaro.Pres.Spreadsheet.ColumnHeader(useFields[i].Label, useFields[i].Width);
-                                                ColHead.Name = Lfx.Data.Field.GetNameOnly(useFields[i].Name);
+                                                ColHead.Name = Lazaro.Orm.Data.Field.GetNameOnly(useFields[i].Name);
                                                 ColHead.TextAlignment = useFields[i].Alignment;
                                                 ColHead.DataType = useFields[i].DataType;
                                                 ColHead.Format = useFields[i].Format;
@@ -1627,7 +1627,7 @@ namespace Lfc
                         foreach (System.Data.DataRow DtRow in Tabla.Rows) {
                                 Lfx.Data.Row Registro = (Lfx.Data.Row)DtRow;
 
-                                string NombreCampoId = Lfx.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
+                                string NombreCampoId = Lazaro.Orm.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
                                 int ItemId = Registro.Fields[NombreCampoId].ValueInt;
 
                                 Lazaro.Pres.Spreadsheet.Row Reng = this.FormatRow(ItemId, Registro, Sheet, useFields);

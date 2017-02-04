@@ -6,13 +6,13 @@ namespace Lbl.Comprobantes
         public class Ticket : ComprobanteFacturable
         {
                 //Heredar constructor
-                public Ticket(Lfx.Data.Connection dataBase)
+                public Ticket(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Ticket(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Ticket(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                public Ticket(Lfx.Data.Connection dataBase, int itemId)
+                public Ticket(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
                 public override void Crear()

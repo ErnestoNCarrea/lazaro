@@ -20,7 +20,7 @@ namespace Lbl.Componentes
                         ComLfc.Assembly = System.Reflection.Assembly.LoadFrom("Lfc.dll");
                         Lfx.Components.Manager.RegisterComponent(ComLfc);
 
-                        if (Lfx.Workspace.Master.MasterConnection.Tables.ContainsKey("sys_components")) {
+                        if (Lfx.Workspace.Master.Tables.ContainsKey("sys_components")) {
                                 Lbl.ColeccionGenerica<Lbl.Componentes.Componente> Comps = Lbl.Componentes.Componente.Todos();
                                 // Inicializar todos los componentes
                                 foreach (Lbl.Componentes.Componente Comp in Comps) {

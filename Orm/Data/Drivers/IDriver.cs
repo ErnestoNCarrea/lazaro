@@ -11,7 +11,7 @@ namespace Lazaro.Orm.Data.Drivers
                 IDbDataParameter GetParameter();
 
                 Dictionary<string, string> Keywords { get; set; }
-                bool CompareColumnDefinitions(IColumnDefinition col1, IColumnDefinition col2);
 
+                bool CompareColumnDefinitions(IColumnDefinition col1, IColumnDefinition col2);
         }
 }

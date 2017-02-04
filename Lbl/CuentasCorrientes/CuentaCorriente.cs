@@ -36,7 +36,7 @@ namespace Lbl.CuentasCorrientes
                         }
                 }
 
-                public Lfx.Data.Connection Connection
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {

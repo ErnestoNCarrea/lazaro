@@ -15,16 +15,16 @@ namespace Lbl.Pagos
                 private Lbl.Cajas.Caja m_Caja;
 
                 //Heredar constructor
-		public FormaDePago(Lfx.Data.Connection dataBase)
+		public FormaDePago(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public FormaDePago(Lfx.Data.Connection dataBase, int itemId)
+                public FormaDePago(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public FormaDePago(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public FormaDePago(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-                public FormaDePago(Lfx.Data.Connection dataBase, TiposFormasDePago tipoFormaPago)
+                public FormaDePago(Lfx.Data.IConnection dataBase, TiposFormasDePago tipoFormaPago)
                         : this(dataBase)
                 {
                         m_ItemId = (int)tipoFormaPago;

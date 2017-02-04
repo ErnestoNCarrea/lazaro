@@ -17,13 +17,13 @@ namespace Lbl.Comprobantes
                 private Lbl.Pagos.FormaDePago m_FormaDePago = null;
                 
                 //Heredar constructor
-                public ComprobanteConArticulos(Lfx.Data.Connection dataBase)
+                public ComprobanteConArticulos(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public ComprobanteConArticulos(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public ComprobanteConArticulos(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
 			: base(dataBase, row) { }
 
-		public ComprobanteConArticulos(Lfx.Data.Connection dataBase, int itemId)
+		public ComprobanteConArticulos(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
 

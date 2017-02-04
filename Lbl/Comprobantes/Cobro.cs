@@ -15,15 +15,15 @@ namespace Lbl.Comprobantes
                 public Comprobantes.Recibo Recibo;
 
                 //Heredar constructor
-                public Cobro(Lfx.Data.Connection dataBase) : base(dataBase) { }
+                public Cobro(Lfx.Data.IConnection dataBase) : base(dataBase) { }
 
-                public Cobro(Lfx.Data.Connection dataBase, Lbl.Pagos.FormaDePago formaDePago)
+                public Cobro(Lfx.Data.IConnection dataBase, Lbl.Pagos.FormaDePago formaDePago)
                         : this(dataBase)
                 {
                         FormaDePago = formaDePago;
                 }
 
-                public Cobro(Lfx.Data.Connection dataBase, Lbl.Pagos.TiposFormasDePago tipoFormaDePago)
+                public Cobro(Lfx.Data.IConnection dataBase, Lbl.Pagos.TiposFormasDePago tipoFormaDePago)
                         : this(dataBase)
                 {
                         switch(tipoFormaDePago) {
@@ -51,7 +51,7 @@ namespace Lbl.Comprobantes
                         }
                 }
 
-                public Cobro(Lfx.Data.Connection dataBase, Lbl.Pagos.TiposFormasDePago formaDePago, decimal importe)
+                public Cobro(Lfx.Data.IConnection dataBase, Lbl.Pagos.TiposFormasDePago formaDePago, decimal importe)
                         : this(dataBase, formaDePago)
                 {
                         this.Importe = importe;

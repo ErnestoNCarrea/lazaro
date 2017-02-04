@@ -3,9 +3,11 @@ using System.Collections.Generic;
 namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
-        /// Proveedor compatible ODBC. Este es el único proveedor que está enlazado estáticamente y no trabaja por reflexión.
+        /// Driver for System.Data.Odbc. Untested.
+        /// 
+        /// Not using reflection.
         /// </summary>
-        public class OdbcDriver : AbstractDriver
+        public class OdbcDriver : AbstractDriver, IDriver
         {
                 public OdbcDriver() :
                         base("System.Data.Odbc",

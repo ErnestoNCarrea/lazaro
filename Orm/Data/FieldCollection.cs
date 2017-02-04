@@ -1,35 +1,36 @@
 using System;
 using System.Collections.Generic;
 
-namespace Lfx.Data
+namespace Lazaro.Orm.Data
 {
-        [Serializable]
-	public class FieldCollection : List<Field>
+	public class FieldCollection : List<IField>
 	{
 		public FieldCollection()
 		{
 		}
 
-		public virtual Field this[string columnName]
+		public virtual IField this[string columnName]
 		{
 			get
 			{
-				foreach(Field Itm in this) {
+				foreach(IField Itm in this) {
 					if(Itm.ColumnName == columnName)
 						return Itm;
 				}
 
-                                foreach (Field Itm in this) {
-                                        if (Itm.ColumnName != null && Lfx.Data.Field.GetNameOnly(Itm.ColumnName) == columnName)
+                                foreach (IField Itm in this) {
+                                        // FIXME: no puedo depender de Field
+                                        if (Itm.ColumnName != null && Field.GetNameOnly(Itm.ColumnName) == columnName)
                                                 return Itm;
                                 }
 
-                                foreach (Field Itm in this) {
-                                        if (Itm.ColumnName == Lfx.Data.Field.GetNameOnly(columnName))
+                                foreach (IField Itm in this) {
+                                        // FIXME: no puedo depender de Field
+                                        if (Itm.ColumnName == Field.GetNameOnly(columnName))
                                                 return Itm;
                                 }
 				//Si no existe, creo dinámicamente el campo
-				Field Res = new Field(columnName);
+				var Res = new Field(columnName);
 				this.Add(Res);
 				return Res;
 			}
@@ -53,7 +54,7 @@ namespace Lfx.Data
 
                 public bool Contains(string columnName)
                 {
-                        foreach (Field Itm in this) {
+                        foreach (IField Itm in this) {
                                 if (Itm.ColumnName.ToUpperInvariant() == columnName.ToUpperInvariant())
                                         return true;
                         }
@@ -77,6 +78,7 @@ namespace Lfx.Data
 
                 public virtual void AddWithValue(string fieldName, object fieldValue)
                 {
+                        // FIXME: no puedo depender de Field
                         this.Add(new Field(fieldName, fieldValue));
                 }
 	}

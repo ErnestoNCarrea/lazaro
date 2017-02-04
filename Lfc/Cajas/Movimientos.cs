@@ -44,10 +44,10 @@ namespace Lfc.Cajas
                                 },
 
                                 Filters = new Lazaro.Pres.Filters.FilterCollection() {
-                                        new Lazaro.Pres.Filters.RelationFilter("Caja", new Lfx.Data.Relation("cajas_movim.id_caja", "cajas", "cajas.id_caja")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Persona", new Lfx.Data.Relation("cajas_movim.id_cliente", "personas", "personas.id_persona", "nombre_visible")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Usuario", new Lfx.Data.Relation("cajas_movim.id_persona", "personas", "personas.id_persona", "nombre_visible")),
-                                        new Lazaro.Pres.Filters.RelationFilter("Concepto", new Lfx.Data.Relation("cajas_movim.id_concepto", "conceptos", "conceptos.id_concepto")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Caja", new Lazaro.Orm.Data.Relation("cajas_movim.id_caja", "cajas", "cajas.id_caja")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Persona", new Lazaro.Orm.Data.Relation("cajas_movim.id_cliente", "personas", "personas.id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Usuario", new Lazaro.Orm.Data.Relation("cajas_movim.id_persona", "personas", "personas.id_persona", "nombre_visible")),
+                                        new Lazaro.Pres.Filters.RelationFilter("Concepto", new Lazaro.Orm.Data.Relation("cajas_movim.id_concepto", "conceptos", "conceptos.id_concepto")),
                                         new Lazaro.Pres.Filters.SetFilter("Tipo", "conceptos.grupo", new string[] { 
                                                 "Todos|0",
                                                 "Gastos fijos|1",
@@ -308,12 +308,12 @@ namespace Lfc.Cajas
 
                 protected override Lfx.Types.OperationResult OnEdit(int itemId)
                 {
-                        Lfx.Data.Row Movim = this.Connection.Tables["cajas_movim"].FastRows[itemId];
+                        Lfx.Data.Row Movim = Lfx.Workspace.Master.Tables["cajas_movim"].FastRows[itemId];
                         if (Movim != null) {
                                 if (Movim.Fields["id_recibo"].Value != null) {
                                         int IdRecibo = Movim.Fields["id_recibo"].ValueInt;
                                         Type TipoRecibo = typeof(Lbl.Comprobantes.Recibo);
-                                        Lfx.Data.Connection NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + TipoRecibo.ToString() + " " + IdRecibo);
+                                        Lfx.Data.Connection NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + TipoRecibo.ToString() + " " + IdRecibo) as Lfx.Data.Connection;
                                         Lbl.IElementoDeDatos Elem = Lbl.Instanciador.Instanciar(TipoRecibo, NuevaDb, IdRecibo);
                                         Lfc.FormularioEdicion FormNuevo = Lfc.Instanciador.InstanciarFormularioEdicion(Elem);
                                         FormNuevo.DisposeConnection = true;
@@ -324,7 +324,7 @@ namespace Lfc.Cajas
                                 } else if (Movim.Fields["id_comprob"].Value != null) {
                                         int IdComprob = Movim.Fields["id_comprob"].ValueInt;
                                         Type TipoRecibo = typeof(Lbl.Comprobantes.ComprobanteConArticulos);
-                                        Lfx.Data.Connection NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + TipoRecibo.ToString() + " " + IdComprob);
+                                        var NuevaDb = Lfx.Workspace.Master.GetNewConnection("Editar " + TipoRecibo.ToString() + " " + IdComprob) as Lfx.Data.Connection;
                                         Lbl.IElementoDeDatos Elem = Lbl.Instanciador.Instanciar(TipoRecibo, NuevaDb, IdComprob);
                                         Lfc.FormularioEdicion FormNuevo = Lfc.Instanciador.InstanciarFormularioEdicion(Elem);
                                         FormNuevo.DisposeConnection = true;

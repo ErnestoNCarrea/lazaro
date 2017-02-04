@@ -10,13 +10,13 @@ namespace Lbl.Bancos
 	public class Banco : ElementoDeDatos
 	{
 		//Heredar constructor
-		public Banco(Lfx.Data.Connection dataBase)
+		public Banco(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Banco(Lfx.Data.Connection dataBase, int itemId)
+		public Banco(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Banco(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Banco(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 	}
 }

@@ -17,13 +17,13 @@ namespace Lbl.Sys.Permisos
                 public Objeto Objeto = null;
 
                 //Heredar constructor
-		public Permiso(Lfx.Data.Connection dataBase)
+		public Permiso(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Permiso(Lfx.Data.Connection dataBase, int itemId)
+		public Permiso(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Permiso(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Permiso(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public Permiso(Lbl.Personas.Usuario usuario, Objeto tipo, Operaciones ops, ListaIds item)

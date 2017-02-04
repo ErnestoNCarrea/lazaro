@@ -17,13 +17,13 @@ namespace Lbl.Entidades
                 private Moneda m_Moneda = null;
 
                 //Heredar constructor
-                public Pais(Lfx.Data.Connection dataBase)
+                public Pais(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Pais(Lfx.Data.Connection dataBase, int itemId)
+                public Pais(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public Pais(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Pais(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

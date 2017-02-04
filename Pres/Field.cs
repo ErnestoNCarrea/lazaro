@@ -1,3 +1,4 @@
+using Lazaro.Orm.Data;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +22,7 @@ namespace Lazaro.Pres
                 public object TotalFunction { get; set; }
 
                 public IDictionary<int, string> SetValues { get; set; }
-                public Lfx.Data.Relation Relation { get; set; }
+                public Relation Relation { get; set; }
 
                 public bool Visible { get; set; }
                 public bool ReadOnly { get; set; }
@@ -72,7 +73,7 @@ namespace Lazaro.Pres
                 }
 
 
-                public Field(string name, string label, int width, Lfx.Data.Relation relation)
+                public Field(string name, string label, int width, Relation relation)
                         : this(name, label, Lfx.Data.InputFieldTypes.Relation, width)
                 {
                         this.Relation = relation;

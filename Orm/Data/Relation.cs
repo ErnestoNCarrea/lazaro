@@ -1,8 +1,7 @@
 using System;
 
-namespace Lfx.Data
+namespace Lazaro.Orm.Data
 {
-        [Serializable]
         public class Relation
         {
                 /// <summary>

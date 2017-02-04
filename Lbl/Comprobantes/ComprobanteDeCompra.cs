@@ -11,13 +11,13 @@ namespace Lbl.Comprobantes
         {
                 //Requiere permisos de comprobantes con articulos 
                 //Heredar constructor
-                public ComprobanteDeCompra(Lfx.Data.Connection dataBase)
+                public ComprobanteDeCompra(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public ComprobanteDeCompra(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public ComprobanteDeCompra(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
 			: base(dataBase, row) { }
 
-                public ComprobanteDeCompra(Lfx.Data.Connection dataBase, int itemId)
+                public ComprobanteDeCompra(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
                 public override void Crear()

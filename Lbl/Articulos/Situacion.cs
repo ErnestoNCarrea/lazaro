@@ -10,12 +10,12 @@ namespace Lbl.Articulos
 	public class Situacion : ElementoDeDatos
 	{
 		//Heredar constructor
-		public Situacion(Lfx.Data.Connection dataBase) : base(dataBase) { }
+		public Situacion(Lfx.Data.IConnection dataBase) : base(dataBase) { }
 
-		public Situacion(Lfx.Data.Connection dataBase, int itemId)
+		public Situacion(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Situacion(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Situacion(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

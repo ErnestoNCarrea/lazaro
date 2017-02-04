@@ -1,16 +1,17 @@
 using System;
 using Lazaro.Orm;
 
-namespace Lfx.Data
+namespace Lazaro.Orm.Data
 {
-        [Serializable]
-	public class Field
+	public class Field : IField
 	{
-		public string ColumnName, m_Label;
-		public object Value = null;
-		public Lazaro.Orm.ColumnTypes DataType = Lazaro.Orm.ColumnTypes.VarChar;
+                public string ColumnName { get; set; }
+		public object Value { get; set; }
+		public ColumnTypes DataType { get; set; } = ColumnTypes.VarChar;
 
-		public Field(string columnName)
+                protected string m_Label;
+
+                public Field(string columnName)
 		{
 			this.ColumnName = columnName;
 		}
@@ -54,7 +55,7 @@ namespace Lfx.Data
 
                 public virtual Field Clone()
                 {
-                        Field Res = new Field(this.ColumnName);
+                        var Res = new Field(this.ColumnName);
                         Res.m_Label = this.m_Label;
                         Res.Value = this.Value;
                         Res.DataType = this.DataType;

@@ -16,13 +16,13 @@ namespace Lbl.Impuestos
         [Entity(TableName = "alicuotas", IdFieldName = "id_alicuota")]
         public class Alicuota : ElementoDeDatos, IEntity<Alicuota>
         {
-                public Alicuota(Lfx.Data.Connection dataBase)
+                public Alicuota(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public Alicuota(Lfx.Data.Connection dataBase, int itemId)
+                public Alicuota(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Alicuota(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Alicuota(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

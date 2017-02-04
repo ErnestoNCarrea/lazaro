@@ -297,8 +297,8 @@ namespace Lfc.Comprobantes
                         foreach (System.Data.DataRow Comprob in Comprobs.Rows) {
                                 Lazaro.Pres.Spreadsheet.Row Reng = new Lazaro.Pres.Spreadsheet.Row();
 
-                                if (m_Agrupar.Length > 0 && Comprob[Lfx.Data.Field.GetNameOnly(m_Agrupar)].ToString() != UltimoValorAgrupar) {
-                                        UltimoValorAgrupar = Comprob[Lfx.Data.Field.GetNameOnly(m_Agrupar)].ToString();
+                                if (m_Agrupar.Length > 0 && Comprob[Lazaro.Orm.Data.Field.GetNameOnly(m_Agrupar)].ToString() != UltimoValorAgrupar) {
+                                        UltimoValorAgrupar = Comprob[Lazaro.Orm.Data.Field.GetNameOnly(m_Agrupar)].ToString();
 
                                         if (SubTotal > 0) {
                                                 Lazaro.Pres.Spreadsheet.Row SubTotal1 = new Lazaro.Pres.Spreadsheet.Row();
@@ -326,7 +326,7 @@ namespace Lfc.Comprobantes
                                                         break;
 
                                                 case "DAYOFWEEK(comprob.fecha)":
-                                                        switch (System.Convert.ToInt32(Comprob[Lfx.Data.Field.GetNameOnly(m_Agrupar)])) {
+                                                        switch (System.Convert.ToInt32(Comprob[Lazaro.Orm.Data.Field.GetNameOnly(m_Agrupar)])) {
                                                                 case 1:
                                                                         NombreGrupo = "Domingo";
                                                                         break;

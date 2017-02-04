@@ -21,13 +21,13 @@ namespace Lbl.Entidades
         public class ClaveUnica : ElementoDeDatos
         {
                 //Heredar constructor
-                public ClaveUnica(Lfx.Data.Connection dataBase)
+                public ClaveUnica(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-                public ClaveUnica(Lfx.Data.Connection dataBase, int itemId)
+                public ClaveUnica(Lfx.Data.IConnection dataBase, int itemId)
                         : base(dataBase, itemId) { }
 
-                public ClaveUnica(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public ClaveUnica(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

@@ -6,7 +6,7 @@ namespace Lbl.Comprobantes
 {
         public class Lote : ColeccionGenerica<ComprobanteConArticulos>
         {
-                public Lote(Lfx.Data.Connection dataBase)
+                public Lote(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
         }
 }

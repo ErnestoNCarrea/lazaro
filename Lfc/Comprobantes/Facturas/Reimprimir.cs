@@ -90,7 +90,7 @@ namespace Lfc.Comprobantes.Facturas
 
                 private void ProcesarReimpresion(string tipo, int pv, int desde, int hasta)
                 {
-                        using (Lfx.Data.Connection Conn = Lfx.Workspace.Master.GetNewConnection("Reimpresión de comprobantes"))
+                        using (var Conn = Lfx.Workspace.Master.GetNewConnection("Reimpresión de comprobantes") as Lfx.Data.Connection)
                         using (System.Data.IDbTransaction Trans = Conn.BeginTransaction()) {
                                 int Cantidad = Math.Abs(hasta - desde);
                                 Lfx.Types.OperationProgress Progreso = new Lfx.Types.OperationProgress("Reimprimiendo", "Se están reimprimiendo " + Cantidad.ToString() + " comprobantes.");

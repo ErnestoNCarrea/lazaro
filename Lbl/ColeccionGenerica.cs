@@ -11,20 +11,20 @@ namespace Lbl
         {
                 public bool HayAgregados = false, HayQuitados = false;
 
-                public Lfx.Data.Connection DataBase;
+                public Lfx.Data.IConnection DataBase;
                 // public List<T> List = new List<T>();
 
                 public ColeccionGenerica()
                 {
                 }
 
-                public ColeccionGenerica(Lfx.Data.Connection dataBase)
+                public ColeccionGenerica(Lfx.Data.IConnection dataBase)
                         : this()
                 {
                         this.DataBase = dataBase;
                 }
 
-                public ColeccionGenerica(Lfx.Data.Connection dataBase, System.Data.DataTable tabla)
+                public ColeccionGenerica(Lfx.Data.IConnection dataBase, System.Data.DataTable tabla)
                         : this(dataBase)
                 {
                         this.Clear();
@@ -32,7 +32,7 @@ namespace Lbl
                 }
 
 
-                public ColeccionGenerica(Lfx.Data.Connection dataBase, Lfx.Data.Table tabla)
+                public ColeccionGenerica(Lfx.Data.IConnection dataBase, Lfx.Data.Table tabla)
                         : this(dataBase)
                 {
                         this.Clear();

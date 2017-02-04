@@ -83,7 +83,7 @@ namespace Lfc
 
                 public virtual Lbl.IElementoDeDatos Crear()
                 {
-                        Lbl.IElementoDeDatos El = Lbl.Instanciador.Instanciar(this.Definicion.ElementoTipo, Lfx.Workspace.Master.GetNewConnection("Crear " + this.Definicion.ElementoTipo.ToString()));
+                        Lbl.IElementoDeDatos El = Lbl.Instanciador.Instanciar(this.Definicion.ElementoTipo, Lfx.Workspace.Master.GetNewConnection("Crear " + this.Definicion.ElementoTipo.ToString()) as Lfx.Data.Connection);
                         El.Crear();
                         return El;
                 }

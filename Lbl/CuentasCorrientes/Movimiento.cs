@@ -9,13 +9,13 @@ namespace Lbl.CuentasCorrientes
         public class Movimiento : ElementoDeDatos
         {
                 //Heredar constructor
-		public Movimiento(Lfx.Data.Connection dataBase)
+		public Movimiento(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Movimiento(Lfx.Data.Connection dataBase, int itemId)
+		public Movimiento(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Movimiento(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Movimiento(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
 

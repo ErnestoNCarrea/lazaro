@@ -72,7 +72,7 @@ namespace Lazaro.WinMain.Config
                         // EntradaSucursal
                         // 
                         this.EntradaSucursal.DataType = Lui.Forms.DataTypes.Integer;
-                        this.EntradaSucursal.Location = new System.Drawing.Point(280, 312);
+                        this.EntradaSucursal.Location = new System.Drawing.Point(280, 278);
                         this.EntradaSucursal.Name = "EntradaSucursal";
                         this.EntradaSucursal.Size = new System.Drawing.Size(60, 24);
                         this.EntradaSucursal.TabIndex = 16;
@@ -80,7 +80,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // label5
                         // 
-                        this.label5.Location = new System.Drawing.Point(64, 312);
+                        this.label5.Location = new System.Drawing.Point(64, 278);
                         this.label5.Name = "label5";
                         this.label5.Size = new System.Drawing.Size(216, 24);
                         this.label5.TabIndex = 15;
@@ -89,14 +89,14 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaBD
                         // 
-                        this.EntradaBD.Location = new System.Drawing.Point(280, 216);
+                        this.EntradaBD.Location = new System.Drawing.Point(280, 182);
                         this.EntradaBD.Name = "EntradaBD";
                         this.EntradaBD.Size = new System.Drawing.Size(172, 24);
                         this.EntradaBD.TabIndex = 7;
                         // 
                         // Label2
                         // 
-                        this.Label2.Location = new System.Drawing.Point(64, 216);
+                        this.Label2.Location = new System.Drawing.Point(64, 182);
                         this.Label2.Name = "Label2";
                         this.Label2.Size = new System.Drawing.Size(216, 24);
                         this.Label2.TabIndex = 6;
@@ -110,10 +110,8 @@ namespace Lazaro.WinMain.Config
                         this.EntradaConexion.Location = new System.Drawing.Point(280, 152);
                         this.EntradaConexion.Name = "EntradaConexion";
                         this.EntradaConexion.SetData = new string[] {
-        "ODBC|odbc",
-        "MariaDB/MySQL|mysql",
-        "PostgreSQL|npgsql"};
-                        this.EntradaConexion.Size = new System.Drawing.Size(196, 57);
+        "MariaDB/MySQL|mysql"};
+                        this.EntradaConexion.Size = new System.Drawing.Size(196, 23);
                         this.EntradaConexion.TabIndex = 5;
                         this.EntradaConexion.TextKey = "mysql";
                         this.EntradaConexion.TextChanged += new System.EventHandler(this.EntradaConexion_TextChanged);
@@ -129,7 +127,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaContrasena
                         // 
-                        this.EntradaContrasena.Location = new System.Drawing.Point(280, 280);
+                        this.EntradaContrasena.Location = new System.Drawing.Point(280, 246);
                         this.EntradaContrasena.Name = "EntradaContrasena";
                         this.EntradaContrasena.PasswordChar = '*';
                         this.EntradaContrasena.Size = new System.Drawing.Size(124, 24);
@@ -137,14 +135,14 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaUsuario
                         // 
-                        this.EntradaUsuario.Location = new System.Drawing.Point(280, 248);
+                        this.EntradaUsuario.Location = new System.Drawing.Point(280, 214);
                         this.EntradaUsuario.Name = "EntradaUsuario";
                         this.EntradaUsuario.Size = new System.Drawing.Size(124, 24);
                         this.EntradaUsuario.TabIndex = 9;
                         // 
                         // Label28
                         // 
-                        this.Label28.Location = new System.Drawing.Point(64, 280);
+                        this.Label28.Location = new System.Drawing.Point(64, 246);
                         this.Label28.Name = "Label28";
                         this.Label28.Size = new System.Drawing.Size(216, 24);
                         this.Label28.TabIndex = 10;
@@ -153,7 +151,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // Label29
                         // 
-                        this.Label29.Location = new System.Drawing.Point(64, 248);
+                        this.Label29.Location = new System.Drawing.Point(64, 214);
                         this.Label29.Name = "Label29";
                         this.Label29.Size = new System.Drawing.Size(216, 24);
                         this.Label29.TabIndex = 8;

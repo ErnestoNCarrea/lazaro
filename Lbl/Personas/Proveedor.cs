@@ -13,13 +13,13 @@ namespace Lbl.Personas
         public class Proveedor : Persona
         {
                 // Heredar constructores
-                public Proveedor(Lfx.Data.Connection dataBase)
+                public Proveedor(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Proveedor(Lfx.Data.Connection dataBase, int itemId)
+		public Proveedor(Lfx.Data.IConnection dataBase, int itemId)
 			: base(dataBase, itemId) { }
 
-                public Proveedor(Lfx.Data.Connection dataBase, Lfx.Data.Row row)
+                public Proveedor(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
                 public override void Crear()
