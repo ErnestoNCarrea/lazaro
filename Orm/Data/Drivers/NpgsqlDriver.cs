@@ -1,11 +1,20 @@
-using System;
 using System.Collections.Generic;
 
-namespace qGen.Providers
+namespace Lazaro.Orm.Data.Drivers
 {
-        public class NpgsqlSettings : ProviderSettings
+        /// <summary>
+        /// Proveedor compatible con Npgsql versión 2. Requiere la presencia de Npgsql.dll en el directorio del programa.
+        /// </summary>
+        public class NpgsqlDriver : AbstractDriver
         {
-                public NpgsqlSettings()
+                public NpgsqlDriver() :
+                        base("Npgsql",
+                        "Npgsql",
+                        "NpgsqlConnection",
+                        "NpgsqlCommand",
+                        "NpgsqlDataAdapter",
+                        "NpgsqlParameter",
+                        "NpgsqlTransacion")
                 {
                         this.Keywords = new Dictionary<string, string>() {
                                 { "SERIAL", "SERIAL" },
@@ -21,3 +30,4 @@ namespace qGen.Providers
                 }
         }
 }
+

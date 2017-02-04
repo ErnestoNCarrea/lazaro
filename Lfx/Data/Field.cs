@@ -1,4 +1,5 @@
 using System;
+using Lazaro.Orm;
 
 namespace Lfx.Data
 {
@@ -7,7 +8,7 @@ namespace Lfx.Data
 	{
 		public string ColumnName, m_Label;
 		public object Value = null;
-		public Lfx.Data.DbTypes DataType = Lfx.Data.DbTypes.VarChar;
+		public Lazaro.Orm.ColumnTypes DataType = Lazaro.Orm.ColumnTypes.VarChar;
 
 		public Field(string columnName)
 		{
@@ -19,18 +20,18 @@ namespace Lfx.Data
                 {
                         this.Value = value;
                         if (value is double || value is decimal)
-                                this.DataType = DbTypes.Numeric;
+                                this.DataType = ColumnTypes.Numeric;
                         else if (value is int || value is long)
-                                this.DataType = DbTypes.Integer;
+                                this.DataType = ColumnTypes.Integer;
                         else if (value is DateTime)
-                                this.DataType = DbTypes.DateTime;
+                                this.DataType = ColumnTypes.DateTime;
                         else if (value is bool)
-                                this.DataType = DbTypes.SmallInt;
+                                this.DataType = ColumnTypes.SmallInt;
                         else if (value is byte[])
-                                this.DataType = DbTypes.Blob;
+                                this.DataType = ColumnTypes.Blob;
                 }
 
-                public Field(string columnName, DbTypes fieldType, object fieldValue)
+                public Field(string columnName, ColumnTypes fieldType, object fieldValue)
                         : this(columnName, fieldValue)
                 {
                         this.DataType = fieldType;

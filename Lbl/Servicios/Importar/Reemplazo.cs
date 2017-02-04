@@ -9,7 +9,7 @@ namespace Lbl.Servicios.Importar
                 public object Buscar, ReemplazarCon;
                 public bool MatchSubString = false;
                 public string NombreCampo = null;
-                public Lfx.Data.DbTypes Tipo = Lfx.Data.DbTypes.VarChar;
+                public Lazaro.Orm.ColumnTypes Tipo = Lazaro.Orm.ColumnTypes.VarChar;
 
                 public Reemplazo(object buscar, object reemplazarCon)
                 {
@@ -17,11 +17,11 @@ namespace Lbl.Servicios.Importar
                         this.ReemplazarCon = reemplazarCon;
 
                         if(buscar is int)
-                                this.Tipo = Lfx.Data.DbTypes.Integer;
+                                this.Tipo = Lazaro.Orm.ColumnTypes.Integer;
                         else if (buscar is double || buscar is decimal)
-                                this.Tipo = Lfx.Data.DbTypes.Numeric;
+                                this.Tipo = Lazaro.Orm.ColumnTypes.Numeric;
                         else if (buscar is DateTime)
-                                this.Tipo = Lfx.Data.DbTypes.DateTime;
+                                this.Tipo = Lazaro.Orm.ColumnTypes.DateTime;
                 }
 
                 public Reemplazo(object buscar, object reemplazarCon, string nombreCampo)

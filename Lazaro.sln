@@ -39,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afip.ControladorFiscal", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afip.Ws", "Afip.Ws\Afip.Ws.csproj", "{1A57768A-7DC2-4832-90DA-5B613C208816}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orm", "Orm\Orm.csproj", "{01085C08-19AD-4390-9822-1895AC99167A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -258,6 +260,22 @@ Global
 		{1A57768A-7DC2-4832-90DA-5B613C208816}.Release|Rel.Build.0 = Release|Any CPU
 		{1A57768A-7DC2-4832-90DA-5B613C208816}.Release|x86.ActiveCfg = Release|x86
 		{1A57768A-7DC2-4832-90DA-5B613C208816}.Release|x86.Build.0 = Release|x86
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Dev.ActiveCfg = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Dev.Build.0 = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Rel.ActiveCfg = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|Rel.Build.0 = Debug|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|x86.ActiveCfg = Debug|x86
+		{01085C08-19AD-4390-9822-1895AC99167A}.Debug|x86.Build.0 = Debug|x86
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Dev.ActiveCfg = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Dev.Build.0 = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Rel.ActiveCfg = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|Rel.Build.0 = Release|Any CPU
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|x86.ActiveCfg = Release|x86
+		{01085C08-19AD-4390-9822-1895AC99167A}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

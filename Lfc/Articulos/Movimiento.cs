@@ -46,8 +46,8 @@ namespace Lfc.Articulos
                                         if (EntradaArticulo.DatosSeguimiento == null || EntradaArticulo.DatosSeguimiento.Count == 0) {
                                                 return new Lfx.Types.FailureOperationResult("Debe ingresar los datos de seguimiento (Ctrl-S) del artículo '" + Art.Nombre + "' para poder realizar movimientos de stock.");
                                         } else {
-                                                if (EntradaArticulo.DatosSeguimiento.CantidadTotal < EntradaArticulo.Cantidad)
-                                                        return new Lfx.Types.FailureOperationResult("Debe ingresar los datos de seguimiento (Ctrl-S) de todos los artículos '" + Art.Nombre + "' para poder realizar movimientos de stock.");
+                                                if (EntradaArticulo.DatosSeguimiento.CantidadTotal < EntradaCantidad.ValueDecimal)
+                                                        return new Lfx.Types.FailureOperationResult("Debe proporcionar " + EntradaCantidad.ValueInt.ToString() + " datos de seguimiento para el artículo '" + Art.Nombre + "' para poder realizar movimientos de stock. Proporcione datos de seguimiento presionando Ctrl-S sobre el artículo.");
                                         }
                                 }
                         }

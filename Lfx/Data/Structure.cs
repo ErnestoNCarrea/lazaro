@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Lazaro.Orm;
 
 namespace Lfx.Data
 {
@@ -154,77 +155,77 @@ namespace Lfx.Data
                                                 switch (ColumnaXml.Attributes["inputtype"].Value) {
                                                         case "AlphanumericSet":
                                                                 Columna.InputFieldType = InputFieldTypes.AlphanumericSet;
-                                                                Columna.FieldType = DbTypes.VarChar;
+                                                                Columna.FieldType = ColumnTypes.VarChar;
                                                                 break;
                                                         case "Binary":
                                                                 Columna.InputFieldType = InputFieldTypes.Binary;
-                                                                Columna.FieldType = DbTypes.Blob;
+                                                                Columna.FieldType = ColumnTypes.Blob;
                                                                 break;
                                                         case "Bool":
                                                                 Columna.InputFieldType = InputFieldTypes.Bool;
-                                                                Columna.FieldType = DbTypes.TinyInt;
+                                                                Columna.FieldType = ColumnTypes.TinyInt;
                                                                 break;
                                                         case "Currency":
                                                                 Columna.InputFieldType = InputFieldTypes.Currency;
-                                                                Columna.FieldType = DbTypes.Currency;
+                                                                Columna.FieldType = ColumnTypes.Currency;
                                                                 Columna.Lenght = 15;
                                                                 Columna.Precision = 4;
                                                                 break;
                                                         case "Date":
                                                                 Columna.InputFieldType = InputFieldTypes.Date;
-                                                                Columna.FieldType = DbTypes.DateTime;
+                                                                Columna.FieldType = ColumnTypes.DateTime;
                                                                 break;
                                                         case "DateTime":
                                                                 Columna.InputFieldType = InputFieldTypes.DateTime;
-                                                                Columna.FieldType = DbTypes.DateTime;
+                                                                Columna.FieldType = ColumnTypes.DateTime;
                                                                 break;
                                                         case "Image":
                                                                 Columna.InputFieldType = InputFieldTypes.Image;
-                                                                Columna.FieldType = DbTypes.Blob;
+                                                                Columna.FieldType = ColumnTypes.Blob;
                                                                 break;
                                                         case "Integer":
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
-                                                                Columna.FieldType = DbTypes.Integer;
+                                                                Columna.FieldType = ColumnTypes.Integer;
                                                                 break;
                                                         case "MediumInt":
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
-                                                                Columna.FieldType = DbTypes.MediumInt;
+                                                                Columna.FieldType = ColumnTypes.MediumInt;
                                                                 break;
                                                         case "SmallInt":
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
-                                                                Columna.FieldType = DbTypes.SmallInt;
+                                                                Columna.FieldType = ColumnTypes.SmallInt;
                                                                 break;
                                                         case "TinyInt":
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
-                                                                Columna.FieldType = DbTypes.TinyInt;
+                                                                Columna.FieldType = ColumnTypes.TinyInt;
                                                                 break;
                                                         case "Memo":
                                                                 Columna.InputFieldType = InputFieldTypes.Memo;
-                                                                Columna.FieldType = DbTypes.Text;
+                                                                Columna.FieldType = ColumnTypes.Text;
                                                                 break;
                                                         case "Numeric":
                                                                 Columna.InputFieldType = InputFieldTypes.Numeric;
-                                                                Columna.FieldType = DbTypes.Numeric;
+                                                                Columna.FieldType = ColumnTypes.Numeric;
                                                                 Columna.Lenght = 15;
                                                                 Columna.Precision = 4;
                                                                 break;
                                                         case "NumericSet":
                                                                 Columna.InputFieldType = InputFieldTypes.NumericSet;
-                                                                Columna.FieldType = DbTypes.SmallInt;
+                                                                Columna.FieldType = ColumnTypes.SmallInt;
                                                                 break;
                                                         case "Relation":
                                                                 Columna.InputFieldType = InputFieldTypes.Relation;
                                                                 if (ColumnaXml.Attributes["relation_table"] != null)
                                                                         Columna.Relation = new Relation(Columna.Name, ColumnaXml.Attributes["relation_table"].Value, ColumnaXml.Attributes["relation_key"].Value, ColumnaXml.Attributes["relation_detail"].Value);
-                                                                Columna.FieldType = DbTypes.Integer;
+                                                                Columna.FieldType = ColumnTypes.Integer;
                                                                 break;
                                                         case "Serial":
                                                                 Columna.InputFieldType = InputFieldTypes.Serial;
-                                                                Columna.FieldType = DbTypes.Serial;
+                                                                Columna.FieldType = ColumnTypes.Serial;
                                                                 break;
                                                         case "Text":
                                                                 Columna.InputFieldType = InputFieldTypes.Text;
-                                                                Columna.FieldType = DbTypes.VarChar;
+                                                                Columna.FieldType = ColumnTypes.VarChar;
                                                                 break;
                                                         default:
                                                                 throw new NotImplementedException("Lfx.Data.DataBaseCache.CargarEstructuraDesdeXml: Falta implementar " + ColumnaXml.Attributes["inputtype"].Value);
@@ -235,7 +236,7 @@ namespace Lfx.Data
 
                                         if (ColumnaXml.Attributes["lenght"] != null)
                                                 Columna.Lenght = Lfx.Types.Parsing.ParseInt(ColumnaXml.Attributes["lenght"].Value);
-                                        else if (Columna.FieldType == DbTypes.VarChar)
+                                        else if (Columna.FieldType == ColumnTypes.VarChar)
                                                 // La longitud predeterminada para los campos VarChar es de 200
                                                 Columna.Lenght = 200;
 
@@ -269,27 +270,27 @@ namespace Lfx.Data
                                                 Columna.DefaultValue = ColumnaXml.Attributes["default"].Value;
                                         } else {
                                                 switch (Columna.FieldType) {
-                                                        case DbTypes.VarChar:
+                                                        case ColumnTypes.VarChar:
                                                                 Columna.DefaultValue = null;
                                                                 break;
-                                                        case DbTypes.Text:
-                                                        case DbTypes.Blob:
+                                                        case ColumnTypes.Text:
+                                                        case ColumnTypes.Blob:
                                                                 Columna.DefaultValue = null;
                                                                 break;
-                                                        case DbTypes.Currency:
-                                                        case DbTypes.Integer:
-                                                        case DbTypes.NonExactDecimal:
-                                                        case DbTypes.Numeric:
-                                                        case DbTypes.Serial:
-                                                        case DbTypes.SmallInt:
-                                                        case DbTypes.TinyInt:
-                                                        case DbTypes.MediumInt:
+                                                        case ColumnTypes.Currency:
+                                                        case ColumnTypes.Integer:
+                                                        case ColumnTypes.NonExactDecimal:
+                                                        case ColumnTypes.Numeric:
+                                                        case ColumnTypes.Serial:
+                                                        case ColumnTypes.SmallInt:
+                                                        case ColumnTypes.TinyInt:
+                                                        case ColumnTypes.MediumInt:
                                                                 if (Columna.Nullable)
                                                                         Columna.DefaultValue = "NULL";
                                                                 else
                                                                         Columna.DefaultValue = null;
                                                                 break;
-                                                        case DbTypes.DateTime:
+                                                        case ColumnTypes.DateTime:
                                                                 Columna.DefaultValue = null;
                                                                 break;
                                                         default:
@@ -309,10 +310,10 @@ namespace Lfx.Data
                                         foreach (Data.Tag Tg in this.TagList[Tabla.Name]) {
                                                 Lfx.Data.ColumnDefinition Columna = new Lfx.Data.ColumnDefinition(Tg.FieldName, Tg.FieldType);
                                                 switch (Columna.FieldType) {
-                                                        case Lfx.Data.DbTypes.VarChar:
+                                                        case Lazaro.Orm.ColumnTypes.VarChar:
                                                                 Columna.Lenght = 200;
                                                                 break;
-                                                        case Lfx.Data.DbTypes.Numeric:
+                                                        case Lazaro.Orm.ColumnTypes.Numeric:
                                                                 Columna.Lenght = 15;
                                                                 Columna.Precision = 4;
                                                                 break;

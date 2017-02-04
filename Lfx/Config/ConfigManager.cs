@@ -332,15 +332,15 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("id_sucursal", Lfx.Data.DbTypes.Integer, branch));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lfx.Data.DbTypes.VarChar, "*"));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lfx.Data.DbTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lfx.Data.DbTypes.VarChar, stringValue));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("id_sucursal", Lazaro.Orm.ColumnTypes.Integer, branch));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, "*"));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 DataBase.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lfx.Data.DbTypes.VarChar, stringValue));
+                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
@@ -367,14 +367,14 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lfx.Data.DbTypes.VarChar, terminalName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lfx.Data.DbTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lfx.Data.DbTypes.VarChar, stringValue));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, terminalName));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 DataBase.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lfx.Data.DbTypes.VarChar, stringValue));
+                                UpdateCommand.Fields.Add(new Lfx.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));

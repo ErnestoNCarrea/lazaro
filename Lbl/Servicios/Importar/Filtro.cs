@@ -277,7 +277,7 @@ namespace Lbl.Servicios.Importar
                                                         // Si la columna Id no existe, agrego un tag
                                                         Lfx.Data.Tag ImportTag = new Lfx.Data.Tag(Map.TablaLazaro, Map.ColumnaIdLazaro, "ImportId");
                                                         ImportTag.DataBase = this.Connection;
-                                                        ImportTag.FieldType = Lfx.Data.DbTypes.VarChar;
+                                                        ImportTag.FieldType = Lazaro.Orm.ColumnTypes.VarChar;
                                                         ImportTag.Nullable = true;
                                                         ImportTag.Internal = true;
                                                         this.Connection.Tables[Map.TablaLazaro].Tags.Add(ImportTag);

@@ -130,12 +130,6 @@
     <Compile Include="Data\Aggregate.cs" />
     <Compile Include="Data\Grouping.cs" />
     <Compile Include="Data\InputFieldTypes.cs" />
-    <Compile Include="Data\Providers\AnsiSettings.cs" />
-    <Compile Include="Data\Providers\IProvider.cs" />
-    <Compile Include="Data\Providers\MySqlSettings.cs" />
-    <Compile Include="Data\Providers\NpgsqlSettings.cs" />
-    <Compile Include="Data\Providers\ProviderSettings.cs" />
-    <Compile Include="Data\Providers\SQLite.cs" />
     <Compile Include="Data\qGen\BeginTransactionCommand.cs" />
     <Compile Include="Data\qGen\CommitCommand.cs" />
     <Compile Include="Data\qGen\ICommand.cs" />
@@ -176,7 +170,6 @@
     <Compile Include="Data\Field.cs" />
     <Compile Include="Data\AggregationFunctions.cs" />
     <Compile Include="Data\IndexDefinition.cs" />
-    <Compile Include="Data\Providers\Npgsql.cs" />
     <Compile Include="Data\qGen\BuilkInsert.cs" />
     <Compile Include="Data\qGen\Command.cs" />
     <Compile Include="Data\qGen\Condition.cs" />
@@ -225,9 +218,6 @@
     </EmbeddedResource>
     <Compile Include="Data\TagCollection.cs" />
     <Compile Include="Data\FieldCollection.cs" />
-    <Compile Include="Data\Providers\MySqlProvider.cs" />
-    <Compile Include="Data\Providers\Odbc.cs" />
-    <Compile Include="Data\Providers\Provider.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -274,6 +264,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Orm\Orm.csproj">
+      <Project>{01085c08-19ad-4390-9822-1895ac99167a}</Project>
+      <Name>Orm</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,13 +1,14 @@
 using System.Data;
+using System.Collections.Generic;
 using System.Reflection;
 
-namespace qGen.Providers
+namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
         /// Representa un proveedor ADO.NET, el cual se carga en tiempo de ejecución a través de System.Reflection para no
         /// agregar dependencias en tiempo de diseño. La única dependencia en tiempo de diseño es System.Data.Odbc.
         /// </summary>
-        public abstract class Provider : IProvider
+        public abstract class AbstractDriver : IDriver
         {
                 public string AssemblyName = null;
                 public string NameSpace = null;
@@ -17,11 +18,11 @@ namespace qGen.Providers
                 public string ParameterClass = null;
                 public string TransactionClass = null;
 
-                public ProviderSettings Settings { get; set; }
+                public Dictionary<string, string> Keywords { get; set; }
 
                 protected internal Assembly m_Assembly = null;
 
-                public Provider(string assemblyName, string nameSpace, string connectionClass, string commandClass, string adapterClass, string parameterClass, string transactionClass)
+                public AbstractDriver(string assemblyName, string nameSpace, string connectionClass, string commandClass, string adapterClass, string parameterClass, string transactionClass)
                 {
                         this.AssemblyName = assemblyName;
                         this.NameSpace = nameSpace;
@@ -37,12 +38,17 @@ namespace qGen.Providers
                         get
                         {
                                 if (m_Assembly == null) {
-                                        if (System.IO.File.Exists(Lfx.Environment.Folders.ApplicationFolder + this.AssemblyName + ".dll"))
-                                                m_Assembly = Assembly.LoadFrom(Lfx.Environment.Folders.ApplicationFolder + this.AssemblyName + ".dll");
-                                        else if (System.IO.File.Exists(this.AssemblyName + ".dll"))
+
+                                        var ApplicationFolder = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                                        var AssemblyPathAndName = System.IO.Path.Combine(ApplicationFolder, this.AssemblyName + ".dll");
+
+                                        if (System.IO.File.Exists(AssemblyPathAndName)) {
+                                                m_Assembly = Assembly.LoadFrom(AssemblyPathAndName);
+                                        } else if (System.IO.File.Exists(this.AssemblyName + ".dll")) {
                                                 m_Assembly = Assembly.LoadFrom(this.AssemblyName + ".dll");
-                                        else
-                                                throw new System.IO.FileNotFoundException("No se encuentra " + this.AssemblyName + ".dll");
+                                        } else {
+                                                throw new System.IO.FileNotFoundException(this.AssemblyName + ".dll not found.");
+                                        }
                                 }
                                 return m_Assembly;
                         }
@@ -67,6 +73,11 @@ namespace qGen.Providers
                 public virtual IDbDataParameter GetParameter()
                 {
                         return ((System.Data.IDbDataParameter)(this.Assembly.CreateInstance(this.NameSpace + "." + this.ParameterClass)));
+                }
+
+                public bool CompareColumnDefinitions(IColumnDefinition col1, IColumnDefinition col2)
+                {
+                        return col1 == col2;
                 }
         }
 }

@@ -1,4 +1,5 @@
 using System;
+using Lazaro.Orm;
 
 namespace Lfx.Data
 {
@@ -14,24 +15,6 @@ namespace Lfx.Data
         }
 
 
-        public enum DbTypes
-        {
-                Serial,         // Un entero autoincremental, clave primaria
-                Relation,       // Un entero del mismo tamaño que Serial, pero no es autoincremental ni clave primaria
-                Integer,        // 4 bytes / 32 bits
-                MediumInt,      // 3 bytes
-                SmallInt,       // 2 bytes / 16 bits
-                TinyInt,        // 1 byte
-                Numeric,
-                Currency,
-                VarChar,
-                Text,
-                Blob,
-                DateTime,
-                NonExactDecimal
-        }
-
-
         public enum KeyActions
         {
                 Unknown,
@@ -44,35 +27,36 @@ namespace Lfx.Data
 
         public static class Types
         {
-                public static DbTypes ToDbType(InputFieldTypes columnType)
+                public static ColumnTypes ToDbType(InputFieldTypes columnType)
                 {
                         switch(columnType)
                         {
                                 case InputFieldTypes.Currency:
-                                        return DbTypes.Numeric;
+                                        return ColumnTypes.Numeric;
                                 case InputFieldTypes.Date:
+                                        return ColumnTypes.Date;
                                 case InputFieldTypes.DateTime:
-                                        return DbTypes.DateTime;
+                                        return ColumnTypes.DateTime;
                                 case InputFieldTypes.Numeric:
-                                        return DbTypes.Numeric;
+                                        return ColumnTypes.Numeric;
                                 case InputFieldTypes.Integer:
                                 case InputFieldTypes.Serial:
-                                        return DbTypes.Integer;
+                                        return ColumnTypes.Integer;
                                 case InputFieldTypes.Text:
-                                        return DbTypes.VarChar;
+                                        return ColumnTypes.VarChar;
                                 case InputFieldTypes.Memo:
-                                        return DbTypes.Text;
+                                        return ColumnTypes.Text;
                                 case InputFieldTypes.Binary:
                                 case InputFieldTypes.Image:
-                                        return DbTypes.Blob;
+                                        return ColumnTypes.Blob;
                                 case InputFieldTypes.Bool:
-                                        return DbTypes.SmallInt;
+                                        return ColumnTypes.SmallInt;
                                 default:
                                         throw new NotImplementedException();
                         }
                 }
 
-		public static DbTypes FromSqlType(string sqlType)
+		public static ColumnTypes FromSqlType(string sqlType)
 		{
 			switch (sqlType.ToUpperInvariant()) {
                                 case "VARCHAR":
@@ -80,41 +64,43 @@ namespace Lfx.Data
 				case "NVARCHAR":
 				case "NCHAR":
 				case "CHARACTER VARYING":
-                                        return Lfx.Data.DbTypes.VarChar;
+                                        return Lazaro.Orm.ColumnTypes.VarChar;
                                 case "SERIAL":
-                                        return Lfx.Data.DbTypes.Serial;
+                                        return Lazaro.Orm.ColumnTypes.Serial;
                                 case "MEDIUMINT":
-                                        return Lfx.Data.DbTypes.MediumInt;
+                                        return Lazaro.Orm.ColumnTypes.MediumInt;
                                 case "SMALLINT":
-                                        return Lfx.Data.DbTypes.SmallInt;
+                                        return Lazaro.Orm.ColumnTypes.SmallInt;
                                 case "TINYINT":
-                                        return Lfx.Data.DbTypes.TinyInt;
+                                        return Lazaro.Orm.ColumnTypes.TinyInt;
                                 case "INTEGER":
 				case "BIGINT":
 				case "INT":
-                                        return Lfx.Data.DbTypes.Integer;
+                                        return Lazaro.Orm.ColumnTypes.Integer;
                                 case "BOOL":
 				case "BOOLEAN":
-                                        return Lfx.Data.DbTypes.TinyInt;
+                                        return Lazaro.Orm.ColumnTypes.TinyInt;
                                 case "DECIMAL":         // FIXME: DECIMAL no es lo mismo que NUMERIC, pero MySQL 5.0 los trata igual y reporta los numeric como decimal
                                 case "NUMERIC":
-                                        return Lfx.Data.DbTypes.Numeric;
+                                        return Lazaro.Orm.ColumnTypes.Numeric;
                                 case "DOUBLE":
                                 case "DOUBLE PRECISION":
                                 case "FLOAT":
                                 case "SINGLE":
                                 case "REAL":
-                                        return Lfx.Data.DbTypes.NonExactDecimal;
+                                        return Lazaro.Orm.ColumnTypes.NonExactDecimal;
                                 case "BLOB":
 				case "LONGBLOB":
 				case "BYTEA":
-                                        return Lfx.Data.DbTypes.Blob;
+                                        return Lazaro.Orm.ColumnTypes.Blob;
+                                case "DATE":
+                                        return Lazaro.Orm.ColumnTypes.Date;
                                 case "DATETIME":
 				case "TIMESTAMP":
 				case "TIMESTAMP WITHOUT TIME ZONE":
-                                        return Lfx.Data.DbTypes.DateTime;
+                                        return Lazaro.Orm.ColumnTypes.DateTime;
                                 default:
-                                        return Lfx.Data.DbTypes.Text;
+                                        return Lazaro.Orm.ColumnTypes.Text;
                         }
 		}
         }

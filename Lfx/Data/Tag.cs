@@ -1,4 +1,5 @@
 using System;
+using Lazaro.Orm;
 
 namespace Lfx.Data
 {
@@ -9,7 +10,7 @@ namespace Lfx.Data
                 public bool Nullable { get; set; }
                 public bool Internal { get; set; }
                 public int Access { get; set; }
-                public Lfx.Data.DbTypes FieldType = Lfx.Data.DbTypes.VarChar;
+                public Lazaro.Orm.ColumnTypes FieldType = Lazaro.Orm.ColumnTypes.VarChar;
                 public Lfx.Data.InputFieldTypes InputFieldType = InputFieldTypes.Text;
                 public object Value { get; set; }
                 public object DefaultValue { get; set; }
@@ -28,7 +29,7 @@ namespace Lfx.Data
                         string FldType = fromRow["fieldtype"].ToString();
                         switch(FldType) {
                                 case "relation":
-                                        this.FieldType = DbTypes.Integer;
+                                        this.FieldType = ColumnTypes.Integer;
                                         string[] RelationFields = this.Extra.Split(new char[] { ',' });
                                         string ReferenceTable = RelationFields[0], ReferenceColumn, DetailColumn;
                                         
@@ -89,13 +90,13 @@ namespace Lfx.Data
                         InsertOrUpdate.Fields.AddWithValue("fieldname", this.FieldName);
                         InsertOrUpdate.Fields.AddWithValue("label", this.Label);
                         switch(this.FieldType) {
-                                case DbTypes.VarChar:
+                                case ColumnTypes.VarChar:
                                         InsertOrUpdate.Fields.AddWithValue("fieldtype", "varchar");
                                         break;
-                                case DbTypes.Integer:
+                                case ColumnTypes.Integer:
                                         InsertOrUpdate.Fields.AddWithValue("fieldtype", "integer");
                                         break;
-                                case DbTypes.Text:
+                                case ColumnTypes.Text:
                                         InsertOrUpdate.Fields.AddWithValue("fieldtype", "text");
                                         break;
                         }

@@ -1,4 +1,5 @@
 using System;
+using Lazaro.Orm.Data.Drivers;
 
 namespace qGen
 {
@@ -61,9 +62,9 @@ namespace qGen
                                                 Param.Value = ((NullableDateTime)(ThisField.Value)).Value;
                                         else
                                                 Param.Value = ThisField.Value;
-                                        if (ThisField.DataType == Lfx.Data.DbTypes.Blob)
+                                        if (ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 Param.DbType = System.Data.DbType.Binary;
-                                        if (Lfx.Data.DataBaseCache.DefaultCache.Provider is qGen.Providers.Odbc && ThisField.DataType == Lfx.Data.DbTypes.Blob)
+                                        if (Lfx.Data.DataBaseCache.DefaultCache.Provider is OdbcDriver && ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 ((System.Data.Odbc.OdbcParameter)Param).OdbcType = System.Data.Odbc.OdbcType.VarBinary;
 
                                         baseCommand.Parameters.Add(Param);

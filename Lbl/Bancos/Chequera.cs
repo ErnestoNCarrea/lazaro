@@ -143,7 +143,7 @@ namespace Lbl.Bancos
 				Connection.Execute(Actua);
 				
 				Actua = new qGen.Update("bancos_cheques");
-				Actua.Fields.Add(new Lfx.Data.Field("id_chequera", Lfx.Data.DbTypes.Integer, null));
+				Actua.Fields.Add(new Lfx.Data.Field("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
 				Actua.WhereClause = new qGen.Where();
                                 Actua.WhereClause.AddWithValue("emitido", 1);
                                 Actua.WhereClause.AddWithValue("id_banco", this.Banco.Id);

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 
 namespace Lbl
 {
@@ -16,7 +18,8 @@ namespace Lbl
 
                 public object Tag { get; set; }
 
-		protected int m_ItemId = 0;
+                [Column(Type = ColumnTypes.Integer, Id = true)]
+                protected int m_ItemId = 0;
 
                 [NonSerialized]
 		protected Lfx.Data.Row m_Registro = null, m_RegistroOriginal = null;
@@ -584,12 +587,12 @@ namespace Lbl
                                 foreach (Lfx.Data.Tag Tg in Tabla.Tags) {
                                         if (Tg.Nullable == false && registro[Tg.FieldName] == null) {
                                                 switch (Tg.FieldType) {
-                                                        case Lfx.Data.DbTypes.Currency:
-                                                        case Lfx.Data.DbTypes.Integer:
-                                                        case Lfx.Data.DbTypes.SmallInt:
-                                                        case Lfx.Data.DbTypes.MediumInt:
-                                                        case Lfx.Data.DbTypes.TinyInt:
-                                                        case Lfx.Data.DbTypes.Numeric:
+                                                        case Lazaro.Orm.ColumnTypes.Currency:
+                                                        case Lazaro.Orm.ColumnTypes.Integer:
+                                                        case Lazaro.Orm.ColumnTypes.SmallInt:
+                                                        case Lazaro.Orm.ColumnTypes.MediumInt:
+                                                        case Lazaro.Orm.ColumnTypes.TinyInt:
+                                                        case Lazaro.Orm.ColumnTypes.Numeric:
                                                                 comando.Fields.AddWithValue(Tg.FieldName, System.Convert.ToInt32(Tg.DefaultValue));
                                                                 break;
                                                         default:

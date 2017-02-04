@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 
 namespace Lbl.Impuestos
 {
@@ -10,7 +12,9 @@ namespace Lbl.Impuestos
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Alícuota", Grupo = "Impuestos")]
         [Lbl.Atributos.Datos(TablaDatos = "alicuotas", CampoId = "id_alicuota")]
         [Lbl.Atributos.Presentacion()]
-        public class Alicuota : ElementoDeDatos
+
+        [Entity(TableName = "alicuotas", IdFieldName = "id_alicuota")]
+        public class Alicuota : ElementoDeDatos, IEntity<Alicuota>
         {
                 public Alicuota(Lfx.Data.Connection dataBase)
                         : base(dataBase) { }

@@ -1,12 +1,14 @@
 using System;
+using Lazaro.Orm;
+using Lazaro.Orm.Data;
 
 namespace Lfx.Data
 {
         [Serializable]
-        public class ColumnDefinition
+        public class ColumnDefinition : IColumnDefinition
         {
-                public string Name;
-                public DbTypes FieldType;
+                public string Name { get; set; }
+                public ColumnTypes FieldType;
                 public int Lenght, Precision;
                 public bool Nullable, PrimaryKey, Unsigned;
                 public string DefaultValue = null;
@@ -21,7 +23,7 @@ namespace Lfx.Data
                 {
                 }
 
-                public ColumnDefinition(string name, DbTypes fieldType)
+                public ColumnDefinition(string name, ColumnTypes fieldType)
                 {
                         this.Name = name;
                         this.FieldType = fieldType;
@@ -36,37 +38,37 @@ namespace Lfx.Data
                 {
                         string Def = "";
                         switch (FieldType) {
-                                case DbTypes.Serial:
+                                case ColumnTypes.Serial:
                                         return "$SERIAL$";
-                                case DbTypes.Relation:
+                                case ColumnTypes.Relation:
                                         Def = "MEDIUMINT";
                                         break;
-                                case DbTypes.DateTime:
+                                case ColumnTypes.DateTime:
                                         Def = "$DATETIME$";
                                         break;
-                                case DbTypes.VarChar:
+                                case ColumnTypes.VarChar:
                                         Def = "VARCHAR";
                                         break;
-                                case DbTypes.Integer:
+                                case ColumnTypes.Integer:
                                         Def = "INTEGER";
                                         break;
-                                case DbTypes.MediumInt:
+                                case ColumnTypes.MediumInt:
                                         Def = "$MEDIUMINT$";
                                         break;
-                                case DbTypes.SmallInt:
+                                case ColumnTypes.SmallInt:
                                         Def = "$SMALLINT$";
                                         break;
-                                case DbTypes.TinyInt:
+                                case ColumnTypes.TinyInt:
                                         Def = "$TINYINT$";
                                         break;
-				case DbTypes.Currency:
-                                case DbTypes.Numeric:
+				case ColumnTypes.Currency:
+                                case ColumnTypes.Numeric:
                                         Def = "NUMERIC";
                                         break;
-                                case DbTypes.Blob:
+                                case ColumnTypes.Blob:
                                         Def = "$BLOB$";
                                         break;
-                                case DbTypes.Text:
+                                case ColumnTypes.Text:
                                         Def = "TEXT";
                                         break;
                         }
@@ -91,44 +93,44 @@ namespace Lfx.Data
                                 this.m_InputFieldType = value;
                                 switch (this.m_InputFieldType) {
                                         case InputFieldTypes.AlphanumericSet:
-                                                this.FieldType = DbTypes.VarChar;
+                                                this.FieldType = ColumnTypes.VarChar;
                                                 break;
                                         case InputFieldTypes.Binary:
-                                                this.FieldType = DbTypes.Blob;
+                                                this.FieldType = ColumnTypes.Blob;
                                                 break;
                                         case InputFieldTypes.Bool:
-                                                this.FieldType = DbTypes.SmallInt;
+                                                this.FieldType = ColumnTypes.SmallInt;
                                                 break;
                                         case InputFieldTypes.Currency:
-                                                this.FieldType = DbTypes.Currency;
+                                                this.FieldType = ColumnTypes.Currency;
                                                 break;
                                         case InputFieldTypes.Date:
                                         case InputFieldTypes.DateTime:
-                                                this.FieldType = DbTypes.DateTime;
+                                                this.FieldType = ColumnTypes.DateTime;
                                                 break;
                                         case InputFieldTypes.Image:
-                                                this.FieldType = DbTypes.Blob;
+                                                this.FieldType = ColumnTypes.Blob;
                                                 break;
                                         case InputFieldTypes.Integer:
-                                                this.FieldType = DbTypes.Integer;
+                                                this.FieldType = ColumnTypes.Integer;
                                                 break;
                                         case InputFieldTypes.Memo:
-                                                this.FieldType = DbTypes.Text;
+                                                this.FieldType = ColumnTypes.Text;
                                                 break;
                                         case InputFieldTypes.Numeric:
-                                                this.FieldType = DbTypes.Numeric;
+                                                this.FieldType = ColumnTypes.Numeric;
                                                 break;
                                         case InputFieldTypes.NumericSet:
-                                                this.FieldType = DbTypes.SmallInt;
+                                                this.FieldType = ColumnTypes.SmallInt;
                                                 break;
                                         case InputFieldTypes.Relation:
-                                                this.FieldType = DbTypes.MediumInt;
+                                                this.FieldType = ColumnTypes.MediumInt;
                                                 break;
                                         case InputFieldTypes.Serial:
-                                                this.FieldType = DbTypes.Serial;
+                                                this.FieldType = ColumnTypes.Serial;
                                                 break;
                                         case InputFieldTypes.Text:
-                                                this.FieldType = DbTypes.VarChar;
+                                                this.FieldType = ColumnTypes.VarChar;
                                                 break;
                                         default:
                                                 throw new NotImplementedException("Lfx.Data.ColumnDefinition.InputFieldType: Falta implementar " + this.m_InputFieldType.ToString());
@@ -141,7 +143,7 @@ namespace Lfx.Data
                 {
                         string Def = this.SqlType();
 
-                        if (this.FieldType != DbTypes.Serial) {
+                        if (this.FieldType != ColumnTypes.Serial) {
                                 if (this.Unsigned)
                                         Def += " UNSIGNED";
 
@@ -149,11 +151,11 @@ namespace Lfx.Data
                                         Def += " NOT NULL";
 
                                 switch (FieldType) {
-                                        case DbTypes.Text:
-                                        case DbTypes.Blob:
+                                        case ColumnTypes.Text:
+                                        case ColumnTypes.Blob:
                                                 // No pueden tener default
                                                 break;
-                                        case DbTypes.VarChar:
+                                        case ColumnTypes.VarChar:
                                                 if (this.DefaultValue == null) {
                                                         //Def += " DEFAULT ''";	//Default to empty string
                                                 } else if (this.DefaultValue == "NULL") {
@@ -162,8 +164,8 @@ namespace Lfx.Data
                                                         Def += " DEFAULT '" + this.DefaultValue + "'";
                                                 }
                                                 break;
-                                        case DbTypes.Currency:
-                                        case DbTypes.Numeric:
+                                        case ColumnTypes.Currency:
+                                        case ColumnTypes.Numeric:
                                                 if (this.DefaultValue == null) {
                                                         /* if(this.Nullable)
                                                                 Def += " DEFAULT NULL";	// Nullable columns default to null
@@ -175,10 +177,10 @@ namespace Lfx.Data
                                                         Def += " DEFAULT " + Lfx.Types.Formatting.FormatNumberSql(Lfx.Types.Parsing.ParseDecimal(this.DefaultValue), 4) + "";
                                                 }
                                                 break;
-                                        case DbTypes.Integer:
-                                        case DbTypes.SmallInt:
-                                        case DbTypes.MediumInt:
-                                        case DbTypes.TinyInt:
+                                        case ColumnTypes.Integer:
+                                        case ColumnTypes.SmallInt:
+                                        case ColumnTypes.MediumInt:
+                                        case ColumnTypes.TinyInt:
                                                 if (this.DefaultValue == null) {
                                                         /* if(this.Nullable)
                                                                 Def += " DEFAULT NULL";	// Nullable columns default to null

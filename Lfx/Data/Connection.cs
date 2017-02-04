@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Lazaro.Orm;
+using Lazaro.Orm.Data.Drivers;
 
 namespace Lfx.Data
 {
@@ -50,13 +52,13 @@ namespace Lfx.Data
                         switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
                                 case AccessModes.Odbc:
                                         if (Lfx.Data.DataBaseCache.DefaultCache.Provider == null)
-                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.Odbc();
+                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new Lazaro.Orm.Data.Drivers.OdbcDriver();
                                         ConnectionString.Append("DSN=" + Lfx.Data.DataBaseCache.DefaultCache.ServerName + ";");
                                         Lfx.Data.DataBaseCache.DefaultCache.ServerName = "(ODBC)";
                                         break;
                                 case AccessModes.MySql:
                                         if (Lfx.Data.DataBaseCache.DefaultCache.Provider == null)
-                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.MySqlProvider();
+                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new Lazaro.Orm.Data.Drivers.MySqlDriver();
                                         ConnectionString.Append("Convert Zero Datetime=true;");
                                         ConnectionString.Append("Connection Timeout=10;");
                                         ConnectionString.Append("Default Command Timeout=30;");
@@ -87,13 +89,13 @@ namespace Lfx.Data
                                         break;
                                 case AccessModes.Npgsql:
                                         if (Lfx.Data.DataBaseCache.DefaultCache.Provider == null)
-                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.Npgsql();
+                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new Lazaro.Orm.Data.Drivers.NpgsqlDriver();
                                         ConnectionString.Append("CommandTimeout=900;");
                                         Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.PostgreSql;
                                         break;
                                 case AccessModes.MSSql:
                                         if (Lfx.Data.DataBaseCache.DefaultCache.Provider == null)
-                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new qGen.Providers.Odbc();
+                                                Lfx.Data.DataBaseCache.DefaultCache.Provider = new Lazaro.Orm.Data.Drivers.OdbcDriver();
                                         Lfx.Data.DataBaseCache.DefaultCache.OdbcDriver = "SQL Server";
                                         Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.TransactSql;
                                         break;
@@ -400,11 +402,11 @@ namespace Lfx.Data
                                                                         else
                                                                                 Alterations.Add("ALTER COLUMN \"" + NewFieldDef.Name + "\" SET NOT NULL");
                                                                 }
-                                                                if (CurrentFieldDef.DefaultValue != NewFieldDef.DefaultValue && NewFieldDef.FieldType != DbTypes.Serial) {
+                                                                if (CurrentFieldDef.DefaultValue != NewFieldDef.DefaultValue && NewFieldDef.FieldType != ColumnTypes.Serial) {
                                                                         //Cambio de default value (salvo en Serial, que en PostgreSQL es siempre 0)
                                                                         switch (NewFieldDef.FieldType) {
-                                                                                case DbTypes.VarChar:
-                                                                                case DbTypes.Text:
+                                                                                case ColumnTypes.VarChar:
+                                                                                case ColumnTypes.Text:
                                                                                         if (NewFieldDef.DefaultValue == null)
                                                                                                 Alterations.Add("ALTER COLUMN \"" + NewFieldDef.Name + "\" SET DEFAULT ''");
                                                                                         else if (NewFieldDef.DefaultValue == "NULL")
@@ -579,10 +581,10 @@ namespace Lfx.Data
                                 FieldDef.Name = Columna["COLUMN_NAME"].ToString();
                                 FieldDef.FieldType = Lfx.Data.Types.FromSqlType(Columna["DATA_TYPE"].ToString());
                                 switch (FieldDef.FieldType) {
-                                        case Lfx.Data.DbTypes.VarChar:
+                                        case Lazaro.Orm.ColumnTypes.VarChar:
                                                 FieldDef.Lenght = System.Convert.ToInt32(Columna["CHARACTER_MAXIMUM_LENGTH"]);
                                                 break;
-                                        case Lfx.Data.DbTypes.Numeric:
+                                        case Lazaro.Orm.ColumnTypes.Numeric:
                                                 FieldDef.Lenght = System.Convert.ToInt32(Columna["NUMERIC_PRECISION"]);
                                                 if (FieldDef.Lenght == 0)
                                                         FieldDef.Lenght = 15;
@@ -604,15 +606,15 @@ namespace Lfx.Data
                                         FieldDef.DefaultValue = Columna["COLUMN_DEFAULT"].ToString();
 
                                         switch (FieldDef.FieldType) {
-                                                case DbTypes.Integer:
-                                                case DbTypes.SmallInt:
-                                                case DbTypes.MediumInt:
-                                                case DbTypes.Currency:
-                                                case DbTypes.Numeric:
+                                                case ColumnTypes.Integer:
+                                                case ColumnTypes.SmallInt:
+                                                case ColumnTypes.MediumInt:
+                                                case ColumnTypes.Currency:
+                                                case ColumnTypes.Numeric:
                                                         if (Lfx.Types.Parsing.ParseDecimal(FieldDef.DefaultValue) == 0)
                                                                 FieldDef.DefaultValue = "0";
                                                         break;
-                                                case DbTypes.DateTime:
+                                                case ColumnTypes.DateTime:
                                                         if (FieldDef.DefaultValue == "0000-00-00 00:00:00")
                                                                 FieldDef.DefaultValue = "NULL";
                                                         break;
@@ -634,9 +636,9 @@ namespace Lfx.Data
                                                 FieldDef.DefaultValue = null;
                                         } else {
                                                 switch (FieldDef.FieldType) {
-                                                        case DbTypes.Text:
-                                                        case DbTypes.Blob:
-                                                        case DbTypes.DateTime:
+                                                        case ColumnTypes.Text:
+                                                        case ColumnTypes.Blob:
+                                                        case ColumnTypes.DateTime:
                                                                 // No pueden tener default value
                                                                 FieldDef.DefaultValue = null;
                                                                 break;
@@ -649,9 +651,9 @@ namespace Lfx.Data
 
                                 //Es la clave autonumérica?
                                 if (this.SqlMode == qGen.SqlModes.MySql && Columna["EXTRA"].ToString() == "auto_increment") {
-                                        FieldDef.FieldType = DbTypes.Serial;
+                                        FieldDef.FieldType = ColumnTypes.Serial;
                                 } else if (this.AccessMode == AccessModes.Npgsql && Columna["COLUMN_DEFAULT"].ToString().IndexOf("nextval(") >= 0) {
-                                        FieldDef.FieldType = DbTypes.Serial;
+                                        FieldDef.FieldType = ColumnTypes.Serial;
                                 }
 
                                 if (this.SqlMode == qGen.SqlModes.MySql) {
@@ -1539,8 +1541,8 @@ LEFT JOIN pg_attribute
                         MatchCollection VariableKeywords = Rx.Matches(Res);
                         foreach (Match Mt in VariableKeywords) {
                                 string KeywordName = Mt.Value.Substring(1, Mt.Value.Length - 2);
-                                if (Lfx.Data.DataBaseCache.DefaultCache.Provider.Settings.Keywords.ContainsKey(KeywordName)) {
-                                        Res = Res.Replace("$" + KeywordName + "$", Lfx.Data.DataBaseCache.DefaultCache.Provider.Settings.Keywords[KeywordName]);
+                                if (Lfx.Data.DataBaseCache.DefaultCache.Provider.Keywords.ContainsKey(KeywordName)) {
+                                        Res = Res.Replace("$" + KeywordName + "$", Lfx.Data.DataBaseCache.DefaultCache.Provider.Keywords[KeywordName]);
                                 } else {
                                         Res = Res.Replace("$" + KeywordName + "$", KeywordName);
                                 }

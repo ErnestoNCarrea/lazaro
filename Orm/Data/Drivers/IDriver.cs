@@ -1,15 +1,17 @@
 using System.Data;
-using System.Reflection;
+using System.Collections.Generic;
 
-namespace qGen.Providers
+namespace Lazaro.Orm.Data.Drivers
 {
-        public interface IProvider
+        public interface IDriver
         {
                 IDbConnection GetConnection();
                 IDbCommand GetCommand();
                 IDbDataAdapter GetAdapter(string commandText, IDbConnection connection);
                 IDbDataParameter GetParameter();
 
-                ProviderSettings Settings { get; set; }
+                Dictionary<string, string> Keywords { get; set; }
+                bool CompareColumnDefinitions(IColumnDefinition col1, IColumnDefinition col2);
+
         }
 }

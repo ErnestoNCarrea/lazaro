@@ -1,14 +1,16 @@
 using System.Data;
+using System.Collections.Generic;
+using Lazaro.Orm.Data.Drivers;
 using MySql.Data.MySqlClient;
 
-namespace qGen.Providers
+namespace Lazaro.Orm.Data.Drivers
 {
         /// <summary>
         /// Proveedor compatible con MySql Connector/NET versión 6. Requiere la presencia de MySql.Data.dll en el directorio del programa.
         /// </summary>
-        public class MySqlProvider : Provider
+        public class MySqlDriver : AbstractDriver, IDriver
         {
-                public MySqlProvider() :
+                public MySqlDriver() :
                         base("MySql.Data",
                         "MySql.Data",
                         "MySqlClient.MySqlConnection",
@@ -17,7 +19,14 @@ namespace qGen.Providers
                         "MySqlClient.MySqlParameter",
                         "MySqlClient.MySqlTransaction")
                 {
-                        this.Settings = new MySqlSettings();
+                        this.Keywords = new Dictionary<string, string>() {
+                                { "SERIAL", "INTEGER AUTO_INCREMENT NOT NULL" },
+                                { "BLOB", "LONGBLOB" },
+                                { "TIMESTAMP", "DATETIME" },
+                                { "DATETIME", "DATETIME" },
+                                { "CREATETABLE_OPTIONS", " ENGINE=InnoDB CHARACTER SET=utf8" },
+                                { "DEFERRABLE", "" }
+                        };
                 }
                 
                 public override IDbConnection GetConnection()

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using Lazaro.Orm.Data.Drivers;
 
 namespace Lfx.Data
 {
@@ -16,7 +17,7 @@ namespace Lfx.Data
                         this.Connection = connection;
                 }
                 
-                public qGen.Providers.IProvider Provider = null;
+                public IDriver Provider = null;
                 public string OdbcDriver = null;
                 public string ServerName = null, DataBaseName, UserName, Password;
                 public bool SlowLink = false, Mars = true, Pooling = true;
