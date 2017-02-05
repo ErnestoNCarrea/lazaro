@@ -438,39 +438,39 @@ namespace Lbl.Comprobantes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("letra", this.Nomenclatura);
-                        Comando.Fields.AddWithValue("letrasola", this.Letra == null ? "" : this.Letra);
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("nombrelargo", this.NombreLargo);
-                        Comando.Fields.AddWithValue("mueve_stock", this.MueveExistencias);
-                        Comando.Fields.AddWithValue("direc_ctacte", this.DireccionCtaCte);
-                        Comando.Fields.AddWithValue("compra", this.PermiteCompra ? 1 : 0);
-                        Comando.Fields.AddWithValue("venta", this.PermiteVenta ? 1 : 0);
-                        Comando.Fields.AddWithValue("numerar_guardar", this.NumerarAlGuardar ? 1 : 0);
-                        Comando.Fields.AddWithValue("numerar_imprimir", this.NumerarAlImprimir ? 1 : 0);
-                        Comando.Fields.AddWithValue("imprimir_guardar", this.ImprimirAlGuardar ? 1 : 0);
-                        Comando.Fields.AddWithValue("imprimir_repetir", this.PermiteImprimirVariasVeces ? 1 : 0);
-                        Comando.Fields.AddWithValue("imprimir_modificar", this.PermiteModificarImpresos ? 1 : 0);
-                        Comando.Fields.AddWithValue("cargapapel", (int)(this.CargaPapel));
+                        Comando.ColumnValues.AddWithValue("letra", this.Nomenclatura);
+                        Comando.ColumnValues.AddWithValue("letrasola", this.Letra == null ? "" : this.Letra);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("nombrelargo", this.NombreLargo);
+                        Comando.ColumnValues.AddWithValue("mueve_stock", this.MueveExistencias);
+                        Comando.ColumnValues.AddWithValue("direc_ctacte", this.DireccionCtaCte);
+                        Comando.ColumnValues.AddWithValue("compra", this.PermiteCompra ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("venta", this.PermiteVenta ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("numerar_guardar", this.NumerarAlGuardar ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("numerar_imprimir", this.NumerarAlImprimir ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("imprimir_guardar", this.ImprimirAlGuardar ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("imprimir_repetir", this.PermiteImprimirVariasVeces ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("imprimir_modificar", this.PermiteModificarImpresos ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("cargapapel", (int)(this.CargaPapel));
 
                         if (this.SituacionOrigen == null)
-                                Comando.Fields.AddWithValue("situacionorigen", null);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", null);
                         else
-                                Comando.Fields.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
 
                         if (this.SituacionDestino == null)
-                                Comando.Fields.AddWithValue("situaciondestino", null);
+                                Comando.ColumnValues.AddWithValue("situaciondestino", null);
                         else
-                                Comando.Fields.AddWithValue("situaciondestino", this.SituacionDestino.Id);
+                                Comando.ColumnValues.AddWithValue("situaciondestino", this.SituacionDestino.Id);
 
                         this.AgregarTags(Comando);
 
@@ -485,18 +485,18 @@ namespace Lbl.Comprobantes
                                 // Guardar la nueva lista de permisos del usuario
                                 foreach (Lbl.Impresion.TipoImpresora Impr in this.Impresoras) {
                                         qGen.Insert InsertarImpresora = new qGen.Insert("comprob_tipo_impresoras");
-                                        InsertarImpresora.Fields.AddWithValue("id_tipo", this.Id);
-                                        InsertarImpresora.Fields.AddWithValue("id_impresora", Impr.Impresora.Id);
+                                        InsertarImpresora.ColumnValues.AddWithValue("id_tipo", this.Id);
+                                        InsertarImpresora.ColumnValues.AddWithValue("id_impresora", Impr.Impresora.Id);
                                         if (Impr.Sucursal == null)
-                                                InsertarImpresora.Fields.AddWithValue("id_sucursal", null);
+                                                InsertarImpresora.ColumnValues.AddWithValue("id_sucursal", null);
                                         else
-                                                InsertarImpresora.Fields.AddWithValue("id_sucursal", Impr.Sucursal.Id);
+                                                InsertarImpresora.ColumnValues.AddWithValue("id_sucursal", Impr.Sucursal.Id);
                                         if (Impr.PuntoDeVenta == null)
-                                                InsertarImpresora.Fields.AddWithValue("id_pv", null);
+                                                InsertarImpresora.ColumnValues.AddWithValue("id_pv", null);
                                         else
-                                                InsertarImpresora.Fields.AddWithValue("id_pv", Impr.PuntoDeVenta.Id);
-                                        InsertarImpresora.Fields.AddWithValue("estacion", Impr.Estacion);
-                                        InsertarImpresora.Fields.AddWithValue("nombre", Impr.Nombre);
+                                                InsertarImpresora.ColumnValues.AddWithValue("id_pv", Impr.PuntoDeVenta.Id);
+                                        InsertarImpresora.ColumnValues.AddWithValue("estacion", Impr.Estacion);
+                                        InsertarImpresora.ColumnValues.AddWithValue("nombre", Impr.Nombre);
 
                                         this.Connection.Execute(InsertarImpresora);
                                 }

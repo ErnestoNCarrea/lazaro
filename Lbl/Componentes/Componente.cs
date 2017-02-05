@@ -137,26 +137,26 @@ namespace Lbl.Componentes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
-                        Comando.Fields.AddWithValue("espacio", this.EspacioNombres);
-                        Comando.Fields.AddWithValue("version", this.Version);
-                        Comando.Fields.AddWithValue("estructura", this.Estructura);
-                        Comando.Fields.AddWithValue("cif", this.Cif);
+                        Comando.ColumnValues.AddWithValue("espacio", this.EspacioNombres);
+                        Comando.ColumnValues.AddWithValue("version", this.Version);
+                        Comando.ColumnValues.AddWithValue("estructura", this.Estructura);
+                        Comando.ColumnValues.AddWithValue("cif", this.Cif);
 
-                        Comando.Fields.AddWithValue("url", this.Url);
-                        Comando.Fields.AddWithValue("url_act", this.UrlActualizaciones);
+                        Comando.ColumnValues.AddWithValue("url", this.Url);
+                        Comando.ColumnValues.AddWithValue("url_act", this.UrlActualizaciones);
 
                         this.AgregarTags(Comando);
 

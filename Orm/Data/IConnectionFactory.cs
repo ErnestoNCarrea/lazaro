@@ -7,9 +7,10 @@ namespace Lazaro.Orm.Data
 {
         public interface IConnectionFactory
         {
-                IConnection GetNewConnection(string ownerName);
-
                 IDriver Driver { get; set; }
                 IFormatter Formatter { get; set; }
+                ConnectionParameters ConnectionParameters { get; set; }
+
+                IConnection GetNewConnection(string ownerName);
         }
 }

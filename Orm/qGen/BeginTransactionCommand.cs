@@ -4,12 +4,9 @@ using Lazaro.Orm.Data;
 namespace qGen
 {
         [Serializable]
-        public class BeginTransactionCommand : Command
+        public class BeginTransactionCommand : Statement
         {
                 public BeginTransactionCommand()
                         : base() { }
-
-                public BeginTransactionCommand(IConnection dataBase)
-                        : base(dataBase) { }
         }
 }

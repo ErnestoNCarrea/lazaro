@@ -3,29 +3,22 @@ using System;
 
 namespace qGen
 {
-        [Serializable]
-        public class TextCommand : Command
+        public class LiteralStatement : Statement
         {
-                public string Commandtext;
+                public string Text { get; set; }
 
-                public TextCommand()
+                public LiteralStatement()
                         : base() { }
 
-                public TextCommand(IConnection dataBase, string commandtext)
-                        : base(dataBase)
-                {
-                        this.Commandtext = commandtext;
-                }
-
-                public TextCommand(string commandtext)
+                public LiteralStatement(string stmntText)
                         : this()
                 {
-                        this.Commandtext = commandtext;
+                        this.Text = stmntText;
                 }
 
                 public override string ToString()
                 {
-                        return this.Commandtext;
+                        return this.Text;
                 }
         }
 }

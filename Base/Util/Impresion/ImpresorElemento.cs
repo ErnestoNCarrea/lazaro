@@ -18,7 +18,7 @@ namespace Lazaro.Base.Util.Impresion
                         : base(transaction)
 		{
                         this.Elemento = elemento;
-                        m_DataBase = elemento.Connection;
+                        m_Connection = elemento.Connection;
 		}
 
 

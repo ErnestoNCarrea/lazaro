@@ -56,95 +56,95 @@ namespace Lbl.Personas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                                Comando.Fields.AddWithValue("fechaalta", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fechaalta", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("tipo", this.Tipo);
+                        Comando.ColumnValues.AddWithValue("tipo", this.Tipo);
                         if (this.Grupo == null)
-                                Comando.Fields.AddWithValue("id_grupo", null);
+                                Comando.ColumnValues.AddWithValue("id_grupo", null);
                         else
-                                Comando.Fields.AddWithValue("id_grupo", this.Grupo.Id);
+                                Comando.ColumnValues.AddWithValue("id_grupo", this.Grupo.Id);
                         if (this.SubGrupo == null)
-                                Comando.Fields.AddWithValue("id_subgrupo", null);
+                                Comando.ColumnValues.AddWithValue("id_subgrupo", null);
                         else
-                                Comando.Fields.AddWithValue("id_subgrupo", this.SubGrupo.Id);
-                        Comando.Fields.AddWithValue("nombre", this.Nombres);
-                        Comando.Fields.AddWithValue("apellido", this.Apellido);
-                        Comando.Fields.AddWithValue("nombre_fantasia", this.NombreFantasia);
-                        Comando.Fields.AddWithValue("razon_social", this.RazonSocial);
-                        Comando.Fields.AddWithValue("nombre_visible", this.Nombre);
+                                Comando.ColumnValues.AddWithValue("id_subgrupo", this.SubGrupo.Id);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombres);
+                        Comando.ColumnValues.AddWithValue("apellido", this.Apellido);
+                        Comando.ColumnValues.AddWithValue("nombre_fantasia", this.NombreFantasia);
+                        Comando.ColumnValues.AddWithValue("razon_social", this.RazonSocial);
+                        Comando.ColumnValues.AddWithValue("nombre_visible", this.Nombre);
                         if (this.TipoDocumento == null)
-                                Comando.Fields.AddWithValue("id_tipo_doc", null);
+                                Comando.ColumnValues.AddWithValue("id_tipo_doc", null);
                         else
-                                Comando.Fields.AddWithValue("id_tipo_doc", this.TipoDocumento.Id);
+                                Comando.ColumnValues.AddWithValue("id_tipo_doc", this.TipoDocumento.Id);
                         if (this.TipoClaveTributaria == null)
-                                Comando.Fields.AddWithValue("id_tipo_cuit", null);
+                                Comando.ColumnValues.AddWithValue("id_tipo_cuit", null);
                         else
-                                Comando.Fields.AddWithValue("id_tipo_cuit", this.TipoClaveTributaria.Id);
+                                Comando.ColumnValues.AddWithValue("id_tipo_cuit", this.TipoClaveTributaria.Id);
                         if (this.NumeroDocumento == null)
-                                Comando.Fields.AddWithValue("num_doc", "");
+                                Comando.ColumnValues.AddWithValue("num_doc", "");
                         else
-                                Comando.Fields.AddWithValue("num_doc", this.NumeroDocumento.Replace(".", "").Replace(",", "").Replace(" ", ""));
+                                Comando.ColumnValues.AddWithValue("num_doc", this.NumeroDocumento.Replace(".", "").Replace(",", "").Replace(" ", ""));
                         if (this.ClaveTributaria == null)
-                                Comando.Fields.AddWithValue("cuit", null);
+                                Comando.ColumnValues.AddWithValue("cuit", null);
                         else
-                                Comando.Fields.AddWithValue("cuit", this.ClaveTributaria.Valor);
+                                Comando.ColumnValues.AddWithValue("cuit", this.ClaveTributaria.Valor);
                         if (this.SituacionTributaria == null)
-                                Comando.Fields.AddWithValue("id_situacion", null);
+                                Comando.ColumnValues.AddWithValue("id_situacion", null);
                         else
-                                Comando.Fields.AddWithValue("id_situacion", this.SituacionTributaria.Id);
-                        Comando.Fields.AddWithValue("tipo_fac", this.FacturaPreferida);
-                        Comando.Fields.AddWithValue("domicilio", this.Domicilio);
-                        Comando.Fields.AddWithValue("domiciliotrabajo", this.DomicilioLaboral);
+                                Comando.ColumnValues.AddWithValue("id_situacion", this.SituacionTributaria.Id);
+                        Comando.ColumnValues.AddWithValue("tipo_fac", this.FacturaPreferida);
+                        Comando.ColumnValues.AddWithValue("domicilio", this.Domicilio);
+                        Comando.ColumnValues.AddWithValue("domiciliotrabajo", this.DomicilioLaboral);
                         if (this.Localidad == null)
-                                Comando.Fields.AddWithValue("id_ciudad", null);
+                                Comando.ColumnValues.AddWithValue("id_ciudad", null);
                         else
-                                Comando.Fields.AddWithValue("id_ciudad", this.Localidad.Id);
+                                Comando.ColumnValues.AddWithValue("id_ciudad", this.Localidad.Id);
                         if (this.Vendedor == null)
-                                Comando.Fields.AddWithValue("id_vendedor", null);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", null);
                         else
-                                Comando.Fields.AddWithValue("id_vendedor", this.Vendedor.Id);
-                        Comando.Fields.AddWithValue("telefono", this.Telefono);
-                        Comando.Fields.AddWithValue("email", this.Email);
-                        Comando.Fields.AddWithValue("url", this.Url);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", this.Vendedor.Id);
+                        Comando.ColumnValues.AddWithValue("telefono", this.Telefono);
+                        Comando.ColumnValues.AddWithValue("email", this.Email);
+                        Comando.ColumnValues.AddWithValue("url", this.Url);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
                         if (this.Estado == 0 && this.Existe && System.Convert.ToInt32(this.RegistroOriginal["estado"]) != 0)
                                 // Esta dado de baja y antes no lo estaba
-                                Comando.Fields.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
-                        Comando.Fields.AddWithValue("limitecredito", this.LimiteCredito);
+                                Comando.ColumnValues.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("limitecredito", this.LimiteCredito);
                         if (this.Existe) {
                                 if ((decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito) {
                                         //Guardo la fecha en la cual se modifico el limite de credito
-                                        Comando.Fields.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
+                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
                                 }
                         } else {
                                 if (this.LimiteCredito > 0) {
-                                        Comando.Fields.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
+                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
                                 }
                         }
-                        Comando.Fields.AddWithValue("fechanac", this.FechaNacimiento);
-                        Comando.Fields.AddWithValue("tipocuenta", (int)(this.TipoCuenta));
-                        Comando.Fields.AddWithValue("numerocuenta", this.NumeroCuenta);
-                        Comando.Fields.AddWithValue("cbu", this.ClaveBancaria);
-                        Comando.Fields.AddWithValue("estadocredito", this.EstadoCredito);
+                        Comando.ColumnValues.AddWithValue("fechanac", this.FechaNacimiento);
+                        Comando.ColumnValues.AddWithValue("tipocuenta", (int)(this.TipoCuenta));
+                        Comando.ColumnValues.AddWithValue("numerocuenta", this.NumeroCuenta);
+                        Comando.ColumnValues.AddWithValue("cbu", this.ClaveBancaria);
+                        Comando.ColumnValues.AddWithValue("estadocredito", this.EstadoCredito);
 
-                        Comando.Fields.AddWithValue("genero", this.Genero);
+                        Comando.ColumnValues.AddWithValue("genero", this.Genero);
 
                         if (this.Existe == false) {
                                 // Si estoy creando una persona, le asigno una contraseña aleatoria de 6 digitos
                                 string Contrasena = new System.Random().Next(100000, 999999).ToString();
-                                Comando.Fields.AddWithValue("contrasena", Contrasena);
-                                Comando.Fields.AddWithValue("contrasena_sal", null);
-                                Comando.Fields.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("contrasena", Contrasena);
+                                Comando.ColumnValues.AddWithValue("contrasena_sal", null);
+                                Comando.ColumnValues.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
                         }
 
                         this.AgregarTags(Comando);
@@ -680,8 +680,8 @@ namespace Lbl.Personas
                 {
                         this.Estado = activar ? 1 : 0;
                         qGen.Update ActCmd = new qGen.Update(this.TablaDatos);
-                        ActCmd.Fields.AddWithValue("estado", this.Estado);
-                        ActCmd.Fields.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
+                        ActCmd.ColumnValues.AddWithValue("estado", this.Estado);
+                        ActCmd.ColumnValues.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");

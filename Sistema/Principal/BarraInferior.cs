@@ -10,7 +10,7 @@ namespace Lazaro.WinMain.Principal
 {
         public partial class BarraInferior : UserControl
         {
-                private Lfx.Data.Connection m_DataBase;
+                private Lfx.Data.Connection m_Connection;
                 private int ItemActual, ItemSolicitado;
                 private string TablaActual, TablaSolicitada;
                 private Lbl.IElementoDeDatos ElementoActual = null;
@@ -33,13 +33,13 @@ namespace Lazaro.WinMain.Principal
                 }
 
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-                public Lfx.Data.IConnection DataBase
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {
-                                if (m_DataBase == null)
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Formulario principal: Barra inferior") as Lfx.Data.Connection;
-                                return m_DataBase;
+                                if (m_Connection == null)
+                                        m_Connection = Lfx.Workspace.Master.GetNewConnection("Formulario principal: Barra inferior") as Lfx.Data.Connection;
+                                return m_Connection;
                         }
                 }
 
@@ -90,7 +90,7 @@ namespace Lazaro.WinMain.Principal
                                         PanelArticulo.Visible = true;
                                         Lbl.Articulos.Articulo Art;
                                         try {
-                                                Art = new Lbl.Articulos.Articulo(this.DataBase, ItemSolicitado);
+                                                Art = new Lbl.Articulos.Articulo(this.Connection, ItemSolicitado);
                                         } catch {
                                                 Art = null;
                                         }
@@ -124,7 +124,7 @@ namespace Lazaro.WinMain.Principal
                                         PanelArticulo.Visible = false;
                                         Lbl.Personas.Persona Per;
                                         try {
-                                                Per = new Lbl.Personas.Persona(this.DataBase, ItemSolicitado);
+                                                Per = new Lbl.Personas.Persona(this.Connection, ItemSolicitado);
                                         } catch {
                                                 Per = null;
                                         }

@@ -8,7 +8,7 @@ namespace Lfx.Services
         public class Scheduler : IDisposable
         {
                 private Lfx.Workspace Workspace;
-                private Lfx.Data.IConnection m_DataBase = null;
+                private Lfx.Data.IConnection m_Connection = null;
                 private DateTime m_LastGetTask = DateTime.MinValue;
 
                 public Scheduler(Workspace workspace)
@@ -18,8 +18,8 @@ namespace Lfx.Services
 
                 public void Dispose()
                 {
-                        if (m_DataBase != null)
-                                m_DataBase.Dispose();
+                        if (m_Connection != null)
+                                m_Connection.Dispose();
                         GC.SuppressFinalize(this);
                 }
 
@@ -45,11 +45,11 @@ namespace Lfx.Services
                 {
                         get
                         {
-                                if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Programador de tareas") as Lfx.Data.IConnection;
-                                        m_DataBase.RequiresTransaction = false;
+                                if (m_Connection == null) {
+                                        m_Connection = Lfx.Workspace.Master.GetNewConnection("Programador de tareas") as Lfx.Data.IConnection;
+                                        m_Connection.RequiresTransaction = false;
                                 }
-                                return m_DataBase;
+                                return m_Connection;
                         }
                 }
 
@@ -58,14 +58,14 @@ namespace Lfx.Services
                         if (terminalName == null || terminalName.Length == 0)
                                 terminalName = Lfx.Environment.SystemInformation.MachineName;
 
-                        qGen.Insert Comando = new qGen.Insert(this.DataBase, "sys_programador");
-                        Comando.Fields.AddWithValue("crea_estacion", Lfx.Environment.SystemInformation.MachineName);
-                        Comando.Fields.AddWithValue("crea_usuario", "");        // TODO: que ponga el nombre de usuario
-                        Comando.Fields.AddWithValue("estacion", terminalName);
-                        Comando.Fields.AddWithValue("comando", commandString);
-                        Comando.Fields.AddWithValue("componente", component);
-                        Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        Comando.Fields.AddWithValue("fechaejecutar", null);
+                        qGen.Insert Comando = new qGen.Insert("sys_programador");
+                        Comando.ColumnValues.AddWithValue("crea_estacion", Lfx.Environment.SystemInformation.MachineName);
+                        Comando.ColumnValues.AddWithValue("crea_usuario", "");        // TODO: que ponga el nombre de usuario
+                        Comando.ColumnValues.AddWithValue("estacion", terminalName);
+                        Comando.ColumnValues.AddWithValue("comando", commandString);
+                        Comando.ColumnValues.AddWithValue("componente", component);
+                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("fechaejecutar", null);
 
                         try {
                                 using (System.Data.IDbTransaction Trans = this.DataBase.BeginTransaction()) {
@@ -125,7 +125,7 @@ namespace Lfx.Services
 
                                 //Elimino tareas viejas
                                 qGen.Update Actualizar = new qGen.Update("sys_programador", new qGen.Where("id_evento", Result.Id));
-                                Actualizar.Fields.AddWithValue("estado", 1);
+                                Actualizar.ColumnValues.AddWithValue("estado", 1);
 
                                 using (System.Data.IDbTransaction Trans = this.DataBase.BeginTransaction()) {
                                         this.DataBase.Execute(Actualizar);

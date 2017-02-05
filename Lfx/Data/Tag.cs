@@ -15,12 +15,12 @@ namespace Lfx.Data
                 public Lfx.Data.InputFieldTypes InputFieldType = InputFieldTypes.Text;
                 public object Value { get; set; }
                 public object DefaultValue { get; set; }
-                public IConnection DataBase { get; set; }
+                public IConnection Connection { get; set; }
                 public Relation Relation { get; set; }
 
                 public Tag(IConnection dataBase, string tableName, Lfx.Data.Row fromRow)
                 {
-                        this.DataBase = dataBase;
+                        this.Connection = dataBase;
                         this.TableName = tableName;
                         this.Id = System.Convert.ToInt32(fromRow["id_tag"]);
                         this.FieldName = fromRow["fieldname"].ToString();
@@ -79,7 +79,7 @@ namespace Lfx.Data
 
                 public void Save()
                 {
-                        qGen.TableCommand InsertOrUpdate;
+                        qGen.IStatement InsertOrUpdate;
                         if (this.Id == 0) {
                                 InsertOrUpdate = new qGen.Insert("sys_tags");
                         } else {
@@ -87,26 +87,26 @@ namespace Lfx.Data
                                 InsertOrUpdate.WhereClause = new qGen.Where("id_tag", this.Id);
                         }
 
-                        InsertOrUpdate.Fields.AddWithValue("tablename", this.TableName);
-                        InsertOrUpdate.Fields.AddWithValue("fieldname", this.FieldName);
-                        InsertOrUpdate.Fields.AddWithValue("label", this.Label);
+                        InsertOrUpdate.ColumnValues.AddWithValue("tablename", this.TableName);
+                        InsertOrUpdate.ColumnValues.AddWithValue("fieldname", this.FieldName);
+                        InsertOrUpdate.ColumnValues.AddWithValue("label", this.Label);
                         switch(this.FieldType) {
                                 case ColumnTypes.VarChar:
-                                        InsertOrUpdate.Fields.AddWithValue("fieldtype", "varchar");
+                                        InsertOrUpdate.ColumnValues.AddWithValue("fieldtype", "varchar");
                                         break;
                                 case ColumnTypes.Integer:
-                                        InsertOrUpdate.Fields.AddWithValue("fieldtype", "integer");
+                                        InsertOrUpdate.ColumnValues.AddWithValue("fieldtype", "integer");
                                         break;
                                 case ColumnTypes.Text:
-                                        InsertOrUpdate.Fields.AddWithValue("fieldtype", "text");
+                                        InsertOrUpdate.ColumnValues.AddWithValue("fieldtype", "text");
                                         break;
                         }
-                        InsertOrUpdate.Fields.AddWithValue("fieldnullable", this.Nullable ? 1 : 0);
-                        InsertOrUpdate.Fields.AddWithValue("fielddefault", this.DefaultValue);
-                        InsertOrUpdate.Fields.AddWithValue("internal", this.Internal ? 1 : 0);
-                        InsertOrUpdate.Fields.AddWithValue("access", this.Access);
+                        InsertOrUpdate.ColumnValues.AddWithValue("fieldnullable", this.Nullable ? 1 : 0);
+                        InsertOrUpdate.ColumnValues.AddWithValue("fielddefault", this.DefaultValue);
+                        InsertOrUpdate.ColumnValues.AddWithValue("internal", this.Internal ? 1 : 0);
+                        InsertOrUpdate.ColumnValues.AddWithValue("access", this.Access);
 
-                        this.DataBase.Execute(InsertOrUpdate);
+                        this.Connection.Execute(InsertOrUpdate);
                 }
         }
 }

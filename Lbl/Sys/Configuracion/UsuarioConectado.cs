@@ -41,7 +41,7 @@ namespace Lbl.Sys.Configuracion
                         get
                         {
                                 if (m_Persona == null && this.Id > 0)
-                                        m_Persona = new Personas.Persona(this.DataBase, this.Id);
+                                        m_Persona = new Personas.Persona(this.Connection, this.Id);
                                 
                                 return m_Persona;
                         }

@@ -7,6 +7,7 @@ using Lazaro.Orm;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
 using qGen;
+using log4net;
 
 namespace Lfx.Data
 {
@@ -16,6 +17,8 @@ namespace Lfx.Data
         /// </summary>
         public class Connection : Lazaro.Orm.Data.Connection, Lfx.Data.IConnection
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Connection));
+
                 private static int LastHandle = 0;
 
                 public Connection(IConnectionFactory factory, string ownerName)
@@ -30,11 +33,11 @@ namespace Lfx.Data
                         if (DbConnection != null && DbConnection.State != System.Data.ConnectionState.Closed && DbConnection.State != System.Data.ConnectionState.Broken)
                                 return;
 
-                        Lfx.Workspace.Master.DebugLog(this.Handle, "Abriendo " + this.Name);
+                        Log.Info(this.Handle.ToString() + ": Abriendo " + this.Name);
 
                         System.Text.StringBuilder ConnectionString = new System.Text.StringBuilder();
 
-                        switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
+                        switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                 case AccessModes.MySql:
                                         ConnectionString.Append("Convert Zero Datetime=true;");
                                         ConnectionString.Append("Connection Timeout=10;");
@@ -42,7 +45,7 @@ namespace Lfx.Data
                                         ConnectionString.Append("Allow User Variables=True;");
                                         ConnectionString.Append("Allow Batch=True;");
                                         // ConnectionString.Append("KeepAlive=20;");     // No sirve, uso KeepAlive propio
-                                        if (Lfx.Data.DataBaseCache.DefaultCache.Pooling) {
+                                        if (Lfx.Data.DatabaseCache.DefaultCache.Pooling) {
                                                 ConnectionString.Append("Pooling=true;");
                                         } else {
                                                 ConnectionString.Append("Pooling=false;");
@@ -56,7 +59,7 @@ namespace Lfx.Data
                                                         ConnectionString.Append("charset=latin1;");
                                                         break;
                                         }
-                                        if (Lfx.Data.DataBaseCache.DefaultCache.SlowLink) {
+                                        if (Lfx.Data.DatabaseCache.DefaultCache.SlowLink) {
                                                 ConnectionString.Append("Compress=true;");
                                                 ConnectionString.Append("Use Compression=true;");
                                         }
@@ -69,16 +72,16 @@ namespace Lfx.Data
                                         throw new NotImplementedException("Soporte SQL Server no implementado");
                         }
 
-                        if (Lfx.Data.DataBaseCache.DefaultCache.OdbcDriver != null)
-                                ConnectionString.Append("DRIVER={" + Lfx.Data.DataBaseCache.DefaultCache.OdbcDriver + "};");
+                        if (Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver != null)
+                                ConnectionString.Append("DRIVER={" + Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver + "};");
 
                         string Server, Port;
-                        if (Lfx.Data.DataBaseCache.DefaultCache.ServerName.IndexOf(':') >= 0) {
-                                string[] Temp = Lfx.Data.DataBaseCache.DefaultCache.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.IndexOf(':') >= 0) {
+                                string[] Temp = Lfx.Data.DatabaseCache.DefaultCache.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
                                 Server = Temp[0];
                                 Port = Temp[1];
                         } else {
-                                Server = Lfx.Data.DataBaseCache.DefaultCache.ServerName;
+                                Server = Lfx.Data.DatabaseCache.DefaultCache.ServerName;
                                 Port = null;
                         }
 
@@ -86,10 +89,10 @@ namespace Lfx.Data
                         if (string.IsNullOrEmpty(Port) == false)
                                 ConnectionString.Append("PORT=" + Port + ";");
 
-                        if (string.IsNullOrWhiteSpace(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName) == false)
-                                ConnectionString.Append("DATABASE=" + Lfx.Data.DataBaseCache.DefaultCache.DataBaseName + ";");
-                        ConnectionString.Append("UID=" + Lfx.Data.DataBaseCache.DefaultCache.UserName + ";");
-                        ConnectionString.Append("PWD=" + Lfx.Data.DataBaseCache.DefaultCache.Password + ";");
+                        if (string.IsNullOrWhiteSpace(Lfx.Data.DatabaseCache.DefaultCache.DatabaseName) == false)
+                                ConnectionString.Append("DATABASE=" + Lfx.Data.DatabaseCache.DefaultCache.DatabaseName + ";");
+                        ConnectionString.Append("UID=" + Lfx.Data.DatabaseCache.DefaultCache.UserName + ";");
+                        ConnectionString.Append("PWD=" + Lfx.Data.DatabaseCache.DefaultCache.Password + ";");
 
                         DbConnection = this.Factory.Driver.GetConnection();
                         DbConnection.ConnectionString = ConnectionString.ToString();
@@ -123,45 +126,7 @@ namespace Lfx.Data
                 }
 
 
-                protected bool TryToRecover(Exception ex)
-                {
-                        // Intento recuperar algunos errores de MySQL desconectando y volviendo a conectar
-                        // Pero sólo puedo hacer esto si no estoy en una transacción
-                        if (EnableRecover == true && m_InTransaction == false && ex.Source == "MySql.Data" &&
-                                (ex.Message.IndexOf("server has gone away", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("se ha desactivado la conexión", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("Referencia a objeto no establecida como instancia de un objeto", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("Object reference not set to an instance of an object", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("Fatal error encountered during command execution", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("Connection must be valid and open", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                || ex.Message.IndexOf("el estado actual de la conexión es cerrada", StringComparison.InvariantCultureIgnoreCase) >= 0
-                                )) {
-
-                                if (this.IsOpen())
-                                        return false;
-
-                                EnableRecover = false;
-
-                                if (DbConnection != null && DbConnection.State != System.Data.ConnectionState.Closed)
-                                        this.Close();
-
-                                System.Threading.Thread.Sleep(500);
-
-                                int intentos = 5;
-                                while ((DbConnection == null || DbConnection.State != System.Data.ConnectionState.Open) && intentos-- > 0) {
-                                        try {
-                                                this.Open();
-                                                DbConnection.ChangeDatabase(Lfx.Data.DataBaseCache.DefaultCache.DataBaseName);
-                                        } catch {
-                                                System.Threading.Thread.Sleep(2000);
-                                        }
-                                }
-                                EnableRecover = true;
-                                return false;
-                        } else {
-                                return true;
-                        }
-                }
+                
 
 
                 protected void SetupConnection(System.Data.IDbConnection setupConnection)
@@ -170,11 +135,11 @@ namespace Lfx.Data
                                 //Detecto el tipo de servidor y asigno directamente a la variable porque la propiedad es sólo lectura
                                 System.Data.Odbc.OdbcConnection OdbcConnection = setupConnection as System.Data.Odbc.OdbcConnection;
                                 if (OdbcConnection.ServerVersion.IndexOf("PostgreSql", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.PostgreSql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.PostgreSql;
                                 else if (OdbcConnection.Driver.IndexOf("myodbc", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
                                 else if (OdbcConnection.Driver.IndexOf("SqlSRV", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.TransactSql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.TransactSql;
                         }
 
                         switch (this.SqlMode) {
@@ -211,7 +176,7 @@ namespace Lfx.Data
                         if (CurrentTableDef.Columns.Count == 0) {
                                 // Crear la tabla
                                 string Sql = newTableDef.ToString();
-                                this.ExecuteSql(this.CustomizeSql(Sql));
+                                this.ExecuteNonQuery(this.CustomizeSql(Sql));
                                 TablaCreada = true;
                         } else {
                                 // Modificar tabla existente
@@ -299,7 +264,7 @@ namespace Lfx.Data
                                 // Ejecuto todas las alteraciones juntas
                                 if (Alterations.Count > 0) {
                                         string Sql = "ALTER TABLE \"" + newTableDef.Name + "\" " + string.Join("," + System.Environment.NewLine, Alterations.ToArray());
-                                        this.ExecuteSql(this.CustomizeSql(Sql));
+                                        this.ExecuteNonQuery(this.CustomizeSql(Sql));
                                 }
                         }
 
@@ -353,11 +318,10 @@ namespace Lfx.Data
                 }
 
 
-
                 protected void DropPrimaryKey(string table)
                 {
                         string Sql = "ALTER TABLE \"" + table + "\" DROP PRIMARY KEY;";
-                        this.ExecuteSql(this.CustomizeSql(Sql));
+                        this.ExecuteNonQuery(this.CustomizeSql(Sql));
                 }
 
 
@@ -379,7 +343,7 @@ namespace Lfx.Data
                                         Sql = "ALTER TABLE \"" + index.TableName + "\" ADD " + index.SqlDefinition();
                                         break;
                         }
-                        this.ExecuteSql(Sql);
+                        this.ExecuteNonQuery(Sql);
                 }
 
                 protected void DropIndex(Data.IndexDefinition index)
@@ -409,7 +373,7 @@ namespace Lfx.Data
                                                 Sql = "ALTER TABLE \"" + index.TableName + "\" DROP INDEX \"" + index.Name + "\"";
                                         break;
                         }
-                        this.ExecuteSql(Sql);
+                        this.ExecuteNonQuery(Sql);
                 }
 
 
@@ -638,7 +602,7 @@ LEFT JOIN pg_attribute
                         IDictionary<string, ConstraintDefinition> CurrentConstraints = this.GetConstraints();
                         foreach (Data.ConstraintDefinition Con in CurrentConstraints.Values) {
                                 string Sql = "ALTER TABLE \"" + Con.TableName + "\" DROP FOREIGN KEY \"" + Con.Name + "\"";
-                                this.ExecuteSql(this.CustomizeSql(Sql));
+                                this.ExecuteNonQuery(this.CustomizeSql(Sql));
                         }
                 }
 
@@ -672,7 +636,7 @@ LEFT JOIN pg_attribute
                 public void CreateForeignKey(Data.ConstraintDefinition constraint)
                 {
                         string Sql = "ALTER TABLE \"" + constraint.TableName + "\" ADD CONSTRAINT \"" + constraint.Name + "\" FOREIGN KEY (\"" + constraint.Column + "\") REFERENCES \"" + constraint.ReferenceTable + "\" (\"" + constraint.ReferenceColumn + "\") $DEFERRABLE$";
-                        this.ExecuteSql(this.CustomizeSql(Sql));
+                        this.ExecuteNonQuery(this.CustomizeSql(Sql));
                 }
 
 
@@ -686,7 +650,7 @@ LEFT JOIN pg_attribute
                         else
                                 Sql = "ALTER TABLE \"" + constraint.TableName + "\" DROP FOREIGN KEY \"" + constraint.Name + "\"";
 
-                        this.ExecuteSql(this.CustomizeSql(Sql));
+                        this.ExecuteNonQuery(this.CustomizeSql(Sql));
                 }
 
 
@@ -744,7 +708,7 @@ LEFT JOIN pg_attribute
                                 throw new InvalidOperationException("No se puede deshechar el espacio de trabajo maestro");
                         } else {
                                 Lfx.Workspace.Master.ActiveConnections.Remove(this);
-                                Lfx.Workspace.Master.DebugLog(this.Handle, "Deshechando " + this.Name);
+                                Log.Info(this.Handle.ToString() + ": Deshechando " + this.Name);
 
                                 base.Dispose();
                         }
@@ -762,19 +726,10 @@ LEFT JOIN pg_attribute
                 }
 
 
-                public string ServerName
-                {
-                        get
-                        {
-                                return Lfx.Data.DataBaseCache.DefaultCache.ServerName;
-                        }
-                }
-
-
                 public TableCollection GetTables()
                 {
                         TableCollection Res = new Lfx.Data.TableCollection(Lfx.Workspace.Master.MasterConnection);
-                        foreach (string TblName in Lfx.Data.DataBaseCache.DefaultCache.GetTableNames()) {
+                        foreach (string TblName in Lfx.Data.DatabaseCache.DefaultCache.GetTableNames()) {
                                 Lfx.Data.Table NewTable = new Lfx.Data.Table(Lfx.Workspace.Master.MasterConnection, TblName);
                                 switch (TblName) {
                                         case "alicuotas":
@@ -849,7 +804,7 @@ LEFT JOIN pg_attribute
                         if (this.IsOpen() == false)
                                 this.Open();
 
-                        return this.ExecuteSql(this.Factory.Formatter.SqlText(deleteCommand));
+                        return this.ExecuteNonQuery(this.Factory.Formatter.SqlText(deleteCommand));
                 }
 
                 public int Insert(qGen.Insert insertCommand)
@@ -860,87 +815,29 @@ LEFT JOIN pg_attribute
                         if (this.IsOpen() == false)
                                 this.Open();
 
-                        if (Lfx.Workspace.Master.TraceMode)
-                                Lfx.Workspace.Master.DebugLog(this.Handle, insertCommand.ToString());
-
                         System.Data.IDbCommand TempCommand = this.GetCommand(insertCommand);
+                        Log.Debug(this.Handle.ToString() + ":  " + TempCommand.CommandText);
                         try {
                                 return TempCommand.ExecuteNonQuery();
                         } catch (Exception ex) {
-                                this.LogError("----------------------------------------------------------------------------");
-                                this.LogError(ex.Message);
-                                this.LogError(TempCommand.CommandText);
+                                Log.Error(TempCommand.CommandText, ex);
                                 throw ex;
                         }
                 }
+                
 
-
-                public int ExecuteSql(string sqlCommand)
+                public int Execute(qGen.IStatement statementOrQuery)
                 {
                         if (this.ReadOnly)
                                 throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
 
-                        if (Lfx.Workspace.Master.TraceMode)
-                                Lfx.Workspace.Master.DebugLog(this.Handle, sqlCommand);
-
-                        // TODO: esto debería hacerlo no sólo en DebugMode
-                        if (this.RequiresTransaction && m_InTransaction == false && Lfx.Workspace.Master.DebugMode)
-                                throw new InvalidOperationException("Comandos fuera de transacción: " + sqlCommand);
-
-                        sqlCommand = sqlCommand.Trim(new char[] { ' ', (char)13, (char)10, (char)9 });
-                        if (sqlCommand.Length == 0)
-                                return 0;
-
-                        IDbCommand Cmd = this.GetCommand(sqlCommand);
-                        // Doy más tiempo para los comandos escritos en SQL
-                        Cmd.CommandTimeout = 300;
-                        return this.ExecuteNonQuery(Cmd);
-                }
-
-                public int Execute(qGen.ICommand sqlCommand)
-                {
-                        if (this.ReadOnly)
-                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
-
-                        if (sqlCommand is qGen.Update || sqlCommand is qGen.Insert || sqlCommand is qGen.Delete) {
+                        if (statementOrQuery is qGen.Update || statementOrQuery is qGen.Insert || statementOrQuery is qGen.Delete) {
                                 if (this.RequiresTransaction && this.m_InTransaction == false)
-                                        throw new InvalidOperationException("Comando fuera una transacción: " + sqlCommand);
+                                        throw new InvalidOperationException("Comando fuera una transacción: " + statementOrQuery);
                         }
 
-                        using (System.Data.IDbCommand Cmd = this.GetCommand(this.Factory.Formatter.SqlText(sqlCommand))) {
+                        using (System.Data.IDbCommand Cmd = this.GetCommand(this.Factory.Formatter.SqlText(statementOrQuery))) {
                                 return this.ExecuteNonQuery(Cmd);
-                        }
-                }
-
-                public int ExecuteNonQuery(System.Data.IDbCommand command)
-                {
-                        if (this.ReadOnly)
-                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
-
-                        if (this.IsOpen() == false)
-                                this.Open();
-
-                        if (Lfx.Workspace.Master.TraceMode)
-                                Lfx.Workspace.Master.DebugLog(this.Handle, command.CommandText);
-
-                        int Intentos = 3;
-                        while (true) {
-                                try {
-                                        if (command.Connection == null)
-                                                command.Connection = this.DbConnection;
-
-                                        this.ResetKeepAliveTimer();
-                                        int Res = command.ExecuteNonQuery();
-                                        return Res;
-                                } catch (Exception ex) {
-                                        if (this.TryToRecover(ex) || Intentos-- <= 0) {
-                                                LogError("----------------------------------------------------------------------------");
-                                                LogError(ex.Message);
-                                                LogError(command.CommandText);
-                                                ex.Data.Add("Command", command.CommandText);
-                                                throw ex;
-                                        }
-                                }
                         }
                 }
 
@@ -1007,10 +904,8 @@ LEFT JOIN pg_attribute
                         if (this.IsOpen() == false)
                                 this.Open();
 
-                        if (Lfx.Workspace.Master.TraceMode)
-                                Lfx.Workspace.Master.DebugLog(this.Handle, selectCommand);
-
                         System.Data.IDbCommand Cmd = this.GetCommand(selectCommand);
+                        Log.Debug(this.Handle.ToString() + ":  " + Cmd.CommandText);
                         int Intentos = 3;
                         while (true) {
                                 try {
@@ -1018,9 +913,7 @@ LEFT JOIN pg_attribute
                                         return Res;
                                 } catch (Exception ex) {
                                         if (this.TryToRecover(ex) || Intentos-- <= 0) {
-                                                LogError("----------------------------------------------------------------------------");
-                                                LogError(ex.Message);
-                                                LogError(selectCommand);
+                                                Log.Error(selectCommand, ex);
                                                 ex.Data.Add("Command", selectCommand);
                                                 throw ex;
                                         }
@@ -1124,56 +1017,7 @@ LEFT JOIN pg_attribute
                 }
 
 
-                public System.Data.DataTable Select(string selectCommand)
-                {
-                        if (this.IsOpen() == false)
-                                this.Open();
-
-                        if (Lfx.Workspace.Master.TraceMode)
-                                Lfx.Workspace.Master.DebugLog(this.Handle, selectCommand);
-
-                        this.EsperarFinDeLectura();
-                        var Adaptador = this.Factory.Driver.GetAdapter(selectCommand, this.DbConnection);
-                        lock (Adaptador) {
-                                using (System.Data.DataSet Lector = new System.Data.DataSet()) {
-                                        Lector.Locale = System.Globalization.CultureInfo.CurrentCulture;
-                                        while (true) {
-                                                try {
-                                                        this.ResetKeepAliveTimer();
-                                                        Adaptador.Fill(Lector);
-                                                        break;
-                                                } catch (Exception ex) {
-                                                        if (this.TryToRecover(ex)) {
-                                                                LogError("----------------------------------------------------------------------------");
-                                                                LogError(ex.Message);
-                                                                LogError(selectCommand);
-                                                                ex.Data.Add("Command", selectCommand);
-                                                                throw ex;
-                                                        }
-                                                }
-                                        }
-                                        return Lector.Tables[0];
-                                }
-                        }
-                }
-
-
-                public System.Data.DataTable Select(qGen.Select selectCommand)
-                {
-                        if (this.IsOpen() == false)
-                                this.Open();
-
-                        return this.Select(this.Factory.Formatter.SqlText(selectCommand));
-                }
-
-
-
-                private void LogError(string texto)
-                {
-                        System.IO.StreamWriter wr = new System.IO.StreamWriter(new System.IO.FileStream(Lfx.Environment.Folders.ApplicationDataFolder + this.DataBaseName + ".log", System.IO.FileMode.Append));
-                        wr.Write(System.DateTime.Now.ToString("yyyyMMddhhmmss") + "  " + texto + System.Environment.NewLine);
-                        wr.Close();
-                }
+                
 
 
                 private bool m_ConstraintsEnabled = true;
@@ -1232,7 +1076,7 @@ LEFT JOIN pg_attribute
                 {
                         get
                         {
-                                return Lfx.Data.DataBaseCache.DefaultCache.SqlMode;
+                                return Lfx.Data.DatabaseCache.DefaultCache.SqlMode;
                         }
                 }
 
@@ -1319,9 +1163,7 @@ LEFT JOIN pg_attribute
                                         return Rdr;
                                 } catch (Exception ex) {
                                         if (this.TryToRecover(ex)) {
-                                                LogError("----------------------------------------------------------------------------");
-                                                LogError(ex.Message);
-                                                LogError(selectCommand);
+                                                Log.Error(selectCommand, ex);
                                                 ex.Data.Add("Command", selectCommand);
                                                 throw ex;
                                         }
@@ -1341,19 +1183,11 @@ LEFT JOIN pg_attribute
                 }
 
 
-                public string DataBaseName
-                {
-                        get
-                        {
-                                return Lfx.Data.DataBaseCache.DefaultCache.DataBaseName;
-                        }
-                }
-
                 public AccessModes AccessMode
                 {
                         get
                         {
-                                return Lfx.Data.DataBaseCache.DefaultCache.AccessMode;
+                                return Lfx.Data.DatabaseCache.DefaultCache.AccessMode;
                         }
                 }
         }

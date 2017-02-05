@@ -1,6 +1,7 @@
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
 using Lfx.Data;
+using log4net;
 using qGen;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Lfx
         /// </summary>
         public class Workspace : System.MarshalByRefObject, IDisposable, IConnectionFactory
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Workspace));
+
                 public static Lfx.Workspace Master = null;
                 private Lfx.Data.IConnection m_MasterConnection = null;
                 public Data.Structure Structure = new Data.Structure();
@@ -24,9 +27,8 @@ namespace Lfx
                 public Lfx.Config.ConfigManager CurrentConfig;
                 public Services.Scheduler DefaultScheduler;
                 public RunTimeServices RunTime;
-                public int DataBaseCount = 0;
+                public int ConnectionCount = 0;
                 public bool DebugMode { get; set; }
-                public bool TraceMode { get; set; }
                 public bool WebAppMode { get; set; }
                 public List<Data.Connection> ActiveConnections = new List<Data.Connection>();
                 public string ServerVersion { get; set; }
@@ -34,6 +36,7 @@ namespace Lfx
 
                 public IDriver Driver { get; set; }
                 public IFormatter Formatter { get; set; }
+                public ConnectionParameters ConnectionParameters { get; set; }
 
                 private TableCollection m_Tables = null;
 
@@ -63,54 +66,61 @@ namespace Lfx
                                 this.RunTime = new Lfx.RunTimeServices();
                         }
 
-                        if (Lfx.Data.DataBaseCache.DefaultCache == null)
-                                Lfx.Data.DataBaseCache.DefaultCache = new Lfx.Data.DataBaseCache(m_MasterConnection);
+                        if (Lfx.Data.DatabaseCache.DefaultCache == null)
+                                Lfx.Data.DatabaseCache.DefaultCache = new Lfx.Data.DatabaseCache(m_MasterConnection);
 
                         if (this.MasterConnection == null) {
                                 switch (this.CurrentConfig.ReadLocalSettingString("Data", "ConnectionType", "mysql")) {
                                         case "odbc":
-                                                Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
                                                 break;
 
                                         case "myodbc":
                                         case "mysql":
-                                                Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
                                                 break;
 
                                         case "npgsql":
-                                                Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
                                                 break;
 
                                         case "mssql":
-                                                Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
                                                 break;
 
                                         case "sqlite":
-                                                Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
                                                 break;
                                 }
                         }
 
-                        if (Lfx.Data.DataBaseCache.DefaultCache.ServerName == null) {
-                                Lfx.Data.DataBaseCache.DefaultCache.ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost");
-                                Lfx.Data.DataBaseCache.DefaultCache.DataBaseName = this.CurrentConfig.ReadLocalSettingString("Data", "DatabaseName", "lazaro");
-                                Lfx.Data.DataBaseCache.DefaultCache.UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro");
-                                Lfx.Data.DataBaseCache.DefaultCache.Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty);
-                                Lfx.Data.DataBaseCache.DefaultCache.Pooling = this.CurrentConfig.ReadLocalSettingInt("Data", "Pooling", 1) != 0;
+                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName == null) {
+                                this.ConnectionParameters = new ConnectionParameters()
+                                {
+                                        ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost"),
+                                        DatabaseName = this.CurrentConfig.ReadLocalSettingString("Data", "DatabaseName", "lazaro"),
+                                        UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro"),
+                                        Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty)
+                                };
+                                Lfx.Data.DatabaseCache.DefaultCache.ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost");
+                                Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = this.CurrentConfig.ReadLocalSettingString("Data", "DatabaseName", "lazaro");
+                                Lfx.Data.DatabaseCache.DefaultCache.UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro");
+                                Lfx.Data.DatabaseCache.DefaultCache.Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty);
+                                Lfx.Data.DatabaseCache.DefaultCache.Pooling = this.CurrentConfig.ReadLocalSettingInt("Data", "Pooling", 1) != 0;
                         }
 
                         System.Text.RegularExpressions.Regex IpLocal1 = new System.Text.RegularExpressions.Regex(@"^192\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
                         System.Text.RegularExpressions.Regex IpLocal2 = new System.Text.RegularExpressions.Regex(@"^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
-                        if (Lfx.Data.DataBaseCache.DefaultCache.ServerName.Contains(".") == false || IpLocal1.IsMatch(Lfx.Data.DataBaseCache.DefaultCache.ServerName) || IpLocal2.IsMatch(Lfx.Data.DataBaseCache.DefaultCache.ServerName)) {
-                                Lfx.Data.DataBaseCache.DefaultCache.SlowLink = false;
+                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.Contains(".") == false || IpLocal1.IsMatch(Lfx.Data.DatabaseCache.DefaultCache.ServerName) || IpLocal2.IsMatch(Lfx.Data.DatabaseCache.DefaultCache.ServerName)) {
+                                Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
                         } else {
-                                Lfx.Data.DataBaseCache.DefaultCache.SlowLink = true;
+                                Lfx.Data.DatabaseCache.DefaultCache.SlowLink = true;
                         }
 
                         if (m_MasterConnection == null) {
                                 m_MasterConnection = this.GetNewConnection(this.Name) as Lfx.Data.IConnection;
                                 m_MasterConnection.RequiresTransaction = false;
-                                Lfx.Data.DataBaseCache.DefaultCache.Connection = m_MasterConnection;
+                                Lfx.Data.DatabaseCache.DefaultCache.Connection = m_MasterConnection;
                         }
 
                         if (openConnection) {
@@ -176,10 +186,7 @@ namespace Lfx
 
                 public override string ToString()
                 {
-                        if (this.Name == "default")
-                                return this.MasterConnection.DataBaseName;
-                        else
-                                return this.Name;
+                        return this.Name;
                 }
 
                 public Lfx.Data.IConnection MasterConnection
@@ -201,7 +208,7 @@ namespace Lfx
                         if (this.DefaultScheduler != null)
                                 this.DefaultScheduler.Dispose();
 
-                        // Tengo que clonar this.DataBases porque .Dispose() va a modificar la lista mientras la estoy recorriendo
+                        // Tengo que clonar this.ActiveConnections porque .Dispose() va a modificar la lista mientras la estoy recorriendo
                         List<Data.Connection> Dbs = new List<Data.Connection>();
                         Dbs.AddRange(this.ActiveConnections);
 
@@ -220,14 +227,14 @@ namespace Lfx
                 {
                         Lfx.Data.Connection Res = new Lfx.Data.Connection(this, ownerName);
 
-                        switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
+                        switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                 case AccessModes.MySql:
                                         if (this.Driver == null) {
                                                 this.Driver = new Lazaro.Orm.Data.Drivers.MySqlDriver();
                                                 this.Formatter = new qGen.MySqlFormatter();
-                                                Lfx.Data.DataBaseCache.DefaultCache.OdbcDriver = null;
-                                                Lfx.Data.DataBaseCache.DefaultCache.Mars = false;
-                                                Lfx.Data.DataBaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
+                                                Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver = null;
+                                                Lfx.Data.DatabaseCache.DefaultCache.Mars = false;
+                                                Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
                                         }
                                         break;
                                 case AccessModes.Npgsql:
@@ -243,19 +250,12 @@ namespace Lfx
                         return Res;
                 }
 
-                /// <summary>
-                /// Log de comandos SQL (normalmente a la consola). Sólo para depuración.
-                /// </summary>
-                public void DebugLog(int handle, string command)
-                {
-                        System.Console.WriteLine(handle.ToString() + ": " + command);
-                }
 
                 public bool SlowLink
                 {
                         get
                         {
-                                return Lfx.Data.DataBaseCache.DefaultCache.SlowLink;
+                                return Lfx.Data.DatabaseCache.DefaultCache.SlowLink;
                         }
                 }
 
@@ -267,7 +267,7 @@ namespace Lfx
                 {
                         //TODO: podría directamente modificar el caché en memoria, si quien notifica el cambio me pasara una copia del nuevo registro
                         //(p. ej. Lbl.ElementoDeDatos puede hacerlo). Por el momento voy a lo seguro y elimino del caché.
-                        Lfx.Data.DataBaseCache.DefaultCache.Tables[table].FastRows.RemoveFromCache(id);
+                        Lfx.Data.DatabaseCache.DefaultCache.Tables[table].FastRows.RemoveFromCache(id);
                 }
 
 
@@ -276,7 +276,7 @@ namespace Lfx
                 /// </summary>
                 /// <param name="ignorarFecha">Ignorar la fecha y actualizar siempre.</param>
                 /// <param name="noTocarDatos">Actualizar sólo la estructura. No incorpora ni modifica datos.</param>
-                public void CheckAndUpdateDataBaseVersion(bool ignorarFecha, bool noTocarDatos)
+                public void CheckAndUpdateDatabaseVersion(bool ignorarFecha, bool noTocarDatos)
                 {
                         using (Lfx.Data.IConnection Conn = Lfx.Workspace.Master.GetNewConnection("Verificar estructura de la base de datos") as Lfx.Data.IConnection) {
                                 Conn.RequiresTransaction = false;
@@ -314,7 +314,7 @@ namespace Lfx
                                 Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.VerificarVersionBd.Estacion", Lfx.Environment.SystemInformation.MachineName);
 
                                 try {
-                                        Conn.ExecuteSql("FLUSH TABLES");
+                                        Conn.ExecuteNonQuery("FLUSH TABLES");
                                 } catch {
                                         // No tengo permiso... no importa
                                 }
@@ -330,7 +330,7 @@ namespace Lfx
                                 if (ignorarFecha || Diferencia.TotalHours > 1) {
                                         // Lázaro es más nuevo que la BD por más de 1 hora
                                         Progreso.ChangeStatus("Verificando estructuras");
-                                        this.CheckAndUpdateDataBaseStructure(Conn, false, Progreso);
+                                        this.CheckAndUpdateDatabaseStructure(Conn, false, Progreso);
                                         if (noTocarDatos == false)
                                                 this.CurrentConfig.WriteGlobalSetting("Sistema.DB.VersionEstructura", Lfx.Types.Formatting.FormatDateTimeSql(FechaLazaroExe.ToUniversalTime()));
                                 }
@@ -377,7 +377,7 @@ namespace Lfx
 
                         // Creación de tablas
                         progreso.ChangeStatus("Creando estructuras");
-                        this.CheckAndUpdateDataBaseStructure(this.MasterConnection, true, progreso);
+                        this.CheckAndUpdateDatabaseStructure(this.MasterConnection, true, progreso);
 
                         this.MasterConnection.EnableConstraints(false);
 
@@ -408,7 +408,7 @@ namespace Lfx
                         do {
                                 string Comando = Lfx.Data.Connection.GetNextCommand(ref Sql);
                                 try {
-                                        this.MasterConnection.ExecuteSql(Comando);
+                                        this.MasterConnection.ExecuteNonQuery(Comando);
                                 } catch {
                                         // Hubo errores, pero continúo
                                 }
@@ -421,7 +421,7 @@ namespace Lfx
                         Lfx.Workspace.Master.Structure.TagList.Clear();
                         Lfx.Workspace.Master.Structure.LoadBuiltIn();
 
-                        this.CheckAndUpdateDataBaseStructure(this.MasterConnection, false, progreso);
+                        this.CheckAndUpdateDatabaseStructure(this.MasterConnection, false, progreso);
 
                         this.MasterConnection.EnableConstraints(true);
                         this.CurrentConfig.WriteGlobalSetting("Sistema.DB.Version", Lfx.Workspace.VersionUltima);
@@ -449,13 +449,13 @@ namespace Lfx
                                 string SqlActualizacion = dataBase.CustomizeSql(Lector.ReadToEnd());
                                 RecursoActualizacion.Close();
                                 try {
-                                        dataBase.ExecuteSql(SqlActualizacion);
+                                        dataBase.ExecuteNonQuery(SqlActualizacion);
                                 } catch {
                                         // Falló la ejecución... intento los comandos SQL de a uno, ignorando el que de un error
                                         do {
                                                 string Comando = Data.Connection.GetNextCommand(ref SqlActualizacion);
                                                 try {
-                                                        dataBase.ExecuteSql(Comando);
+                                                        dataBase.ExecuteNonQuery(Comando);
                                                 } catch {
                                                         if (Lfx.Environment.SystemInformation.DesignMode)
                                                                 throw;
@@ -470,30 +470,30 @@ namespace Lfx
                 /// Verifica la estructura de la base de datos actual y si es necesario modifica para que esté conforme
                 /// al diseño de referencia.
                 /// </summary>
-                /// <param name="dataBase">PrintDataBase mediante el cual se accede a la base de datos.</param>
+                /// <param name="connection">PrintDatabase mediante el cual se accede a la base de datos.</param>
                 /// <param name="omitPreAndPostSql">Omitir la ejecución de comandos Pre- y Post-actualización de estructura. Esto es útil cuando se actualiza una estructura vacía, por ejemplo al crear una base de datos nueva.</param>
                 /// /// <param name="progreso">El objeto sobre el cual reportar el progreso.</param>
-                public void CheckAndUpdateDataBaseStructure(Lfx.Data.IConnection dataBase, bool omitPreAndPostSql, Lfx.Types.OperationProgress progreso)
+                public void CheckAndUpdateDatabaseStructure(Lfx.Data.IConnection connection, bool omitPreAndPostSql, Lfx.Types.OperationProgress progreso)
                 {
                         progreso.ChangeStatus("Verificando estructuras de datos");
 
                         bool MustEnableConstraints = false;
-                        if (dataBase.ConstraintsEnabled) {
-                                dataBase.EnableConstraints(false);
+                        if (connection.ConstraintsEnabled) {
+                                connection.EnableConstraints(false);
                                 MustEnableConstraints = true;
                         }
 
                         if (omitPreAndPostSql == false) {
                                 progreso.ChangeStatus("Ejecutando guión previo...");
-                                InyectarSqlDesdeRecurso(dataBase, @"Data.Struct.db_upd_pre.sql");
+                                InyectarSqlDesdeRecurso(connection, @"Data.Struct.db_upd_pre.sql");
                         }
 
                         //Primero borro claves foráneas (deleteOnly = true)
                         progreso.ChangeStatus("Eliminando reglas obsoletas...");
-                        dataBase.SetConstraints(Lfx.Workspace.Master.Structure.Constraints, true);
+                        connection.SetConstraints(Lfx.Workspace.Master.Structure.Constraints, true);
 
                         try {
-                                dataBase.ExecuteSql("FLUSH TABLES");
+                                connection.ExecuteNonQuery("FLUSH TABLES");
                         } catch {
                                 // No tengo permiso... no importa
                         }
@@ -503,25 +503,25 @@ namespace Lfx
                                 if (Tab.Label == null)
                                         TableLabel = Tab.Name.ToTitleCase();
                                 progreso.ChangeStatus(progreso.Value + 1, "Verificando " + TableLabel);
-                                dataBase.SetTableStructure(Tab);
+                                connection.SetTableStructure(Tab);
                         }
 
                         //Ahora creo claves nuevas (deleteOnly = false)
                         progreso.ChangeStatus("Estableciendo reglas de integridad");
                         try {
-                                dataBase.ExecuteSql("FLUSH TABLES");
+                                connection.ExecuteNonQuery("FLUSH TABLES");
                         } catch {
                                 // No tengo permiso... no importa
                         }
-                        dataBase.SetConstraints(Lfx.Workspace.Master.Structure.Constraints, false);
+                        connection.SetConstraints(Lfx.Workspace.Master.Structure.Constraints, false);
 
                         if (omitPreAndPostSql == false) {
                                 progreso.ChangeStatus("Ejecutando guión posterior...");
-                                InyectarSqlDesdeRecurso(dataBase, @"Data.Struct.db_upd_post.sql");
+                                InyectarSqlDesdeRecurso(connection, @"Data.Struct.db_upd_post.sql");
                         }
 
                         if (MustEnableConstraints)
-                                dataBase.EnableConstraints(true);
+                                connection.EnableConstraints(true);
                 }
         }
 }

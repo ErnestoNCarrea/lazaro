@@ -4,12 +4,9 @@ using Lazaro.Orm.Data;
 namespace qGen
 {
         [Serializable]
-        public class RollBackCommand : Command
+        public class RollBackCommand : Statement
         {
                 public RollBackCommand()
                         : base() { }
-
-                public RollBackCommand(IConnection dataBase)
-                        : base(dataBase) { }
         }
 }

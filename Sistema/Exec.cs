@@ -111,10 +111,10 @@ namespace Lazaro.WinMain
                                                         break;
                                                 case "DATA":
                                                         Lbl.Servicios.Verificador Ver = new Lbl.Servicios.Verificador(Lfx.Workspace.Master.MasterConnection);
-                                                        Ver.CheckDataBase();
+                                                        Ver.CheckDatabase();
                                                         break;
                                                 case "STRUCT":
-                                                        System.Threading.ThreadStart ThreadVerif = delegate { Lfx.Workspace.Master.CheckAndUpdateDataBaseVersion(true, false); };
+                                                        System.Threading.ThreadStart ThreadVerif = delegate { Lfx.Workspace.Master.CheckAndUpdateDatabaseVersion(true, false); };
                                                         System.Threading.Thread ThrVerif = new System.Threading.Thread(ThreadVerif);
                                                         ThrVerif.IsBackground = true;
                                                         ThrVerif.Start();
@@ -310,9 +310,9 @@ namespace Lazaro.WinMain
                                         
                                         Lfx.Types.OperationResult ResultadoImpresion;
 
-                                        using (var DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante") as Lfx.Data.Connection)
-                                        using (System.Data.IDbTransaction Trans = DataBaseImprimir.BeginTransaction()) {
-                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
+                                        using (var ConnImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante") as Lfx.Data.Connection)
+                                        using (System.Data.IDbTransaction Trans = ConnImprimir.BeginTransaction()) {
+                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(ConnImprimir, IdComprobante);
                                                 var Controlador = new Lazaro.Base.Controller.ComprobanteController(Trans);
                                                 ResultadoImpresion = Controlador.Imprimir(Comprob, null);
                                                 if (ResultadoImpresion.Success) {
@@ -322,9 +322,9 @@ namespace Lazaro.WinMain
                                                 }
                                         }
 
-                                        /* using (Lfx.Data.Connection DataBaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante"))
-                                        using (System.Data.IDbTransaction Trans = DataBaseImprimir.BeginTransaction()) {
-                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBaseImprimir, IdComprobante);
+                                        /* using (Lfx.Data.Connection DatabaseImprimir = Lfx.Workspace.Master.GetNewConnection("Imprimir comprobante"))
+                                        using (System.Data.IDbTransaction Trans = DatabaseImprimir.BeginTransaction()) {
+                                                var Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DatabaseImprimir, IdComprobante);
                                                 var Impresor = new Impresion.Comprobantes.ImpresorComprobanteConArticulos(Comprob, Trans);
                                                 ResultadoImpresion = Impresor.Imprimir();
                                                 if (ResultadoImpresion.Success)
@@ -403,14 +403,14 @@ namespace Lazaro.WinMain
                         if (Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(TipoLbl, Lbl.Sys.Permisos.Operaciones.Ver) == false)
                                 return new Lfx.Types.NoAccessOperationResult();
 
-                        var DataBase = Lfx.Workspace.Master.GetNewConnection("Editar " + (AtrNombre == null ? SubComando : AtrNombre.NombreSingular)) as Lfx.Data.Connection;
+                        var ConnEditar = Lfx.Workspace.Master.GetNewConnection("Editar " + (AtrNombre == null ? SubComando : AtrNombre.NombreSingular)) as Lfx.Data.Connection;
                         Lbl.IElementoDeDatos Elemento = null;
                         if (crear) {
-                                Elemento = Lbl.Instanciador.Instanciar(TipoLbl, DataBase);
+                                Elemento = Lbl.Instanciador.Instanciar(TipoLbl, ConnEditar);
                                 Elemento.Crear();
                         } else {
                                 int ItemId = Lfx.Types.Parsing.ParseInt(Lfx.Types.Strings.GetNextToken(ref comando, " "));
-                                Elemento = Lbl.Instanciador.Instanciar(TipoLbl, DataBase, ItemId);
+                                Elemento = Lbl.Instanciador.Instanciar(TipoLbl, ConnEditar, ItemId);
                         }
 
                         Lfc.FormularioEdicion FormularioDeEdicion = Lfc.Instanciador.InstanciarFormularioEdicion(Elemento);

@@ -20,19 +20,19 @@ namespace Lbl.Sys
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                                 if(this.Id > 0) {
                                         Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                 }
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("imagen", this.Imagen);
+                        Comando.ColumnValues.AddWithValue("imagen", this.Imagen);
 
                         Connection.Execute(Comando);
                         

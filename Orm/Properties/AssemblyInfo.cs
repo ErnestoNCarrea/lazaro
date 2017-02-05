@@ -21,3 +21,5 @@ using System.Security.Permissions;
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 [assembly: Guid("01085c08-19ad-4390-9822-1895ac99167a")]
+
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

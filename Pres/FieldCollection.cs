@@ -15,7 +15,7 @@ namespace Lazaro.Pres
                                 }
 
                                 foreach (Field Fld in this) {
-                                        if (Lazaro.Orm.Data.Field.GetNameOnly(Fld.Name) == index)
+                                        if (Lazaro.Orm.Data.ColumnValue.GetNameOnly(Fld.Name) == index)
                                                 return Fld;
                                 }
                                 return null;

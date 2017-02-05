@@ -40,11 +40,11 @@ namespace Lazaro.Base.Util.Comprobantes
 
                         // Modifico Registro para no volver a cargar el comprobante desde la BD
                         this.Comprobante.Registro["numero"] = numero;
-                        ActualizarComprob.Fields.AddWithValue("numero", numero);
+                        ActualizarComprob.ColumnValues.AddWithValue("numero", numero);
 
                         string Nombre = this.Comprobante.PV.ToString("0000") + "-" + numero.ToString("00000000");
                         this.Comprobante.Registro["nombre"] = Nombre;
-                        ActualizarComprob.Fields.AddWithValue("nombre", Nombre);
+                        ActualizarComprob.ColumnValues.AddWithValue("nombre", Nombre);
 
                         if (yMarcarComoImpreso) {
                                 this.Comprobante.Registro["estado"] = 1;
@@ -52,14 +52,14 @@ namespace Lazaro.Base.Util.Comprobantes
                                 this.Comprobante.Registro["fecha"] = this.Comprobante.Connection.ServerDateTime;
 
                                 if (this.Comprobante.TablaDatos == "recibos") {
-                                        ActualizarComprob.Fields.AddWithValue("impreso", 1);
+                                        ActualizarComprob.ColumnValues.AddWithValue("impreso", 1);
                                         this.Comprobante.Registro["impreso"] = 1;
                                 } else {
-                                        ActualizarComprob.Fields.AddWithValue("impresa", 1);
+                                        ActualizarComprob.ColumnValues.AddWithValue("impresa", 1);
                                         this.Comprobante.Registro["impresa"] = 1;
                                 }
-                                ActualizarComprob.Fields.AddWithValue("estado", 1);
-                                ActualizarComprob.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarComprob.ColumnValues.AddWithValue("estado", 1);
+                                ActualizarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         }
                         ActualizarComprob.WhereClause = new qGen.Where(this.Comprobante.CampoId, this.Comprobante.Id);
 

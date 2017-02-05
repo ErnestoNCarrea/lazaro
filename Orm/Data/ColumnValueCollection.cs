@@ -3,34 +3,34 @@ using System.Collections.Generic;
 
 namespace Lazaro.Orm.Data
 {
-	public class FieldCollection : List<IField>
+	public class ColumnValueCollection : List<IColumnValue>
 	{
-		public FieldCollection()
+		public ColumnValueCollection()
 		{
 		}
 
-		public virtual IField this[string columnName]
+		public virtual IColumnValue this[string columnName]
 		{
 			get
 			{
-				foreach(IField Itm in this) {
+				foreach(IColumnValue Itm in this) {
 					if(Itm.ColumnName == columnName)
 						return Itm;
 				}
 
-                                foreach (IField Itm in this) {
+                                foreach (IColumnValue Itm in this) {
                                         // FIXME: no puedo depender de Field
-                                        if (Itm.ColumnName != null && Field.GetNameOnly(Itm.ColumnName) == columnName)
+                                        if (Itm.ColumnName != null && ColumnValue.GetNameOnly(Itm.ColumnName) == columnName)
                                                 return Itm;
                                 }
 
-                                foreach (IField Itm in this) {
+                                foreach (IColumnValue Itm in this) {
                                         // FIXME: no puedo depender de Field
-                                        if (Itm.ColumnName == Field.GetNameOnly(columnName))
+                                        if (Itm.ColumnName == ColumnValue.GetNameOnly(columnName))
                                                 return Itm;
                                 }
 				//Si no existe, creo dinámicamente el campo
-				var Res = new Field(columnName);
+				var Res = new ColumnValue(columnName);
 				this.Add(Res);
 				return Res;
 			}
@@ -39,7 +39,7 @@ namespace Lazaro.Orm.Data
 				bool Encontrado = false;
 				for(int i = 0; i < this.Count; i++) {
 					if(this[i].ColumnName == columnName) {
-						((Field)(this[i])).Value = value;
+						((ColumnValue)(this[i])).Value = value;
 						Encontrado = true;
 						break;
 					}
@@ -52,20 +52,33 @@ namespace Lazaro.Orm.Data
 			}
 		}
 
+
+                public IList<string> GetFieldNames()
+                {
+                        var Res = new List<string>();
+                        foreach (IColumnValue Itm in this) {
+                                Res.Add(Itm.ColumnName);
+                        }
+
+                        return Res;
+                }
+
+
                 public bool Contains(string columnName)
                 {
-                        foreach (IField Itm in this) {
+                        foreach (IColumnValue Itm in this) {
                                 if (Itm.ColumnName.ToUpperInvariant() == columnName.ToUpperInvariant())
                                         return true;
                         }
                         return false;
                 }
 
+
 		public override string ToString()
 		{
 			string Res = "FieldCollection[" + this.Count.ToString() + "] = {";
 			string FlList = null;
-			foreach (Field Itm in this) {
+			foreach (IColumnValue Itm in this) {
 				if(FlList == null)
 					FlList = "";
 				else
@@ -76,10 +89,11 @@ namespace Lazaro.Orm.Data
 			return Res + FlList + "}";
 		}
 
+
                 public virtual void AddWithValue(string fieldName, object fieldValue)
                 {
                         // FIXME: no puedo depender de Field
-                        this.Add(new Field(fieldName, fieldValue));
+                        this.Add(new ColumnValue(fieldName, fieldValue));
                 }
 	}
 }

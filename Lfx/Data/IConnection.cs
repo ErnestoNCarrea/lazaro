@@ -6,10 +6,10 @@ namespace Lfx.Data
         public interface IConnection : Lazaro.Orm.Data.IConnection
         {
                 bool ConstraintsEnabled { get; }
-                string DataBaseName { get; }
+                string Database { get; }
                 DateTime ServerDateTime { get; }
                 qGen.SqlModes SqlMode { get; }
-                string ServerName { get; }
+                //string ServerName { get; }
                 string ServerVersion { get; }
 
                 bool HasLock(string lockName);
@@ -33,7 +33,6 @@ namespace Lfx.Data
                 string FieldIntCSV(string selectCommand);
 
                 System.Data.DataTable Select(qGen.Select selectCommand);
-                System.Data.DataTable Select(string selectCommand);
                 int Update(qGen.Update updateCommand);
                 int Delete(qGen.Delete deleteCommand);
                 int Insert(qGen.Insert insertCommand);
@@ -43,8 +42,7 @@ namespace Lfx.Data
                 Row Row(string tableName, string fieldList, string idField, int id);
                 Row Row(string tableName, string idField, int id);
 
-                int ExecuteSql(string sqlCommand);
-                int Execute(qGen.ICommand sqlCommand);
+                int Execute(qGen.IStatement sqlCommand);
 
                 string EscapeString(string stringValue);
         }

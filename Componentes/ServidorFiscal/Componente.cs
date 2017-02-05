@@ -95,9 +95,9 @@ namespace ServidorFiscal
                         get
                         {
                                 if (m_PuntoDeVenta == null) {
-                                        int NumeroPv = this.Impresora.DataBase.FieldInt("SELECT id_pv FROM pvs WHERE UPPER(estacion)='" + Lfx.Environment.SystemInformation.MachineName.ToUpperInvariant() + "' AND tipo=2 AND id_sucursal=" + Lbl.Sys.Config.Empresa.SucursalActual.Id.ToString());
+                                        int NumeroPv = this.Impresora.Connection.FieldInt("SELECT id_pv FROM pvs WHERE UPPER(estacion)='" + Lfx.Environment.SystemInformation.MachineName.ToUpperInvariant() + "' AND tipo=2 AND id_sucursal=" + Lbl.Sys.Config.Empresa.SucursalActual.Id.ToString());
                                         if (NumeroPv > 0) {
-                                                m_PuntoDeVenta = new Lbl.Comprobantes.PuntoDeVenta(this.Impresora.DataBase, NumeroPv);
+                                                m_PuntoDeVenta = new Lbl.Comprobantes.PuntoDeVenta(this.Impresora.Connection, NumeroPv);
                                                 if (m_PuntoDeVenta.Existe == false)
                                                         m_PuntoDeVenta = null;
                                                 this.Impresora.PuntoDeVenta = m_PuntoDeVenta;
@@ -195,10 +195,10 @@ namespace ServidorFiscal
 
                         Watchdog.Stop();
                         try {
-                                using (IDbTransaction Trans = this.Impresora.DataBase.BeginTransaction()) {
-                                        qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
-                                        Actualizar.Fields.AddWithValue("lsa", qGen.SqlFunctions.Now);
-                                        this.Impresora.DataBase.Execute(Actualizar);
+                                using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
+                                        var Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
+                                        Actualizar.ColumnValues.AddWithValue("lsa", qGen.SqlFunctions.Now);
+                                        this.Impresora.Connection.Execute(Actualizar);
                                         Trans.Commit();
                                 }
                         } catch {
@@ -235,10 +235,10 @@ namespace ServidorFiscal
                                                         Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Respuesta ResultadoCierre = Impresora.Cierre(SubComandoCierre, true);
                                                         if (SubComandoCierre == "Z" && ResultadoCierre.Error == Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ErroresFiscales.Ok) {
                                                                 //Si hizo un cierre Z correctamente, actualizo la variable LCZ
-                                                                using (IDbTransaction Trans = this.Impresora.DataBase.BeginTransaction()) {
+                                                                using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
-                                                                        Actualizar.Fields.AddWithValue("ultimoz", qGen.SqlFunctions.Now);
-                                                                        this.Impresora.DataBase.Execute(Actualizar);
+                                                                        Actualizar.ColumnValues.AddWithValue("ultimoz", qGen.SqlFunctions.Now);
+                                                                        this.Impresora.Connection.Execute(Actualizar);
                                                                         Trans.Commit();
                                                                 }
                                                         }
@@ -317,10 +317,10 @@ namespace ServidorFiscal
                         Programador.Stop();
 
                         if (this.PV != 0) {
-                                using (System.Data.IDbTransaction Trans = this.Impresora.DataBase.BeginTransaction()) {
+                                using (System.Data.IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
-                                        Actualizar.Fields.AddWithValue("lsa", null);
-                                        this.Impresora.DataBase.Execute(Actualizar);
+                                        Actualizar.ColumnValues.AddWithValue("lsa", null);
+                                        this.Impresora.Connection.Execute(Actualizar);
                                         Trans.Commit();
                                 }
                         }

@@ -35,7 +35,7 @@ namespace Lcc.Edicion
                                 if(e.Item.Checked) {
                                         //Agrego
                                         if(Elemento.Etiquetas.Contains(ItemId) == false)
-                                                m_Elemento.Etiquetas.Add(new Lbl.Etiqueta(m_Elemento.DataBase, ItemId));
+                                                m_Elemento.Etiquetas.Add(new Lbl.Etiqueta(m_Elemento.Connection, ItemId));
                                 } else {
                                         //Lo quito
                                         if (Elemento.Etiquetas.Contains(ItemId))

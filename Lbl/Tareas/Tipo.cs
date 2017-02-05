@@ -28,18 +28,18 @@ namespace Lbl.Tareas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
                         this.AgregarTags(Comando);
 

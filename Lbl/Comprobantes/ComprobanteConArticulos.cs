@@ -79,7 +79,7 @@ namespace Lbl.Comprobantes
 
                         // Marco la factura como anulada
                         qGen.Update Act = new qGen.Update(this.TablaDatos);
-                        Act.Fields.AddWithValue("anulada", 1);
+                        Act.ColumnValues.AddWithValue("anulada", 1);
                         Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(Act);
 
@@ -755,7 +755,7 @@ namespace Lbl.Comprobantes
 
                                                                 // Cancelo la factura con un saldo a favor que tenía en cta. cte.
                                                                 qGen.Update ActualizarComprob = new qGen.Update("comprob");
-                                                                ActualizarComprob.Fields.AddWithValue("cancelado", new qGen.SqlExpression("cancelado+" + Lfx.Types.Formatting.FormatCurrencySql(SaldoACancelar)));
+                                                                ActualizarComprob.ColumnValues.AddWithValue("cancelado", new qGen.SqlExpression("cancelado+" + Lfx.Types.Formatting.FormatCurrencySql(SaldoACancelar)));
                                                                 ActualizarComprob.WhereClause = new qGen.Where("id_comprob", this.Id);
                                                                 this.Connection.Execute(ActualizarComprob);
                                                         }
@@ -882,21 +882,21 @@ namespace Lbl.Comprobantes
                                 throw new Lfx.Types.DomainException("ComprobanteConArticulos.CancelarImporte: El importe a cancelar no puede ser mayor que el saldo impago");
 			this.ImporteCancelado += importe;
 			qGen.Update Actualizar = new qGen.Update("comprob", new qGen.Where("id_comprob", this.Id));
-			Actualizar.Fields.AddWithValue("cancelado", this.ImporteCancelado);
+			Actualizar.ColumnValues.AddWithValue("cancelado", this.ImporteCancelado);
 			this.Connection.Execute(Actualizar);
 
                         if (comprob is Lbl.Comprobantes.Recibo) {
                                 qGen.Insert AsentarComprobantesDeEsteRecibo = new qGen.Insert("recibos_comprob");
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("id_comprob", this.Id);
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("id_recibo", comprob.Id);
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("importe", importe);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob", this.Id);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_recibo", comprob.Id);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("importe", importe);
                                 this.Connection.Execute(AsentarComprobantesDeEsteRecibo);
                         } else if (comprob is Lbl.Comprobantes.ComprobanteConArticulos) {
                                 Lbl.Comprobantes.ComprobanteConArticulos factura = comprob as Lbl.Comprobantes.ComprobanteConArticulos;
                                 qGen.Insert AsentarComprobantesDeEsteRecibo = new qGen.Insert("comprob_comprob");
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("id_comprob", factura.Id);
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("id_comprob_rel", this.Id);
-                                AsentarComprobantesDeEsteRecibo.Fields.AddWithValue("importe", importe);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob", factura.Id);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob_rel", this.Id);
+                                AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("importe", importe);
                                 this.Connection.Execute(AsentarComprobantesDeEsteRecibo);
                         }
 			return new Lfx.Types.SuccessOperationResult();
@@ -909,7 +909,7 @@ namespace Lbl.Comprobantes
                                 throw new Lfx.Types.DomainException("ComprobanteConArticulos.CancelarImporte: El importe a cancelar no puede ser mayor que el saldo impago");
                         this.ImporteCancelado -= importe;
                         qGen.Update Actualizar = new qGen.Update("comprob", new qGen.Where("id_comprob", this.Id));
-                        Actualizar.Fields.AddWithValue("cancelado", this.ImporteCancelado);
+                        Actualizar.ColumnValues.AddWithValue("cancelado", this.ImporteCancelado);
                         this.Connection.Execute(Actualizar);
 
                         // Debería eliminar la asociación entre este comprobante y el recibo (o NC) que lo canceló orignalmente?
@@ -921,14 +921,14 @@ namespace Lbl.Comprobantes
                 {
                         this.Articulos.ElementoPadre = this;
 
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
                         if (this.Total <= 0)
                                 return new Lfx.Types.FailureOperationResult("El comprobante debe tener un importe superior a $ 0.00.");
 
 			if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
@@ -937,72 +937,72 @@ namespace Lbl.Comprobantes
                         }
 
                         if (this.Fecha.Year == 1) {
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando.Fields.AddWithValue("fecha", this.Fecha);
+                                Comando.ColumnValues.AddWithValue("fecha", this.Fecha);
                         }
 
                         if (this.ComprobanteOriginal == null)
-                                Comando.Fields.AddWithValue("id_comprob_orig", null);
+                                Comando.ColumnValues.AddWithValue("id_comprob_orig", null);
                         else
-                                Comando.Fields.AddWithValue("id_comprob_orig", this.ComprobanteOriginal.Id);
+                                Comando.ColumnValues.AddWithValue("id_comprob_orig", this.ComprobanteOriginal.Id);
 
                         if(this.FormaDePago == null)
-                                Comando.Fields.AddWithValue("id_formapago", null);
+                                Comando.ColumnValues.AddWithValue("id_formapago", null);
                         else
-                                Comando.Fields.AddWithValue("id_formapago", FormaDePago.Id);
+                                Comando.ColumnValues.AddWithValue("id_formapago", FormaDePago.Id);
 
                         if (this.Vendedor == null)
-                                Comando.Fields.AddWithValue("id_vendedor", null);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", null);
                         else
-                                Comando.Fields.AddWithValue("id_vendedor", this.Vendedor.Id);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", this.Vendedor.Id);
                         
                         if (this.Sucursal == null)
-                                Comando.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
                         else
-                                Comando.Fields.AddWithValue("id_sucursal", this.Sucursal.Id);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", this.Sucursal.Id);
 
                         if (this.IdRemito == 0)
-                                Comando.Fields.AddWithValue("id_remito", null);
+                                Comando.ColumnValues.AddWithValue("id_remito", null);
                         else
-                                Comando.Fields.AddWithValue("id_remito", this.IdRemito);
+                                Comando.ColumnValues.AddWithValue("id_remito", this.IdRemito);
 
-                        Comando.Fields.AddWithValue("pv", this.PV);
-                        Comando.Fields.AddWithValue("numero", this.Numero);
-                        Comando.Fields.AddWithValue("nombre", this.PV.ToString("0000") + "-" + this.Numero.ToString("00000000"));
-                        Comando.Fields.AddWithValue("id_cliente", Lfx.Data.Connection.ConvertZeroToDBNull(this.Cliente.Id));
+                        Comando.ColumnValues.AddWithValue("pv", this.PV);
+                        Comando.ColumnValues.AddWithValue("numero", this.Numero);
+                        Comando.ColumnValues.AddWithValue("nombre", this.PV.ToString("0000") + "-" + this.Numero.ToString("00000000"));
+                        Comando.ColumnValues.AddWithValue("id_cliente", Lfx.Data.Connection.ConvertZeroToDBNull(this.Cliente.Id));
                         if (this.SituacionOrigen == null)
-                                Comando.Fields.AddWithValue("situacionorigen", null);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", null);
                         else
-                                Comando.Fields.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
                         if (this.SituacionDestino == null)
-                                Comando.Fields.AddWithValue("situaciondestino", null);
+                                Comando.ColumnValues.AddWithValue("situaciondestino", null);
                         else
-                                Comando.Fields.AddWithValue("situaciondestino", this.SituacionDestino.Id);
-                        Comando.Fields.AddWithValue("tipo_fac", this.Tipo.Nomenclatura);
-                        Comando.Fields.AddWithValue("subtotal", this.SubtotalSinIva);
-                        Comando.Fields.AddWithValue("descuento", this.Descuento);
-                        Comando.Fields.AddWithValue("interes", this.Recargo);
-                        Comando.Fields.AddWithValue("cuotas", this.Cuotas);
-                        Comando.Fields.AddWithValue("total", this.RedondearImporte(this.TotalSinRedondeo));
-                        Comando.Fields.AddWithValue("iva", this.ImporteIvaFinal);
-                        Comando.Fields.AddWithValue("totalreal", this.TotalSinRedondeo);
-                        Comando.Fields.AddWithValue("gastosenvio", this.GastosDeEnvio);
-                        Comando.Fields.AddWithValue("otrosgastos", this.OtrosGastos);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                                Comando.ColumnValues.AddWithValue("situaciondestino", this.SituacionDestino.Id);
+                        Comando.ColumnValues.AddWithValue("tipo_fac", this.Tipo.Nomenclatura);
+                        Comando.ColumnValues.AddWithValue("subtotal", this.SubtotalSinIva);
+                        Comando.ColumnValues.AddWithValue("descuento", this.Descuento);
+                        Comando.ColumnValues.AddWithValue("interes", this.Recargo);
+                        Comando.ColumnValues.AddWithValue("cuotas", this.Cuotas);
+                        Comando.ColumnValues.AddWithValue("total", this.RedondearImporte(this.TotalSinRedondeo));
+                        Comando.ColumnValues.AddWithValue("iva", this.ImporteIvaFinal);
+                        Comando.ColumnValues.AddWithValue("totalreal", this.TotalSinRedondeo);
+                        Comando.ColumnValues.AddWithValue("gastosenvio", this.GastosDeEnvio);
+                        Comando.ColumnValues.AddWithValue("otrosgastos", this.OtrosGastos);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
                         // Lo comprobantes de compra se marcan siempre como impresos
-                        Comando.Fields.AddWithValue("impresa", this.Compra ? 1 : (this.Impreso ? 1 : 0));
-                        Comando.Fields.AddWithValue("compra", this.Compra ? 1 : 0);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
-                        Comando.Fields.AddWithValue("series", this.Articulos.DatosSeguimiento);
+                        Comando.ColumnValues.AddWithValue("impresa", this.Compra ? 1 : (this.Impreso ? 1 : 0));
+                        Comando.ColumnValues.AddWithValue("compra", this.Compra ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("series", this.Articulos.DatosSeguimiento);
 
-                        Comando.Fields.AddWithValue("cae_numero", this.CaeNumero);
-                        Comando.Fields.AddWithValue("cae_vencimiento", this.CaeVencimiento);
+                        Comando.ColumnValues.AddWithValue("cae_numero", this.CaeNumero);
+                        Comando.ColumnValues.AddWithValue("cae_vencimiento", this.CaeVencimiento);
 
                         if (this.Tipo.EsFacturaOTicket == false && this.Tipo.EsNotaDebito == false) {
                                 // Este comprobante no es cancelable
                                 this.ImporteCancelado = this.Total;
-                                Comando.Fields.AddWithValue("cancelado", this.Total);
+                                Comando.ColumnValues.AddWithValue("cancelado", this.Total);
                         }
 
 			this.AgregarTags(Comando);
@@ -1043,14 +1043,14 @@ namespace Lbl.Comprobantes
                                         if (ArticulosAfectados.Count > 0) {
                                                 string ArtCsv = ArticulosAfectados.ToString();
                                                 // Actualizo cantidades pedidas y a pedir
-                                                Connection.ExecuteSql(@"UPDATE articulos SET apedir=(
+                                                Connection.ExecuteNonQuery(@"UPDATE articulos SET apedir=(
 							SELECT SUM(cantidad)
 							FROM comprob, comprob_detalle
 							WHERE comprob.id_comprob=comprob_detalle.id_comprob
 							AND comprob.compra=1
 							AND tipo_fac='NP' AND estado=50 AND comprob_detalle.id_articulo=articulos.id_articulo)
 						WHERE control_stock=1 AND id_articulo IN (" + ArtCsv + " )");
-                                                Connection.ExecuteSql(@"UPDATE articulos SET pedido=(
+                                                Connection.ExecuteNonQuery(@"UPDATE articulos SET pedido=(
 							SELECT SUM(cantidad)
 							FROM comprob, comprob_detalle
 							WHERE comprob.id_comprob=comprob_detalle.id_comprob
@@ -1096,38 +1096,38 @@ namespace Lbl.Comprobantes
                                         // lo cual es un requerimiento de las fiscales Hasar.
                                         if ((Pasada == 1 && Art.Cantidad >= 0 && Art.ImporteUnitario >= 0)
                                                 || (Pasada == 2 && (Art.Cantidad < 0 || Art.ImporteUnitario < 0))) {
-                                                qGen.TableCommand Comando = new qGen.Insert(this.Connection, "comprob_detalle");
-                                                Comando.Fields.AddWithValue("id_comprob", this.Id);
-                                                Comando.Fields.AddWithValue("orden", i);
+                                                qGen.IStatement Comando = new qGen.Insert("comprob_detalle");
+                                                Comando.ColumnValues.AddWithValue("id_comprob", this.Id);
+                                                Comando.ColumnValues.AddWithValue("orden", i);
 
                                                 if (Art.Articulo == null) {
-                                                        Comando.Fields.AddWithValue("id_articulo", null);
-                                                        Comando.Fields.AddWithValue("nombre", Art.Nombre);
-                                                        Comando.Fields.AddWithValue("descripcion", "");
+                                                        Comando.ColumnValues.AddWithValue("id_articulo", null);
+                                                        Comando.ColumnValues.AddWithValue("nombre", Art.Nombre);
+                                                        Comando.ColumnValues.AddWithValue("descripcion", "");
                                                 } else {
-                                                        Comando.Fields.AddWithValue("id_articulo", Art.Articulo.Id);
-                                                        Comando.Fields.AddWithValue("nombre", Art.Nombre);
-                                                        Comando.Fields.AddWithValue("descripcion", Art.Articulo.Descripcion);
+                                                        Comando.ColumnValues.AddWithValue("id_articulo", Art.Articulo.Id);
+                                                        Comando.ColumnValues.AddWithValue("nombre", Art.Nombre);
+                                                        Comando.ColumnValues.AddWithValue("descripcion", Art.Articulo.Descripcion);
                                                 }
 
                                                 if (Art.Alicuota == null) {
-                                                        Comando.Fields.AddWithValue("id_alicuota", null);
+                                                        Comando.ColumnValues.AddWithValue("id_alicuota", null);
                                                 } else {
-                                                        Comando.Fields.AddWithValue("id_alicuota", Art.Alicuota.Id);
+                                                        Comando.ColumnValues.AddWithValue("id_alicuota", Art.Alicuota.Id);
                                                 }
 
-                                                Comando.Fields.AddWithValue("cantidad", Art.Cantidad);
-                                                Comando.Fields.AddWithValue("precio", Art.ImporteUnitario);
-                                                Comando.Fields.AddWithValue("iva", Art.ImporteIvaUnitario);
-                                                Comando.Fields.AddWithValue("recargo", Art.Recargo);
+                                                Comando.ColumnValues.AddWithValue("cantidad", Art.Cantidad);
+                                                Comando.ColumnValues.AddWithValue("precio", Art.ImporteUnitario);
+                                                Comando.ColumnValues.AddWithValue("iva", Art.ImporteIvaUnitario);
+                                                Comando.ColumnValues.AddWithValue("recargo", Art.Recargo);
                                                 if (Art.Costo == 0 && Art.Articulo != null)
-                                                        Comando.Fields.AddWithValue("costo", Art.Articulo.Costo);
+                                                        Comando.ColumnValues.AddWithValue("costo", Art.Articulo.Costo);
                                                 else
-                                                        Comando.Fields.AddWithValue("costo", Art.Costo);
-                                                Comando.Fields.AddWithValue("importe", Art.ImporteAImprimir);
-                                                Comando.Fields.AddWithValue("total", Art.ImporteAImprimir);
-                                                Comando.Fields.AddWithValue("series", Art.DatosSeguimiento);
-                                                Comando.Fields.AddWithValue("obs", Art.Obs);
+                                                        Comando.ColumnValues.AddWithValue("costo", Art.Costo);
+                                                Comando.ColumnValues.AddWithValue("importe", Art.ImporteAImprimir);
+                                                Comando.ColumnValues.AddWithValue("total", Art.ImporteAImprimir);
+                                                Comando.ColumnValues.AddWithValue("series", Art.DatosSeguimiento);
+                                                Comando.ColumnValues.AddWithValue("obs", Art.Obs);
 
                                                 this.AgregarTags(Comando, Art.Registro, "comprob_detalle");
 

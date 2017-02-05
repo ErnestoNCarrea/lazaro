@@ -38,7 +38,7 @@ namespace qGen
                 {
                         System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
                         System.Text.StringBuilder ParamList = new System.Text.StringBuilder();
-                        foreach (IField ThisField in insertCommand.Fields) {
+                        foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
                                 if (FieldList.Length == 0)
                                         FieldList.Append(@"""" + ThisField.ColumnName + @"""");
                                 else
@@ -86,11 +86,11 @@ namespace qGen
                                 }
 
                         }
-                        baseCommand.CommandText += @"INSERT INTO """ + insertCommand.Tables + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
+                        baseCommand.CommandText += @"INSERT INTO """ + string.Join<string>(",", insertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
 
                         if (insertCommand.OnDuplicateKeyUpdate) {
                                 string UpdateClause = null;
-                                foreach (IField ThisField in insertCommand.Fields) {
+                                foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
                                         if (UpdateClause == null)
                                                 UpdateClause = @" ON DUPLICATE KEY UPDATE """ + ThisField.ColumnName + @"""=VALUES(""" + ThisField.ColumnName + @""")";
                                         else
@@ -113,7 +113,7 @@ namespace qGen
                 {
                         System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
                         System.Text.StringBuilder ParamList = new System.Text.StringBuilder();
-                        foreach (IField ThisField in insert.Fields) {
+                        foreach (IColumnValue ThisField in insert.ColumnValues) {
                                 if (FieldList.Length == 0)
                                         FieldList.Append(@"""" + ThisField.ColumnName + @"""");
                                 else
@@ -169,11 +169,11 @@ namespace qGen
                         if (valuesOnly) {
                                 return "(" + ParamList.ToString() + ")";
                         } else {
-                                string Res = @"INSERT INTO """ + insert.Tables + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
+                                string Res = @"INSERT INTO """ + string.Join<string>(",", insert.Tables) + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
 
                                 if (insert.OnDuplicateKeyUpdate) {
                                         string UpdateClause = null;
-                                        foreach (IField ThisField in insert.Fields) {
+                                        foreach (IColumnValue ThisField in insert.ColumnValues) {
                                                 if (UpdateClause == null)
                                                         UpdateClause = @" ON DUPLICATE KEY UPDATE """ + ThisField.ColumnName + @"""=VALUES(""" + ThisField.ColumnName + @""")";
                                                 else
@@ -188,7 +188,7 @@ namespace qGen
                 }
 
 
-                public string SqlText(ICommand command)
+                public string SqlText(IStatementOrQuery command)
                 {
                         if (command is Select) {
                                 return this.SqlText(command as Select);
@@ -235,17 +235,11 @@ namespace qGen
                         System.Text.StringBuilder Command = new System.Text.StringBuilder();
 
                         Command.Append("SELECT ");
-                        Command.Append(selectCommand.Fields);
+                        Command.Append(string.Join(",", selectCommand.Columns));
 
-                        if (selectCommand.Tables != null && selectCommand.Tables.Length > 0) {
-                                string[] TableList = selectCommand.Tables.Split(',');
+                        if (selectCommand.Tables != null && selectCommand.Tables.Count > 0) {
+                                Command.Append(" FROM " + string.Join<string>(",", selectCommand.Tables));
 
-                                if (TableList.Length == 1) {
-                                        //Single table
-                                        Command.Append(" FROM " + selectCommand.Tables);
-                                } else {
-                                        Command.Append(" FROM " + TableList[0]);
-                                }
                                 foreach (Join Jo in selectCommand.Joins) {
                                         Command.Append(this.SqlText(Jo));
                                 }
@@ -327,50 +321,50 @@ namespace qGen
                 {
                         dbCommand.Parameters.Clear();
                         System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
-                        foreach (IField ThisField in updateCommand.Fields) {
+                        foreach (IColumnValue Fld in updateCommand.ColumnValues) {
                                 string FieldParam;
 
-                                if (ThisField.Value is qGen.SqlFunctions) {
-                                        switch (((qGen.SqlFunctions)(ThisField.Value))) {
+                                if (Fld.Value is qGen.SqlFunctions) {
+                                        switch (((qGen.SqlFunctions)(Fld.Value))) {
                                                 case SqlFunctions.Now:
                                                         FieldParam = "NOW()";
                                                         break;
                                                 default:
                                                         throw new NotImplementedException();
                                         }
-                                } else if (ThisField.Value is qGen.SqlExpression) {
-                                        FieldParam = ThisField.Value.ToString();
+                                } else if (Fld.Value is qGen.SqlExpression) {
+                                        FieldParam = Fld.Value.ToString();
                                 } else {
                                         if (dbCommand.Connection is System.Data.Odbc.OdbcConnection)
                                                 FieldParam = "?";
                                         else
-                                                FieldParam = "@" + ThisField.ColumnName;
+                                                FieldParam = "@" + Fld.ColumnName;
                                 }
 
                                 if (FieldList.Length == 0)
-                                        FieldList.Append(@"""" + ThisField.ColumnName + @"""=" + FieldParam);
+                                        FieldList.Append(@"""" + Fld.ColumnName + @"""=" + FieldParam);
                                 else
-                                        FieldList.Append(@", """ + ThisField.ColumnName + @"""=" + FieldParam);
+                                        FieldList.Append(@", """ + Fld.ColumnName + @"""=" + FieldParam);
 
                                 if (FieldParam == "?" || FieldParam.Substring(0, 1) == "@") {
                                         System.Data.IDbDataParameter Param = connection.Factory.Driver.GetParameter();
-                                        Param.ParameterName = "@" + ThisField.ColumnName;
-                                        if (ThisField.Value is DbDateTime && ThisField.Value != null)
-                                                Param.Value = ((DbDateTime)(ThisField.Value)).Value;
-                                        else if (ThisField.Value != null && ThisField.Value.GetType().IsEnum)
-                                                Param.Value = System.Convert.ToInt32(ThisField.Value);
+                                        Param.ParameterName = "@" + Fld.ColumnName;
+                                        if (Fld.Value is DbDateTime && Fld.Value != null)
+                                                Param.Value = ((DbDateTime)(Fld.Value)).Value;
+                                        else if (Fld.Value != null && Fld.Value.GetType().IsEnum)
+                                                Param.Value = System.Convert.ToInt32(Fld.Value);
                                         else
-                                                Param.Value = ThisField.Value;
-                                        if (ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
+                                                Param.Value = Fld.Value;
+                                        if (Fld.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 Param.DbType = System.Data.DbType.Binary;
                                         
                                         // FIXME: no debería hacer una excepción para OdbcDriver
-                                        if (connection.Factory.Driver is OdbcDriver && ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
+                                        if (connection.Factory.Driver is OdbcDriver && Fld.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 ((System.Data.Odbc.OdbcParameter)Param).OdbcType = System.Data.Odbc.OdbcType.VarBinary;
                                         dbCommand.Parameters.Add(Param);
                                 }
                         }
-                        dbCommand.CommandText = @"UPDATE """ + updateCommand.Tables + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
+                        dbCommand.CommandText = @"UPDATE """ + string.Join<string>(",", updateCommand.Tables) + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
 
                         return dbCommand;
                 }
@@ -378,7 +372,7 @@ namespace qGen
                 public string SqlText(Update updateCommand)
                 {
                         System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
-                        foreach (IField ThisField in updateCommand.Fields) {
+                        foreach (IColumnValue ThisField in updateCommand.ColumnValues) {
                                 if (FieldList.Length == 0)
                                         FieldList.Append(@"""" + ThisField.ColumnName + @"""");
                                 else
@@ -422,7 +416,7 @@ namespace qGen
 
                         }
 
-                        return @"UPDATE """ + updateCommand.Tables + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
+                        return @"UPDATE """ + string.Join<string>(", ", updateCommand.Tables) + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
                 }
 
 
@@ -522,7 +516,7 @@ namespace qGen
                                 }
                         } else if (value is int[]) {
                                 string[] RightValStr = Array.ConvertAll<int, string>((int[])value, new Converter<int, string>(Convert.ToString));
-                                return string.Join(",", RightValStr);
+                                return string.Join<string>(",", RightValStr);
                         } else if (value is string[]) {
                                 string[] EscapedStrings = ((string[])(value));
                                 for (int i = 0; i < EscapedStrings.Length; i++) {
@@ -666,7 +660,7 @@ namespace qGen
 
                 public string SqlText(Delete deleteCommand)
                 {
-                        var Res = "DELETE FROM " + deleteCommand.Tables;
+                        var Res = "DELETE FROM " + string.Join<string>(",", deleteCommand.Tables);
 
                         if (deleteCommand.WhereClause != null) {
                                 Res += " WHERE " + this.SqlText(deleteCommand.WhereClause);
@@ -694,19 +688,19 @@ namespace qGen
                         System.Text.StringBuilder CmdText = new System.Text.StringBuilder(dbCommand.CommandText);
 
                         System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
-                        foreach (IField ThisField in insertCommand.Fields) {
+                        foreach (var Fld in insertCommand.ColumnValues) {
                                 if (FieldList.Length == 0)
-                                        FieldList.Append(@"""" + ThisField.ColumnName + @"""");
+                                        FieldList.Append(@"""" + Fld.ColumnName + @"""");
                                 else
-                                        FieldList.Append(@", """ + ThisField.ColumnName + @"""");
+                                        FieldList.Append(@", """ + Fld.ColumnName + @"""");
 
                         }
 
-                        CmdText.Append(@"INSERT INTO """ + insertCommand.Tables + @""" (" + FieldList.ToString() + ") VALUES ");
+                        CmdText.Append(@"INSERT INTO """ + string.Join<string>(",", insertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES ");
                         int CmdNum = 1;
                         foreach (Insert Cmd in insertCommand.InsertCommands) {
                                 System.Text.StringBuilder ParamList = new System.Text.StringBuilder();
-                                foreach (IField ThisField in Cmd.Fields) {
+                                foreach (IColumnValue ThisField in Cmd.ColumnValues) {
                                         string FieldParam;
 
                                         string ParamName = "@" + ThisField.ColumnName + "_" + CmdNum.ToString();

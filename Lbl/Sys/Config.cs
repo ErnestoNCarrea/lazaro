@@ -99,7 +99,7 @@ namespace Lbl.Sys
 
                         // Activo o desactivo los comprobantes C, E y M
                         qGen.Update DesactComprob = new qGen.Update("documentos_tipos");
-                        DesactComprob.Fields.AddWithValue("estado", nuevoPais.Id == 1 ? 1 : 0);
+                        DesactComprob.ColumnValues.AddWithValue("estado", nuevoPais.Id == 1 ? 1 : 0);
                         DesactComprob.WhereClause = new qGen.Where("letra", qGen.ComparisonOperators.In, new string[] { "FC", "FE", "FM", "NDC", "NDE", "NDM", "NCC", "NCE", "NCM" });
                         Lfx.Workspace.Master.MasterConnection.Execute(DesactComprob);
 
@@ -141,25 +141,25 @@ namespace Lbl.Sys
                 public static void ActionLog(Lfx.Data.IConnection conn, Log.Acciones action, IElementoDeDatos elemento, string extra1)
                 {
                         try {
-                                qGen.Insert Comando = new qGen.Insert(conn, "sys_log");
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                                Comando.Fields.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
+                                qGen.Insert Comando = new qGen.Insert("sys_log");
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
                                 if (Lbl.Sys.Config.Actual == null || Lbl.Sys.Config.Actual.UsuarioConectado == null || Lbl.Sys.Config.Actual.UsuarioConectado.Id == 0)
-                                        Comando.Fields.AddWithValue("usuario", null);
+                                        Comando.ColumnValues.AddWithValue("usuario", null);
                                 else
-                                        Comando.Fields.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                                Comando.Fields.AddWithValue("comando", action.ToString());
+                                        Comando.ColumnValues.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                                Comando.ColumnValues.AddWithValue("comando", action.ToString());
                                 if (elemento == null) {
-                                        Comando.Fields.AddWithValue("tabla", null);
-                                        Comando.Fields.AddWithValue("item_id", null);
+                                        Comando.ColumnValues.AddWithValue("tabla", null);
+                                        Comando.ColumnValues.AddWithValue("item_id", null);
                                 } else {
                                         if (action == Log.Acciones.LogOn || action == Log.Acciones.LogOnFail)
-                                                Comando.Fields.AddWithValue("tabla", null);
+                                                Comando.ColumnValues.AddWithValue("tabla", null);
                                         else
-                                                Comando.Fields.AddWithValue("tabla", elemento.TablaDatos);
-                                        Comando.Fields.AddWithValue("item_id", elemento.Id);
+                                                Comando.ColumnValues.AddWithValue("tabla", elemento.TablaDatos);
+                                        Comando.ColumnValues.AddWithValue("item_id", elemento.Id);
                                 }
-                                Comando.Fields.AddWithValue("extra1", extra1);
+                                Comando.ColumnValues.AddWithValue("extra1", extra1);
                                 conn.Execute(Comando);
                         } catch (System.Exception ex) {
                                 System.Console.WriteLine(ex.ToString());

@@ -3,7 +3,7 @@ using Lazaro.Orm;
 
 namespace Lazaro.Orm.Data
 {
-	public class Field : IField
+	public class ColumnValue : IColumnValue
 	{
                 public string ColumnName { get; set; }
 		public object Value { get; set; }
@@ -11,12 +11,12 @@ namespace Lazaro.Orm.Data
 
                 protected string m_Label;
 
-                public Field(string columnName)
+                public ColumnValue(string columnName)
 		{
 			this.ColumnName = columnName;
 		}
 
-                public Field(string columnName, object value)
+                public ColumnValue(string columnName, object value)
                         : this(columnName)
                 {
                         this.Value = value;
@@ -32,7 +32,7 @@ namespace Lazaro.Orm.Data
                                 this.DataType = ColumnTypes.Blob;
                 }
 
-                public Field(string columnName, ColumnTypes fieldType, object fieldValue)
+                public ColumnValue(string columnName, ColumnTypes fieldType, object fieldValue)
                         : this(columnName, fieldValue)
                 {
                         this.DataType = fieldType;
@@ -53,9 +53,9 @@ namespace Lazaro.Orm.Data
 			}
 		}
 
-                public virtual Field Clone()
+                public virtual ColumnValue Clone()
                 {
-                        var Res = new Field(this.ColumnName);
+                        var Res = new ColumnValue(this.ColumnName);
                         Res.m_Label = this.m_Label;
                         Res.Value = this.Value;
                         Res.DataType = this.DataType;
@@ -66,6 +66,12 @@ namespace Lazaro.Orm.Data
                 {
                         return this.Value.ToString();
                 }
+
+
+                public T GetValue<T>() {
+                        return (T)(System.Convert.ChangeType(this.Value, typeof(T)));
+                }
+
 
                 public decimal ValueDecimal
                 {
@@ -130,7 +136,7 @@ namespace Lazaro.Orm.Data
 
                 public static bool HaveSameName(string f1, string f2)
                 {
-                        return string.Compare(Field.GetNameOnly(f1), Field.GetNameOnly(f2)) == 0;
+                        return string.Compare(ColumnValue.GetNameOnly(f1), ColumnValue.GetNameOnly(f2)) == 0;
                 }
 	}
 }

@@ -24,6 +24,9 @@ namespace Lazaro.Orm.Data
                 void Commit(Transaction transaction);
                 void Rollback(Transaction transaction);
 
+                int ExecuteNonQuery(string sqlCommand);
+                System.Data.DataTable Select(string selectCommand);
+
                 string CustomizeSql(string sqlOrigen);
         }
 }

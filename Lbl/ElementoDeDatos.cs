@@ -122,10 +122,10 @@ namespace Lbl
                                                         && this.CampoId == Lfx.Workspace.Master.Tables[this.TablaDatos].PrimaryKey
                                                         && this.Connection.InTransaction == false) {
                                                         // Si estoy accediendo a través de una clave primaria y no estoy en una transacción
-                                                        // puedo usar directamente DataBase.Tables.FastRows, que es cacheable
+                                                        // puedo usar directamente Connection.Tables.FastRows, que es cacheable
                                                         Reg = Lfx.Workspace.Master.Tables[this.TablaDatos].FastRows[this.Id];
                                                 } else {
-                                                        //De lo contrario uso DataBase.Row que termina en un SELECT común
+                                                        //De lo contrario uso Connection.Row que termina en un SELECT común
                                                         Reg = this.Connection.Row(this.TablaDatos, this.CampoId, this.Id);
                                                 }
                                         }
@@ -383,13 +383,13 @@ namespace Lbl
                                 throw new Lfx.Types.DomainException("No se pueden agregar comentarios a un elemento que aun no ha sido guardado.");
 
                         qGen.Insert NuevoCom = new qGen.Insert("sys_log");
-                        NuevoCom.Fields.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
-                        NuevoCom.Fields.AddWithValue("tabla", this.TablaDatos);
-                        NuevoCom.Fields.AddWithValue("comando", "Comment");
-                        NuevoCom.Fields.AddWithValue("item_id", this.Id);
-                        NuevoCom.Fields.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                        NuevoCom.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        NuevoCom.Fields.AddWithValue("extra1", texto);
+                        NuevoCom.ColumnValues.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
+                        NuevoCom.ColumnValues.AddWithValue("tabla", this.TablaDatos);
+                        NuevoCom.ColumnValues.AddWithValue("comando", "Comment");
+                        NuevoCom.ColumnValues.AddWithValue("item_id", this.Id);
+                        NuevoCom.ColumnValues.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                        NuevoCom.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        NuevoCom.ColumnValues.AddWithValue("extra1", texto);
 
                         this.Connection.Execute(NuevoCom);
                 }
@@ -428,7 +428,7 @@ namespace Lbl
                                         if (this.TablaImagenes == this.TablaDatos) {
                                                 // La imagen reside en un campo de la misma tabla
                                                 qGen.Update ActualizarImagen = new qGen.Update(this.TablaImagenes);
-                                                ActualizarImagen.Fields.AddWithValue("imagen", null);
+                                                ActualizarImagen.ColumnValues.AddWithValue("imagen", null);
                                                 ActualizarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                                 this.Connection.Execute(ActualizarImagen);
                                         } else {
@@ -460,20 +460,20 @@ namespace Lbl
                                                 }
                                                 byte[] ImagenBytes = ByteStream.ToArray();
 
-                                                qGen.TableCommand CambiarImagen;
+                                                qGen.IStatement CambiarImagen;
                                                 if (this.TablaImagenes != this.TablaDatos) {
                                                         qGen.Delete EliminarImagen = new qGen.Delete(this.TablaImagenes);
                                                         EliminarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                                         this.Connection.Execute(EliminarImagen);
 
-                                                        CambiarImagen = new qGen.Insert(Connection, this.TablaImagenes);
-                                                        CambiarImagen.Fields.AddWithValue(this.CampoId, this.Id);
+                                                        CambiarImagen = new qGen.Insert(this.TablaImagenes);
+                                                        CambiarImagen.ColumnValues.AddWithValue(this.CampoId, this.Id);
                                                 } else {
-                                                        CambiarImagen = new qGen.Update(Connection, this.TablaImagenes);
+                                                        CambiarImagen = new qGen.Update(this.TablaImagenes);
                                                         CambiarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                                 }
 
-                                                CambiarImagen.Fields.AddWithValue("imagen", ImagenBytes);
+                                                CambiarImagen.ColumnValues.AddWithValue("imagen", ImagenBytes);
                                                 this.Connection.Execute(CambiarImagen);
                                                 Lbl.Sys.Config.ActionLog(this.Connection, Sys.Log.Acciones.Save, this, "Se cargó una imagen nueva");
                                         }
@@ -502,7 +502,7 @@ namespace Lbl
                         // Elimino las etiquetas que ya no están.
                         ColeccionGenerica<Etiqueta> ListaEtiquetas = this.Etiquetas.Quitados(m_EtiquetasOriginal);
                         if (ListaEtiquetas != null && ListaEtiquetas.Count > 0) {
-                                qGen.Delete EliminarEtiquetas = new qGen.Delete(this.Connection, "sys_labels_values");
+                                qGen.Delete EliminarEtiquetas = new qGen.Delete("sys_labels_values");
                                 EliminarEtiquetas.WhereClause = new qGen.Where("item_id", this.Id);
                                 EliminarEtiquetas.WhereClause.Add(new qGen.ComparisonCondition("id_label", qGen.ComparisonOperators.In, ListaEtiquetas.GetAllIds()));
                                 this.Connection.Execute(EliminarEtiquetas);
@@ -512,9 +512,9 @@ namespace Lbl
                         ListaEtiquetas = this.Etiquetas.Agregados(m_EtiquetasOriginal);
                         if (ListaEtiquetas != null && ListaEtiquetas.Count > 0) {
                                 foreach (ElementoDeDatos El in ListaEtiquetas) {
-                                        qGen.Insert CrearEtiquetas = new qGen.Insert(this.Connection, "sys_labels_values");
-                                        CrearEtiquetas.Fields.AddWithValue("id_label", El.Id);
-                                        CrearEtiquetas.Fields.AddWithValue("item_id", this.Id);
+                                        qGen.Insert CrearEtiquetas = new qGen.Insert("sys_labels_values");
+                                        CrearEtiquetas.ColumnValues.AddWithValue("id_label", El.Id);
+                                        CrearEtiquetas.ColumnValues.AddWithValue("item_id", this.Id);
                                         this.Connection.Execute(CrearEtiquetas);
                                 }
                         }
@@ -528,7 +528,7 @@ namespace Lbl
                         System.Text.StringBuilder Extra1 = null;
                         try {
                                 // Genero una lista de cambios
-                                foreach (Lazaro.Orm.Data.Field Fl in this.m_Registro.Fields) {
+                                foreach (Lazaro.Orm.Data.ColumnValue Fl in this.m_Registro.Fields) {
                                         object ValorOriginal = null, ValorNuevo = this.m_Registro[Fl.ColumnName];
                                         if (this.m_RegistroOriginal != null && this.m_RegistroOriginal.Fields != null)
                                                 ValorOriginal = this.m_RegistroOriginal[Fl.ColumnName];
@@ -569,7 +569,7 @@ namespace Lbl
                 /// Agrega los campos personalizados (tags) al comando, antes de guardar.
                 /// </summary>
                 /// <param name="comando">El parámetro al cual agregar los campos.</param>
-                protected virtual void AgregarTags(qGen.Command comando)
+                protected virtual void AgregarTags(qGen.IStatement comando)
 		{
 			this.AgregarTags(comando, this.Registro, this.TablaDatos);
 		}
@@ -578,12 +578,12 @@ namespace Lbl
                 /// Agrega los campos personalizados de las clases derivadas al comando, antes de guardar.
                 /// </summary>
                 /// <param name="comando">El parámetro al cual agregar los campos.</param>
-                protected virtual void PreGuardar(qGen.Command comando)
+                protected virtual void PreGuardar(qGen.IStatement comando)
                 {
                         return;
                 }
 
-                protected virtual void AgregarTags(qGen.Command comando, Lfx.Data.Row registro, string tabla)
+                protected virtual void AgregarTags(qGen.IStatement comando, Lfx.Data.Row registro, string tabla)
                 {
                         Lfx.Data.Table Tabla = Lfx.Workspace.Master.Tables[tabla];
                         if (Tabla.Tags != null && Tabla.Tags.Count > 0) {
@@ -596,14 +596,14 @@ namespace Lbl
                                                         case Lazaro.Orm.ColumnTypes.MediumInt:
                                                         case Lazaro.Orm.ColumnTypes.TinyInt:
                                                         case Lazaro.Orm.ColumnTypes.Numeric:
-                                                                comando.Fields.AddWithValue(Tg.FieldName, System.Convert.ToInt32(Tg.DefaultValue));
+                                                                comando.ColumnValues.AddWithValue(Tg.FieldName, System.Convert.ToInt32(Tg.DefaultValue));
                                                                 break;
                                                         default:
-                                                                comando.Fields.AddWithValue(Tg.FieldName, "");
+                                                                comando.ColumnValues.AddWithValue(Tg.FieldName, "");
                                                                 break;
                                                 }
                                         } else {
-                                                comando.Fields.AddWithValue(Tg.FieldName, registro[Tg.FieldName]);
+                                                comando.ColumnValues.AddWithValue(Tg.FieldName, registro[Tg.FieldName]);
                                         }
                                 }
                         }
@@ -788,7 +788,7 @@ namespace Lbl
                 public ColeccionCodigoDetalle ObtenerTodos(qGen.Where filter)
                 {
                         qGen.Select Sel = new qGen.Select(this.TablaDatos);
-                        Sel.Fields = this.CampoId + ", " + this.CampoNombre;
+                        Sel.Columns = new List<string> { this.CampoId, this.CampoNombre };
                         if (filter != null)
                                 Sel.WhereClause = filter;
                         System.Data.DataTable Tabla = this.Connection.Select(Sel);

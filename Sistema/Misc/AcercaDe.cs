@@ -117,7 +117,7 @@ namespace Lazaro.WinMain.Misc
 
                 private void EtiquetaAlmacen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        if (Lfx.Data.DataBaseCache.DefaultCache.ServerName == "localhost" || Lfx.Data.DataBaseCache.DefaultCache.ServerName == "127.0.0.1") {
+                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName == "localhost" || Lfx.Data.DatabaseCache.DefaultCache.ServerName == "127.0.0.1") {
                                 if (string.Compare(EtiquetaAlmacen.Text, "5.0") > 0) {
                                         Help.ShowHelp(this, "http://www.lazarogestion.com/descargar/servidor/?curver=" + EtiquetaAlmacen.Text);
                                 } else if (string.Compare(EtiquetaAlmacen.Text, "10.1.17") < 0) {
@@ -126,7 +126,7 @@ namespace Lazaro.WinMain.Misc
                                         Lfx.Workspace.Master.RunTime.Toast("Está utilizando la última versión del almacén de datos. No es necesario actualizar.", "Aviso");
                                 }
                         } else {
-                                Lfx.Workspace.Master.RunTime.Toast("Está accediendo al almacén de datos a través de la red. Puede ver más información sobre el almacén de datos si utiliza esta misma opción en el equipo que tiene lo instalado (" + Lfx.Data.DataBaseCache.DefaultCache.ServerName  + ").", "Aviso");
+                                Lfx.Workspace.Master.RunTime.Toast("Está accediendo al almacén de datos a través de la red. Puede ver más información sobre el almacén de datos si utiliza esta misma opción en el equipo que tiene lo instalado (" + Lfx.Data.DatabaseCache.DefaultCache.ServerName  + ").", "Aviso");
                         }
                 }
 	}

@@ -318,8 +318,8 @@ namespace Lfc
                                         case Keys.U:
                                                 e.Handled = true;
                                                 foreach (Lazaro.Pres.Field Fld in this.Definicion.Columns) {
-                                                        if (FormFieldToSubItem.ContainsKey(Lazaro.Orm.Data.Field.GetNameOnly(Fld.Name)))
-                                                                Listado.Columns[FormFieldToSubItem[Lazaro.Orm.Data.Field.GetNameOnly(Fld.Name)]].Width = Fld.Width;
+                                                        if (FormFieldToSubItem.ContainsKey(Lazaro.Orm.Data.ColumnValue.GetNameOnly(Fld.Name)))
+                                                                Listado.Columns[FormFieldToSubItem[Lazaro.Orm.Data.ColumnValue.GetNameOnly(Fld.Name)]].Width = Fld.Width;
                                                 }
                                                 break;
                                 }
@@ -688,7 +688,7 @@ namespace Lfc
                                 return;
                         }
 
-                        if (Lazaro.Orm.Data.Field.HaveSameName(nuevoOrden, this.Definicion.KeyColumn.Name)) {
+                        if (Lazaro.Orm.Data.ColumnValue.HaveSameName(nuevoOrden, this.Definicion.KeyColumn.Name)) {
                                 this.Sorter.DataType = this.Definicion.KeyColumn.DataType;
                                 this.Sorter.SortColumn = 0;
                         } else if (Listado.Columns.ContainsKey(nuevoOrden)) {
@@ -954,8 +954,8 @@ namespace Lfc
                                 if (additionalFilters != null && additionalFilters.Count > 0)
                                         WhereCompleto.AddWithValue(additionalFilters);
 
-                                ComandoSelect.Tables = ListaTablas;
-                                ComandoSelect.Fields = ListaCampos;
+                                ComandoSelect.Tables = new List<string> { ListaTablas };
+                                ComandoSelect.Columns = new List<string> { ListaCampos };
                                 ComandoSelect.WhereClause = WhereCompleto;
 
                                 if (this.Definicion.GroupBy != null && agrFunction == null)
@@ -1029,7 +1029,7 @@ namespace Lfc
                                 foreach (System.Data.DataRow DtRow in Tabla.Rows) {
                                         Lfx.Data.Row Registro = (Lfx.Data.Row)DtRow;
 
-                                        string NombreCampoId = Lazaro.Orm.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
+                                        string NombreCampoId = Lazaro.Orm.Data.ColumnValue.GetNameOnly(this.Definicion.KeyColumn.Name);
                                         int ItemId = Registro.Fields[NombreCampoId].ValueInt;
 
                                         if (CancelFill) {
@@ -1198,7 +1198,7 @@ namespace Lfc
                         for (int FieldNum = 0; FieldNum < useFields.Count; FieldNum++) {
                                 if (useFields[FieldNum].Printable) {
 
-                                        string FieldName = Lazaro.Orm.Data.Field.GetNameOnly(useFields[FieldNum].Name);
+                                        string FieldName = Lazaro.Orm.Data.ColumnValue.GetNameOnly(useFields[FieldNum].Name);
 
                                         if (FieldNum >= 0) {
                                                 Lazaro.Pres.Spreadsheet.Cell NewCell = Reng.Cells.Add();
@@ -1605,7 +1605,7 @@ namespace Lfc
                                 for (int i = 0; i <= useFields.Count - 1; i++) {
                                         if (useFields[i].Printable) {
                                                 Lazaro.Pres.Spreadsheet.ColumnHeader ColHead = new Lazaro.Pres.Spreadsheet.ColumnHeader(useFields[i].Label, useFields[i].Width);
-                                                ColHead.Name = Lazaro.Orm.Data.Field.GetNameOnly(useFields[i].Name);
+                                                ColHead.Name = Lazaro.Orm.Data.ColumnValue.GetNameOnly(useFields[i].Name);
                                                 ColHead.TextAlignment = useFields[i].Alignment;
                                                 ColHead.DataType = useFields[i].DataType;
                                                 ColHead.Format = useFields[i].Format;
@@ -1627,7 +1627,7 @@ namespace Lfc
                         foreach (System.Data.DataRow DtRow in Tabla.Rows) {
                                 Lfx.Data.Row Registro = (Lfx.Data.Row)DtRow;
 
-                                string NombreCampoId = Lazaro.Orm.Data.Field.GetNameOnly(this.Definicion.KeyColumn.Name);
+                                string NombreCampoId = Lazaro.Orm.Data.ColumnValue.GetNameOnly(this.Definicion.KeyColumn.Name);
                                 int ItemId = Registro.Fields[NombreCampoId].ValueInt;
 
                                 Lazaro.Pres.Spreadsheet.Row Reng = this.FormatRow(ItemId, Registro, Sheet, useFields);

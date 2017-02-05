@@ -54,18 +54,18 @@ namespace Lbl.Impuestos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("porcentaje", this.Porcentaje);
-                        Comando.Fields.AddWithValue("importe_minimo", this.ImporteMinimo);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("porcentaje", this.Porcentaje);
+                        Comando.ColumnValues.AddWithValue("importe_minimo", this.ImporteMinimo);
 
                         this.AgregarTags(Comando);
 

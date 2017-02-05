@@ -5,16 +5,16 @@ namespace Lfx.Data
 {
         public class TableCollection : List<Lfx.Data.Table>
         {
-                protected IConnection DataBase;
+                protected IConnection Connection;
 
-                public TableCollection(IConnection dataBase)
+                public TableCollection(IConnection connection)
                 {
-                        this.DataBase = dataBase;
+                        this.Connection = connection;
                 }
 
                 new public void Add(Table table)
                 {
-                        table.Connection = this.DataBase;
+                        table.Connection = this.Connection;
                         base.Add(table);
                 }
 

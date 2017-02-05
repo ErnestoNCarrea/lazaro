@@ -167,7 +167,7 @@ namespace Lazaro.WinMain.Principal
                                                                 do {
                                                                         string Comando = Lfx.Data.Connection.GetNextCommand(ref SqlActualizacion);
                                                                         try {
-                                                                                ConexionActualizar.ExecuteSql(Comando);
+                                                                                ConexionActualizar.ExecuteNonQuery(Comando);
                                                                         } catch (Exception ex) {
                                                                                 Lfx.Workspace.Master.RunTime.Toast(Comando + System.Environment.NewLine + System.Environment.NewLine + ex.Message, "Error al inyectar datos");
                                                                         }

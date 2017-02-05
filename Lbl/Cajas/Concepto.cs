@@ -47,20 +47,20 @@ namespace Lbl.Cajas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, "conceptos");
+                                Comando = new qGen.Insert("conceptos");
                         } else {
-                                Comando = new qGen.Update(Connection, "conceptos");
+                                Comando = new qGen.Update("conceptos");
                                 Comando.WhereClause = new qGen.Where("id_concepto", this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("es", this.Direccion);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("es", this.Direccion);
                         if (this.Grupo == 0)
-                                Comando.Fields.AddWithValue("grupo", null);
+                                Comando.ColumnValues.AddWithValue("grupo", null);
                         else
-                                Comando.Fields.AddWithValue("grupo", this.Grupo);
+                                Comando.ColumnValues.AddWithValue("grupo", this.Grupo);
 
                         Connection.Execute(Comando);
 

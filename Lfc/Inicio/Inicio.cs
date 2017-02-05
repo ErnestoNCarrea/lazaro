@@ -15,7 +15,7 @@ namespace Lfc.Inicio
                         InitializeComponent();
                         this.StockImage = "inicio";
 
-                        if (string.Compare(Lfx.Workspace.Master.MasterConnection.ServerName, "localhost", true) == 0 || string.Compare(Lfx.Workspace.Master.MasterConnection.ServerName, "127.0.0.1") == 0) {
+                        if (string.Compare(Lfx.Workspace.Master.ConnectionParameters.ServerName, "localhost", true) == 0 || string.Compare(Lfx.Workspace.Master.ConnectionParameters.ServerName, "127.0.0.1") == 0) {
                                 if (Lfx.Workspace.Master.MasterConnection.ServerVersion.Contains("MariaDB") == false || Lfx.Workspace.Master.MasterConnection.ServerVersion.StartsWith("5.")) {
                                         // Si estoy usando MySQL o MariaDB 5, le sugiero actualizar a MariaDB 10
                                         PanelActualizarAlmacen.Visible = true;

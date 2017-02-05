@@ -105,24 +105,24 @@ namespace Lbl.Entidades
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("cp", this.CodigoPostal);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("cp", this.CodigoPostal);
                         if (this.Provincia == null) {
-                                Comando.Fields.AddWithValue("id_provincia", null);
+                                Comando.ColumnValues.AddWithValue("id_provincia", null);
                         } else {
-                                Comando.Fields.AddWithValue("id_provincia", this.Provincia.Id);
+                                Comando.ColumnValues.AddWithValue("id_provincia", this.Provincia.Id);
                         }
-                        Comando.Fields.AddWithValue("iva", (int)(this.Iva));
+                        Comando.ColumnValues.AddWithValue("iva", (int)(this.Iva));
 
                         this.AgregarTags(Comando);
 

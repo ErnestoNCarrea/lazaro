@@ -552,38 +552,38 @@ namespace Lbl.Comprobantes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                        Comando.Fields.AddWithValue("id_comprob", this.IdComprobante);
-                        Comando.Fields.AddWithValue("orden", this.Orden);
+                        qGen.IStatement Comando = new qGen.Insert(this.TablaDatos);
+                        Comando.ColumnValues.AddWithValue("id_comprob", this.IdComprobante);
+                        Comando.ColumnValues.AddWithValue("orden", this.Orden);
 
                         if (this.Articulo == null) {
-                                Comando.Fields.AddWithValue("id_articulo", null);
-                                Comando.Fields.AddWithValue("nombre", this.Nombre);
-                                Comando.Fields.AddWithValue("descripcion", "");
+                                Comando.ColumnValues.AddWithValue("id_articulo", null);
+                                Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                                Comando.ColumnValues.AddWithValue("descripcion", "");
                         } else {
-                                Comando.Fields.AddWithValue("id_articulo", this.Articulo.Id);
-                                Comando.Fields.AddWithValue("nombre", this.Articulo.Nombre);
-                                Comando.Fields.AddWithValue("descripcion", this.Articulo.Descripcion);
+                                Comando.ColumnValues.AddWithValue("id_articulo", this.Articulo.Id);
+                                Comando.ColumnValues.AddWithValue("nombre", this.Articulo.Nombre);
+                                Comando.ColumnValues.AddWithValue("descripcion", this.Articulo.Descripcion);
                         }
 
                         if (this.Alicuota == null) {
-                                Comando.Fields.AddWithValue("id_alicuota", null);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", null);
                         } else {
-                                Comando.Fields.AddWithValue("id_alicuota", this.Alicuota.Id);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", this.Alicuota.Id);
                         }
 
-                        Comando.Fields.AddWithValue("cantidad", this.Cantidad);
-                        Comando.Fields.AddWithValue("precio", this.ImporteUnitario);
-                        Comando.Fields.AddWithValue("iva", this.ImporteIvaUnitario);
-                        Comando.Fields.AddWithValue("recargo", this.Recargo);
+                        Comando.ColumnValues.AddWithValue("cantidad", this.Cantidad);
+                        Comando.ColumnValues.AddWithValue("precio", this.ImporteUnitario);
+                        Comando.ColumnValues.AddWithValue("iva", this.ImporteIvaUnitario);
+                        Comando.ColumnValues.AddWithValue("recargo", this.Recargo);
                         if (this.Costo == 0 && this.Articulo != null)
-                                Comando.Fields.AddWithValue("costo", this.Articulo.Costo);
+                                Comando.ColumnValues.AddWithValue("costo", this.Articulo.Costo);
                         else
-                                Comando.Fields.AddWithValue("costo", this.Costo);
-                        Comando.Fields.AddWithValue("importe", this.ImporteUnitarioAImprimir);
-                        Comando.Fields.AddWithValue("importe", this.ImporteAImprimir);
-                        Comando.Fields.AddWithValue("series", this.DatosSeguimiento);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                                Comando.ColumnValues.AddWithValue("costo", this.Costo);
+                        Comando.ColumnValues.AddWithValue("importe", this.ImporteUnitarioAImprimir);
+                        Comando.ColumnValues.AddWithValue("importe", this.ImporteAImprimir);
+                        Comando.ColumnValues.AddWithValue("series", this.DatosSeguimiento);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         this.AgregarTags(Comando, this.Registro, this.TablaDatos);
 

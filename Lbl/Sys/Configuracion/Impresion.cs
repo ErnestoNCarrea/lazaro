@@ -17,8 +17,8 @@ namespace Lbl.Sys.Configuracion
                         get
                         {
                                 if (m_Impresoras == null) {
-                                        System.Data.DataTable TablaImpresoras = this.DataBase.Select("SELECT * FROM impresoras");
-                                        m_Impresoras = new Lbl.ColeccionGenerica<Lbl.Impresion.Impresora>(this.DataBase, TablaImpresoras);
+                                        System.Data.DataTable TablaImpresoras = this.Connection.Select("SELECT * FROM impresoras");
+                                        m_Impresoras = new Lbl.ColeccionGenerica<Lbl.Impresion.Impresora>(this.Connection, TablaImpresoras);
                                 }
                                 return m_Impresoras;
                         }

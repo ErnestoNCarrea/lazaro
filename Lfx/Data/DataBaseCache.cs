@@ -8,19 +8,19 @@ using Lazaro.Orm.Data;
 
 namespace Lfx.Data
 {
-        public class DataBaseCache
+        public class DatabaseCache
         {
-                public static DataBaseCache DefaultCache;
+                public static DatabaseCache DefaultCache;
 
                 public Lfx.Data.IConnection Connection { get; set; }
 
-                public DataBaseCache(Lfx.Data.IConnection connection)
+                public DatabaseCache(Lfx.Data.IConnection connection)
                 {
                         this.Connection = connection;
                 }
                 
                 public string OdbcDriver = null;
-                public string ServerName = null, DataBaseName, UserName, Password;
+                public string ServerName = null, DatabaseName, UserName, Password;
                 public bool SlowLink = false, Mars = true, Pooling = true;
                 public Lfx.Data.AccessModes AccessMode = Lfx.Data.AccessModes.Undefined;
                 public qGen.SqlModes SqlMode = qGen.SqlModes.Ansi;
@@ -29,7 +29,7 @@ namespace Lfx.Data
                 public void Clear()
                 {
                         ServerName = null;
-                        DataBaseName = null;
+                        DatabaseName = null;
                         UserName = null;
                         Password = null;
                 }

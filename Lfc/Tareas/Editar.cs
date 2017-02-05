@@ -244,7 +244,7 @@ namespace Lfc.Tareas
                                 // Guardo el comprobante en la tarea (sólo si no tenía uno asociado)
                                 using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
                                         qGen.Update Actual = new qGen.Update("tickets");
-                                        Actual.Fields.Add(new Lazaro.Orm.Data.Field("id_comprob", ComprobanteId));
+                                        Actual.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("id_comprob", ComprobanteId));
                                         Actual.WhereClause = new qGen.Where();
                                         Actual.WhereClause.AddWithValue("id_comprob", 0);
                                         Actual.WhereClause.AddWithValue("id_ticket", this.Elemento.Id);

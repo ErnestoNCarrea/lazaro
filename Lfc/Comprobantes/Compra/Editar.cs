@@ -47,7 +47,7 @@ namespace Lfc.Comprobantes.Compra
                                 Res.Message += "Por favor seleccione el proveedor." + Environment.NewLine;
                         } else if(this.Elemento.Existe == false) {
                                 qGen.Select SelDesde = new qGen.Select("comprob");
-                                SelDesde.Fields = "id_comprob";
+                                SelDesde.Columns = new List<string> { "id_comprob" };
                                 SelDesde.WhereClause = new qGen.Where();
                                 SelDesde.WhereClause.AddWithValue("compra", 1);
                                 SelDesde.WhereClause.AddWithValue("anulada", 0);

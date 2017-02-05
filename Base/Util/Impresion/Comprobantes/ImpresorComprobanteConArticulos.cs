@@ -43,7 +43,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                 foreach (Lbl.Comprobantes.DetalleArticulo Det in this.Comprobante.Articulos) {
                                         if (Det.Articulo != null) {
                                                 qGen.Update Act = new qGen.Update("comprob_detalle");
-                                                Act.Fields.AddWithValue("costo", Det.Articulo.Costo);
+                                                Act.ColumnValues.AddWithValue("costo", Det.Articulo.Costo);
                                                 Act.WhereClause = new qGen.Where("id_comprob_detalle", Det.Id);
                                                 this.Connection.Execute(Act);
                                         }

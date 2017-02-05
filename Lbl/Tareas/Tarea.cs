@@ -199,43 +199,43 @@ namespace Lbl.Tareas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha_ingreso", qGen.SqlFunctions.Now);
-                                Comando.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha_ingreso", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("id_persona", this.Cliente.Id);
+                        Comando.ColumnValues.AddWithValue("id_persona", this.Cliente.Id);
                         if (this.Tipo == null)
-                                Comando.Fields.AddWithValue("id_tipo_ticket", null);
+                                Comando.ColumnValues.AddWithValue("id_tipo_ticket", null);
                         else
-                                Comando.Fields.AddWithValue("id_tipo_ticket", this.Tipo.Id);
+                                Comando.ColumnValues.AddWithValue("id_tipo_ticket", this.Tipo.Id);
                         if (this.Encargado == null)
-                                Comando.Fields.AddWithValue("id_tecnico_recibe", null);
+                                Comando.ColumnValues.AddWithValue("id_tecnico_recibe", null);
                         else
-                                Comando.Fields.AddWithValue("id_tecnico_recibe", this.Encargado.Id);
-                        Comando.Fields.AddWithValue("prioridad", this.Prioridad);
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("descripcion", this.GetFieldValue<string>("descripcion"));
-                        Comando.Fields.AddWithValue("estado", this.Estado);
-                        Comando.Fields.AddWithValue("articulos_descuento", this.DescuentoArticulos);
-                        Comando.Fields.AddWithValue("entrega_estimada", this.FechaEstimada);
-                        Comando.Fields.AddWithValue("entrega_limite", this.FechaLimite);
-                        Comando.Fields.AddWithValue("presupuesto", this.Importe);
+                                Comando.ColumnValues.AddWithValue("id_tecnico_recibe", this.Encargado.Id);
+                        Comando.ColumnValues.AddWithValue("prioridad", this.Prioridad);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("descripcion", this.GetFieldValue<string>("descripcion"));
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("articulos_descuento", this.DescuentoArticulos);
+                        Comando.ColumnValues.AddWithValue("entrega_estimada", this.FechaEstimada);
+                        Comando.ColumnValues.AddWithValue("entrega_limite", this.FechaLimite);
+                        Comando.ColumnValues.AddWithValue("presupuesto", this.Importe);
                         if (this.Presupuesto == null)
-                                Comando.Fields.AddWithValue("id_presupuesto", null);
+                                Comando.ColumnValues.AddWithValue("id_presupuesto", null);
                         else
-                                Comando.Fields.AddWithValue("id_presupuesto", this.Presupuesto.Id);
+                                Comando.ColumnValues.AddWithValue("id_presupuesto", this.Presupuesto.Id);
                         if (this.Factura == null)
-                                Comando.Fields.AddWithValue("id_comprob", null);
+                                Comando.ColumnValues.AddWithValue("id_comprob", null);
                         else
-                                Comando.Fields.AddWithValue("id_comprob", this.Factura.Id);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                                Comando.ColumnValues.AddWithValue("id_comprob", this.Factura.Id);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         this.AgregarTags(Comando);
 
@@ -252,20 +252,20 @@ namespace Lbl.Tareas
 
                                 int i = 1;
                                 foreach (Lbl.Comprobantes.DetalleArticulo Det in this.Articulos) {
-                                        qGen.Insert InsertarArticulo = new qGen.Insert(Connection, "tickets_articulos");
-                                        InsertarArticulo.Fields.AddWithValue("id_ticket", this.Id);
+                                        qGen.Insert InsertarArticulo = new qGen.Insert("tickets_articulos");
+                                        InsertarArticulo.ColumnValues.AddWithValue("id_ticket", this.Id);
                                         if (Det.Articulo == null) {
-                                                InsertarArticulo.Fields.AddWithValue("id_articulo", null);
-                                                InsertarArticulo.Fields.AddWithValue("nombre", Det.Descripcion);
+                                                InsertarArticulo.ColumnValues.AddWithValue("id_articulo", null);
+                                                InsertarArticulo.ColumnValues.AddWithValue("nombre", Det.Descripcion);
                                         } else {
-                                                InsertarArticulo.Fields.AddWithValue("id_articulo", Det.Articulo.Id);
-                                                InsertarArticulo.Fields.AddWithValue("nombre", Det.Articulo.Nombre);
+                                                InsertarArticulo.ColumnValues.AddWithValue("id_articulo", Det.Articulo.Id);
+                                                InsertarArticulo.ColumnValues.AddWithValue("nombre", Det.Articulo.Nombre);
                                         }
                                         
-                                        InsertarArticulo.Fields.AddWithValue("orden", i++);
-                                        InsertarArticulo.Fields.AddWithValue("cantidad", Det.Cantidad);
-                                        InsertarArticulo.Fields.AddWithValue("precio", Det.ImporteUnitario);
-                                        InsertarArticulo.Fields.AddWithValue("descuento", Det.Descuento);
+                                        InsertarArticulo.ColumnValues.AddWithValue("orden", i++);
+                                        InsertarArticulo.ColumnValues.AddWithValue("cantidad", Det.Cantidad);
+                                        InsertarArticulo.ColumnValues.AddWithValue("precio", Det.ImporteUnitario);
+                                        InsertarArticulo.ColumnValues.AddWithValue("descuento", Det.Descuento);
                                         Connection.Execute(InsertarArticulo);
                                 }
                         }

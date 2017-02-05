@@ -5,11 +5,9 @@ using System.Text;
 
 namespace Lazaro.Orm.Data
 {
-        public interface IField
+        public interface IDbValue
         {
-                string ColumnName { get; set; }
                 object Value { get; set; }
-                ColumnTypes DataType { get; set; }
 
                 decimal ValueDecimal { get; }
                 string ValueString { get; }

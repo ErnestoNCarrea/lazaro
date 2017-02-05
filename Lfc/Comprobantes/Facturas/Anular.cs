@@ -109,7 +109,7 @@ namespace Lfc.Comprobantes.Facturas
 
                         if (ProximosNumeros.ContainsKey(PV) == false) {
                                 qGen.Select SelProxNum = new qGen.Select("comprob");
-                                SelProxNum.Fields = "MAX(numero)";
+                                SelProxNum.Columns = new List<string> { "MAX(numero)" };
                                 SelProxNum.WhereClause = WhereAnular;
                                 ProximosNumeros[PV] = this.Connection.FieldInt(SelProxNum) + 1;
                         }
@@ -135,7 +135,7 @@ namespace Lfc.Comprobantes.Facturas
 
                         if (Cantidad == 1) {
                                 qGen.Select SelDesde = new qGen.Select("comprob");
-                                SelDesde.Fields = "id_comprob";
+                                SelDesde.Columns = new List<string> { "id_comprob" };
                                 SelDesde.WhereClause = WhereAnular.Clone();
                                 SelDesde.WhereClause.AddWithValue("numero", Desde);
                                 SelDesde.Order = "anulada";
@@ -185,7 +185,7 @@ namespace Lfc.Comprobantes.Facturas
                                 EntradaAnularPagos.TextKey = "1";
 
                                 qGen.Select SelComprobs = new qGen.Select("comprob");
-                                SelComprobs.Fields = "*";
+                                SelComprobs.Columns = new List<string> { "*" };
                                 SelComprobs.WhereClause = WhereAnular.Clone();
                                 SelComprobs.WhereClause.AddWithValue("numero", Desde, Hasta);
 
@@ -280,16 +280,16 @@ namespace Lfc.Comprobantes.Facturas
                                                 // Es una factura que todava no existe
                                                 // Tengo que crear la factura y anularla
                                                 qGen.Insert InsertarComprob = new qGen.Insert("comprob");
-                                                InsertarComprob.Fields.AddWithValue("tipo_fac", "F" + EntradaTipo.TextKey);
-                                                InsertarComprob.Fields.AddWithValue("id_formapago", 3);
-                                                InsertarComprob.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
-                                                InsertarComprob.Fields.AddWithValue("pv", Lfx.Types.Parsing.ParseInt(EntradaPV.Text));
-                                                InsertarComprob.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                                                InsertarComprob.Fields.AddWithValue("id_vendedor", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                                                InsertarComprob.Fields.AddWithValue("id_cliente", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                                                InsertarComprob.Fields.AddWithValue("obs", "Comprobante anulado antes de ser impreso.");
-                                                InsertarComprob.Fields.AddWithValue("impresa", 1);
-                                                InsertarComprob.Fields.AddWithValue("anulada", 1);
+                                                InsertarComprob.ColumnValues.AddWithValue("tipo_fac", "F" + EntradaTipo.TextKey);
+                                                InsertarComprob.ColumnValues.AddWithValue("id_formapago", 3);
+                                                InsertarComprob.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+                                                InsertarComprob.ColumnValues.AddWithValue("pv", Lfx.Types.Parsing.ParseInt(EntradaPV.Text));
+                                                InsertarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                                InsertarComprob.ColumnValues.AddWithValue("id_vendedor", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                                                InsertarComprob.ColumnValues.AddWithValue("id_cliente", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                                                InsertarComprob.ColumnValues.AddWithValue("obs", "Comprobante anulado antes de ser impreso.");
+                                                InsertarComprob.ColumnValues.AddWithValue("impresa", 1);
+                                                InsertarComprob.ColumnValues.AddWithValue("anulada", 1);
                                                 Connection.Execute(InsertarComprob);
                                                 m_Id = Connection.FieldInt("SELECT LAST_INSERT_ID()");
                                                 Lbl.Comprobantes.ComprobanteConArticulos NuevoComprob = new Lbl.Comprobantes.ComprobanteConArticulos(this.Connection, m_Id);

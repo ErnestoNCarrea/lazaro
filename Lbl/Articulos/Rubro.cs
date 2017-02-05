@@ -22,20 +22,20 @@ namespace Lbl.Articulos
 
 		public override Lfx.Types.OperationResult Guardar()
                 {
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
                         if (this.Alicuota == null)
-                                Comando.Fields.AddWithValue("id_alicuota", null);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", null);
                         else
-                                Comando.Fields.AddWithValue("id_alicuota", this.Alicuota.Id);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", this.Alicuota.Id);
 
 			this.AgregarTags(Comando);
 

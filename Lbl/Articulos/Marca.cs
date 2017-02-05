@@ -38,24 +38,24 @@ namespace Lbl.Articulos
 
 		public override Lfx.Types.OperationResult Guardar()
                 {
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-			Comando.Fields.AddWithValue("url", this.Url);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+			Comando.ColumnValues.AddWithValue("url", this.Url);
 			if(this.Proveedor == null)
-				Comando.Fields.AddWithValue("id_proveedor", null);
+				Comando.ColumnValues.AddWithValue("id_proveedor", null);
 			else
-				Comando.Fields.AddWithValue("id_proveedor", this.Proveedor.Id);
-			Comando.Fields.AddWithValue("obs", this.Obs);
-			Comando.Fields.AddWithValue("estado", this.Estado);
+				Comando.ColumnValues.AddWithValue("id_proveedor", this.Proveedor.Id);
+			Comando.ColumnValues.AddWithValue("obs", this.Obs);
+			Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
 			this.AgregarTags(Comando);
 

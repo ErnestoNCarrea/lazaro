@@ -135,7 +135,7 @@ namespace Lfc.Comprobantes.Plantillas
                                 Codigo = EntradaCodigo.TextKey;
 
                         qGen.Select SelCodDupl = new qGen.Select("sys_plantillas");
-                        SelCodDupl.Fields = "id_plantilla";
+                        SelCodDupl.Columns = new List<string> { "id_plantilla" };
                         SelCodDupl.WhereClause = new qGen.Where();
                         SelCodDupl.WhereClause.AddWithValue("codigo", Codigo);
                         if (this.Elemento.Existe)

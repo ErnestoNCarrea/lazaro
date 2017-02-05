@@ -12,7 +12,7 @@ namespace Lbl.Notificaciones
 
                 public static Administrador Principal = null;
 
-                private Lfx.Data.IConnection m_DataBase = null;
+                private Lfx.Data.IConnection m_Connection = null;
                 private int LastMessageId { get; set; }
                 private System.Timers.Timer PollTimer;
 
@@ -23,9 +23,9 @@ namespace Lbl.Notificaciones
                                 this.PollTimer.Dispose();
                                 this.PollTimer = null;
                         }
-                        if (m_DataBase != null) {
-                                m_DataBase.Dispose();
-                                m_DataBase = null;
+                        if (m_Connection != null) {
+                                m_Connection.Dispose();
+                                m_Connection = null;
                         }
                         GC.SuppressFinalize(this);
                 }
@@ -35,11 +35,11 @@ namespace Lbl.Notificaciones
                 {
                         get
                         {
-                                if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de notificaciones") as Lfx.Data.IConnection;
-                                        m_DataBase.RequiresTransaction = false;
+                                if (m_Connection == null) {
+                                        m_Connection = Lfx.Workspace.Master.GetNewConnection("Administrador de notificaciones") as Lfx.Data.IConnection;
+                                        m_Connection.RequiresTransaction = false;
                                 }
-                                return m_DataBase;
+                                return m_Connection;
                         }
                 }
 
@@ -48,7 +48,7 @@ namespace Lbl.Notificaciones
                 {
                         try {
                                 qGen.Select SelUltimoId = new qGen.Select("sys_mensajeria");
-                                SelUltimoId.Fields = "MAX(id_ultimomensaje)";
+                                SelUltimoId.Columns = new List<string> { "MAX(id_ultimomensaje)" };
                                 SelUltimoId.WhereClause = new qGen.Where();
                                 SelUltimoId.WhereClause.AddWithValue("id_usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
 
@@ -111,14 +111,14 @@ namespace Lbl.Notificaciones
                 public bool Enviar(INotificacion notif)
                 {
                         qGen.Insert InsertarMensaje = new qGen.Insert("sys_mensajes");
-                        InsertarMensaje.Fields.AddWithValue("id_remitente", notif.Remitente.Id);
-                        InsertarMensaje.Fields.AddWithValue("id_destinatario", notif.Destinatario.Id);
-                        InsertarMensaje.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        InsertarMensaje.Fields.AddWithValue("destino", notif.Destino);
-                        InsertarMensaje.Fields.AddWithValue("nombre", notif.Nombre);
-                        InsertarMensaje.Fields.AddWithValue("obs", notif.Obs);
-                        InsertarMensaje.Fields.AddWithValue("estacion_envia", notif.EstacionOrigen);
-                        InsertarMensaje.Fields.AddWithValue("estacion_recibe", notif.EstacionDestino);
+                        InsertarMensaje.ColumnValues.AddWithValue("id_remitente", notif.Remitente.Id);
+                        InsertarMensaje.ColumnValues.AddWithValue("id_destinatario", notif.Destinatario.Id);
+                        InsertarMensaje.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        InsertarMensaje.ColumnValues.AddWithValue("destino", notif.Destino);
+                        InsertarMensaje.ColumnValues.AddWithValue("nombre", notif.Nombre);
+                        InsertarMensaje.ColumnValues.AddWithValue("obs", notif.Obs);
+                        InsertarMensaje.ColumnValues.AddWithValue("estacion_envia", notif.EstacionOrigen);
+                        InsertarMensaje.ColumnValues.AddWithValue("estacion_recibe", notif.EstacionDestino);
 
                         try {
                                 this.Connection.Execute(InsertarMensaje);
@@ -174,12 +174,12 @@ namespace Lbl.Notificaciones
 
                                 qGen.Insert ActualizarEstado = new qGen.Insert("sys_mensajeria");
                                 ActualizarEstado.OnDuplicateKeyUpdate = true;
-                                ActualizarEstado.Fields.AddWithValue("id_usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                                ActualizarEstado.Fields.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
-                                ActualizarEstado.Fields.AddWithValue("nombre", Lbl.Sys.Config.Actual.UsuarioConectado.Nombre);
-                                ActualizarEstado.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarEstado.ColumnValues.AddWithValue("id_usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                                ActualizarEstado.ColumnValues.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
+                                ActualizarEstado.ColumnValues.AddWithValue("nombre", Lbl.Sys.Config.Actual.UsuarioConectado.Nombre);
+                                ActualizarEstado.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                                 if (this.LastMessageId > 0)
-                                        ActualizarEstado.Fields.AddWithValue("id_ultimomensaje", this.LastMessageId);
+                                        ActualizarEstado.ColumnValues.AddWithValue("id_ultimomensaje", this.LastMessageId);
 
                                 this.Connection.Execute(ActualizarEstado);
                         } catch (Exception ex) {

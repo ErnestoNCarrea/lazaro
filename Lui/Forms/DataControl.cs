@@ -7,7 +7,7 @@ namespace Lui.Forms
 {
         public class DataControl : EditableControl, IDataControl, IEditableControl
         {
-                protected Lfx.Data.IConnection m_DataBase = null;
+                protected Lfx.Data.IConnection m_Connection = null;
 
                 /// <summary>
                 /// IDataControl
@@ -17,16 +17,16 @@ namespace Lui.Forms
                 {
                         get
                         {
-                                if (m_DataBase == null) {
+                                if (m_Connection == null) {
                                         if (this.ParentForm is IDataForm) {
                                                 // Obtengo la conexión del formulario
-                                                m_DataBase = ((IDataForm)(this.ParentForm)).Connection;
+                                                m_Connection = ((IDataForm)(this.ParentForm)).Connection;
                                         } else {
                                                 // De lo contrario, intento buscar una conexión en los controles parent
                                                 System.Windows.Forms.Control MiParent = this.Parent;
                                                 while (MiParent != null) {
                                                         if (MiParent is Lui.Forms.IDataControl) {
-                                                                m_DataBase = ((Lui.Forms.IDataControl)(MiParent)).Connection;
+                                                                m_Connection = ((Lui.Forms.IDataControl)(MiParent)).Connection;
                                                                 break;
                                                         } else {
                                                                 MiParent = MiParent.Parent;
@@ -34,7 +34,7 @@ namespace Lui.Forms
                                                 }
                                         }
                                 }
-                                return m_DataBase;
+                                return m_Connection;
                         }
                 }
         }

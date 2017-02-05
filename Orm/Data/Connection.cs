@@ -7,6 +7,7 @@ using Lazaro.Orm;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
 using qGen;
+using log4net;
 
 namespace Lazaro.Orm.Data
 {
@@ -16,6 +17,8 @@ namespace Lazaro.Orm.Data
         /// </summary>
         public class Connection : IDisposable, IConnection, System.Data.IDbConnection
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Connection));
+
                 public string Name { get; set; }
 
                 public bool EnableRecover { get; set; } = false;
@@ -363,6 +366,137 @@ namespace Lazaro.Orm.Data
 
                         transaction.DbTransaction.Rollback();
                         m_InTransaction = false;
+                }
+
+
+                protected bool TryToRecover(Exception ex)
+                {
+                        // Intento recuperar algunos errores de MySQL desconectando y volviendo a conectar
+                        // Pero sólo puedo hacer esto si no estoy en una transacción
+                        if (EnableRecover == true && m_InTransaction == false && ex.Source == "MySql.Data" &&
+                                (ex.Message.IndexOf("server has gone away", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("se ha desactivado la conexión", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("Referencia a objeto no establecida como instancia de un objeto", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("Object reference not set to an instance of an object", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("Fatal error encountered during command execution", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("Connection must be valid and open", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                || ex.Message.IndexOf("el estado actual de la conexión es cerrada", StringComparison.InvariantCultureIgnoreCase) >= 0
+                                )) {
+
+                                if (this.IsOpen())
+                                        return false;
+
+                                EnableRecover = false;
+
+                                if (DbConnection != null && DbConnection.State != System.Data.ConnectionState.Closed)
+                                        this.Close();
+
+                                System.Threading.Thread.Sleep(500);
+
+                                int intentos = 5;
+                                while ((DbConnection == null || DbConnection.State != System.Data.ConnectionState.Open) && intentos-- > 0) {
+                                        try {
+                                                this.Open();
+                                                DbConnection.ChangeDatabase(this.Factory.ConnectionParameters.DatabaseName);
+                                        } catch {
+                                                System.Threading.Thread.Sleep(2000);
+                                        }
+                                }
+                                EnableRecover = true;
+                                return false;
+                        } else {
+                                return true;
+                        }
+                }
+
+
+                public System.Data.DataTable Select(string selectCommand)
+                {
+                        if (this.IsOpen() == false)
+                                this.Open();
+
+                        Log.Debug(this.Handle.ToString() + ":  " + selectCommand);
+
+                        this.EsperarFinDeLectura();
+                        var Adaptador = this.Factory.Driver.GetAdapter(selectCommand, this.DbConnection);
+                        lock (Adaptador) {
+                                using (System.Data.DataSet Lector = new System.Data.DataSet()) {
+                                        Lector.Locale = System.Globalization.CultureInfo.CurrentCulture;
+                                        while (true) {
+                                                try {
+                                                        this.ResetKeepAliveTimer();
+                                                        Adaptador.Fill(Lector);
+                                                        break;
+                                                } catch (Exception ex) {
+                                                        if (this.TryToRecover(ex)) {
+                                                                Log.Error(selectCommand, ex);
+                                                                ex.Data.Add("Command", selectCommand);
+                                                                throw ex;
+                                                        }
+                                                }
+                                        }
+                                        return Lector.Tables[0];
+                                }
+                        }
+                }
+
+
+                public System.Data.DataTable Select(qGen.Select selectCommand)
+                {
+                        if (this.IsOpen() == false)
+                                this.Open();
+
+                        return this.Select(this.Factory.Formatter.SqlText(selectCommand));
+                }
+
+
+                public int ExecuteNonQuery(System.Data.IDbCommand command)
+                {
+                        if (this.ReadOnly)
+                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
+
+                        if (this.IsOpen() == false)
+                                this.Open();
+
+                        Log.Debug(this.Handle.ToString() + ":  " + command.CommandText);
+
+                        int Intentos = 3;
+                        while (true) {
+                                try {
+                                        if (command.Connection == null)
+                                                command.Connection = this.DbConnection;
+
+                                        this.ResetKeepAliveTimer();
+                                        int Res = command.ExecuteNonQuery();
+                                        return Res;
+                                } catch (Exception ex) {
+                                        if (this.TryToRecover(ex) || Intentos-- <= 0) {
+                                                Log.Error(command.CommandText, ex);
+                                                ex.Data.Add("Command", command.CommandText);
+                                                throw ex;
+                                        }
+                                }
+                        }
+                }
+
+                public int ExecuteNonQuery(string sqlCommand)
+                {
+                        if (this.ReadOnly)
+                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
+
+                        Log.Debug(this.Handle.ToString() + ":  " + sqlCommand);
+
+                        if (this.RequiresTransaction && m_InTransaction == false)
+                                throw new InvalidOperationException("Comandos fuera de transacción: " + sqlCommand);
+
+                        sqlCommand = sqlCommand.Trim(new char[] { ' ', (char)13, (char)10, (char)9 });
+                        if (sqlCommand.Length == 0)
+                                return 0;
+
+                        IDbCommand Cmd = this.GetCommand(sqlCommand);
+                        // Doy más tiempo para los comandos escritos en SQL
+                        Cmd.CommandTimeout = 300;
+                        return this.ExecuteNonQuery(Cmd);
                 }
         }
 }

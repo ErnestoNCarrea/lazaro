@@ -175,7 +175,7 @@ namespace Lcc.Edicion
                         if (m_FormActions == null) {
                                 m_FormActions = new Lazaro.Pres.Forms.FormActionCollection();
                                 // Obtengo una lista de acciones basadas en la tabla sys_tags
-                                if (this.ElementoTipo != null && Lfx.Data.DataBaseCache.DefaultCache.Tables.ContainsKey("sys_tags")) {
+                                if (this.ElementoTipo != null && Lfx.Data.DatabaseCache.DefaultCache.Tables.ContainsKey("sys_tags")) {
                                         Lbl.Atributos.Datos AttrDatos = this.ElementoTipo.GetAttribute<Lbl.Atributos.Datos>();
                                         if (AttrDatos != null) {
                                                 string NombreTabla = AttrDatos.TablaDatos;

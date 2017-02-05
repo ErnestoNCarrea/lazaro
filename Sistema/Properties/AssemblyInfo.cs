@@ -22,3 +22,4 @@ using System.Security.Permissions;
 [assembly: Guid("AF00B35F-6655-4ABB-907E-E767F63DB494")]
 [assembly: NeutralResourcesLanguageAttribute ("es-AR")]
 
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

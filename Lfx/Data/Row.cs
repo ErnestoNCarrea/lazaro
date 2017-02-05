@@ -9,7 +9,7 @@ namespace Lfx.Data
 	{
                 public bool IsNew { get; set; }
                 public bool m_IsModified;
-                public FieldCollection Fields { get; set; }
+                public ColumnValueCollection Fields { get; set; }
                 public System.Data.DataTable DataTable { get; set; }
                 public Lfx.Data.Table Table { get; set; }
 
@@ -28,7 +28,7 @@ namespace Lfx.Data
 		{
                         this.IsNew = true;
                         if (Fields == null)
-                                Fields = new FieldCollection();
+                                Fields = new ColumnValueCollection();
 		}
 
                 public static explicit operator Lfx.Data.Row(System.Data.DataRow row)
@@ -64,7 +64,7 @@ namespace Lfx.Data
 			set
 			{
 				if(Fields == null)
-					Fields = new FieldCollection();
+					Fields = new ColumnValueCollection();
                                 if (Fields[fieldName].Value != value && this.IsModified == false)
                                         this.IsModified = true;
 				Fields[fieldName].Value = value;
@@ -86,7 +86,7 @@ namespace Lfx.Data
                 {
                         Lfx.Data.Row Res = new Lfx.Data.Row();
                         Res.DataTable = this.DataTable;
-                        foreach (Lazaro.Orm.Data.Field Fld in this.Fields) {
+                        foreach (Lazaro.Orm.Data.ColumnValue Fld in this.Fields) {
                                 Res.Fields.Add(Fld.Clone());
                         }
                         Res.IsModified = this.IsModified;

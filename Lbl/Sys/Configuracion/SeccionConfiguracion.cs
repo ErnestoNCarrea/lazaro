@@ -6,7 +6,7 @@ namespace Lbl.Sys.Configuracion
 {
         public class SeccionConfiguracion
         {
-                public Lfx.Data.IConnection DataBase
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {

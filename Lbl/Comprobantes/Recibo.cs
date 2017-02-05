@@ -257,30 +257,30 @@ namespace Lbl.Comprobantes
                         }
 
                         // Asiento el recibo
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
                                 throw new Lfx.Types.DomainException("Lbl: No se puede cambiar un recibo impreso");
                         }
 
                         if (this.Concepto != null)
-                                Comando.Fields.AddWithValue("id_concepto", this.Concepto.Id);
+                                Comando.ColumnValues.AddWithValue("id_concepto", this.Concepto.Id);
                         else
-                                Comando.Fields.AddWithValue("id_concepto", null);
+                                Comando.ColumnValues.AddWithValue("id_concepto", null);
 
-                        Comando.Fields.AddWithValue("concepto", this.ConceptoTexto);
-                        Comando.Fields.AddWithValue("tipo_fac", this.Tipo.Nomenclatura);
-                        Comando.Fields.AddWithValue("pv", this.PV);
-                        Comando.Fields.AddWithValue("numero", this.Numero);
-                        Comando.Fields.AddWithValue("nombre", this.PV.ToString("0000") + "-" + this.Numero.ToString("00000000"));
-                        Comando.Fields.AddWithValue("id_vendedor", Lfx.Data.Connection.ConvertZeroToDBNull(this.Vendedor.Id));
-                        Comando.Fields.AddWithValue("id_cliente", Lfx.Data.Connection.ConvertZeroToDBNull(this.Cliente.Id));
-                        Comando.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
-                        Comando.Fields.AddWithValue("total", this.Total);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("concepto", this.ConceptoTexto);
+                        Comando.ColumnValues.AddWithValue("tipo_fac", this.Tipo.Nomenclatura);
+                        Comando.ColumnValues.AddWithValue("pv", this.PV);
+                        Comando.ColumnValues.AddWithValue("numero", this.Numero);
+                        Comando.ColumnValues.AddWithValue("nombre", this.PV.ToString("0000") + "-" + this.Numero.ToString("00000000"));
+                        Comando.ColumnValues.AddWithValue("id_vendedor", Lfx.Data.Connection.ConvertZeroToDBNull(this.Vendedor.Id));
+                        Comando.ColumnValues.AddWithValue("id_cliente", Lfx.Data.Connection.ConvertZeroToDBNull(this.Cliente.Id));
+                        Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+                        Comando.ColumnValues.AddWithValue("total", this.Total);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         this.AgregarTags(Comando);
 
@@ -588,7 +588,7 @@ namespace Lbl.Comprobantes
 
                                 // Marco el recibo como anulado
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
-                                Act.Fields.AddWithValue("estado", this.Estado);
+                                Act.ColumnValues.AddWithValue("estado", this.Estado);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                 this.Connection.Execute(Act);
 

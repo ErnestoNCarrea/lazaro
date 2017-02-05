@@ -235,7 +235,7 @@ namespace Lfc.Bancos.Cheques
                                         if (Pregunta.ShowDialog() == DialogResult.OK) {
                                                 using (IDbTransaction Trans = this.Connection.BeginTransaction()) {
                                                         qGen.Update Depo = new qGen.Update("bancos_cheques");
-                                                        Depo.Fields.AddWithValue("estado", 5);
+                                                        Depo.ColumnValues.AddWithValue("estado", 5);
                                                         Depo.WhereClause = new qGen.Where();
                                                         Depo.WhereClause.AddWithValue("estado", 0);
                                                         Depo.WhereClause.AddWithValue("id_cheque", qGen.ComparisonOperators.In, Codigos);

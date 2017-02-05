@@ -58,27 +58,27 @@ namespace Lbl.Impresion
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("estacion", this.Estacion);
-                        Comando.Fields.AddWithValue("id_impresora", this.Tipo.Id);
-                        Comando.Fields.AddWithValue("id_tipo", this.Impresora.Id);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("estacion", this.Estacion);
+                        Comando.ColumnValues.AddWithValue("id_impresora", this.Tipo.Id);
+                        Comando.ColumnValues.AddWithValue("id_tipo", this.Impresora.Id);
                         if (this.Sucursal == null)
-                                Comando.Fields.AddWithValue("id_sucursal", null);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", null);
                         else
-                                Comando.Fields.AddWithValue("id_sucursal", this.Sucursal.Id);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", this.Sucursal.Id);
                         if (this.PuntoDeVenta == null)
-                                Comando.Fields.AddWithValue("id_pv", null);
+                                Comando.ColumnValues.AddWithValue("id_pv", null);
                         else
-                                Comando.Fields.AddWithValue("id_pv", this.PuntoDeVenta.Id);
+                                Comando.ColumnValues.AddWithValue("id_pv", this.PuntoDeVenta.Id);
 
                         this.AgregarTags(Comando);
 

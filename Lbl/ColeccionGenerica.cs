@@ -11,7 +11,7 @@ namespace Lbl
         {
                 public bool HayAgregados = false, HayQuitados = false;
 
-                public Lfx.Data.IConnection DataBase;
+                public Lfx.Data.IConnection Connection;
                 // public List<T> List = new List<T>();
 
                 public ColeccionGenerica()
@@ -21,7 +21,7 @@ namespace Lbl
                 public ColeccionGenerica(Lfx.Data.IConnection dataBase)
                         : this()
                 {
-                        this.DataBase = dataBase;
+                        this.Connection = dataBase;
                 }
 
                 public ColeccionGenerica(Lfx.Data.IConnection dataBase, System.Data.DataTable tabla)
@@ -67,7 +67,7 @@ namespace Lbl
                 new public void AddRange(IEnumerable<T> collection)
                 {
                         foreach (T elem in collection) {
-                                elem.Connection = this.DataBase;
+                                elem.Connection = this.Connection;
                         }
                         base.AddRange(collection);
                         this.HayAgregados = true;
@@ -91,7 +91,7 @@ namespace Lbl
 
                 private void AddFromRow(Lfx.Data.Row row)
                 {
-                        T Elem = Instanciador.Instanciar<T>(this.DataBase, row);
+                        T Elem = Instanciador.Instanciar<T>(this.Connection, row);
                         this.Add(Elem);
                         this.HayAgregados = true;
                 }
@@ -137,7 +137,7 @@ namespace Lbl
                 /// </summary>
                 new public void Add(T elemento)
                 {
-                        elemento.Connection = this.DataBase;
+                        elemento.Connection = this.Connection;
                         base.Add(elemento);
                         this.HayAgregados = true;
                 }
@@ -185,7 +185,7 @@ namespace Lbl
                 /// </summary>
                 public ColeccionGenerica<T> Clone()
                 {
-                        ColeccionGenerica<T> Res = new ColeccionGenerica<T>(this.DataBase);
+                        ColeccionGenerica<T> Res = new ColeccionGenerica<T>(this.Connection);
                         foreach (T El in this) {
                                 Res.Add(El);
                         }

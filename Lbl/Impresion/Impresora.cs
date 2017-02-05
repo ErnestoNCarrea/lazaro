@@ -58,29 +58,29 @@ namespace Lbl.Impresion
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("estacion", this.Estacion);
-                        Comando.Fields.AddWithValue("dispositivo", this.Dispositivo);
-                        Comando.Fields.AddWithValue("bandeja", this.Bandeja);
-                        Comando.Fields.AddWithValue("ubicacion", this.Ubicacion);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("estacion", this.Estacion);
+                        Comando.ColumnValues.AddWithValue("dispositivo", this.Dispositivo);
+                        Comando.ColumnValues.AddWithValue("bandeja", this.Bandeja);
+                        Comando.ColumnValues.AddWithValue("ubicacion", this.Ubicacion);
                         
-                        Comando.Fields.AddWithValue("tipo", (int)this.Clase);
-                        Comando.Fields.AddWithValue("carga", (int)this.CargaPapel);
-                        Comando.Fields.AddWithValue("talonario", this.UsaTalonario ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("tipo", (int)this.Clase);
+                        Comando.ColumnValues.AddWithValue("carga", (int)this.CargaPapel);
+                        Comando.ColumnValues.AddWithValue("talonario", this.UsaTalonario ? 1 : 0);
 
-                        Comando.Fields.AddWithValue("fiscal_modelo", (int)this.FiscalModelo);
-                        Comando.Fields.AddWithValue("fiscal_bps", this.FiscalBps);
+                        Comando.ColumnValues.AddWithValue("fiscal_modelo", (int)this.FiscalModelo);
+                        Comando.ColumnValues.AddWithValue("fiscal_bps", this.FiscalBps);
                         
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         this.AgregarTags(Comando);
 

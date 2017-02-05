@@ -51,7 +51,7 @@ namespace Lbl.CuentasCorrientes
                 public decimal ObtenerSaldo(bool forUpdate)
                 {
                         qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, forUpdate);
-                        SelSaldo.Fields = "saldo";
+                        SelSaldo.Columns = new List<string> { "saldo" };
                         SelSaldo.WhereClause = new qGen.Where("id_cliente", this.Persona.Id);
                         SelSaldo.Order = this.CampoId + " DESC";
                         SelSaldo.Window = new qGen.Window(1);
@@ -63,7 +63,7 @@ namespace Lbl.CuentasCorrientes
                 public decimal ObtenerSaldoAFecha(DateTime date)
                 {
                         qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, false);
-                        SelSaldo.Fields = "saldo";
+                        SelSaldo.Columns = new List<string> { "saldo" };
                         SelSaldo.WhereClause = new qGen.Where("id_cliente", this.Persona.Id);
                         SelSaldo.WhereClause.AddWithValue("fecha", qGen.ComparisonOperators.LessOrEqual, date);
                         SelSaldo.Order = this.CampoId + " DESC";
@@ -90,7 +90,7 @@ namespace Lbl.CuentasCorrientes
                                 Saldo += System.Convert.ToDecimal(Movim["importe"]);
                                 
                                 qGen.Update ComandoActualizarSaldo = new qGen.Update(this.TablaDatos);
-                                ComandoActualizarSaldo.Fields.AddWithValue("saldo", Saldo);
+                                ComandoActualizarSaldo.ColumnValues.AddWithValue("saldo", Saldo);
                                 ComandoActualizarSaldo.WhereClause = new qGen.Where(this.CampoId, System.Convert.ToInt32(Movim[this.CampoId]));
                                 this.Connection.Execute(ComandoActualizarSaldo);
 
@@ -98,7 +98,7 @@ namespace Lbl.CuentasCorrientes
                         }
 
                         qGen.Update ComandoActualizarCliente = new qGen.Update("personas");
-                        ComandoActualizarCliente.Fields.AddWithValue("saldo_ctacte", Saldo);
+                        ComandoActualizarCliente.ColumnValues.AddWithValue("saldo_ctacte", Saldo);
                         ComandoActualizarCliente.WhereClause = new qGen.Where("id_persona", this.Persona.Id);
                         this.Connection.Execute(ComandoActualizarCliente);
                         Progreso.End();
@@ -151,38 +151,38 @@ namespace Lbl.CuentasCorrientes
                         decimal SaldoActual = this.ObtenerSaldo(true);
                         decimal NuevoSaldo = SaldoActual + importeDebito;
 
-                        qGen.Insert ComandoInsertarMovimiento = new qGen.Insert(this.Connection, this.TablaDatos);
+                        qGen.Insert ComandoInsertarMovimiento = new qGen.Insert(this.TablaDatos);
 				
-                        ComandoInsertarMovimiento.Fields.AddWithValue("auto", auto ? (int)1 : (int)0);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("auto", auto ? (int)1 : (int)0);
                         if (concepto == null)
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_concepto", null);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_concepto", null);
                         else
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_concepto", concepto.Id);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("concepto", textoConcepto);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("id_cliente", this.Persona.Id);
-			ComandoInsertarMovimiento.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("importe", importeDebito);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_concepto", concepto.Id);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("concepto", textoConcepto);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_cliente", this.Persona.Id);
+			ComandoInsertarMovimiento.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("importe", importeDebito);
                         if (comprob == null)
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_comprob", null);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_comprob", null);
                         else
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_comprob", comprob.Id);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_comprob", comprob.Id);
                         if (recibo == null)
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_recibo", null);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_recibo", null);
                         else
-                                ComandoInsertarMovimiento.Fields.AddWithValue("id_recibo", recibo.Id);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("comprob", textoComprob);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("saldo", NuevoSaldo);
-                        ComandoInsertarMovimiento.Fields.AddWithValue("obs", obs);
+                                ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_recibo", recibo.Id);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("comprob", textoComprob);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("saldo", NuevoSaldo);
+                        ComandoInsertarMovimiento.ColumnValues.AddWithValue("obs", obs);
 
                         if (extras != null && extras.Count > 0) {
                                 foreach (KeyValuePair<string, object> extra in extras) {
-                                        ComandoInsertarMovimiento.Fields.AddWithValue(extra.Key, extra.Value);
+                                        ComandoInsertarMovimiento.ColumnValues.AddWithValue(extra.Key, extra.Value);
                                 }
                         }
                         this.Connection.Execute(ComandoInsertarMovimiento);
 
                         qGen.Update ComandoActualizarCliente = new qGen.Update("personas");
-                        ComandoActualizarCliente.Fields.AddWithValue("saldo_ctacte", NuevoSaldo);
+                        ComandoActualizarCliente.ColumnValues.AddWithValue("saldo_ctacte", NuevoSaldo);
                         ComandoActualizarCliente.WhereClause = new qGen.Where("id_persona", this.Persona.Id);
                         this.Connection.Execute(ComandoActualizarCliente);
                 }
@@ -287,7 +287,7 @@ namespace Lbl.CuentasCorrientes
                         }
 
                         qGen.Select SelFacturasConSaldo = new qGen.Select("comprob", true);
-                        SelFacturasConSaldo.Fields = "id_comprob,total,cancelado";
+                        SelFacturasConSaldo.Columns = new List<string> { "id_comprob", "total", "cancelado" };
                         SelFacturasConSaldo.WhereClause = WhereConSaldo;
                         SelFacturasConSaldo.Order = "id_comprob";
                         System.Data.DataTable FacturasConSaldo = this.Connection.Select(SelFacturasConSaldo);
@@ -303,7 +303,7 @@ namespace Lbl.CuentasCorrientes
                                         ImporteCancelarComprob = ImporteCancelar;
 
                                 qGen.Update ActCancelarComprob = new qGen.Update("comprob");
-                                ActCancelarComprob.Fields.AddWithValue("cancelado", System.Convert.ToDecimal(Factura["cancelado"]) + ImporteCancelarComprob);
+                                ActCancelarComprob.ColumnValues.AddWithValue("cancelado", System.Convert.ToDecimal(Factura["cancelado"]) + ImporteCancelarComprob);
                                 ActCancelarComprob.WhereClause = new qGen.Where("id_comprob", System.Convert.ToInt32(Factura["id_comprob"]));
                                 this.Connection.Execute(ActCancelarComprob);
                                 ImporteCancelar -= ImporteCancelarComprob;

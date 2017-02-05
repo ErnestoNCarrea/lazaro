@@ -111,7 +111,7 @@ namespace Lbl.Servicios.Importar
                         base.PreImportar();
 
                         using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
-                                this.Connection.ExecuteSql("UPDATE personas SET import_id=1 WHERE id_persona=999");
+                                this.Connection.ExecuteNonQuery("UPDATE personas SET import_id=1 WHERE id_persona=999");
                                 Trans.Commit();
                         }
                 }
@@ -122,8 +122,8 @@ namespace Lbl.Servicios.Importar
                         base.PostImportar();
 
                         using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
-                                this.Connection.ExecuteSql("UPDATE comprob a SET total=(SELECT SUM(importe) FROM comprob_detalle b WHERE a.id_comprob=b.id_comprob)");
-                                this.Connection.ExecuteSql("UPDATE comprob SET totalreal=total, subtotal=total, cancelado=total");
+                                this.Connection.ExecuteNonQuery("UPDATE comprob a SET total=(SELECT SUM(importe) FROM comprob_detalle b WHERE a.id_comprob=b.id_comprob)");
+                                this.Connection.ExecuteNonQuery("UPDATE comprob SET totalreal=total, subtotal=total, cancelado=total");
                                 Trans.Commit();
                         }
                 }
@@ -191,18 +191,18 @@ namespace Lbl.Servicios.Importar
                                                         if (Cliente <= 0)
                                                                 Cliente = 999;
                                                         qGen.Insert NewFac = new qGen.Insert("comprob");
-                                                        NewFac.Fields.AddWithValue("id_formapago", 1);
-                                                        NewFac.Fields.AddWithValue("tipo_fac", TipoLazaro);
-                                                        NewFac.Fields.AddWithValue("pv", 1);
-                                                        NewFac.Fields.AddWithValue("numero", Numero);
-                                                        NewFac.Fields.AddWithValue("situacionorigen", 1);
-                                                        NewFac.Fields.AddWithValue("situaciondestino", 999);
-                                                        NewFac.Fields.AddWithValue("fecha", System.Convert.ToDateTime(externalRow["FECHA"]));
-                                                        NewFac.Fields.AddWithValue("id_vendedor", 1);
-                                                        NewFac.Fields.AddWithValue("id_cliente", Cliente);
-                                                        NewFac.Fields.AddWithValue("impresa", 1);
-                                                        NewFac.Fields.AddWithValue("id_sucursal", 1);
-                                                        NewFac.Fields.AddWithValue("estado", 1);
+                                                        NewFac.ColumnValues.AddWithValue("id_formapago", 1);
+                                                        NewFac.ColumnValues.AddWithValue("tipo_fac", TipoLazaro);
+                                                        NewFac.ColumnValues.AddWithValue("pv", 1);
+                                                        NewFac.ColumnValues.AddWithValue("numero", Numero);
+                                                        NewFac.ColumnValues.AddWithValue("situacionorigen", 1);
+                                                        NewFac.ColumnValues.AddWithValue("situaciondestino", 999);
+                                                        NewFac.ColumnValues.AddWithValue("fecha", System.Convert.ToDateTime(externalRow["FECHA"]));
+                                                        NewFac.ColumnValues.AddWithValue("id_vendedor", 1);
+                                                        NewFac.ColumnValues.AddWithValue("id_cliente", Cliente);
+                                                        NewFac.ColumnValues.AddWithValue("impresa", 1);
+                                                        NewFac.ColumnValues.AddWithValue("id_sucursal", 1);
+                                                        NewFac.ColumnValues.AddWithValue("estado", 1);
                                                         this.Connection.Execute(NewFac);
 
                                                         FacRow = this.Connection.FirstRowFromSelect(SelFac);

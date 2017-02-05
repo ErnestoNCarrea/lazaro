@@ -82,36 +82,36 @@ namespace Lazaro.WinMain.Config
 
                         this.Hide();
 
-                        Lfx.Data.DataBaseCache.DefaultCache.ServerName = EntradaServidor.Text;
+                        Lfx.Data.DatabaseCache.DefaultCache.ServerName = EntradaServidor.Text;
                         switch (EntradaConexion.TextKey) {
                                 case "odbc":
-                                        Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
                                         break;
                                 case "myodbc":
                                 case "mysql":
-                                        Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
                                         break;
                                 case "npgsql":
-                                        Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
                                         break;
                                 case "mssql":
-                                        Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
                                         break;
                                 case "sqlite":
-                                        Lfx.Data.DataBaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
                                         break;
                         }
 
-                        Lfx.Data.DataBaseCache.DefaultCache.DataBaseName = EntradaBD.Text;
-                        Lfx.Data.DataBaseCache.DefaultCache.UserName = EntradaUsuario.Text;
-                        Lfx.Data.DataBaseCache.DefaultCache.Password = EntradaContrasena.Text;
+                        Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = EntradaBD.Text;
+                        Lfx.Data.DatabaseCache.DefaultCache.UserName = EntradaUsuario.Text;
+                        Lfx.Data.DatabaseCache.DefaultCache.Password = EntradaContrasena.Text;
 
-                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Data.DataBaseCache.DefaultCache.ServerName);
+                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Data.DatabaseCache.DefaultCache.ServerName);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "ConnectionType", EntradaConexion.TextKey);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DatabaseName", EntradaBD.Text);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "User", EntradaUsuario.Text);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "Password", EntradaContrasena.Text);
-                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "SlowLink", Lfx.Data.DataBaseCache.DefaultCache.SlowLink ? "1" : "0");
+                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "SlowLink", Lfx.Data.DatabaseCache.DefaultCache.SlowLink ? "1" : "0");
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Company", "Branch", EntradaSucursal.Text);
 
                         Aplicacion.AbrirConexion();

@@ -140,30 +140,30 @@ namespace Lbl.Articulos
 
 		public override Lfx.Types.OperationResult Guardar()
                 {
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("nombresing", this.NombreSingular);
-                        Comando.Fields.AddWithValue("stock_minimo", this.PuntoDeReposicion);
-                        Comando.Fields.AddWithValue("web", this.PublicacionWeb);
-                        Comando.Fields.AddWithValue("requierens", ((int)(this.Seguimiento)));
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("nombresing", this.NombreSingular);
+                        Comando.ColumnValues.AddWithValue("stock_minimo", this.PuntoDeReposicion);
+                        Comando.ColumnValues.AddWithValue("web", this.PublicacionWeb);
+                        Comando.ColumnValues.AddWithValue("requierens", ((int)(this.Seguimiento)));
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
                         if (this.Rubro == null)
-                                Comando.Fields.AddWithValue("id_rubro", null);
+                                Comando.ColumnValues.AddWithValue("id_rubro", null);
                         else
-                                Comando.Fields.AddWithValue("id_rubro", this.Rubro.Id);
+                                Comando.ColumnValues.AddWithValue("id_rubro", this.Rubro.Id);
                         if (this.Alicuota == null)
-                                Comando.Fields.AddWithValue("id_alicuota", null);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", null);
                         else
-                                Comando.Fields.AddWithValue("id_alicuota", this.Alicuota.Id);
-                        Comando.Fields.AddWithValue("garantia", this.Garantia);
+                                Comando.ColumnValues.AddWithValue("id_alicuota", this.Alicuota.Id);
+                        Comando.ColumnValues.AddWithValue("garantia", this.Garantia);
 
 			this.AgregarTags(Comando);
 

@@ -248,8 +248,8 @@ namespace Lbl.Pagos
                 public void Presentar()
                 {
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
-                        ActualizarEstado.Fields.AddWithValue("estado", 10);
-                        ActualizarEstado.Fields.AddWithValue("fecha_pres", qGen.SqlFunctions.Now);
+                        ActualizarEstado.ColumnValues.AddWithValue("estado", 10);
+                        ActualizarEstado.ColumnValues.AddWithValue("fecha_pres", qGen.SqlFunctions.Now);
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }
@@ -258,8 +258,8 @@ namespace Lbl.Pagos
                 public void Acreditar()
                 {
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
-                        ActualizarEstado.Fields.AddWithValue("estado", 20);
-                        ActualizarEstado.Fields.AddWithValue("fecha_acred", qGen.SqlFunctions.Now);
+                        ActualizarEstado.ColumnValues.AddWithValue("estado", 20);
+                        ActualizarEstado.ColumnValues.AddWithValue("fecha_acred", qGen.SqlFunctions.Now);
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }
@@ -283,83 +283,83 @@ namespace Lbl.Pagos
                                 }
                         }
 
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Numero + " de " + this.FormaDePago.ToString());
-			Comando.Fields.AddWithValue("numero", this.Numero);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Numero + " de " + this.FormaDePago.ToString());
+			Comando.ColumnValues.AddWithValue("numero", this.Numero);
                         
                         if (this.Concepto == null)
-                                Comando.Fields.AddWithValue("id_concepto", null);
+                                Comando.ColumnValues.AddWithValue("id_concepto", null);
                         else
-                                Comando.Fields.AddWithValue("id_concepto", this.Concepto.Id);
+                                Comando.ColumnValues.AddWithValue("id_concepto", this.Concepto.Id);
 
                         if (this.ConceptoTexto == null || this.ConceptoTexto.Length == 0) {
 				if (this.Concepto == null)
-					Comando.Fields.AddWithValue("concepto", "");
+					Comando.ColumnValues.AddWithValue("concepto", "");
 				else
-                                	Comando.Fields.AddWithValue("concepto", this.Concepto.Nombre);
+                                	Comando.ColumnValues.AddWithValue("concepto", this.Concepto.Nombre);
 			} else {
-                                Comando.Fields.AddWithValue("concepto", this.ConceptoTexto);
+                                Comando.ColumnValues.AddWithValue("concepto", this.ConceptoTexto);
 			}
 
-			Comando.Fields.AddWithValue("autorizacion", this.Autorizacion);
+			Comando.ColumnValues.AddWithValue("autorizacion", this.Autorizacion);
                         
                         if (this.FormaDePago != null)
-                                Comando.Fields.AddWithValue("id_tarjeta", this.FormaDePago.Id);
+                                Comando.ColumnValues.AddWithValue("id_tarjeta", this.FormaDePago.Id);
                         else
-                                Comando.Fields.AddWithValue("id_tarjeta", null);
+                                Comando.ColumnValues.AddWithValue("id_tarjeta", null);
 
 			if(this.Plan != null)
-				Comando.Fields.AddWithValue("id_plan", this.Plan.Id);
+				Comando.ColumnValues.AddWithValue("id_plan", this.Plan.Id);
 			else
-				Comando.Fields.AddWithValue("id_plan", null);
+				Comando.ColumnValues.AddWithValue("id_plan", null);
 
                         if(this.Cliente != null)
-                                Comando.Fields.AddWithValue("id_cliente", this.Cliente.Id);
+                                Comando.ColumnValues.AddWithValue("id_cliente", this.Cliente.Id);
                         else if (this.Recibo != null && this.Recibo.Cliente != null)
-                                Comando.Fields.AddWithValue("id_cliente", this.Recibo.Cliente.Id);
+                                Comando.ColumnValues.AddWithValue("id_cliente", this.Recibo.Cliente.Id);
                         else
-                                Comando.Fields.AddWithValue("id_cliente", null);
+                                Comando.ColumnValues.AddWithValue("id_cliente", null);
 
                         if (this.Vendedor != null)
-                                Comando.Fields.AddWithValue("id_vendedor", this.Vendedor.Id);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", this.Vendedor.Id);
                         else if (this.Recibo != null && this.Recibo.Vendedor != null)
-                                Comando.Fields.AddWithValue("id_vendedor", this.Recibo.Vendedor.Id);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", this.Recibo.Vendedor.Id);
                         else
-                                Comando.Fields.AddWithValue("id_vendedor", null);
+                                Comando.ColumnValues.AddWithValue("id_vendedor", null);
 
                         if (this.Recibo != null)
-                                Comando.Fields.AddWithValue("id_recibo", this.Recibo.Id);
+                                Comando.ColumnValues.AddWithValue("id_recibo", this.Recibo.Id);
                         else
-                                Comando.Fields.AddWithValue("id_recibo", null);
+                                Comando.ColumnValues.AddWithValue("id_recibo", null);
 
                         if (this.Factura == null)
-                                Comando.Fields.AddWithValue("id_comprob", null);
+                                Comando.ColumnValues.AddWithValue("id_comprob", null);
                         else
-                                Comando.Fields.AddWithValue("id_comprob", this.Factura.Id);
+                                Comando.ColumnValues.AddWithValue("id_comprob", this.Factura.Id);
 
-			Comando.Fields.AddWithValue("importe", this.Importe);
-			Comando.Fields.AddWithValue("obs", this.Obs);
+			Comando.ColumnValues.AddWithValue("importe", this.Importe);
+			Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         if (this.FechaAcreditacion != null)
-                                Comando.Fields.AddWithValue("fecha_acred", this.FechaAcreditacion.Value);
+                                Comando.ColumnValues.AddWithValue("fecha_acred", this.FechaAcreditacion.Value);
                         else
-                                Comando.Fields.AddWithValue("fecha_acred", null);
+                                Comando.ColumnValues.AddWithValue("fecha_acred", null);
 
                         if (this.FechaPresentacion != null)
-                                Comando.Fields.AddWithValue("fecha_pres", this.FechaPresentacion.Value);
+                                Comando.ColumnValues.AddWithValue("fecha_pres", this.FechaPresentacion.Value);
                         else
-                                Comando.Fields.AddWithValue("fecha_pres", null);
+                                Comando.ColumnValues.AddWithValue("fecha_pres", null);
 
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
 			this.AgregarTags(Comando);
 
@@ -373,7 +373,7 @@ namespace Lbl.Pagos
                         if (this.Anulado == false) {
                                 // Marco el cheque como anulado
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
-                                Act.Fields.AddWithValue("estado", 1);
+                                Act.ColumnValues.AddWithValue("estado", 1);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                 this.Connection.Execute(Act);
 

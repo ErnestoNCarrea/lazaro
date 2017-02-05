@@ -9,7 +9,7 @@ namespace qGen
                 string FormatDecimal(decimal numero, int decimales);
                 string EscapeString(string stringValue);
 
-                string SqlText(ICommand command);
+                string SqlText(IStatementOrQuery command);
                 System.Data.IDbCommand SetupDbCommand(IConvertibleToDbCommand command, ref System.Data.IDbCommand dbCommand, IConnection connection);
 
                 System.Data.IDbCommand SetupDbCommand(Insert insertCommand, ref System.Data.IDbCommand dbCommand, IConnection connection);

@@ -7,9 +7,8 @@ namespace qGen
         /// Comando SELECT
         /// </summary>
         [Serializable]
-        public class Select : TableCommand
+        public class Select : Query, IWithColumnList
         {
-                new public string Fields = "*";
                 public Window Window = null;
                 public string Order = null;
                 public string Group = "";
@@ -19,13 +18,28 @@ namespace qGen
                 public Where HavingClause = null;
 
                 public Select()
-                        : base() { }
+                        : base()
+                {
+                }
 
-                public Select(string Tables)
-                        : base(Tables) { }
+                public Select(string singleTable)
+                        : this(new List<string> { singleTable })
+                {
+                }
 
-                public Select(string Tables, bool forUpdate)
-                        : this(Tables)
+                public Select(IList<string> tables)
+                       : base(tables)
+                {
+                }
+
+                public Select(IList<string> tables, bool forUpdate)
+                        : base(tables)
+                {
+                        this.ForUpdate = forUpdate;
+                }
+
+                public Select(string singleTable, bool forUpdate)
+                        : this(new List<string> { singleTable })
                 {
                         this.ForUpdate = forUpdate;
                 }

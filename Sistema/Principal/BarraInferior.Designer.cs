@@ -13,8 +13,8 @@ namespace Lazaro.WinMain.Principal
                 /// <param name="disposing">true si los recursos administrados se deben eliminar; false en caso contrario, false.</param>
                 protected override void Dispose(bool disposing)
                 {
-                        if (m_DataBase != null)
-                                m_DataBase.Dispose();
+                        if (m_Connection != null)
+                                m_Connection.Dispose();
                         if (disposing && (components != null)) {
                                 components.Dispose();
                         }

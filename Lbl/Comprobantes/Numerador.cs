@@ -35,39 +35,39 @@ namespace Lbl.Comprobantes
                         // Modifico Registro para no volver a cargar el comprobante desde la BD
                         this.Comprob.Numero = numero;
                         this.Comprob.Registro["numero"] = this.Comprob.Numero;
-                        ActualizarComprob.Fields.AddWithValue("numero", numero);
+                        ActualizarComprob.ColumnValues.AddWithValue("numero", numero);
 
                         string Nombre = this.Comprob.PV.ToString("0000") + "-" + numero.ToString("00000000");
                         this.Comprob.Nombre = Nombre;
                         this.Comprob.Registro["nombre"] = this.Comprob.Nombre;
-                        ActualizarComprob.Fields.AddWithValue("nombre", Nombre);
+                        ActualizarComprob.ColumnValues.AddWithValue("nombre", Nombre);
 
                         if (yMarcarComoImpreso) {
                                 this.Comprob.Estado = 1;
                                 this.Comprob.Registro["estado"] = this.Comprob.Estado;
-                                ActualizarComprob.Fields.AddWithValue("estado", 1);
+                                ActualizarComprob.ColumnValues.AddWithValue("estado", 1);
 
                                 this.Comprob.Fecha = this.Comprob.Connection.ServerDateTime;
                                 this.Comprob.Registro["fecha"] = this.Comprob.Fecha;
-                                ActualizarComprob.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
 
                                 if (this.Comprob.TablaDatos == "recibos") {
                                         this.Comprob.Impreso = true;
                                         this.Comprob.Registro["impreso"] = this.Comprob.Impreso ? 1 : 0;
-                                        ActualizarComprob.Fields.AddWithValue("impreso", 1);
+                                        ActualizarComprob.ColumnValues.AddWithValue("impreso", 1);
                                 } else {
                                         this.Comprob.Impreso = true;
                                         this.Comprob.Registro["impresa"] = this.Comprob.Impreso ? 1 : 0;
-                                        ActualizarComprob.Fields.AddWithValue("impresa", 1);
+                                        ActualizarComprob.ColumnValues.AddWithValue("impresa", 1);
                                 }
                         }
 
                         if (this.Comprob is ComprobanteFacturable && string.IsNullOrEmpty(cae) == false && vencimientoCae.HasValue) {
                                 var ComprobFact = Comprob as ComprobanteFacturable;
                                 ComprobFact.CaeNumero = cae;
-                                ActualizarComprob.Fields.AddWithValue("cae_numero", ComprobFact.CaeNumero);
+                                ActualizarComprob.ColumnValues.AddWithValue("cae_numero", ComprobFact.CaeNumero);
                                 ComprobFact.CaeVencimiento = vencimientoCae.Value;
-                                ActualizarComprob.Fields.AddWithValue("cae_vencimiento", ComprobFact.CaeVencimiento);
+                                ActualizarComprob.ColumnValues.AddWithValue("cae_vencimiento", ComprobFact.CaeVencimiento);
                         }
 
                         ActualizarComprob.WhereClause = new qGen.Where(this.Comprob.CampoId, this.Comprob.Id);

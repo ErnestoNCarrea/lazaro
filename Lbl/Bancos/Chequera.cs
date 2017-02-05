@@ -102,40 +102,40 @@ namespace Lbl.Bancos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, "chequeras");
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert("chequeras");
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, "chequeras");
+                                Comando = new qGen.Update("chequeras");
                                 Comando.WhereClause = new qGen.Where("id_chequera", m_ItemId);
                         }
 
                         if (this.Banco == null)
-                                Comando.Fields.AddWithValue("id_banco", null);
+                                Comando.ColumnValues.AddWithValue("id_banco", null);
                         else
-                                Comando.Fields.AddWithValue("id_banco", this.Banco.Id);
-                        Comando.Fields.AddWithValue("prefijo", this.Prefijo);
-                        Comando.Fields.AddWithValue("desde", this.Desde);
-                        Comando.Fields.AddWithValue("hasta", this.Hasta);
-                        Comando.Fields.AddWithValue("cheques_total", this.Hasta - this.Desde);
+                                Comando.ColumnValues.AddWithValue("id_banco", this.Banco.Id);
+                        Comando.ColumnValues.AddWithValue("prefijo", this.Prefijo);
+                        Comando.ColumnValues.AddWithValue("desde", this.Desde);
+                        Comando.ColumnValues.AddWithValue("hasta", this.Hasta);
+                        Comando.ColumnValues.AddWithValue("cheques_total", this.Hasta - this.Desde);
                         if (this.Caja == null)
-                                Comando.Fields.AddWithValue("id_caja", null);
+                                Comando.ColumnValues.AddWithValue("id_caja", null);
                         else
-                                Comando.Fields.AddWithValue("id_caja", this.Caja.Id);
+                                Comando.ColumnValues.AddWithValue("id_caja", this.Caja.Id);
                         if (this.Sucursal == null)
-                                Comando.Fields.AddWithValue("id_sucursal", null);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", null);
                         else
-                                Comando.Fields.AddWithValue("id_sucursal", this.Sucursal.Id);
-                        Comando.Fields.AddWithValue("titular", this.Titular);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", this.Sucursal.Id);
+                        Comando.ColumnValues.AddWithValue("titular", this.Titular);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
                         Connection.Execute(Comando);
                         this.ActualizarId();
 
                         if (this.Desde > 0 && this.Hasta > 0 && this.Hasta > this.Desde) {
 				qGen.Update Actua = new qGen.Update("bancos_cheques");
-				Actua.Fields.AddWithValue("id_chequera", this.Id);
+				Actua.ColumnValues.AddWithValue("id_chequera", this.Id);
 				Actua.WhereClause = new qGen.Where();
                                 Actua.WhereClause.AddWithValue("emitido", 1);
                                 Actua.WhereClause.AddWithValue("id_banco", this.Banco.Id);
@@ -143,7 +143,7 @@ namespace Lbl.Bancos
 				Connection.Execute(Actua);
 				
 				Actua = new qGen.Update("bancos_cheques");
-				Actua.Fields.Add(new Lazaro.Orm.Data.Field("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
+				Actua.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
 				Actua.WhereClause = new qGen.Where();
                                 Actua.WhereClause.AddWithValue("emitido", 1);
                                 Actua.WhereClause.AddWithValue("id_banco", this.Banco.Id);

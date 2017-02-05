@@ -271,42 +271,42 @@ namespace Lbl.Impresion
 
                         this.Definicion = XmlDef;
 
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("codigo", this.Codigo);
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("def", this.Registro["def"]);
-                        Comando.Fields.AddWithValue("defxml", this.Registro["defxml"]);
-                        Comando.Fields.AddWithValue("tamanopapel", this.TamanoPapel);
-			Comando.Fields.AddWithValue("landscape", this.Landscape ? 1 : 0);
-                        Comando.Fields.AddWithValue("copias", this.Copias);
-                        Comando.Fields.AddWithValue("tipo", ((int)(this.Tipo)));
-                        Comando.Fields.AddWithValue("bandeja", this.Bandeja);
+                        Comando.ColumnValues.AddWithValue("codigo", this.Codigo);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("def", this.Registro["def"]);
+                        Comando.ColumnValues.AddWithValue("defxml", this.Registro["defxml"]);
+                        Comando.ColumnValues.AddWithValue("tamanopapel", this.TamanoPapel);
+			Comando.ColumnValues.AddWithValue("landscape", this.Landscape ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("copias", this.Copias);
+                        Comando.ColumnValues.AddWithValue("tipo", ((int)(this.Tipo)));
+                        Comando.ColumnValues.AddWithValue("bandeja", this.Bandeja);
                         
                         System.Drawing.Printing.Margins Margen = this.Margenes;
                         if (Margen == null) {
-                                Comando.Fields.AddWithValue("margen_izquierda", -1);
-                                Comando.Fields.AddWithValue("margen_derecha", -1);
-                                Comando.Fields.AddWithValue("margen_arriba", -1);
-                                Comando.Fields.AddWithValue("margen_abajo", -1);
+                                Comando.ColumnValues.AddWithValue("margen_izquierda", -1);
+                                Comando.ColumnValues.AddWithValue("margen_derecha", -1);
+                                Comando.ColumnValues.AddWithValue("margen_arriba", -1);
+                                Comando.ColumnValues.AddWithValue("margen_abajo", -1);
                         } else {
-                                Comando.Fields.AddWithValue("margen_izquierda", Margen.Left);
-                                Comando.Fields.AddWithValue("margen_derecha", Margen.Right);
-                                Comando.Fields.AddWithValue("margen_arriba", Margen.Top);
-                                Comando.Fields.AddWithValue("margen_abajo", Margen.Bottom);
+                                Comando.ColumnValues.AddWithValue("margen_izquierda", Margen.Left);
+                                Comando.ColumnValues.AddWithValue("margen_derecha", Margen.Right);
+                                Comando.ColumnValues.AddWithValue("margen_arriba", Margen.Top);
+                                Comando.ColumnValues.AddWithValue("margen_abajo", Margen.Bottom);
                         }
 
 
-                        Comando.Fields.AddWithValue("obs", this.Obs);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
                         this.Connection.Execute(Comando);
 

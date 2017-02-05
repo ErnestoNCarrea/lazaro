@@ -16,13 +16,13 @@ namespace Lfc.Tareas
                                 return new Lfx.Types.FailureOperationResult("Escriba el código de Ticket");
 
                         using (System.Data.IDbTransaction Trans = this.Connection.BeginTransaction()) {
-                                qGen.Insert InsertarNovedad = new qGen.Insert(Connection, "tickets_eventos");
-                                InsertarNovedad.Fields.AddWithValue("id_ticket", EntradaTicket.ValueInt);
-                                InsertarNovedad.Fields.AddWithValue("id_tecnico", EntradaEncargado.ValueInt);
-                                InsertarNovedad.Fields.AddWithValue("minutos_tecnico", Lfx.Types.Parsing.ParseInt(EntradaMinutos.Text));
-                                InsertarNovedad.Fields.AddWithValue("privado", EntradaCondicion.TextKey);
-                                InsertarNovedad.Fields.AddWithValue("descripcion", EntradaDescripcion.Text);
-                                InsertarNovedad.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                var InsertarNovedad = new qGen.Insert("tickets_eventos");
+                                InsertarNovedad.ColumnValues.AddWithValue("id_ticket", EntradaTicket.ValueInt);
+                                InsertarNovedad.ColumnValues.AddWithValue("id_tecnico", EntradaEncargado.ValueInt);
+                                InsertarNovedad.ColumnValues.AddWithValue("minutos_tecnico", Lfx.Types.Parsing.ParseInt(EntradaMinutos.Text));
+                                InsertarNovedad.ColumnValues.AddWithValue("privado", EntradaCondicion.TextKey);
+                                InsertarNovedad.ColumnValues.AddWithValue("descripcion", EntradaDescripcion.Text);
+                                InsertarNovedad.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                                 this.Connection.Execute(InsertarNovedad);
                                 Trans.Commit();
                         }

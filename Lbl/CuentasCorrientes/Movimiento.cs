@@ -21,27 +21,27 @@ namespace Lbl.CuentasCorrientes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("fecha", this.Fecha);
-                        Comando.Fields.AddWithValue("auto", this.Auto ? 1 : 0);
-                        Comando.Fields.AddWithValue("concepto", this.Nombre);
-                        Comando.Fields.AddWithValue("id_cliente", this.IdCliente);
-                        Comando.Fields.AddWithValue("importe", this.Importe);
-                        Comando.Fields.AddWithValue("comprob", this.Comprobantes);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("fecha", this.Fecha);
+                        Comando.ColumnValues.AddWithValue("auto", this.Auto ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("concepto", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("id_cliente", this.IdCliente);
+                        Comando.ColumnValues.AddWithValue("importe", this.Importe);
+                        Comando.ColumnValues.AddWithValue("comprob", this.Comprobantes);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         if (this.IdConcepto == 0)
-                                Comando.Fields.AddWithValue("id_concepto", null);
+                                Comando.ColumnValues.AddWithValue("id_concepto", null);
                         else
-                                Comando.Fields.AddWithValue("id_concepto", this.IdConcepto);
+                                Comando.ColumnValues.AddWithValue("id_concepto", this.IdConcepto);
 
                         this.AgregarTags(Comando);
 

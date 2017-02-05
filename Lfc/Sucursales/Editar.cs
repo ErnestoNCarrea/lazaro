@@ -53,7 +53,7 @@ namespace Lfc.Sucursales
                 public override Lfx.Types.OperationResult ValidarControl()
                 {
                         qGen.Select SelMismoNumero = new qGen.Select("sucursales");
-                        SelMismoNumero.Fields = "id_sucursal";
+                        SelMismoNumero.Columns = new List<string> { "id_sucursal" };
                         SelMismoNumero.WhereClause = new qGen.Where();
                         SelMismoNumero.WhereClause.AddWithValue("id_sucursal", EntradaNumero.ValueInt);
                         if (this.Elemento.Existe)

@@ -1,21 +1,28 @@
 using System;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
+using System.Collections.Generic;
 
 namespace qGen
 {
         [Serializable]
-        public class Insert : TableCommand, IConvertibleToDbCommand
+        public class Insert : Statement, IConvertibleToDbCommand
         {
                 public bool OnDuplicateKeyUpdate { get; set; }
 
                 public Insert()
-                        : base() { }
+                        : base()
+                { }
 
-                public Insert(string Tables)
-                        : base(Tables) { }
+                public Insert(string singleTable)
+                        : this(new List<string> { singleTable })
+                {
+                }
 
-                public Insert(IConnection dataBase, string tables)
-                        : base(dataBase, tables) { }
+                public Insert(IList<string> tables)
+                        : this()
+                {
+                        this.Tables = tables;
+                }
         }
 }

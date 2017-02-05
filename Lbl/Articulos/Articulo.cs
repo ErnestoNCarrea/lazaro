@@ -428,14 +428,14 @@ namespace Lbl.Articulos
                                         if (Existe == 0) {
                                                 // No existen datos de stock para esta situación... la creo
                                                 qGen.Insert InsertarCantidadSituacion = new qGen.Insert("articulos_stock");
-                                                InsertarCantidadSituacion.Fields.AddWithValue("id_articulo", this.Id);
-                                                InsertarCantidadSituacion.Fields.AddWithValue("id_situacion", situacionOrigen.Id);
-                                                InsertarCantidadSituacion.Fields.AddWithValue("cantidad", -cantidad);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("id_articulo", this.Id);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("id_situacion", situacionOrigen.Id);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("cantidad", -cantidad);
                                                 this.Connection.Execute(InsertarCantidadSituacion);
                                         } else {
                                                 // Actualizo el stock en la nueva situación
                                                 qGen.Update ActualizarCantidadSituacion = new qGen.Update("articulos_stock");
-                                                ActualizarCantidadSituacion.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""-" + Lfx.Types.Formatting.FormatStockSql(cantidad)));
+                                                ActualizarCantidadSituacion.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""-" + Lfx.Types.Formatting.FormatStockSql(cantidad)));
                                                 ActualizarCantidadSituacion.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionOrigen.Id));
@@ -447,9 +447,9 @@ namespace Lbl.Articulos
                                                 foreach (Lbl.Articulos.DatosSeguimiento Dat in seguimiento) {
                                                         qGen.Update ActualizarSeries = new qGen.Update("articulos_series");
                                                         if (Dat.Cantidad > 0)
-                                                                ActualizarSeries.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""-" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
+                                                                ActualizarSeries.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""-" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
                                                         else
-                                                                ActualizarSeries.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
+                                                                ActualizarSeries.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
                                                         ActualizarSeries.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                         ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                         ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionOrigen.Id));
@@ -467,14 +467,14 @@ namespace Lbl.Articulos
                                         if (ExisteSituacion == 0) {
                                                 // No existen datos de stock para esta situación... la creo
                                                 qGen.Insert InsertarCantidadSituacion = new qGen.Insert("articulos_stock");
-                                                InsertarCantidadSituacion.Fields.AddWithValue("id_articulo", this.Id);
-                                                InsertarCantidadSituacion.Fields.AddWithValue("id_situacion", situacionDestino.Id);
-                                                InsertarCantidadSituacion.Fields.AddWithValue("cantidad", cantidad);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("id_articulo", this.Id);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("id_situacion", situacionDestino.Id);
+                                                InsertarCantidadSituacion.ColumnValues.AddWithValue("cantidad", cantidad);
                                                 this.Connection.Execute(InsertarCantidadSituacion);
                                         } else {
                                                 // Actualizo el stock en la nueva situación
                                                 qGen.Update ActualizarCantidadSituacion = new qGen.Update("articulos_stock");
-                                                ActualizarCantidadSituacion.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(cantidad)));
+                                                ActualizarCantidadSituacion.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(cantidad)));
                                                 ActualizarCantidadSituacion.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionDestino.Id));
@@ -488,9 +488,9 @@ namespace Lbl.Articulos
                                                         if (ExisteVariacion > 0) {
                                                                 qGen.Update ActualizarSeries = new qGen.Update("articulos_series");
                                                                 if (Dat.Cantidad > 0)
-                                                                        ActualizarSeries.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
+                                                                        ActualizarSeries.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
                                                                 else
-                                                                        ActualizarSeries.Fields.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
+                                                                        ActualizarSeries.ColumnValues.AddWithValue("cantidad", new qGen.SqlExpression(@"""cantidad""+" + Lfx.Types.Formatting.FormatStockSql(Dat.Cantidad)));
                                                                 ActualizarSeries.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                                 ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                                 ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionDestino.Id));
@@ -498,10 +498,10 @@ namespace Lbl.Articulos
                                                                 this.Connection.Execute(ActualizarSeries);
                                                         } else {
                                                                 qGen.Insert InsertarSerie = new qGen.Insert("articulos_series");
-                                                                InsertarSerie.Fields.AddWithValue("id_articulo", this.Id);
-                                                                InsertarSerie.Fields.AddWithValue("id_situacion", situacionDestino.Id);
-                                                                InsertarSerie.Fields.AddWithValue("serie", Dat.Variacion);
-                                                                InsertarSerie.Fields.AddWithValue("cantidad", Dat.Cantidad);
+                                                                InsertarSerie.ColumnValues.AddWithValue("id_articulo", this.Id);
+                                                                InsertarSerie.ColumnValues.AddWithValue("id_situacion", situacionDestino.Id);
+                                                                InsertarSerie.ColumnValues.AddWithValue("serie", Dat.Variacion);
+                                                                InsertarSerie.ColumnValues.AddWithValue("cantidad", Dat.Cantidad);
                                                                 this.Connection.Execute(InsertarSerie);
                                                         }
                                                 }
@@ -513,7 +513,7 @@ namespace Lbl.Articulos
                                 // Actualizo el stock actual
                                 if (CantidadEntranteOSaliente != 0) {
                                         qGen.Update ActualizarCantidad = new qGen.Update("articulos");
-                                        ActualizarCantidad.Fields.AddWithValue("stock_actual", new qGen.SqlExpression(@"""stock_actual""+" + Lfx.Types.Formatting.FormatStockSql(CantidadEntranteOSaliente)));
+                                        ActualizarCantidad.ColumnValues.AddWithValue("stock_actual", new qGen.SqlExpression(@"""stock_actual""+" + Lfx.Types.Formatting.FormatStockSql(CantidadEntranteOSaliente)));
                                         ActualizarCantidad.WhereClause = new qGen.Where("id_articulo", this.Id);
                                         this.Connection.Execute(ActualizarCantidad);
 
@@ -533,7 +533,7 @@ namespace Lbl.Articulos
                                         if (SuperArts != null) {
                                                 foreach (Articulo SuperArt in SuperArts) {
                                                         qGen.Update UpdateSuperArt = new qGen.Update("articulos");
-                                                        UpdateSuperArt.Fields.AddWithValue("stock_actual", SuperArt.ObtenerExistencias());
+                                                        UpdateSuperArt.ColumnValues.AddWithValue("stock_actual", SuperArt.ObtenerExistencias());
                                                         UpdateSuperArt.WhereClause = new qGen.Where("id_articulo", SuperArt.Id);
                                                         this.Connection.Execute(UpdateSuperArt);
                                                 }
@@ -552,25 +552,25 @@ namespace Lbl.Articulos
                                 Saldo = 0;
                         }
 
-                        qGen.TableCommand Comando; Comando = new qGen.Insert(this.Connection, "articulos_movim");
-                        Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
-			Comando.Fields.AddWithValue("id_articulo", this.Id);
-			Comando.Fields.AddWithValue("cantidad", cantidad);
+                        qGen.IStatement Comando = new qGen.Insert("articulos_movim");
+                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			Comando.ColumnValues.AddWithValue("id_articulo", this.Id);
+			Comando.ColumnValues.AddWithValue("cantidad", cantidad);
 			if(situacionOrigen == null)
-				Comando.Fields.AddWithValue("desdesituacion", null);
+				Comando.ColumnValues.AddWithValue("desdesituacion", null);
 			else
-				Comando.Fields.AddWithValue("desdesituacion", situacionOrigen.Id);
+				Comando.ColumnValues.AddWithValue("desdesituacion", situacionOrigen.Id);
 			if(situacionDestino == null)
-                                Comando.Fields.AddWithValue("haciasituacion", null);
+                                Comando.ColumnValues.AddWithValue("haciasituacion", null);
 			else
-				Comando.Fields.AddWithValue("haciasituacion", situacionDestino.Id);
-			Comando.Fields.AddWithValue("saldo", Saldo);
-			Comando.Fields.AddWithValue("obs", obs);
-                        Comando.Fields.AddWithValue("series", seguimiento);
+				Comando.ColumnValues.AddWithValue("haciasituacion", situacionDestino.Id);
+			Comando.ColumnValues.AddWithValue("saldo", Saldo);
+			Comando.ColumnValues.AddWithValue("obs", obs);
+                        Comando.ColumnValues.AddWithValue("series", seguimiento);
                         if (comprob == null)
-                                Comando.Fields.AddWithValue("id_comprob", null);
+                                Comando.ColumnValues.AddWithValue("id_comprob", null);
                         else
-                                Comando.Fields.AddWithValue("id_comprob", comprob.Id);
+                                Comando.ColumnValues.AddWithValue("id_comprob", comprob.Id);
 			
 			this.Connection.Execute(Comando);
 		}
@@ -730,80 +730,80 @@ namespace Lbl.Articulos
                                 CostoOriginal = System.Convert.ToDecimal(this.RegistroOriginal["costo"]);
                         }
 
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-				Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-				Comando.Fields.AddWithValue("fecha_creado", qGen.SqlFunctions.Now);
-				Comando.Fields.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
+				Comando = new qGen.Insert(this.TablaDatos);
+				Comando.ColumnValues.AddWithValue("fecha_creado", qGen.SqlFunctions.Now);
+				Comando.ColumnValues.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
 			} else {
-				Comando = new qGen.Update(this.Connection, this.TablaDatos);
+				Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
 			}
 
-                        Comando.Fields.AddWithValue("codigo1", this.Codigo1);
-                        Comando.Fields.AddWithValue("codigo2", this.Codigo2);
-                        Comando.Fields.AddWithValue("codigo3", this.Codigo3);
-                        Comando.Fields.AddWithValue("codigo4", this.Codigo4);
+                        Comando.ColumnValues.AddWithValue("codigo1", this.Codigo1);
+                        Comando.ColumnValues.AddWithValue("codigo2", this.Codigo2);
+                        Comando.ColumnValues.AddWithValue("codigo3", this.Codigo3);
+                        Comando.ColumnValues.AddWithValue("codigo4", this.Codigo4);
 
                         if (this.Categoria == null)
-                                Comando.Fields.AddWithValue("id_categoria", null);
+                                Comando.ColumnValues.AddWithValue("id_categoria", null);
                         else
-                                Comando.Fields.AddWithValue("id_categoria", this.Categoria.Id);
+                                Comando.ColumnValues.AddWithValue("id_categoria", this.Categoria.Id);
 
                         if (this.Marca == null)
-                                Comando.Fields.AddWithValue("id_marca", null);
+                                Comando.ColumnValues.AddWithValue("id_marca", null);
                         else
-                                Comando.Fields.AddWithValue("id_marca", this.Marca.Id);
+                                Comando.ColumnValues.AddWithValue("id_marca", this.Marca.Id);
 
                         if (this.Caja == null)
-                                Comando.Fields.AddWithValue("id_caja", null);
+                                Comando.ColumnValues.AddWithValue("id_caja", null);
                         else
-                                Comando.Fields.AddWithValue("id_caja", this.Caja.Id);
+                                Comando.ColumnValues.AddWithValue("id_caja", this.Caja.Id);
 
-                        Comando.Fields.AddWithValue("modelo", this.Modelo);
-                        Comando.Fields.AddWithValue("serie", this.Serie);
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("url", this.Url);
+                        Comando.ColumnValues.AddWithValue("modelo", this.Modelo);
+                        Comando.ColumnValues.AddWithValue("serie", this.Serie);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("url", this.Url);
 
                         if (this.Proveedor == null)
-                                Comando.Fields.AddWithValue("id_proveedor", null);
+                                Comando.ColumnValues.AddWithValue("id_proveedor", null);
                         else
-                                Comando.Fields.AddWithValue("id_proveedor", this.Proveedor.Id);
+                                Comando.ColumnValues.AddWithValue("id_proveedor", this.Proveedor.Id);
 
-                        Comando.Fields.AddWithValue("descripcion", this.Descripcion);
-                        Comando.Fields.AddWithValue("descripcion2", this.Descripcion2);
-                        Comando.Fields.AddWithValue("destacado", this.Destacado);
-                        Comando.Fields.AddWithValue("costo", this.Costo);
+                        Comando.ColumnValues.AddWithValue("descripcion", this.Descripcion);
+                        Comando.ColumnValues.AddWithValue("descripcion2", this.Descripcion2);
+                        Comando.ColumnValues.AddWithValue("destacado", this.Destacado);
+                        Comando.ColumnValues.AddWithValue("costo", this.Costo);
 
                         if (this.Margen == null)
-                                Comando.Fields.AddWithValue("id_margen", null);
+                                Comando.ColumnValues.AddWithValue("id_margen", null);
                         else
-                                Comando.Fields.AddWithValue("id_margen", this.Margen.Id);
+                                Comando.ColumnValues.AddWithValue("id_margen", this.Margen.Id);
                         
-                        Comando.Fields.AddWithValue("pvp", this.Pvp);
-                        Comando.Fields.AddWithValue("control_stock", (int)(this.TipoDeArticulo));
-                        Comando.Fields.AddWithValue("seguimiento", (int)(this.Seguimiento));
-                        Comando.Fields.AddWithValue("periodicidad", (int)(this.Periodicidad));
-                        Comando.Fields.AddWithValue("stock_minimo", this.PuntoDeReposicion);
+                        Comando.ColumnValues.AddWithValue("pvp", this.Pvp);
+                        Comando.ColumnValues.AddWithValue("control_stock", (int)(this.TipoDeArticulo));
+                        Comando.ColumnValues.AddWithValue("seguimiento", (int)(this.Seguimiento));
+                        Comando.ColumnValues.AddWithValue("periodicidad", (int)(this.Periodicidad));
+                        Comando.ColumnValues.AddWithValue("stock_minimo", this.PuntoDeReposicion);
                         if (this.Existe)
-                                Comando.Fields.AddWithValue("stock_actual", this.ObtenerExistencias());
-                        Comando.Fields.AddWithValue("unidad_stock", this.Unidad);
-                        Comando.Fields.AddWithValue("rendimiento", this.Rendimiento);
-                        Comando.Fields.AddWithValue("unidad_rend", this.UnidadRendimiento);
-                        Comando.Fields.AddWithValue("garantia", this.Garantia);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                                Comando.ColumnValues.AddWithValue("stock_actual", this.ObtenerExistencias());
+                        Comando.ColumnValues.AddWithValue("unidad_stock", this.Unidad);
+                        Comando.ColumnValues.AddWithValue("rendimiento", this.Rendimiento);
+                        Comando.ColumnValues.AddWithValue("unidad_rend", this.UnidadRendimiento);
+                        Comando.ColumnValues.AddWithValue("garantia", this.Garantia);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
                         switch(this.Publicacion)
                         {
                                 case Publicacion.Nunca:
-                                        Comando.Fields.AddWithValue("web", 0);
+                                        Comando.ColumnValues.AddWithValue("web", 0);
                                         break;
                                 case Publicacion.SoloSiHayExistenciasOPedidos:
-                                        Comando.Fields.AddWithValue("web", 1);
+                                        Comando.ColumnValues.AddWithValue("web", 1);
                                         break;
                                 case Publicacion.Siempre:
                                 default:
-                                        Comando.Fields.AddWithValue("web", 2);
+                                        Comando.ColumnValues.AddWithValue("web", 2);
                                         break;
                         }
 
@@ -826,22 +826,22 @@ namespace Lbl.Articulos
                                         // Cambió el PVP
                                         // Actualizo la fecha del precio
                                         qGen.Update ActualizarPrecio = new qGen.Update(this.TablaDatos);
-                                        ActualizarPrecio.Fields.AddWithValue("pvp", this.Pvp);
-                                        ActualizarPrecio.Fields.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
+                                        ActualizarPrecio.ColumnValues.AddWithValue("pvp", this.Pvp);
+                                        ActualizarPrecio.ColumnValues.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
                                         ActualizarPrecio.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                         this.Connection.Execute(ActualizarPrecio);
 
                                         // Y creo un evento en el historial de precios
-					qGen.Insert AgregarAlHistorialDePrecios = new qGen.Insert(this.Connection, "articulos_precios");
-                                        AgregarAlHistorialDePrecios.Fields.AddWithValue("id_articulo", this.Id);
-                                        AgregarAlHistorialDePrecios.Fields.AddWithValue("costo", this.Costo);
-                                        AgregarAlHistorialDePrecios.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+					qGen.Insert AgregarAlHistorialDePrecios = new qGen.Insert("articulos_precios");
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_articulo", this.Id);
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("costo", this.Costo);
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                                         if (this.Margen == null)
-                                                AgregarAlHistorialDePrecios.Fields.AddWithValue("id_margen", null);
+                                                AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_margen", null);
                                         else
-                                                AgregarAlHistorialDePrecios.Fields.AddWithValue("id_margen", this.Margen.Id);
-                                        AgregarAlHistorialDePrecios.Fields.AddWithValue("pvp", this.Pvp);
-                                        AgregarAlHistorialDePrecios.Fields.AddWithValue("id_persona", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                                                AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_margen", this.Margen.Id);
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("pvp", this.Pvp);
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_persona", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
                                         this.Connection.Execute(AgregarAlHistorialDePrecios);
                                 }
                         }
@@ -854,10 +854,10 @@ namespace Lbl.Articulos
                         // Guardar la receta del artículo, si corresponde
                         if (this.TipoDeArticulo == Articulos.TiposDeArticulo.ProductoCompuesto && this.Receta != null) {
                                 foreach (ItemReceta Itm in this.Receta) {
-                                        qGen.Insert InsertarItemReceta = new qGen.Insert(this.Connection, "articulos_recetas");
-                                        InsertarItemReceta.Fields.AddWithValue("id_articulo", this.Id);
-                                        InsertarItemReceta.Fields.AddWithValue("id_item", Itm.Articulo.Id);
-                                        InsertarItemReceta.Fields.AddWithValue("cantidad", Itm.Cantidad);
+                                        qGen.Insert InsertarItemReceta = new qGen.Insert("articulos_recetas");
+                                        InsertarItemReceta.ColumnValues.AddWithValue("id_articulo", this.Id);
+                                        InsertarItemReceta.ColumnValues.AddWithValue("id_item", Itm.Articulo.Id);
+                                        InsertarItemReceta.ColumnValues.AddWithValue("cantidad", Itm.Cantidad);
                                         this.Connection.Execute(InsertarItemReceta);
                                 }
                         }
@@ -876,7 +876,7 @@ namespace Lbl.Articulos
                                 foreach (Articulo SuperArt in SuperArts) {
                                         SuperArt.Cargar();
                                         qGen.Update UpdateSuperArt = new qGen.Update("articulos");
-                                        UpdateSuperArt.Fields.AddWithValue("costo", SuperArt.ObtenerCosto());
+                                        UpdateSuperArt.ColumnValues.AddWithValue("costo", SuperArt.ObtenerCosto());
                                         UpdateSuperArt.WhereClause = new qGen.Where("id_articulo", SuperArt.Id);
                                         this.Connection.Execute(UpdateSuperArt);
                                         SuperArt.RecalcularCostoSuperArticulos();
@@ -894,7 +894,7 @@ namespace Lbl.Articulos
                 {
                         this.Estado = 0;
                         qGen.Update ActCmd = new qGen.Update(this.TablaDatos);
-                        ActCmd.Fields.AddWithValue("estado", activar ? 1 : 0);
+                        ActCmd.ColumnValues.AddWithValue("estado", activar ? 1 : 0);
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");

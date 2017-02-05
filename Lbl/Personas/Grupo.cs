@@ -30,22 +30,22 @@ namespace Lbl.Personas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, "personas_grupos");
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert("personas_grupos");
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, "personas_grupos");
+                                Comando = new qGen.Update("personas_grupos");
                                 Comando.WhereClause = new qGen.Where("id_grupo", this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("descuento", this.Descuento);
-                        Comando.Fields.AddWithValue("predet", this.Predeterminado ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("descuento", this.Descuento);
+                        Comando.ColumnValues.AddWithValue("predet", this.Predeterminado ? 1 : 0);
                         if (this.Parent != null)
-                                Comando.Fields.AddWithValue("parent", this.Parent.Id);
+                                Comando.ColumnValues.AddWithValue("parent", this.Parent.Id);
                         else
-                                Comando.Fields.AddWithValue("parent", null);
+                                Comando.ColumnValues.AddWithValue("parent", null);
 
                         Connection.Execute(Comando);
                         

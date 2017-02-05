@@ -150,7 +150,7 @@ namespace Lfx.Backups
                                                 Fields[i] = TablaBackup.Columns[i].ColumnName;
                                         }
                                         string FieldList = string.Join(",", Fields);
-                                        writer.Write(":TBL" + Comando.Tables.Length.ToString("0000") + Comando.Tables);
+                                        writer.Write(":TBL" + Comando.Tables.Count.ToString("0000") + Comando.Tables);
                                         writer.Write(":FDL" + FieldList.Length.ToString("0000") + FieldList);
                                         EmitiTabla = true;
                                 }
@@ -313,7 +313,7 @@ namespace Lfx.Backups
                         BackupWriter Writer = new BackupWriter(Lfx.Environment.Folders.TemporaryFolder + WorkFolder + "dbdata.lbd");
                         Writer.Write(":BKP");
 
-                        IList<string> TableList = Lfx.Data.DataBaseCache.DefaultCache.GetTableNames();
+                        IList<string> TableList = Lfx.Data.DatabaseCache.DefaultCache.GetTableNames();
                         foreach (string Tabla in TableList) {
                                 string NombreTabla = Tabla;
                                 if (Lfx.Workspace.Master.Structure.Tables.ContainsKey(Tabla))
@@ -403,16 +403,16 @@ namespace Lfx.Backups
                                 } */
 
                                 Progreso.ChangeStatus("Eliminando datos actuales");
-                                using (Lfx.Data.IConnection DataBase = Lfx.Workspace.Master.GetNewConnection("Restauración de copia de seguridad") as Lfx.Data.IConnection) {
+                                using (Lfx.Data.IConnection ConnRestaurar = Lfx.Workspace.Master.GetNewConnection("Restauración de copia de seguridad") as Lfx.Data.IConnection) {
 
                                         Progreso.ChangeStatus("Acomodando estructuras");
                                         Lfx.Workspace.Master.Structure.TagList.Clear();
                                         Lfx.Workspace.Master.Structure.LoadFromFile(this.BackupPath + Carpeta + "dbstruct.xml");
-                                        Lfx.Workspace.Master.CheckAndUpdateDataBaseVersion(true, true);
+                                        Lfx.Workspace.Master.CheckAndUpdateDatabaseVersion(true, true);
 
                                         using (BackupReader Lector = new BackupReader(this.BackupPath + Carpeta + "dbdata.lbd"))
-                                        using (IDbTransaction Trans = DataBase.BeginTransaction()) {
-                                                DataBase.EnableConstraints(false);
+                                        using (IDbTransaction Trans = ConnRestaurar.BeginTransaction()) {
+                                                ConnRestaurar.EnableConstraints(false);
 
                                                 Progreso.ChangeStatus("Incorporando tablas de datos");
 
@@ -439,7 +439,7 @@ namespace Lfx.Backups
 
                                                                         qGen.Delete DelCmd = new qGen.Delete(TablaActual);
                                                                         DelCmd.EnableDeleleteWithoutWhere = true;
-                                                                        DataBase.Execute(DelCmd);
+                                                                        ConnRestaurar.Execute(DelCmd);
                                                                         break;
                                                                 case ":FDL":
                                                                         ListaCampos = Lector.ReadPrefixedString4().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -452,7 +452,7 @@ namespace Lfx.Backups
                                                                 case ".ROW":
                                                                         qGen.Insert Insertar = new qGen.Insert(TablaActual);
                                                                         for (int i = 0; i < ListaCampos.Length; i++) {
-                                                                                Insertar.Fields.AddWithValue(ListaCampos[i], ValoresCampos[i]);
+                                                                                Insertar.ColumnValues.AddWithValue(ListaCampos[i], ValoresCampos[i]);
                                                                         }
                                                                         Insertador.Add(Insertar);
 
@@ -468,7 +468,7 @@ namespace Lfx.Backups
                                                         }
                                                         if (EndTable || Insertador.Count >= 1000) {
                                                                 if (Insertador.Count > 0)
-                                                                        DataBase.Execute(Insertador);
+                                                                        ConnRestaurar.Execute(Insertador);
                                                                 Insertador.Clear();
                                                                 Progreso.Value = (int)(Lector.Position / 1024);
                                                         }
@@ -479,9 +479,9 @@ namespace Lfx.Backups
                                                         // PostgreSql: Tengo que actualizar las secuencias
                                                         Progreso.ChangeStatus("Actualizando secuencias");
                                                         string PatronSecuencia = @"nextval\(\'(.+)\'(.*)\)";
-                                                        foreach (string Tabla in Lfx.Data.DataBaseCache.DefaultCache.GetTableNames()) {
-                                                                string OID = DataBase.FieldString("SELECT c.oid FROM pg_catalog.pg_class c LEFT JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE pg_catalog.pg_table_is_visible(c.oid) AND c.relname ~ '^" + Tabla + "$'");
-                                                                System.Data.DataTable Campos = DataBase.Select("SELECT a.attname,pg_catalog.format_type(a.atttypid, a.atttypmod),(SELECT substring(d.adsrc for 128) FROM pg_catalog.pg_attrdef d WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef), a.attnotnull, a.attnum FROM pg_catalog.pg_attribute a WHERE a.attrelid = '" + OID + "' AND a.attnum > 0 AND NOT a.attisdropped ORDER BY a.attnum");
+                                                        foreach (string Tabla in Lfx.Data.DatabaseCache.DefaultCache.GetTableNames()) {
+                                                                string OID = ConnRestaurar.FieldString("SELECT c.oid FROM pg_catalog.pg_class c LEFT JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace WHERE pg_catalog.pg_table_is_visible(c.oid) AND c.relname ~ '^" + Tabla + "$'");
+                                                                System.Data.DataTable Campos = ConnRestaurar.Select("SELECT a.attname,pg_catalog.format_type(a.atttypid, a.atttypmod),(SELECT substring(d.adsrc for 128) FROM pg_catalog.pg_attrdef d WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef), a.attnotnull, a.attnum FROM pg_catalog.pg_attribute a WHERE a.attrelid = '" + OID + "' AND a.attnum > 0 AND NOT a.attisdropped ORDER BY a.attnum");
                                                                 foreach (System.Data.DataRow Campo in Campos.Rows) {
                                                                         if (Campo[2] != DBNull.Value && Campo[2] != null) {
                                                                                 string DefaultCampo = System.Convert.ToString(Campo[2]);
@@ -489,8 +489,8 @@ namespace Lfx.Backups
                                                                                         string NombreCampo = System.Convert.ToString(Campo[0]);
                                                                                         foreach (System.Text.RegularExpressions.Match Ocurrencia in Regex.Matches(DefaultCampo, PatronSecuencia)) {
                                                                                                 string Secuencia = Ocurrencia.Groups[1].ToString();
-                                                                                                int MaxId = DataBase.FieldInt("SELECT MAX(" + NombreCampo + ") FROM " + Tabla) + 1;
-                                                                                                DataBase.ExecuteSql("ALTER SEQUENCE " + Secuencia + " RESTART WITH " + MaxId.ToString());
+                                                                                                int MaxId = ConnRestaurar.FieldInt("SELECT MAX(" + NombreCampo + ") FROM " + Tabla) + 1;
+                                                                                                ConnRestaurar.ExecuteNonQuery("ALTER SEQUENCE " + Secuencia + " RESTART WITH " + MaxId.ToString());
                                                                                         }
                                                                                 }
                                                                         }
@@ -512,7 +512,7 @@ namespace Lfx.Backups
                                                                         string NombreArchivoImagen = Lfx.Types.Strings.GetNextToken(ref InfoImagen, ",");
 
                                                                         // Guardar blob nuevo
-                                                                        qGen.Update ActualizarBlob = new qGen.Update(DataBase, Tabla);
+                                                                        qGen.Update ActualizarBlob = new qGen.Update(Tabla);
                                                                         ActualizarBlob.WhereClause = new qGen.Where(Campo, CampoId);
 
                                                                         System.IO.FileStream ArchivoImagen = new System.IO.FileStream(this.BackupPath + Carpeta + NombreArchivoImagen, System.IO.FileMode.Open, System.IO.FileAccess.Read);
@@ -520,8 +520,8 @@ namespace Lfx.Backups
                                                                         ArchivoImagen.Read(Contenido, 0, System.Convert.ToInt32(ArchivoImagen.Length));
                                                                         ArchivoImagen.Close();
 
-                                                                        ActualizarBlob.Fields.AddWithValue(Campo, Contenido);
-                                                                        DataBase.Execute(ActualizarBlob);
+                                                                        ActualizarBlob.ColumnValues.AddWithValue(Campo, Contenido);
+                                                                        ConnRestaurar.Execute(ActualizarBlob);
                                                                 }
                                                         }
                                                         while (InfoImagen != null);

@@ -84,7 +84,7 @@ namespace Lbl.Consultas
                                 if (m_Parametros == null) {
                                         // Obtener los params de la base de datos
                                         qGen.Select SelParams = new qGen.Select("consultas_parametros");
-                                        SelParams.Fields = "*";
+                                        SelParams.Columns = new List<string> { "*" };
                                         SelParams.WhereClause = new qGen.Where("id_consulta", this.Id);
                                         System.Data.DataTable TablaParams = this.Connection.Select(SelParams);
 

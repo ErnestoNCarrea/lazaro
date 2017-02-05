@@ -11,6 +11,7 @@ namespace Lazaro.Orm.Data
 
                 public IDriver Driver { get; set; }
                 public IFormatter Formatter { get; set; }
+                public ConnectionParameters ConnectionParameters { get; set; }
 
                 public IConnection GetNewConnection(string ownerName)
                 {

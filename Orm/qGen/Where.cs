@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 
 namespace qGen
 {
         [Serializable]
-        public class Where : System.Collections.Generic.List<ICondition>
+        public class Where : List<ICondition>
         {
                 public SqlModes SqlMode = SqlModes.Ansi;
                 public AndOr Operator = AndOr.And;

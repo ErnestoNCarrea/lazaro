@@ -275,37 +275,37 @@ namespace Lbl.Comprobantes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("prefijo", this.Prefijo);
-                        Comando.Fields.AddWithValue("numero", this.Numero);
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("prefijo", this.Prefijo);
+                        Comando.ColumnValues.AddWithValue("numero", this.Numero);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
                         
                         if (this.Sucursal == null)
-                                Comando.Fields.AddWithValue("id_sucursal", null);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", null);
                         else
-                                Comando.Fields.AddWithValue("id_sucursal", this.Sucursal.Id);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", this.Sucursal.Id);
                         
                         if (this.Impresora == null)
-                                Comando.Fields.AddWithValue("id_impresora", null);
+                                Comando.ColumnValues.AddWithValue("id_impresora", null);
                         else
-                                Comando.Fields.AddWithValue("id_impresora", this.Impresora.Id);
-                        Comando.Fields.AddWithValue("tipo", (int)(this.Tipo));
-                        Comando.Fields.AddWithValue("tipo_fac", this.TipoFac);
-                        Comando.Fields.AddWithValue("detalonario", this.UsaTalonario ? 1 : 0);
-                        Comando.Fields.AddWithValue("estacion", this.Estacion);
-                        Comando.Fields.AddWithValue("carga", this.CargaManual ? 1 : 0);
-                        Comando.Fields.AddWithValue("modelo", (int)(this.FiscalModeloImpresora));
-                        Comando.Fields.AddWithValue("puerto", this.FiscalPuerto);
-                        Comando.Fields.AddWithValue("bps", this.FiscalBps);
-                        Comando.Fields.AddWithValue("variante", (int)this.Variante);
+                                Comando.ColumnValues.AddWithValue("id_impresora", this.Impresora.Id);
+                        Comando.ColumnValues.AddWithValue("tipo", (int)(this.Tipo));
+                        Comando.ColumnValues.AddWithValue("tipo_fac", this.TipoFac);
+                        Comando.ColumnValues.AddWithValue("detalonario", this.UsaTalonario ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("estacion", this.Estacion);
+                        Comando.ColumnValues.AddWithValue("carga", this.CargaManual ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("modelo", (int)(this.FiscalModeloImpresora));
+                        Comando.ColumnValues.AddWithValue("puerto", this.FiscalPuerto);
+                        Comando.ColumnValues.AddWithValue("bps", this.FiscalBps);
+                        Comando.ColumnValues.AddWithValue("variante", (int)this.Variante);
 
                         this.AgregarTags(Comando);
 

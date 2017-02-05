@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace qGen
 {
-        public interface ICommand
+        public interface IStatementOrQuery
         {
+                IList<string> Tables { get; set; }
                 Where WhereClause { get; set; }
-                //SqlModes SqlMode { get; set; }
         }
 }

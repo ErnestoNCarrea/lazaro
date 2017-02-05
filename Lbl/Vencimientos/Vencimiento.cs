@@ -150,59 +150,59 @@ namespace Lbl.Vencimientos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("fecha_inicio", this.FechaInicio);
-                        Comando.Fields.AddWithValue("fecha_proxima", this.FechaProxima);
-                        Comando.Fields.AddWithValue("fecha_fin", this.FechaFin);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("fecha_inicio", this.FechaInicio);
+                        Comando.ColumnValues.AddWithValue("fecha_proxima", this.FechaProxima);
+                        Comando.ColumnValues.AddWithValue("fecha_fin", this.FechaFin);
                         switch(this.Frecuencia) {
                                 case Frecuencias.Unica:
-                                        Comando.Fields.AddWithValue("frecuencia", "unica");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "unica");
                                         break;
                                 case Frecuencias.Diaria:
-                                        Comando.Fields.AddWithValue("frecuencia", "diaria");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "diaria");
                                         break;
                                 case Frecuencias.Semanal:
-                                        Comando.Fields.AddWithValue("frecuencia", "semanal");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "semanal");
                                         break;
                                 case Frecuencias.Mensual:
-                                        Comando.Fields.AddWithValue("frecuencia", "mensual");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "mensual");
                                         break;
                                 case Frecuencias.Bimestral:
-                                        Comando.Fields.AddWithValue("frecuencia", "bimestral");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "bimestral");
                                         break;
                                 case Frecuencias.Trimestral:
-                                        Comando.Fields.AddWithValue("frecuencia", "trimestral");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "trimestral");
                                         break;
                                 case Frecuencias.Cuatrimestral:
-                                        Comando.Fields.AddWithValue("frecuencia", "cuatrimestral");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "cuatrimestral");
                                         break;
                                 case Frecuencias.Semestral:
-                                        Comando.Fields.AddWithValue("frecuencia", "semestral");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "semestral");
                                         break;
                                 case Frecuencias.Anual:
-                                        Comando.Fields.AddWithValue("frecuencia", "anual");
+                                        Comando.ColumnValues.AddWithValue("frecuencia", "anual");
                                         break;
                         }
-                        Comando.Fields.AddWithValue("importe", this.Importe);
-                        Comando.Fields.AddWithValue("repetir", this.Repetir);
-                        Comando.Fields.AddWithValue("ocurrencia", this.Ocurrencia);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("importe", this.Importe);
+                        Comando.ColumnValues.AddWithValue("repetir", this.Repetir);
+                        Comando.ColumnValues.AddWithValue("ocurrencia", this.Ocurrencia);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
                         if (this.Concepto == null)
-                                Comando.Fields.AddWithValue("id_concepto", null);
+                                Comando.ColumnValues.AddWithValue("id_concepto", null);
                         else
-                                Comando.Fields.AddWithValue("id_concepto", this.Concepto.Id);
+                                Comando.ColumnValues.AddWithValue("id_concepto", this.Concepto.Id);
 
                         this.AgregarTags(Comando);
 

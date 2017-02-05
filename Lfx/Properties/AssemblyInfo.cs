@@ -20,3 +20,5 @@ using System.Security.Permissions;
 [assembly: System.Runtime.InteropServices.ComVisible (false)]
 [assembly: CLSCompliant(true)]
 [assembly: NeutralResourcesLanguageAttribute ("es-AR")]
+
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", Watch = true)]

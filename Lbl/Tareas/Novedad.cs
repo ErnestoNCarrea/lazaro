@@ -113,25 +113,25 @@ namespace Lbl.Tareas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("id_ticket", this.Tarea.Id);
+                        Comando.ColumnValues.AddWithValue("id_ticket", this.Tarea.Id);
                         if (this.Persona == null)
-                                Comando.Fields.AddWithValue("id_tecnico", this.Persona.Id);
+                                Comando.ColumnValues.AddWithValue("id_tecnico", this.Persona.Id);
                         else
-                                Comando.Fields.AddWithValue("id_tecnico", null);
-                        Comando.Fields.AddWithValue("descripcion", this.Descripcion);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
-                        Comando.Fields.AddWithValue("minutos_tecnico", this.Minutos);
-                        Comando.Fields.AddWithValue("privado", this.Privado ? 1 : 0);
+                                Comando.ColumnValues.AddWithValue("id_tecnico", null);
+                        Comando.ColumnValues.AddWithValue("descripcion", this.Descripcion);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
+                        Comando.ColumnValues.AddWithValue("minutos_tecnico", this.Minutos);
+                        Comando.ColumnValues.AddWithValue("privado", this.Privado ? 1 : 0);
 
                         this.AgregarTags(Comando);
 

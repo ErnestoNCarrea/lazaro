@@ -156,7 +156,7 @@ namespace Lbl.Bancos
                                                 null);
 
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
-                        ActualizarEstado.Fields.AddWithValue("estado", 10);
+                        ActualizarEstado.ColumnValues.AddWithValue("estado", 10);
                         ActualizarEstado.WhereClause =new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }
@@ -241,51 +241,51 @@ namespace Lbl.Bancos
 
 		public override Lfx.Types.OperationResult Guardar()
 		{
-			qGen.TableCommand Comando;
+			qGen.IStatement Comando;
                         if (this.Existe) {
-				Comando = new qGen.Update(this.Connection, this.TablaDatos);
+				Comando = new qGen.Update(this.TablaDatos);
 				Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
 			} else {
-				Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+				Comando = new qGen.Insert(this.TablaDatos);
 			}
 
-			Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         if (this.Concepto == null)
-                                Comando.Fields.AddWithValue("id_concepto", null);
+                                Comando.ColumnValues.AddWithValue("id_concepto", null);
                         else
-                                Comando.Fields.AddWithValue("id_concepto", this.Concepto.Id);
+                                Comando.ColumnValues.AddWithValue("id_concepto", this.Concepto.Id);
 
                         if (this.ConceptoTexto == null || this.ConceptoTexto.Length == 0) {
 				if (this.Concepto == null)
-					Comando.Fields.AddWithValue("concepto", "");
+					Comando.ColumnValues.AddWithValue("concepto", "");
 				else
-                                	Comando.Fields.AddWithValue("concepto", this.Concepto.Nombre);
+                                	Comando.ColumnValues.AddWithValue("concepto", this.Concepto.Nombre);
 			} else {
-                                Comando.Fields.AddWithValue("concepto", this.ConceptoTexto);
+                                Comando.ColumnValues.AddWithValue("concepto", this.ConceptoTexto);
 			}
 
                         if (this.Banco == null)
-                                Comando.Fields.AddWithValue("id_banco", null);
+                                Comando.ColumnValues.AddWithValue("id_banco", null);
                         else
-                                Comando.Fields.AddWithValue("id_banco", this.Banco.Id);
+                                Comando.ColumnValues.AddWithValue("id_banco", this.Banco.Id);
 
                         if (this.Chequera == null)
-                                Comando.Fields.AddWithValue("id_chequera", null);
+                                Comando.ColumnValues.AddWithValue("id_chequera", null);
                         else
-                                Comando.Fields.AddWithValue("id_chequera", this.Chequera.Id);
+                                Comando.ColumnValues.AddWithValue("id_chequera", this.Chequera.Id);
 
-			Comando.Fields.AddWithValue("numero", this.Numero);
-			Comando.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+			Comando.ColumnValues.AddWithValue("numero", this.Numero);
+			Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
 
                         if (this.ReciboCobro == null)
-                                Comando.Fields.AddWithValue("id_recibo", null);
+                                Comando.ColumnValues.AddWithValue("id_recibo", null);
                         else
-                                Comando.Fields.AddWithValue("id_recibo", this.ReciboCobro.Id);
+                                Comando.ColumnValues.AddWithValue("id_recibo", this.ReciboCobro.Id);
 
                         if (this.ReciboPago == null)
-                                Comando.Fields.AddWithValue("id_recibo_pago", null);
+                                Comando.ColumnValues.AddWithValue("id_recibo_pago", null);
                         else
-                                Comando.Fields.AddWithValue("id_recibo_pago", this.ReciboPago.Id);
+                                Comando.ColumnValues.AddWithValue("id_recibo_pago", this.ReciboPago.Id);
 
                         if (this.Cliente == null && this.ReciboCobro != null)
                                 this.Cliente = this.ReciboCobro.Cliente;
@@ -293,26 +293,26 @@ namespace Lbl.Bancos
                                 this.Cliente = this.ReciboPago.Cliente;
 
                         if (this.Cliente == null)
-                                Comando.Fields.AddWithValue("id_cliente", null);
+                                Comando.ColumnValues.AddWithValue("id_cliente", null);
                         else
-                                Comando.Fields.AddWithValue("id_cliente", this.Cliente.Id);
+                                Comando.ColumnValues.AddWithValue("id_cliente", this.Cliente.Id);
                         
                         if (this.Factura == null)
-                                Comando.Fields.AddWithValue("id_comprob", null);
+                                Comando.ColumnValues.AddWithValue("id_comprob", null);
                         else
-                                Comando.Fields.AddWithValue("id_comprob", this.Factura.Id);
+                                Comando.ColumnValues.AddWithValue("id_comprob", this.Factura.Id);
 
                         if (this.Emitido)
-                                Comando.Fields.AddWithValue("nombre", "Nº " + this.Numero + " por " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Importe, 2));
+                                Comando.ColumnValues.AddWithValue("nombre", "Nº " + this.Numero + " por " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Importe, 2));
                         else
-                                Comando.Fields.AddWithValue("nombre", "Nº " + this.Numero + " por " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Importe, 2) + " emitido por " + this.Emisor);
-			Comando.Fields.AddWithValue("importe", this.Importe);
-			Comando.Fields.AddWithValue("fechaemision", this.FechaEmision);
-			Comando.Fields.AddWithValue("emitidopor", this.Emisor);
-                        Comando.Fields.AddWithValue("emitido", this.Emitido ? 1 : 0);
-                        Comando.Fields.AddWithValue("estado", this.Estado);
-			Comando.Fields.AddWithValue("fechacobro", this.FechaCobro);
-			Comando.Fields.AddWithValue("obs", this.Obs);
+                                Comando.ColumnValues.AddWithValue("nombre", "Nº " + this.Numero + " por " + Lbl.Sys.Config.Moneda.Simbolo + " " + Lfx.Types.Formatting.FormatCurrency(this.Importe, 2) + " emitido por " + this.Emisor);
+			Comando.ColumnValues.AddWithValue("importe", this.Importe);
+			Comando.ColumnValues.AddWithValue("fechaemision", this.FechaEmision);
+			Comando.ColumnValues.AddWithValue("emitidopor", this.Emisor);
+                        Comando.ColumnValues.AddWithValue("emitido", this.Emitido ? 1 : 0);
+                        Comando.ColumnValues.AddWithValue("estado", this.Estado);
+			Comando.ColumnValues.AddWithValue("fechacobro", this.FechaCobro);
+			Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
 			this.AgregarTags(Comando);
 
@@ -320,7 +320,7 @@ namespace Lbl.Bancos
 
                         if (this.Chequera != null) {
                                 qGen.Update ActualizarChequeras = new qGen.Update("chequeras");
-                                ActualizarChequeras.Fields.AddWithValue("cheques_emitidos", new qGen.SqlExpression("cheques_emitidos+1"));
+                                ActualizarChequeras.ColumnValues.AddWithValue("cheques_emitidos", new qGen.SqlExpression("cheques_emitidos+1"));
                                 ActualizarChequeras.WhereClause = new qGen.Where("id_chequera", this.Chequera.Id);
                                 this.Connection.Execute(ActualizarChequeras);
                         }
@@ -360,7 +360,7 @@ namespace Lbl.Bancos
 
                                 // Marco el recibo como anulado
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
-                                Act.Fields.AddWithValue("estado", this.Estado);
+                                Act.ColumnValues.AddWithValue("estado", this.Estado);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                 this.Connection.Execute(Act);
 
@@ -418,7 +418,7 @@ namespace Lbl.Bancos
 
                         this.Estado = 10;
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
-                        ActualizarEstado.Fields.AddWithValue("estado", this.Estado);
+                        ActualizarEstado.ColumnValues.AddWithValue("estado", this.Estado);
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }

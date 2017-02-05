@@ -54,7 +54,7 @@ namespace Lfx.Data
                         System.Xml.XmlNode Res = document.CreateElement("Database");
                         node.AppendChild(Res);
 
-                        foreach (string Tabla in Lfx.Data.DataBaseCache.DefaultCache.GetTableNames()) {
+                        foreach (string Tabla in Lfx.Data.DatabaseCache.DefaultCache.GetTableNames()) {
                                 Res.AppendChild(Lfx.Workspace.Master.MasterConnection.GetTableStructure(Tabla, false).ToXml(Res));
                         }
 
@@ -229,7 +229,7 @@ namespace Lfx.Data
                                                                 Columna.FieldType = ColumnTypes.VarChar;
                                                                 break;
                                                         default:
-                                                                throw new NotImplementedException("Lfx.Data.DataBaseCache.CargarEstructuraDesdeXml: Falta implementar " + ColumnaXml.Attributes["inputtype"].Value);
+                                                                throw new NotImplementedException("Lfx.Data.Structure.AddFromXml: Falta implementar " + ColumnaXml.Attributes["inputtype"].Value);
                                                 }
                                         } else {
                                                 Columna.FieldType = Lfx.Data.Types.FromSqlType(ColumnaXml.Attributes["datatype"].Value);
@@ -373,7 +373,7 @@ namespace Lfx.Data
                                 if (m_TagList == null || m_TagList.Count == 0) {
                                         if (m_TagList == null)
                                                 m_TagList = new System.Collections.Generic.Dictionary<string, Data.TagCollection>();
-                                        if (Lfx.Data.DataBaseCache.DefaultCache.Tables.ContainsKey("sys_tags")) {
+                                        if (Lfx.Data.DatabaseCache.DefaultCache.Tables.ContainsKey("sys_tags")) {
                                                 System.Data.DataTable TagsTable = Lfx.Workspace.Master.MasterConnection.Select("SELECT * FROM sys_tags WHERE fieldtype NOT IN ('action') ORDER BY tablename");
                                                 foreach (System.Data.DataRow TagRow in TagsTable.Rows) {
                                                         string TableName = TagRow["tablename"].ToString();

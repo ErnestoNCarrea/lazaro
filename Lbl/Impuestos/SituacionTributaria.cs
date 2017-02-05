@@ -82,19 +82,19 @@ namespace Lbl.Impuestos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("abrev", this.Abreviatura);
-                        Comando.Fields.AddWithValue("comprob", this.Comprobante);
-                        Comando.Fields.AddWithValue("comprob2", this.Comprobante2);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("abrev", this.Abreviatura);
+                        Comando.ColumnValues.AddWithValue("comprob", this.Comprobante);
+                        Comando.ColumnValues.AddWithValue("comprob2", this.Comprobante2);
 
                         this.AgregarTags(Comando);
 

@@ -11,7 +11,7 @@ namespace Lfx.Config
         {
                 private string m_ConfigFileName;
                 private System.Xml.XmlDocument ConfigDocument;
-                private Lfx.Data.IConnection m_DataBase;
+                private Lfx.Data.IConnection m_Connection;
 
                 public Lfx.Config.ProductsConfig Productos;
                 public Lfx.Config.CurrencyConfig Moneda;
@@ -31,8 +31,8 @@ namespace Lfx.Config
 
                 public void Dispose()
                 {
-                        if (m_DataBase != null)
-                                m_DataBase.Dispose();
+                        if (m_Connection != null)
+                                m_Connection.Dispose();
                         GC.SuppressFinalize(this);
                 }
 
@@ -58,16 +58,16 @@ namespace Lfx.Config
                         }
                 }
 
-                public Lfx.Data.IConnection DataBase
+                public Lfx.Data.IConnection Connection
                 {
                         get
                         {
-                                if (m_DataBase == null) {
-                                        m_DataBase = Lfx.Workspace.Master.GetNewConnection("Administrador de configuración") as Lfx.Data.IConnection;
-                                        m_DataBase.RequiresTransaction = false;
-                                        m_DataBase.Open();
+                                if (m_Connection == null) {
+                                        m_Connection = Lfx.Workspace.Master.GetNewConnection("Administrador de configuración") as Lfx.Data.IConnection;
+                                        m_Connection.RequiresTransaction = false;
+                                        m_Connection.Open();
                                 }
-                                return m_DataBase;
+                                return m_Connection;
                         }
                 }
 
@@ -208,12 +208,12 @@ namespace Lfx.Config
                                 SysConfigCache = new Dictionary<string, string>();
 
                                 qGen.Select SelectConfig = new qGen.Select("sys_config");
-                                SelectConfig.Fields = "nombre, valor, estacion, id_sucursal";
+                                SelectConfig.Columns = new List<string> { "nombre", "valor", "estacion", "id_sucursal" };
                                 System.Data.DataTable TablaSysConfig = null;
                                 int Intentos = 3;
                                 while (true) {
                                         try {
-                                                TablaSysConfig = this.DataBase.Select(SelectConfig);
+                                                TablaSysConfig = this.Connection.Select(SelectConfig);
                                                 break;
                                         }
                                         catch (Exception ex) {
@@ -246,7 +246,7 @@ namespace Lfx.Config
                         }
 
                         //Busco una variable para la sucursal
-                        Busco = "*/" + Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual.ToString() + "/" + DataBase.EscapeString(settingName);
+                        Busco = "*/" + Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual.ToString() + "/" + Connection.EscapeString(settingName);
                         if (terminalName == null && SysConfigCache.ContainsKey(Busco)) {
                                 string Res = (string)SysConfigCache[Busco];
                                 return Res;
@@ -254,7 +254,7 @@ namespace Lfx.Config
 
                         if (sucursal == 0 && terminalName == null) {
                                 //Busco una variable global
-                                Busco = "*/0/" + DataBase.EscapeString(settingName);
+                                Busco = "*/0/" + Connection.EscapeString(settingName);
                                 if (SysConfigCache.ContainsKey(Busco)) {
                                         string Res = (string)SysConfigCache[Busco];
                                         return Res;
@@ -273,7 +273,7 @@ namespace Lfx.Config
                         DeleteCommand.WhereClause = new qGen.Where(qGen.AndOr.And);
                         DeleteCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
                         DeleteCommand.WhereClause.Add(new qGen.ComparisonCondition("id_sucursal", branch));
-                        DataBase.Delete(DeleteCommand);
+                        Connection.Delete(DeleteCommand);
 
                         string CacheSettingName = "*/" + branch.ToString() + "/" + settingName;
 
@@ -292,7 +292,7 @@ namespace Lfx.Config
                         DeleteCommand.WhereClause.Operator = qGen.AndOr.And;
                         DeleteCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
                         DeleteCommand.WhereClause.Add(new qGen.ComparisonCondition("estacion", terminalName));
-                        DataBase.Delete(DeleteCommand);
+                        Connection.Delete(DeleteCommand);
 
                         string CacheSettingName = terminalName + "/0/" + settingName;
 
@@ -333,20 +333,20 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("id_sucursal", Lazaro.Orm.ColumnTypes.Integer, branch));
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, "*"));
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
-                                DataBase.Insert(InsertCommand);
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("id_sucursal", Lazaro.Orm.ColumnTypes.Integer, branch));
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("estacion", Lazaro.Orm.ColumnTypes.VarChar, "*"));
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                Connection.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                UpdateCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("id_sucursal", branch));
-                                DataBase.Update(UpdateCommand);
+                                Connection.Update(UpdateCommand);
                         }
 
                         string CacheSettingName = "*/" + branch.ToString() + "/" + settingName;
@@ -368,19 +368,19 @@ namespace Lfx.Config
                         if (CurrentValue == null) {
                                 //Crear el valor
                                 qGen.Insert InsertCommand = new qGen.Insert("sys_config");
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("estacion", Lazaro.Orm.ColumnTypes.VarChar, terminalName));
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
-                                InsertCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
-                                DataBase.Insert(InsertCommand);
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("estacion", Lazaro.Orm.ColumnTypes.VarChar, terminalName));
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("nombre", Lazaro.Orm.ColumnTypes.VarChar, settingName));
+                                InsertCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                Connection.Insert(InsertCommand);
                         } else {
                                 //Actualizar el valor
                                 qGen.Update UpdateCommand = new qGen.Update("sys_config");
-                                UpdateCommand.Fields.Add(new Lazaro.Orm.Data.Field("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
+                                UpdateCommand.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("valor", Lazaro.Orm.ColumnTypes.VarChar, stringValue));
                                 UpdateCommand.WhereClause = new qGen.Where();
                                 UpdateCommand.WhereClause.Operator = qGen.AndOr.And;
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("nombre", settingName));
                                 UpdateCommand.WhereClause.Add(new qGen.ComparisonCondition("estacion", terminalName));
-                                DataBase.Update(UpdateCommand);
+                                Connection.Update(UpdateCommand);
                         }
 
                         string CacheSettingName = terminalName + "/0/" + settingName;

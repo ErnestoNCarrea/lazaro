@@ -4,12 +4,9 @@ using Lazaro.Orm.Data;
 namespace qGen
 {
         [Serializable]
-        public class CommitCommand : Command
+        public class CommitCommand : Statement
         {
                 public CommitCommand()
                         : base() { }
-
-                public CommitCommand(IConnection dataBase)
-                        : base(dataBase) { }
         }
 }

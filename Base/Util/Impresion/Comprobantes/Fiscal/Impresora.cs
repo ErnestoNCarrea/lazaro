@@ -17,7 +17,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 private Lfx.Workspace m_Workspace;
                 private EstadoServidorFiscal m_EstadoServidor = EstadoServidorFiscal.Esperando;
                 private System.Text.StringBuilder m_TextEmulacion;
-                public Lfx.Data.IConnection DataBase;
+                public Lfx.Data.IConnection Connection;
 
                 public event NotificacionEventHandler Notificacion;
 
@@ -26,7 +26,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 public Impresora(Lfx.Workspace workspace)
                 {
                         Lfx.Workspace.Master = workspace;
-                        this.DataBase = Lfx.Workspace.Master.GetNewConnection("Servidor fiscal") as Lfx.Data.Connection;
+                        this.Connection = Lfx.Workspace.Master.GetNewConnection("Servidor fiscal") as Lfx.Data.Connection;
                         m_EstadoServidor = EstadoServidorFiscal.Esperando;
                 }
 
@@ -116,7 +116,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                 public void Terminar()
                 {
                         this.Cerrar();
-                        this.DataBase.Dispose();
+                        this.Connection.Dispose();
                 }
 
                 public void Cerrar()
@@ -299,7 +299,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                 NotifHandler(this, new ImpresoraEventArgs(ImpresoraEventArgs.EventTypes.InicioImpresion));
 
                         // *** Obtener datos previos
-                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(DataBase, idComprob);
+                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = new Lbl.Comprobantes.ComprobanteConArticulos(Connection, idComprob);
 
                         if (Comprob.Impreso)
                                 return new Respuesta(ErroresFiscales.Ok);
@@ -738,7 +738,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                         if (StrCodigo == "id_articulo")
                                                 StrCodigo = Detalle.Articulo.Id.ToString();
                                         else
-                                                StrCodigo = DataBase.FieldString("SELECT " + StrCodigo + " FROM articulos WHERE id_articulo=" + Detalle.Articulo.Id.ToString());
+                                                StrCodigo = Connection.FieldString("SELECT " + StrCodigo + " FROM articulos WHERE id_articulo=" + Detalle.Articulo.Id.ToString());
                                 }
 
                                 if (StrCodigo.Length > 0)

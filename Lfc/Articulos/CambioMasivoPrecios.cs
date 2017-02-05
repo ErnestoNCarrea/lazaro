@@ -63,10 +63,10 @@ namespace Lfc.Articulos
 
                                         qGen.Update ActualizarPrecio = new qGen.Update("articulos");
                                         if (EntradaPrecio.TextKey == "costo" || EntradaPrecio.TextKey == "ambos") {
-                                                ActualizarPrecio.Fields.AddWithValue("costo", NuevoCosto);
+                                                ActualizarPrecio.ColumnValues.AddWithValue("costo", NuevoCosto);
                                         }
                                         if (EntradaPrecio.TextKey == "pvp" || EntradaPrecio.TextKey == "ambos") {
-                                                ActualizarPrecio.Fields.AddWithValue("pvp", NuevoPvp);
+                                                ActualizarPrecio.ColumnValues.AddWithValue("pvp", NuevoPvp);
                                         }
                                         ActualizarPrecio.WhereClause = new qGen.Where();
                                         ActualizarPrecio.WhereClause.AddWithValue("id_articulo", ArtId);

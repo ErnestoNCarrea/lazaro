@@ -90,36 +90,36 @@ namespace Lbl.Pagos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
                         if (this.Existe) {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         } else {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Insert(this.TablaDatos);
                         }
 
-                        Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
 
                         if (this.FormaDePago == null)
                                 throw new InvalidOperationException("Lbl.Pagos.Valor.Guardar: Debe especificar la forma de pago");
                         else
-                                Comando.Fields.AddWithValue("id_formapago", this.FormaDePago.Id);
+                                Comando.ColumnValues.AddWithValue("id_formapago", this.FormaDePago.Id);
 
                         if (this.Recibo == null)
                                 throw new InvalidOperationException("Lbl.Pagos.Valor.Guardar: Debe especificar el recibo");
                         else
-                                Comando.Fields.AddWithValue("id_recibo", this.Recibo.Id);
+                                Comando.ColumnValues.AddWithValue("id_recibo", this.Recibo.Id);
 
                         if(this.Nombre == null || this.Nombre.Length == 0)
-                                Comando.Fields.AddWithValue("nombre", this.FormaDePago.ToString() + " Nº " + this.Numero);
+                                Comando.ColumnValues.AddWithValue("nombre", this.FormaDePago.ToString() + " Nº " + this.Numero);
                         else
-                                Comando.Fields.AddWithValue("nombre", this.Nombre);
+                                Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
 
-                        Comando.Fields.AddWithValue("numero", this.Numero);
-                        Comando.Fields.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
+                        Comando.ColumnValues.AddWithValue("numero", this.Numero);
+                        Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
 
-                        Comando.Fields.AddWithValue("importe", this.Importe);
-                        Comando.Fields.AddWithValue("obs", this.Obs);
+                        Comando.ColumnValues.AddWithValue("importe", this.Importe);
+                        Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
                         this.AgregarTags(Comando);
 

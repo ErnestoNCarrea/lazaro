@@ -70,21 +70,21 @@ namespace Lbl.Articulos
                 public override Lfx.Types.OperationResult Guardar()
                 {
                         try {
-				qGen.TableCommand Comando;
+				qGen.IStatement Comando;
                                 if (this.Existe) {
-					Comando = new qGen.Update(this.Connection, this.TablaDatos);
+					Comando = new qGen.Update(this.TablaDatos);
 					Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
 				} else {
-					Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                        Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+					Comando = new qGen.Insert(this.TablaDatos);
+                                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                                 }
 
-                                Comando.Fields.AddWithValue("nombre", this.Registro["nombre"].ToString());
-                                Comando.Fields.AddWithValue("cuenta_stock", this.CuentaExistencias ? 1 : 0);
-                                Comando.Fields.AddWithValue("deposito", this.Deposito);
-                                Comando.Fields.AddWithValue("facturable", this.Facturable ? 1 : 0);
-                                Comando.Fields.AddWithValue("estado", this.Estado);
-                                Comando.Fields.AddWithValue("obs", this.Obs);
+                                Comando.ColumnValues.AddWithValue("nombre", this.Registro["nombre"].ToString());
+                                Comando.ColumnValues.AddWithValue("cuenta_stock", this.CuentaExistencias ? 1 : 0);
+                                Comando.ColumnValues.AddWithValue("deposito", this.Deposito);
+                                Comando.ColumnValues.AddWithValue("facturable", this.Facturable ? 1 : 0);
+                                Comando.ColumnValues.AddWithValue("estado", this.Estado);
+                                Comando.ColumnValues.AddWithValue("obs", this.Obs);
 				
 				this.AgregarTags(Comando);
 

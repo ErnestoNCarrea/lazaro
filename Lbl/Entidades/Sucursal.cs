@@ -30,42 +30,42 @@ namespace Lbl.Entidades
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
-                                Comando = new qGen.Insert(this.Connection, this.TablaDatos);
-                                Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
                         if (this.Numero > 0)
-                                Comando.Fields.AddWithValue("id_sucursal", this.Numero);
+                                Comando.ColumnValues.AddWithValue("id_sucursal", this.Numero);
 
-                        Comando.Fields.AddWithValue("nombre", this.Nombre);
-                        Comando.Fields.AddWithValue("direccion", this.Direccion);
-                        Comando.Fields.AddWithValue("telefono", this.Telefono);
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("direccion", this.Direccion);
+                        Comando.ColumnValues.AddWithValue("telefono", this.Telefono);
 
                         if (this.Localidad == null)
-                                Comando.Fields.AddWithValue("id_ciudad", null);
+                                Comando.ColumnValues.AddWithValue("id_ciudad", null);
                         else
-                                Comando.Fields.AddWithValue("id_ciudad", this.Localidad.Id);
+                                Comando.ColumnValues.AddWithValue("id_ciudad", this.Localidad.Id);
 
                         if (this.CajaDiaria == null)
-                                Comando.Fields.AddWithValue("id_caja_diaria", null);
+                                Comando.ColumnValues.AddWithValue("id_caja_diaria", null);
                         else
-                                Comando.Fields.AddWithValue("id_caja_diaria", this.CajaDiaria.Id);
+                                Comando.ColumnValues.AddWithValue("id_caja_diaria", this.CajaDiaria.Id);
 
                         if (this.CajaCheques == null)
-                                Comando.Fields.AddWithValue("id_caja_cheques", null);
+                                Comando.ColumnValues.AddWithValue("id_caja_cheques", null);
                         else
-                                Comando.Fields.AddWithValue("id_caja_cheques", this.CajaCheques.Id);
+                                Comando.ColumnValues.AddWithValue("id_caja_cheques", this.CajaCheques.Id);
 
                         if (this.SituacionOrigen == null)
-                                Comando.Fields.AddWithValue("situacionorigen", null);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", null);
                         else
-                                Comando.Fields.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
+                                Comando.ColumnValues.AddWithValue("situacionorigen", this.SituacionOrigen.Id);
 
                         this.AgregarTags(Comando);
 

@@ -276,7 +276,7 @@ namespace Lbl.Servicios.Importar
                                                 if (Tabla.Columns.ContainsKey(Map.ColumnaIdLazaro) == false) {
                                                         // Si la columna Id no existe, agrego un tag
                                                         Lfx.Data.Tag ImportTag = new Lfx.Data.Tag(Map.TablaLazaro, Map.ColumnaIdLazaro, "ImportId");
-                                                        ImportTag.DataBase = this.Connection;
+                                                        ImportTag.Connection = this.Connection;
                                                         ImportTag.FieldType = Lazaro.Orm.ColumnTypes.VarChar;
                                                         ImportTag.Nullable = true;
                                                         ImportTag.Internal = true;
@@ -305,7 +305,7 @@ namespace Lbl.Servicios.Importar
                 /// </summary>
                 public void ProcesarRemplazos(MapaDeTabla mapa, ref Lfx.Data.Row row)
                 {
-                        foreach (Lazaro.Orm.Data.Field Fld in row.Fields) {
+                        foreach (Lazaro.Orm.Data.ColumnValue Fld in row.Fields) {
                                 foreach (Reemplazo Rmp in this.Reemplazos) {
                                         if (Fld.DataType == Rmp.Tipo 
                                                 && (Rmp.NombreCampo == null || Rmp.NombreCampo == Fld.ColumnName

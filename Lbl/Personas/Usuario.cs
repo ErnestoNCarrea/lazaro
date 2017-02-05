@@ -127,19 +127,19 @@ namespace Lbl.Personas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.TableCommand Comando;
+                        qGen.IStatement Comando;
 
                         if (this.Existe == false) {
                                 throw new InvalidOperationException("Sólo se pueden editar permisos de personas existentes");
                         } else {
-                                Comando = new qGen.Update(this.Connection, this.TablaDatos);
+                                Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
 
                         if (string.IsNullOrEmpty(this.NombreUsuario)) {
-                                Comando.Fields.AddWithValue("nombreusuario", null);
+                                Comando.ColumnValues.AddWithValue("nombreusuario", null);
                         } else {
-                                Comando.Fields.AddWithValue("nombreusuario", this.NombreUsuario);
+                                Comando.ColumnValues.AddWithValue("nombreusuario", this.NombreUsuario);
                         }
 
                         if (this.CambioContrasena) {
@@ -148,16 +148,16 @@ namespace Lbl.Personas
 
                                 if (this.ContrasenaSal == null || this.ContrasenaSal.Length == 0) {
                                         // Guardo la contraseña en texto plano
-                                        Comando.Fields.AddWithValue("contrasena", Contrasena);
+                                        Comando.ColumnValues.AddWithValue("contrasena", Contrasena);
                                 } else {
                                         // Guardo un hash SHA256 de la contraseña
-                                        Comando.Fields.AddWithValue("contrasena", Lfx.Types.Strings.SHA256(Contrasena + "{" + this.ContrasenaSal + "}"));
+                                        Comando.ColumnValues.AddWithValue("contrasena", Lfx.Types.Strings.SHA256(Contrasena + "{" + this.ContrasenaSal + "}"));
                                 }
-                                Comando.Fields.AddWithValue("contrasena_sal", this.ContrasenaSal);
-                                Comando.Fields.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("contrasena_sal", this.ContrasenaSal);
+                                Comando.ColumnValues.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
                         }
 
-                        Comando.Fields.AddWithValue("tipo", this.Tipo);
+                        Comando.ColumnValues.AddWithValue("tipo", this.Tipo);
 
                         this.Connection.Execute(Comando);
 
@@ -169,13 +169,13 @@ namespace Lbl.Personas
                         // Guardar la nueva lista de permisos del usuario
                         foreach (Sys.Permisos.Permiso Perm in this.Pemisos) {
                                 qGen.Insert InsertarPermiso = new qGen.Insert("sys_permisos");
-                                InsertarPermiso.Fields.AddWithValue("id_persona", this.Id);
-                                InsertarPermiso.Fields.AddWithValue("id_objeto", Perm.Objeto.Id);
+                                InsertarPermiso.ColumnValues.AddWithValue("id_persona", this.Id);
+                                InsertarPermiso.ColumnValues.AddWithValue("id_objeto", Perm.Objeto.Id);
                                 if (Perm.Item == null)
-                                        InsertarPermiso.Fields.AddWithValue("items", null);
+                                        InsertarPermiso.ColumnValues.AddWithValue("items", null);
                                 else
-                                        InsertarPermiso.Fields.AddWithValue("items", Perm.Item.ToString());
-                                InsertarPermiso.Fields.AddWithValue("ops", (int)(Perm.Operaciones));
+                                        InsertarPermiso.ColumnValues.AddWithValue("items", Perm.Item.ToString());
+                                InsertarPermiso.ColumnValues.AddWithValue("ops", (int)(Perm.Operaciones));
                                 this.Connection.Execute(InsertarPermiso);
                         }
 

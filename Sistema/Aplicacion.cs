@@ -41,7 +41,7 @@ namespace Lazaro.WinMain
                 {
                         System.Threading.Thread.CurrentThread.Name = "Lazaro";
 
-                        bool ReconfigDB = false, DebugMode = false, TraceMode = false, IgnoreUpdates = false;
+                        bool ReconfigDB = false, DebugMode = false, /* TraceMode = false, */ IgnoreUpdates = false;
                         bool MostrarAsistenteConfig = false, ClearCache = false;
 
                         string NombreConfig = "default";
@@ -85,10 +85,10 @@ namespace Lazaro.WinMain
                                                         IgnoreUpdates = true;
                                                         break;
 
-                                                case "/trace":
+                                                /* case "/trace":
                                                 case "--trace":
                                                         TraceMode = true;
-                                                        break;
+                                                        break; */
 
                                                 case "/portable":
                                                 case "--portable":
@@ -194,7 +194,7 @@ namespace Lazaro.WinMain
                         // Inicio el espacio de trabajo
                         Lfx.Workspace.Master = new Lfx.Workspace(NombreConfig, false, false);
                         Lfx.Workspace.Master.DebugMode = DebugMode;
-                        Lfx.Workspace.Master.TraceMode = TraceMode;
+                        //Lfx.Workspace.Master.TraceMode = TraceMode;
                         Lfx.Workspace.Master.RunTime.IpcEvent += new Lfx.RunTimeServices.IpcEventHandler(Workspace_IpcEvent);
 
                         // Asigno a la aplicación WinForms la misma cultura que se está usando en el espacio de trabajo
@@ -257,7 +257,7 @@ namespace Lazaro.WinMain
 
                         if (Lfx.Environment.SystemInformation.DesignMode == false) {
                                 // Si es necesario, actualizo la estructura de la base de datos
-                                Lfx.Workspace.Master.CheckAndUpdateDataBaseVersion(false, false);
+                                Lfx.Workspace.Master.CheckAndUpdateDatabaseVersion(false, false);
                         }
 
                         Lfx.Types.OperationResult ResultadoInicio = IniciarGui();
@@ -421,9 +421,9 @@ namespace Lazaro.WinMain
                                         if (Lfx.Workspace.Master.CurrentConfig.ReadLocalSettingString("Data", "DataSource", null) != null) {
                                                 using (Config.ErrorConexion FormError = new Config.ErrorConexion()) {
                                                         if (Res.Message.IndexOf("Unable to connect to any of the specified MySQL hosts") >= 0) {
-                                                                if (Lfx.Data.DataBaseCache.DefaultCache.ServerName.ToLowerInvariant() == "localhost") {
+                                                                if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.ToLowerInvariant() == "localhost") {
                                                                         string TipoServidor = "";
-                                                                        switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
+                                                                        switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                                                                 case Lfx.Data.AccessModes.MySql:
                                                                                         TipoServidor = "MariaDB/MySQL";
                                                                                         break;
@@ -440,7 +440,7 @@ namespace Lazaro.WinMain
                                                                         FormError.Ayuda = @"No se puede conectar con el servidor local. Verifique que el servidor " + TipoServidor + @" se encuentra instalado y funcionando en el equipo.
 Si necesita información sobre cómo instalar o configurar un servidor SQL para Lázaro, consulte la ayuda en línea en www.lazarogestion.com";
                                                                 } else {
-                                                                        FormError.Ayuda = "No se puede conectar con el servidor remoto. Verifique que el servidor en el equipo remoto '" + Lfx.Data.DataBaseCache.DefaultCache.ServerName + @"' se encuentre funcionando y que su conexión de red esté activa.";
+                                                                        FormError.Ayuda = "No se puede conectar con el servidor remoto. Verifique que el servidor en el equipo remoto '" + Lfx.Data.DatabaseCache.DefaultCache.ServerName + @"' se encuentre funcionando y que su conexión de red esté activa.";
                                                                 }
                                                         } else if (Res.Message.IndexOf("Access denied for user") >= 0) {
                                                                 FormError.Ayuda = "El servidor impidió el acceso debido a que el nombre de usuario o la contraseña son incorrectos. Haga clic en 'Configurarción' y luego en 'Configuración avanzada' y verifique la configuración proporcionada.";
@@ -498,8 +498,8 @@ Si necesita información sobre cómo instalar o configurar un servidor SQL para 
                         Lfx.Types.OperationResult iniciarReturn = new Lfx.Types.SuccessOperationResult();
 
                         //Si el servidor SQL es esta misma PC, intento iniciar el servidor
-                        if (Lfx.Environment.SystemInformation.Platform == Lfx.Environment.SystemInformation.Platforms.Windows && Lfx.Data.DataBaseCache.DefaultCache.ServerName.ToUpperInvariant() == "LOCALHOST") {
-                                switch (Lfx.Data.DataBaseCache.DefaultCache.AccessMode) {
+                        if (Lfx.Environment.SystemInformation.Platform == Lfx.Environment.SystemInformation.Platforms.Windows && Lfx.Data.DatabaseCache.DefaultCache.ServerName.ToUpperInvariant() == "LOCALHOST") {
+                                switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                         case Lfx.Data.AccessModes.MySql:
                                                 Lfx.Environment.Shell.Execute("net", "start mysql", ProcessWindowStyle.Hidden, true);
                                                 break;
@@ -522,8 +522,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                         if (Pregunta.ShowDialog() == DialogResult.OK) {
                                                 Lfx.Types.OperationResult Res;
-                                                using (Lfx.Data.IConnection DataBase = Lfx.Workspace.Master.GetNewConnection("Preparar almacén de datos") as Lfx.Data.Connection) {
-                                                        DataBase.RequiresTransaction = false;
+                                                using (var Connection = Lfx.Workspace.Master.GetNewConnection("Preparar almacén de datos") as Lfx.Data.Connection) {
+                                                        Connection.RequiresTransaction = false;
                                                         Res = Lfx.Workspace.Master.Prepare(null);
                                                 }
                                                 if (Res.Success == false)
@@ -536,7 +536,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
 
                         // Configuro el nivel de aislación predeterminado
                         // FIXME: no puedo obtener esto de la BD (System.Data.IsolationLevel)(Enum.Parse(typeof(System.Data.IsolationLevel), Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Sistema.Datos.Aislacion", "Serializable")));
-                        Lfx.Data.DataBaseCache.DefaultCache.DefaultIsolationLevel = System.Data.IsolationLevel.Serializable;
+                        Lfx.Data.DatabaseCache.DefaultCache.DefaultIsolationLevel = System.Data.IsolationLevel.Serializable;
 
                         return iniciarReturn;
                 }
