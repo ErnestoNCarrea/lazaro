@@ -15,8 +15,8 @@ namespace Afip.Ws.FacturaElectronica
                 /// </summary>
                 public int NumeroDesde()
                 {
-                        int Res = 0;
-                        foreach(ComprobanteAsociado Comprob in this) {
+                        var Res = 0;
+                        foreach (ComprobanteAsociado Comprob in this) {
                                 if(Res == 0 || Comprob.Numero < Res) {
                                         Res = Comprob.Numero;
                                 }
@@ -29,7 +29,7 @@ namespace Afip.Ws.FacturaElectronica
                 /// </summary>
                 public int NumeroHasta()
                 {
-                        int Res = 0;
+                        var Res = 0;
                         foreach (ComprobanteAsociado Comprob in this) {
                                 if (Comprob.Numero > Res) {
                                         Res = Comprob.Numero;

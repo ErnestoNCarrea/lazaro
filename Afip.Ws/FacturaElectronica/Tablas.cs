@@ -80,7 +80,7 @@ namespace Afip.Ws.FacturaElectronica
                         Iva2_5 = 9,   //  2.5%
                 };
 
-                public static Dictionary<string, ComprobantesTipos> ComprobantesTiposPorLetra = new Dictionary<string, ComprobantesTipos>()
+                public static Dictionary<string, ComprobantesTipos> ComprobantesTiposPorLetra = new Dictionary<string, ComprobantesTipos>
                 {
                         // TODO: pasar esto a Lazaro.{Base|*}
 

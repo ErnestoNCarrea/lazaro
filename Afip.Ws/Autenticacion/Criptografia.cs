@@ -11,16 +11,18 @@ namespace Afip.Ws.Autenticacion
         {
                 public static SignedCms CrearCmsFirmado(string mensaje, X509Certificate2 argCertFirmante)
                 {
-                        byte[] MensajeBytes = Encoding.UTF8.GetBytes(mensaje);
+                        var MensajeBytes = Encoding.UTF8.GetBytes(mensaje);
 
                         // Pongo el mensaje en un objeto ContentInfo (requerido para construir el obj SignedCms)
-                        SignedCms CmsFirmado = new SignedCms(new ContentInfo(MensajeBytes));
+                        var CmsFirmado = new SignedCms(new ContentInfo(MensajeBytes));
 
-                        // Creo objeto CmsSigner que tiene las caracteristicas del firmante 
-                        CmsSigner CmsFirmante = new CmsSigner(argCertFirmante);
-                        CmsFirmante.IncludeOption = X509IncludeOption.EndCertOnly;
+                        // Creo objeto CmsSigner que tiene las caracteristicas del firmante
+                        var CmsFirmante = new CmsSigner(argCertFirmante)
+                        {
+                                IncludeOption = X509IncludeOption.EndCertOnly
+                        };
 
-                        // Firmo el mensaje PKCS #7 
+                        // Firmo el mensaje PKCS #7
                         CmsFirmado.ComputeSignature(CmsFirmante);
 
                         return CmsFirmado;

@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Collections.Generic;
 
@@ -5,7 +6,9 @@ namespace Lazaro.Orm.Data
 {
 	public class ColumnValueCollection : List<IColumnValue>
 	{
-		public ColumnValueCollection()
+                private static readonly ILog Log = LogManager.GetLogger(typeof(ColumnValueCollection));
+
+                public ColumnValueCollection()
 		{
 		}
 
@@ -18,18 +21,20 @@ namespace Lazaro.Orm.Data
 						return Itm;
 				}
 
+                                // Search for column without table prefix
                                 foreach (IColumnValue Itm in this) {
-                                        // FIXME: no puedo depender de Field
                                         if (Itm.ColumnName != null && ColumnValue.GetNameOnly(Itm.ColumnName) == columnName)
                                                 return Itm;
                                 }
 
+                                // Search for column without table prefix
                                 foreach (IColumnValue Itm in this) {
-                                        // FIXME: no puedo depender de Field
                                         if (Itm.ColumnName == ColumnValue.GetNameOnly(columnName))
                                                 return Itm;
                                 }
-				//Si no existe, creo dinámicamente el campo
+
+                                // FIXME: No debería crearlo automáticamente
+                                // Log.Warn("Dynamically adding column " + columnName + " to a row.");
 				var Res = new ColumnValue(columnName);
 				this.Add(Res);
 				return Res;
@@ -45,7 +50,7 @@ namespace Lazaro.Orm.Data
 					}
 				}
 				if(Encontrado == false) {
-					//Si no existe, creo dinámicamente el campo
+					// Si no existe, creo dinámicamente el campo
 					value.ColumnName = columnName;
 					this.Add(value);
 				}
@@ -92,7 +97,6 @@ namespace Lazaro.Orm.Data
 
                 public virtual void AddWithValue(string fieldName, object fieldValue)
                 {
-                        // FIXME: no puedo depender de Field
                         this.Add(new ColumnValue(fieldName, fieldValue));
                 }
 	}

@@ -13,57 +13,59 @@ namespace Afip.Ws.Autenticacion
         /// </summary>
         public class ServicioAutenticacion : ServicioAfip
         {
-                // Entero de 32 bits sin signo que identifica el requerimiento 
+                // Entero de 32 bits sin signo que identifica el requerimiento
                 // No se usa UInt32 porque no es compatible con CLS
                 public static long UniqueId = 1;
 
-                // Identificacion del WSN para el cual se solicita el TA 
+                // Identificacion del WSN para el cual se solicita el TA
                 public string Servicio = "wsfe";
 
-                // Identificacion del WSN para el cual se solicita el TA 
+                // Identificacion del WSN para el cual se solicita el TA
                 public string UrlWsaa = "http://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL";
 
                 // Ruta del certificado X509 (con clave privada) usado para firmar, en formato PKCS 12 (.p12)
                 public string RutaCertificado = @"Certificado.p12";
 
                 /// <summary>
-                /// 
+                /// Autenticar
                 /// </summary>
                 /// <returns></returns>
                 public TicketAcceso Autenticar()
                 {
-                        // Paso 1: Generar el Login Ticket Request 
+                        // Paso 1: Generar el Login Ticket Request
                         var Tra = this.ObtenerTra();
 
-                        // Paso 2: Firmar el Login Ticket Request 
-                        X509Certificate2 CertificadoFirmante = new X509Certificate2(this.RutaCertificado);
+                        // Paso 2: Firmar el Login Ticket Request
+                        var CertificadoFirmante = new X509Certificate2(this.RutaCertificado);
 
                         // Crear un CMS firmado
-                        SignedCms CmsFirmado = Criptografia.CrearCmsFirmado(Tra.OuterXml, CertificadoFirmante);
+                        var CmsFirmado = Criptografia.CrearCmsFirmado(Tra.OuterXml, CertificadoFirmante);
 
                         // Lo convierto a base 64
-                        string CmsFirmadoBase64 = Convert.ToBase64String(CmsFirmado.Encode());
+                        var CmsFirmadoBase64 = Convert.ToBase64String(CmsFirmado.Encode());
 
-                        // Paso 3: Invocar al WSAA para obtener el Login Ticket Response 
-                        var ServicioWsaa = new AfipAutenticacion.LoginCMSClient();
-                        // TODO: ServicioWsaa.Url = this.UrlWsaa;
+                        // Paso 3: Invocar al WSAA para obtener el Login Ticket Response
+                        using (var ServicioWsaa = new AfipAutenticacion.LoginCMSClient()) {
+                                // TODO: ServicioWsaa.Url = this.UrlWsaa;
 
-                        string LoginTicketResponse = ServicioWsaa.loginCms(CmsFirmadoBase64);
+                                var LoginTicketResponse = ServicioWsaa.loginCms(CmsFirmadoBase64);
 
-                        // Paso 4: Analizar el Login Ticket Response recibido del WSAA
-                        var XmlLoginTicketResponse = new XmlDocument();
-                        XmlLoginTicketResponse.LoadXml(LoginTicketResponse);
+                                // Paso 4: Analizar el Login Ticket Response recibido del WSAA
+                                var XmlLoginTicketResponse = new XmlDocument();
+                                XmlLoginTicketResponse.LoadXml(LoginTicketResponse);
 
-                        UniqueId = long.Parse(XmlLoginTicketResponse.SelectSingleNode("//uniqueId").InnerText);
+                                UniqueId = long.Parse(XmlLoginTicketResponse.SelectSingleNode("//uniqueId").InnerText);
 
-                        var Res = new TicketAcceso();
+                                var Res = new TicketAcceso
+                                {
+                                        GenerationTime = DateTime.Parse(XmlLoginTicketResponse.SelectSingleNode("//generationTime").InnerText),
+                                        ExpirationTime = DateTime.Parse(XmlLoginTicketResponse.SelectSingleNode("//expirationTime").InnerText),
+                                        Sign = XmlLoginTicketResponse.SelectSingleNode("//sign").InnerText,
+                                        Token = XmlLoginTicketResponse.SelectSingleNode("//token").InnerText
+                                };
 
-                        Res.GenerationTime = DateTime.Parse(XmlLoginTicketResponse.SelectSingleNode("//generationTime").InnerText);
-                        Res.ExpirationTime = DateTime.Parse(XmlLoginTicketResponse.SelectSingleNode("//expirationTime").InnerText);
-                        Res.Sign = XmlLoginTicketResponse.SelectSingleNode("//sign").InnerText;
-                        Res.Token = XmlLoginTicketResponse.SelectSingleNode("//token").InnerText;
-
-                        return Res;
+                                return Res;
+                        }
                 }
 
                 /// <summary>
@@ -72,14 +74,14 @@ namespace Afip.Ws.Autenticacion
                 /// <returns>Un documento XML conteniendo el TRA.</returns>
                 protected XmlDocument ObtenerTra()
                 {
-                        string XmlStrLoginTicketRequestTemplate = "<loginTicketRequest><header><uniqueId></uniqueId><generationTime></generationTime><expirationTime></expirationTime></header><service></service></loginTicketRequest>";
+                        const string XmlStrLoginTicketRequestTemplate = "<loginTicketRequest><header><uniqueId></uniqueId><generationTime></generationTime><expirationTime></expirationTime></header><service></service></loginTicketRequest>";
 
                         XmlNode XmlNodoUniqueId;
                         XmlNode XmlNodoGenerationTime;
                         XmlNode XmlNodoExpirationTime;
                         XmlNode XmlNodoService;
 
-                        XmlDocument XmlLoginTicketRequest = new XmlDocument();
+                        var XmlLoginTicketRequest = new XmlDocument();
                         XmlLoginTicketRequest.LoadXml(XmlStrLoginTicketRequestTemplate);
 
                         XmlNodoUniqueId = XmlLoginTicketRequest.SelectSingleNode("//uniqueId");
