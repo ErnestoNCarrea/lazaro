@@ -197,7 +197,7 @@ namespace ServidorFiscal
                         try {
                                 using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                         var Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
-                                        Actualizar.ColumnValues.AddWithValue("lsa", qGen.SqlFunctions.Now);
+                                        Actualizar.ColumnValues.AddWithValue("lsa", new qGen.SqlExpression("NOW()"));
                                         this.Impresora.Connection.Execute(Actualizar);
                                         Trans.Commit();
                                 }
@@ -237,7 +237,7 @@ namespace ServidorFiscal
                                                                 //Si hizo un cierre Z correctamente, actualizo la variable LCZ
                                                                 using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
-                                                                        Actualizar.ColumnValues.AddWithValue("ultimoz", qGen.SqlFunctions.Now);
+                                                                        Actualizar.ColumnValues.AddWithValue("ultimoz", new qGen.SqlExpression("NOW()"));
                                                                         this.Impresora.Connection.Execute(Actualizar);
                                                                         Trans.Commit();
                                                                 }

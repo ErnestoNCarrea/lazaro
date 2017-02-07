@@ -105,7 +105,7 @@ namespace Lbl.Bancos
                         qGen.IStatement Comando;
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert("chequeras");
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update("chequeras");
                                 Comando.WhereClause = new qGen.Where("id_chequera", m_ItemId);

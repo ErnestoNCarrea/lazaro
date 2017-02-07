@@ -33,7 +33,7 @@ namespace Lbl.Personas
                         qGen.IStatement Comando;
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert("personas_grupos");
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update("personas_grupos");
                                 Comando.WhereClause = new qGen.Where("id_grupo", this.Id);

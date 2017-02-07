@@ -98,7 +98,7 @@ namespace Lbl.Pagos
                                 Comando = new qGen.Insert(this.TablaDatos);
                         }
 
-                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
 
                         if (this.FormaDePago == null)
                                 throw new InvalidOperationException("Lbl.Pagos.Valor.Guardar: Debe especificar la forma de pago");

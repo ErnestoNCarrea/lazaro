@@ -65,7 +65,7 @@ namespace System
                         }
                 }
 
-                public static NullableDateTime ParseDateTime(this string s)
+                public static DbDateTime ParseDateTime(this string s)
                 {
                         // Toma una fecha DD-MM-YYYY y devuelve un Date
                         string FechaTemp = s.Replace("  ", " ").Replace("/", "-").Trim();
@@ -81,7 +81,7 @@ namespace System
 				};
 
                         try {
-                                return new NullableDateTime(DateTime.ParseExact(FechaTemp, FormatosAceptados, Lfx.Workspace.Master.CultureInfo, System.Globalization.DateTimeStyles.AllowWhiteSpaces));
+                                return new DbDateTime(DateTime.ParseExact(FechaTemp, FormatosAceptados, Lfx.Workspace.Master.CultureInfo, System.Globalization.DateTimeStyles.AllowWhiteSpaces));
                         } catch {
                                 return null;
                         }

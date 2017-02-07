@@ -184,11 +184,11 @@ namespace Lfx.Config
                                 Res = Lfx.Types.Parsing.ParseDecimal(Val);
                         } else if (typeof(T) == typeof(DateTime)) {
                                 Res = Lfx.Types.Parsing.ParseSqlDateTime(Val);
-                        } else if (typeof(T) == typeof(NullableDateTime)) {
+                        } else if (typeof(T) == typeof(DbDateTime)) {
                                 if (string.IsNullOrWhiteSpace(Val)) {
                                         Res = null;
                                 } else {
-                                        Res = new NullableDateTime(Lfx.Types.Parsing.ParseSqlDateTime(Val));
+                                        Res = new DbDateTime(Lfx.Types.Parsing.ParseSqlDateTime(Val));
                                 }
                         } else {
                                 Res = null;
@@ -307,7 +307,7 @@ namespace Lfx.Config
                         return WriteGlobalSetting(settingName, intValue.ToString());
                 }
 
-                public bool WriteGlobalSetting(string settingName, NullableDateTime dateTimeValue)
+                public bool WriteGlobalSetting(string settingName, DbDateTime dateTimeValue)
                 {
                         if (dateTimeValue == null) {
                                 return WriteGlobalSetting(settingName, "");

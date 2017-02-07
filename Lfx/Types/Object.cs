@@ -32,15 +32,15 @@ namespace Lfx.Types
                                 a = (bool)val1 ? 1 : 0;
                         else if (val1.GetType().IsEnum)
                                 a = (int)val1;
-                        else if (val1 is NullableDateTime)
-                                a = ((NullableDateTime)(val1)).Value;
+                        else if (val1 is DbDateTime)
+                                a = ((DbDateTime)(val1)).Value;
 
                         if (val2 is bool)
                                 b = (bool)val2 ? 1 : 0;
                         else if (val2.GetType().IsEnum)
                                 b = (int)val2;
-                        else if (val2 is NullableDateTime)
-                                b = ((NullableDateTime)(val2)).Value;
+                        else if (val2 is DbDateTime)
+                                b = ((DbDateTime)(val2)).Value;
 
                         if (a == null && b is int && (int)b == 0) {
                                 // Por la forma en la que trabaja FieldCollection[columName], digo que null==0 es true

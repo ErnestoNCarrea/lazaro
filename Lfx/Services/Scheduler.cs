@@ -64,7 +64,7 @@ namespace Lfx.Services
                         Comando.ColumnValues.AddWithValue("estacion", terminalName);
                         Comando.ColumnValues.AddWithValue("comando", commandString);
                         Comando.ColumnValues.AddWithValue("componente", component);
-                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         Comando.ColumnValues.AddWithValue("fechaejecutar", null);
 
                         try {
@@ -93,7 +93,7 @@ namespace Lfx.Services
                         WhereEstacion.AddWithValue("estacion", "*");
 
                         qGen.Where WhereFecha = new qGen.Where(qGen.AndOr.Or);
-                        WhereFecha.AddWithValue("fechaejecutar", qGen.ComparisonOperators.LessOrEqual, qGen.SqlFunctions.Now);
+                        WhereFecha.AddWithValue("fechaejecutar", qGen.ComparisonOperators.LessOrEqual, new qGen.SqlExpression("NOW()"));
                         WhereFecha.AddWithValue("fechaejecutar", null);
 
                         m_LastGetTask = DateTime.Now;

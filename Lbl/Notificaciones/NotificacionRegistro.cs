@@ -87,11 +87,11 @@ namespace Lbl.Notificaciones
                 }
 
 
-                public NullableDateTime FechaRecibido
+                public DbDateTime FechaRecibido
                 {
                         get
                         {
-                                return this.GetFieldValue<NullableDateTime>("fecha_recibo");
+                                return this.GetFieldValue<DbDateTime>("fecha_recibo");
                         }
                         set
                         {

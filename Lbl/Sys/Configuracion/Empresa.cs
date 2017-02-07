@@ -76,11 +76,11 @@ namespace Lbl.Sys
                         /// <summary>
                         /// La fecha de inicio de actividades.
                         /// </summary>
-                        public static NullableDateTime InicioDeActividades
+                        public static DbDateTime InicioDeActividades
                         {
                                 get
                                 {
-                                        return Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<NullableDateTime>("Sistema.Empresa.InicioDeActividades", null);
+                                        return Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<DbDateTime>("Sistema.Empresa.InicioDeActividades", null);
                                 }
                                 set
                                 {

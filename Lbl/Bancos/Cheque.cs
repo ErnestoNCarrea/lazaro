@@ -33,7 +33,7 @@ namespace Lbl.Bancos
                         this.Cargar();
                 }
 
-                public Cheque(Lfx.Data.IConnection dataBase, decimal importe, int numero, string emisor, NullableDateTime fechaEmision, NullableDateTime fechaCobro, Bancos.Banco banco)
+                public Cheque(Lfx.Data.IConnection dataBase, decimal importe, int numero, string emisor, DbDateTime fechaEmision, DbDateTime fechaCobro, Bancos.Banco banco)
 			: this(dataBase)
 		{
 			this.Importe = importe;
@@ -197,7 +197,7 @@ namespace Lbl.Bancos
                         }
                 }
 
-                public NullableDateTime FechaEmision
+                public DbDateTime FechaEmision
                 {
                         get
                         {
@@ -209,7 +209,7 @@ namespace Lbl.Bancos
                         }
                 }
 
-                public NullableDateTime FechaCobro
+                public DbDateTime FechaCobro
                 {
                         get
                         {
@@ -249,7 +249,7 @@ namespace Lbl.Bancos
 				Comando = new qGen.Insert(this.TablaDatos);
 			}
 
-			Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         if (this.Concepto == null)
                                 Comando.ColumnValues.AddWithValue("id_concepto", null);
                         else

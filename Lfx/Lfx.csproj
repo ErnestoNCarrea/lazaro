@@ -141,7 +141,6 @@
     <Compile Include="Types\Ini.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Types\NullableDateTime.cs" />
     <Compile Include="Types\StringAlignment.cs" />
     <Compile Include="Updates\CompressionFormats.cs" />
     <Compile Include="Updates\File.cs" />

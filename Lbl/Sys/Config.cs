@@ -142,7 +142,7 @@ namespace Lbl.Sys
                 {
                         try {
                                 qGen.Insert Comando = new qGen.Insert("sys_log");
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                 Comando.ColumnValues.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
                                 if (Lbl.Sys.Config.Actual == null || Lbl.Sys.Config.Actual.UsuarioConectado == null || Lbl.Sys.Config.Actual.UsuarioConectado.Id == 0)
                                         Comando.ColumnValues.AddWithValue("usuario", null);

@@ -188,8 +188,8 @@ namespace Lcc.Entrada
                 {
                         get
                         {
-                                NullableDateTime Desde = Lfx.Types.Parsing.ParseDate(EntradaDesde.Text);
-                                NullableDateTime Hasta = Lfx.Types.Parsing.ParseDate(EntradaHasta.Text);
+                                DbDateTime Desde = Lfx.Types.Parsing.ParseDate(EntradaDesde.Text);
+                                DbDateTime Hasta = Lfx.Types.Parsing.ParseDate(EntradaHasta.Text);
                                 if (Desde != null)
                                         m_Rango.From = Desde.Value;
                                 if (Hasta != null)
@@ -227,14 +227,14 @@ namespace Lcc.Entrada
 
                 private void EntradaDesde_TextChanged(object sender, EventArgs e)
                 {
-                        NullableDateTime Fecha = Lfx.Types.Parsing.ParseDate(EntradaDesde.Text);
+                        DbDateTime Fecha = Lfx.Types.Parsing.ParseDate(EntradaDesde.Text);
                         if (Fecha != null)
                                 m_Rango.From = Fecha.Value;
                 }
 
                 private void EntradaHasta_TextChanged(object sender, EventArgs e)
                 {
-                        NullableDateTime Fecha = Lfx.Types.Parsing.ParseDate(EntradaHasta.Text);
+                        DbDateTime Fecha = Lfx.Types.Parsing.ParseDate(EntradaHasta.Text);
                         if (Fecha != null)
                                 m_Rango.To = Fecha.Value;
                 }

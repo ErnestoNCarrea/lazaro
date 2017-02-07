@@ -32,7 +32,7 @@ namespace Lfx.Types
                 /// <summary>
                 /// Interpreta un valor de fecha en varios formatos diferentes. Devuelve null para cadenas vacías o fechas inválidas.
                 /// </summary>
-                public static NullableDateTime ParseDate(string fecha)
+                public static DbDateTime ParseDate(string fecha)
                 {
                         if (fecha == null || fecha == string.Empty)
                                 return null;
@@ -71,7 +71,7 @@ namespace Lfx.Types
 
                         DateTime Res;
                         if (DateTime.TryParseExact(FechaTemp, FormatosAceptados, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AllowWhiteSpaces, out Res)) {
-                                return new NullableDateTime(Res);
+                                return new DbDateTime(Res);
                         } else {
                                 return null;
                         }

@@ -59,7 +59,7 @@ namespace Lazaro.Base.Util.Comprobantes
                                         this.Comprobante.Registro["impresa"] = 1;
                                 }
                                 ActualizarComprob.ColumnValues.AddWithValue("estado", 1);
-                                ActualizarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarComprob.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         }
                         ActualizarComprob.WhereClause = new qGen.Where(this.Comprobante.CampoId, this.Comprobante.Id);
 

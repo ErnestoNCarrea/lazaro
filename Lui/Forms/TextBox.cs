@@ -485,7 +485,7 @@ namespace Lui.Forms
 			Comando.Fields.AddWithValue("texto", this.Text);
 			Comando.Fields.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
 			Comando.Fields.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-			Comando.Fields.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			Comando.Fields.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         Lfx.Workspace.Master.MasterConnection.Execute(Comando); */
 		}
 

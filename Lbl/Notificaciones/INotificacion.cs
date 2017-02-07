@@ -18,6 +18,6 @@ namespace Lbl.Notificaciones
                 string EstacionOrigen { get; set; }
                 string EstacionDestino { get; set; }
 
-                NullableDateTime FechaRecibido { get; set; }
+                DbDateTime FechaRecibido { get; set; }
         }
 }

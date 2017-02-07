@@ -937,7 +937,7 @@ namespace Lbl.Comprobantes
                         }
 
                         if (this.Fecha.Year == 1) {
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando.ColumnValues.AddWithValue("fecha", this.Fecha);
                         }

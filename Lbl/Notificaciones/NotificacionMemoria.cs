@@ -18,7 +18,7 @@ namespace Lbl.Notificaciones
                 public string EstacionOrigen { get; set; }
                 public string EstacionDestino { get; set; }
 
-                public NullableDateTime FechaRecibido { get; set; }
+                public DbDateTime FechaRecibido { get; set; }
 
                 public NotificacionMemoria()
                 {

@@ -60,8 +60,8 @@ namespace Lbl.Personas
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
-                                Comando.ColumnValues.AddWithValue("fechaalta", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
+                                Comando.ColumnValues.AddWithValue("fechaalta", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
@@ -119,16 +119,16 @@ namespace Lbl.Personas
                         Comando.ColumnValues.AddWithValue("estado", this.Estado);
                         if (this.Estado == 0 && this.Existe && System.Convert.ToInt32(this.RegistroOriginal["estado"]) != 0)
                                 // Esta dado de baja y antes no lo estaba
-                                Comando.ColumnValues.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fechabaja", new qGen.SqlExpression("NOW()"));
                         Comando.ColumnValues.AddWithValue("limitecredito", this.LimiteCredito);
                         if (this.Existe) {
                                 if ((decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito) {
                                         //Guardo la fecha en la cual se modifico el limite de credito
-                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
+                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
                         } else {
                                 if (this.LimiteCredito > 0) {
-                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", qGen.SqlFunctions.Now);
+                                        Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
                         }
                         Comando.ColumnValues.AddWithValue("fechanac", this.FechaNacimiento);
@@ -144,7 +144,7 @@ namespace Lbl.Personas
                                 string Contrasena = new System.Random().Next(100000, 999999).ToString();
                                 Comando.ColumnValues.AddWithValue("contrasena", Contrasena);
                                 Comando.ColumnValues.AddWithValue("contrasena_sal", null);
-                                Comando.ColumnValues.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("contrasena_fecha", new qGen.SqlExpression("NOW()"));
                         }
 
                         this.AgregarTags(Comando);
@@ -490,7 +490,7 @@ namespace Lbl.Personas
                 }
 
 
-                public NullableDateTime FechaNacimiento
+                public DbDateTime FechaNacimiento
 		{
 			get
 			{
@@ -502,7 +502,7 @@ namespace Lbl.Personas
                         }
 		}
 
-                public NullableDateTime FechaAlta
+                public DbDateTime FechaAlta
                 {
                         get
                         {
@@ -514,7 +514,7 @@ namespace Lbl.Personas
                         }
                 }
 
-                public NullableDateTime FechaBaja
+                public DbDateTime FechaBaja
                 {
                         get
                         {
@@ -550,7 +550,7 @@ namespace Lbl.Personas
                         }
 		}
 
-                public NullableDateTime LimiteCreditoFecha
+                public DbDateTime LimiteCreditoFecha
                 {
                         get
                         {
@@ -681,7 +681,7 @@ namespace Lbl.Personas
                         this.Estado = activar ? 1 : 0;
                         qGen.Update ActCmd = new qGen.Update(this.TablaDatos);
                         ActCmd.ColumnValues.AddWithValue("estado", this.Estado);
-                        ActCmd.ColumnValues.AddWithValue("fechabaja", qGen.SqlFunctions.Now);
+                        ActCmd.ColumnValues.AddWithValue("fechabaja", new qGen.SqlExpression("NOW()"));
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");

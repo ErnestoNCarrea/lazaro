@@ -113,7 +113,7 @@ namespace Lbl.Notificaciones
                         qGen.Insert InsertarMensaje = new qGen.Insert("sys_mensajes");
                         InsertarMensaje.ColumnValues.AddWithValue("id_remitente", notif.Remitente.Id);
                         InsertarMensaje.ColumnValues.AddWithValue("id_destinatario", notif.Destinatario.Id);
-                        InsertarMensaje.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        InsertarMensaje.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         InsertarMensaje.ColumnValues.AddWithValue("destino", notif.Destino);
                         InsertarMensaje.ColumnValues.AddWithValue("nombre", notif.Nombre);
                         InsertarMensaje.ColumnValues.AddWithValue("obs", notif.Obs);
@@ -177,7 +177,7 @@ namespace Lbl.Notificaciones
                                 ActualizarEstado.ColumnValues.AddWithValue("id_usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
                                 ActualizarEstado.ColumnValues.AddWithValue("estacion", Lfx.Environment.SystemInformation.MachineName);
                                 ActualizarEstado.ColumnValues.AddWithValue("nombre", Lbl.Sys.Config.Actual.UsuarioConectado.Nombre);
-                                ActualizarEstado.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarEstado.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                 if (this.LastMessageId > 0)
                                         ActualizarEstado.ColumnValues.AddWithValue("id_ultimomensaje", this.LastMessageId);
 

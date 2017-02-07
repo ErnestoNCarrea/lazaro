@@ -22,7 +22,7 @@ namespace Lfc.Tareas
                                 InsertarNovedad.ColumnValues.AddWithValue("minutos_tecnico", Lfx.Types.Parsing.ParseInt(EntradaMinutos.Text));
                                 InsertarNovedad.ColumnValues.AddWithValue("privado", EntradaCondicion.TextKey);
                                 InsertarNovedad.ColumnValues.AddWithValue("descripcion", EntradaDescripcion.Text);
-                                InsertarNovedad.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                InsertarNovedad.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                 this.Connection.Execute(InsertarNovedad);
                                 Trans.Commit();
                         }

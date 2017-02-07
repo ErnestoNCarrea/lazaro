@@ -873,7 +873,7 @@ namespace Lfc
                                                                         case Lfx.Data.InputFieldTypes.Date:
                                                                         case Lfx.Data.InputFieldTypes.DateTime:
                                                                                 // En estos campos, busco atento a que se trata de una fecha
-                                                                                NullableDateTime Fecha = SearchText.ParseDateTime();    // TODO: cachear el valor para que no lo parsee en cada iteración
+                                                                                DbDateTime Fecha = SearchText.ParseDateTime();    // TODO: cachear el valor para que no lo parsee en cada iteración
                                                                                 if (Fecha != null) {
                                                                                         DateTime SearchDate = Fecha.Value;
                                                                                         DateTime FromDate = new DateTime(SearchDate.Year, SearchDate.Month, SearchDate.Day, 0, 0, 0);

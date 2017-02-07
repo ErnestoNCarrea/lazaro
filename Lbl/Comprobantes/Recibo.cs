@@ -261,7 +261,7 @@ namespace Lbl.Comprobantes
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 throw new Lfx.Types.DomainException("Lbl: No se puede cambiar un recibo impreso");
                         }

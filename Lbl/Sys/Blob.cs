@@ -26,7 +26,7 @@ namespace Lbl.Sys
                                 if(this.Id > 0) {
                                         Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                 }
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);

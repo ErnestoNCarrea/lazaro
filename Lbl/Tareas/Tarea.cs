@@ -132,7 +132,7 @@ namespace Lbl.Tareas
                 }
 
 
-                public NullableDateTime FechaEstimada
+                public DbDateTime FechaEstimada
                 {
                         get
                         {
@@ -144,7 +144,7 @@ namespace Lbl.Tareas
                         }
                 }
 
-                public NullableDateTime FechaLimite
+                public DbDateTime FechaLimite
                 {
                         get
                         {
@@ -203,7 +203,7 @@ namespace Lbl.Tareas
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha_ingreso", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha_ingreso", new qGen.SqlExpression("NOW()"));
                                 Comando.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);

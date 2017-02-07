@@ -83,7 +83,7 @@ namespace Lbl.Pagos
                         }
                 }
 
-                public NullableDateTime FechaPresentacion
+                public DbDateTime FechaPresentacion
                 {
                         get
                         {
@@ -95,7 +95,7 @@ namespace Lbl.Pagos
                         }
                 }
 
-                public NullableDateTime FechaAcreditacion
+                public DbDateTime FechaAcreditacion
                 {
                         get
                         {
@@ -249,7 +249,7 @@ namespace Lbl.Pagos
                 {
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
                         ActualizarEstado.ColumnValues.AddWithValue("estado", 10);
-                        ActualizarEstado.ColumnValues.AddWithValue("fecha_pres", qGen.SqlFunctions.Now);
+                        ActualizarEstado.ColumnValues.AddWithValue("fecha_pres", new qGen.SqlExpression("NOW()"));
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }
@@ -259,7 +259,7 @@ namespace Lbl.Pagos
                 {
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
                         ActualizarEstado.ColumnValues.AddWithValue("estado", 20);
-                        ActualizarEstado.ColumnValues.AddWithValue("fecha_acred", qGen.SqlFunctions.Now);
+                        ActualizarEstado.ColumnValues.AddWithValue("fecha_acred", new qGen.SqlExpression("NOW()"));
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         this.Connection.Execute(ActualizarEstado);
                 }
@@ -287,7 +287,7 @@ namespace Lbl.Pagos
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);

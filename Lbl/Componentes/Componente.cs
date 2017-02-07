@@ -141,7 +141,7 @@ namespace Lbl.Componentes
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);

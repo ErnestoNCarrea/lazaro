@@ -154,7 +154,7 @@ namespace Lbl.Personas
                                         Comando.ColumnValues.AddWithValue("contrasena", Lfx.Types.Strings.SHA256(Contrasena + "{" + this.ContrasenaSal + "}"));
                                 }
                                 Comando.ColumnValues.AddWithValue("contrasena_sal", this.ContrasenaSal);
-                                Comando.ColumnValues.AddWithValue("contrasena_fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("contrasena_fecha", new qGen.SqlExpression("NOW()"));
                         }
 
                         Comando.ColumnValues.AddWithValue("tipo", this.Tipo);

@@ -284,7 +284,7 @@ namespace Lfc.Comprobantes.Facturas
                                                 InsertarComprob.ColumnValues.AddWithValue("id_formapago", 3);
                                                 InsertarComprob.ColumnValues.AddWithValue("id_sucursal", Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual);
                                                 InsertarComprob.ColumnValues.AddWithValue("pv", Lfx.Types.Parsing.ParseInt(EntradaPV.Text));
-                                                InsertarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                                InsertarComprob.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                                 InsertarComprob.ColumnValues.AddWithValue("id_vendedor", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
                                                 InsertarComprob.ColumnValues.AddWithValue("id_cliente", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
                                                 InsertarComprob.ColumnValues.AddWithValue("obs", "Comprobante anulado antes de ser impreso.");

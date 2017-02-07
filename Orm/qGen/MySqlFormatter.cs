@@ -45,7 +45,7 @@ namespace qGen
 
                                 if (ThisField.Value is qGen.SqlFunctions) {
                                         switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                case SqlFunctions.Now:
+                                                case SqlFunctions.FunctNow:
                                                         FieldParam = "NOW()";
                                                         break;
                                                 default:
@@ -122,14 +122,19 @@ namespace qGen
                                 } else {
                                         var Tipo = ThisField.Value.GetType().Name.Replace("System.", "");
                                         switch (Tipo) {
+                                                case "SqlFunctions":
                                                 case "qGen.SqlFunctions":
                                                         switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                                case SqlFunctions.Now:
+                                                                case SqlFunctions.FunctNow:
                                                                         ParamValue = "NOW()";
                                                                         break;
                                                                 default:
                                                                         throw new NotImplementedException();
                                                         }
+                                                        break;
+                                                case "SqlExpression":
+                                                case "qGen.SqlExpression":
+                                                        ParamValue = this.EscapeString(ThisField.Value.ToString());
                                                         break;
                                                 case "Lfx.Data.SqlLiteral":
                                                         ParamValue = ThisField.Value.ToString();
@@ -323,7 +328,7 @@ namespace qGen
 
                                 if (Fld.Value is qGen.SqlFunctions) {
                                         switch (((qGen.SqlFunctions)(Fld.Value))) {
-                                                case SqlFunctions.Now:
+                                                case SqlFunctions.FunctNow:
                                                         FieldParam = "NOW()";
                                                         break;
                                                 default:
@@ -382,7 +387,7 @@ namespace qGen
                                         switch (ThisField.Value.GetType().Name) {
                                                 case "qGen.SqlFunctions":
                                                         switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                                case SqlFunctions.Now:
+                                                                case SqlFunctions.FunctNow:
                                                                         ParamValue = "NOW()";
                                                                         break;
                                                                 default:
@@ -390,6 +395,8 @@ namespace qGen
                                                         }
                                                         break;
                                                 case "Lfx.Data.SqlLiteral":
+                                                case "qGen.SqlExpression":
+                                                case "SqlExpression":
                                                         ParamValue = ThisField.Value.ToString();
                                                         break;
                                                 case "System.Single":
@@ -504,9 +511,11 @@ namespace qGen
                         } else if (value is qGen.Select) {
                                 // Sub select
                                 return "(" + value.ToString() + ")";
+                        } else if (value is SqlExpression) {
+                                return value.ToString();
                         } else if (value is SqlFunctions) {
                                 switch ((SqlFunctions)value) {
-                                        case SqlFunctions.Now:
+                                        case SqlFunctions.FunctNow:
                                                 return "NOW()";
                                         default:
                                                 return value.ToString();
@@ -695,7 +704,7 @@ namespace qGen
                                         var ParamName = "@" + ThisField.ColumnName + "_" + CmdNum.ToString();
                                         if (ThisField.Value is qGen.SqlFunctions) {
                                                 switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                        case SqlFunctions.Now:
+                                                        case SqlFunctions.FunctNow:
                                                                 FieldParam = "NOW()";
                                                                 break;
                                                         default:

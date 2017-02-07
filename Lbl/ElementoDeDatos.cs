@@ -388,7 +388,7 @@ namespace Lbl
                         NuevoCom.ColumnValues.AddWithValue("comando", "Comment");
                         NuevoCom.ColumnValues.AddWithValue("item_id", this.Id);
                         NuevoCom.ColumnValues.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                        NuevoCom.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        NuevoCom.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         NuevoCom.ColumnValues.AddWithValue("extra1", texto);
 
                         this.Connection.Execute(NuevoCom);
@@ -648,15 +648,15 @@ namespace Lbl
                                         object Res = Lbl.Instanciador.Instanciar(typeof(T), this.Connection, this.GetFieldValue<int>(fieldName));
                                         return (T)Res;
                                 }
-                        } else if (typeof(T) == typeof(NullableDateTime)) {
+                        } else if (typeof(T) == typeof(DbDateTime)) {
                                 if (this.Registro[fieldName] == null) {
                                         return default(T);
                                 } else {
                                         object Res;
-                                        if (this.Registro[fieldName] is NullableDateTime)
-                                                Res = (NullableDateTime)(this.Registro[fieldName]);
+                                        if (this.Registro[fieldName] is DbDateTime)
+                                                Res = (DbDateTime)(this.Registro[fieldName]);
                                         else
-                                                Res = new NullableDateTime(this.GetFieldValue<DateTime>(fieldName));
+                                                Res = new DbDateTime(this.GetFieldValue<DateTime>(fieldName));
                                         return (T)Res;
                                 }
                         } else {
@@ -697,14 +697,14 @@ namespace Lbl
                 /// </summary>
                 /// <param name="fieldName">El nombre del campo.</param>
                 /// <returns>El valor</returns>
-                protected NullableDateTime FieldDateTime(string fieldName)
+                protected DbDateTime FieldDateTime(string fieldName)
 		{
 			if(this.Registro[fieldName] == null)
 				return null;
-                        if (this.Registro[fieldName] is NullableDateTime)
-                                return this.Registro[fieldName] as NullableDateTime;
+                        if (this.Registro[fieldName] is DbDateTime)
+                                return this.Registro[fieldName] as DbDateTime;
 			else
-				return new NullableDateTime(System.Convert.ToDateTime(this.Registro[fieldName]));
+				return new DbDateTime(System.Convert.ToDateTime(this.Registro[fieldName]));
 		}
 
                 /// <summary>

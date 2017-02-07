@@ -97,7 +97,7 @@
     <Compile Include="qGen\Condition.cs" />
     <Compile Include="qGen\Delete.cs" />
     <Compile Include="qGen\Enums.cs" />
-    <Compile Include="qGen\Expression.cs" />
+    <Compile Include="qGen\SqlExpression.cs" />
     <Compile Include="qGen\IConvertibleToDbCommand.cs" />
     <Compile Include="qGen\IFormatter.cs" />
     <Compile Include="qGen\Insert.cs" />

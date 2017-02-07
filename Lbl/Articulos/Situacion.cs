@@ -76,7 +76,7 @@ namespace Lbl.Articulos
 					Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
 				} else {
 					Comando = new qGen.Insert(this.TablaDatos);
-                                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                        Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                 }
 
                                 Comando.ColumnValues.AddWithValue("nombre", this.Registro["nombre"].ToString());

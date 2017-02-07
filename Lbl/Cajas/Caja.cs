@@ -127,7 +127,7 @@ namespace Lbl.Cajas
                         qGen.IStatement Comando;
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
-                                Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
@@ -181,7 +181,7 @@ namespace Lbl.Cajas
                                 InsertarMovimiento.ColumnValues.AddWithValue("id_cliente", null);
                         else
                                 InsertarMovimiento.ColumnValues.AddWithValue("id_cliente", cliente.Id);
-			InsertarMovimiento.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			InsertarMovimiento.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
 			InsertarMovimiento.ColumnValues.AddWithValue("importe", importe);
                         if (factura == null)
                                 InsertarMovimiento.ColumnValues.AddWithValue("id_comprob", null);

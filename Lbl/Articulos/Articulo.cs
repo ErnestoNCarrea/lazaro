@@ -161,7 +161,7 @@ namespace Lbl.Articulos
 			}
 		}
 
-                public NullableDateTime FechaPrecio
+                public DbDateTime FechaPrecio
                 {
                         get
                         {
@@ -169,7 +169,7 @@ namespace Lbl.Articulos
                         }
                 }
 
-                public NullableDateTime FechaAlta
+                public DbDateTime FechaAlta
                 {
                         get
                         {
@@ -553,7 +553,7 @@ namespace Lbl.Articulos
                         }
 
                         qGen.IStatement Comando = new qGen.Insert("articulos_movim");
-                        Comando.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                        Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
 			Comando.ColumnValues.AddWithValue("id_articulo", this.Id);
 			Comando.ColumnValues.AddWithValue("cantidad", cantidad);
 			if(situacionOrigen == null)
@@ -734,8 +734,8 @@ namespace Lbl.Articulos
 
                         if (this.Existe == false) {
 				Comando = new qGen.Insert(this.TablaDatos);
-				Comando.ColumnValues.AddWithValue("fecha_creado", qGen.SqlFunctions.Now);
-				Comando.ColumnValues.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
+				Comando.ColumnValues.AddWithValue("fecha_creado", new qGen.SqlExpression("NOW()"));
+				Comando.ColumnValues.AddWithValue("fecha_precio", new qGen.SqlExpression("NOW()"));
 			} else {
 				Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
@@ -827,7 +827,7 @@ namespace Lbl.Articulos
                                         // Actualizo la fecha del precio
                                         qGen.Update ActualizarPrecio = new qGen.Update(this.TablaDatos);
                                         ActualizarPrecio.ColumnValues.AddWithValue("pvp", this.Pvp);
-                                        ActualizarPrecio.ColumnValues.AddWithValue("fecha_precio", qGen.SqlFunctions.Now);
+                                        ActualizarPrecio.ColumnValues.AddWithValue("fecha_precio", new qGen.SqlExpression("NOW()"));
                                         ActualizarPrecio.WhereClause = new qGen.Where(this.CampoId, this.Id);
                                         this.Connection.Execute(ActualizarPrecio);
 
@@ -835,7 +835,7 @@ namespace Lbl.Articulos
 					qGen.Insert AgregarAlHistorialDePrecios = new qGen.Insert("articulos_precios");
                                         AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_articulo", this.Id);
                                         AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("costo", this.Costo);
-                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                        AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                         if (this.Margen == null)
                                                 AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_margen", null);
                                         else

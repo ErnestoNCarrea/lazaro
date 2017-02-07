@@ -160,7 +160,7 @@ namespace Lbl.CuentasCorrientes
                                 ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_concepto", concepto.Id);
                         ComandoInsertarMovimiento.ColumnValues.AddWithValue("concepto", textoConcepto);
                         ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_cliente", this.Persona.Id);
-			ComandoInsertarMovimiento.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+			ComandoInsertarMovimiento.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         ComandoInsertarMovimiento.ColumnValues.AddWithValue("importe", importeDebito);
                         if (comprob == null)
                                 ComandoInsertarMovimiento.ColumnValues.AddWithValue("id_comprob", null);

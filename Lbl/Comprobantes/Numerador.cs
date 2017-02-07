@@ -49,7 +49,7 @@ namespace Lbl.Comprobantes
 
                                 this.Comprob.Fecha = this.Comprob.Connection.ServerDateTime;
                                 this.Comprob.Registro["fecha"] = this.Comprob.Fecha;
-                                ActualizarComprob.ColumnValues.AddWithValue("fecha", qGen.SqlFunctions.Now);
+                                ActualizarComprob.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
 
                                 if (this.Comprob.TablaDatos == "recibos") {
                                         this.Comprob.Impreso = true;
