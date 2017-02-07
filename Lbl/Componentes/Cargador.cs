@@ -36,7 +36,7 @@ namespace Lbl.Componentes
                                         try {
                                                 Lfx.Components.Manager.RegisterComponent(Comp);
                                                 if (Comp.Estructura != null) {
-                                                        System.Xml.XmlDocument Doc = new System.Xml.XmlDocument();
+                                                        var Doc = new System.Xml.XmlDocument();
                                                         Doc.LoadXml(Comp.Estructura);
                                                         Lfx.Workspace.Master.Structure.AddToBuiltIn(Doc);
                                                 }
@@ -48,9 +48,9 @@ namespace Lbl.Componentes
                                         } catch (Exception ex) {
                                                 if (Lfx.Workspace.Master != null && Lfx.Workspace.Master.DebugMode == false) {
                                                         Lfx.Workspace.Master.RunTime.Toast("No se puede registrar el componente " + Comp.Nombre + "." + ex.Message, "Error");
-                                                        throw ex;
+                                                        throw;
                                                 } else {
-                                                        throw ex;
+                                                        throw;
                                                 }
                                         }
                                 }

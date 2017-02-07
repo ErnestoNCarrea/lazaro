@@ -174,18 +174,18 @@ namespace Lazaro.WinMain.Config
                         if (PanelPruebaServidor.Visible) {
                                 // Probar la conexión al servidor
                                 if (CheckEsteEquipo.Checked) {
-                                        Lfx.Data.DatabaseCache.DefaultCache.ServerName = "localhost";
-                                        Lfx.Data.DatabaseCache.DefaultCache.UserName = "root";
-                                        Lfx.Data.DatabaseCache.DefaultCache.Password = "";
+                                        Lfx.Workspace.Master.ConnectionParameters.ServerName = "localhost";
+                                        Lfx.Workspace.Master.ConnectionParameters.UserName = "root";
+                                        Lfx.Workspace.Master.ConnectionParameters.Password = "";
                                 } else {
-                                        Lfx.Data.DatabaseCache.DefaultCache.ServerName = EntradaServidor.Text;
-                                        Lfx.Data.DatabaseCache.DefaultCache.UserName = "lazaro";
-                                        Lfx.Data.DatabaseCache.DefaultCache.Password = "";
+                                        Lfx.Workspace.Master.ConnectionParameters.ServerName = EntradaServidor.Text;
+                                        Lfx.Workspace.Master.ConnectionParameters.UserName = "lazaro";
+                                        Lfx.Workspace.Master.ConnectionParameters.Password = "";
                                 }
 
                                 Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
                                 Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
-                                Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = "";
+                                Lfx.Workspace.Master.ConnectionParameters.DatabaseName = "";
 
                                 Lfx.Types.OperationResult Res = this.ProbarServidor();
                                 EtiquetaPruebaResultado.Text = Res.Message;
@@ -217,16 +217,16 @@ namespace Lazaro.WinMain.Config
                                         }
                                 }
 
-                                if (string.IsNullOrEmpty(Lfx.Data.DatabaseCache.DefaultCache.DatabaseName))
-                                        Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = "lazaro";
+                                if (string.IsNullOrEmpty(Lfx.Workspace.Master.ConnectionParameters.DatabaseName))
+                                        Lfx.Workspace.Master.ConnectionParameters.DatabaseName = "lazaro";
                                 Lfx.Workspace.Master.MasterConnection.Close();
                                 Lfx.Workspace.Master.MasterConnection.Open();
                                 if (TengoDb) {
-                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Data.DatabaseCache.DefaultCache.ServerName);
+                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Workspace.Master.ConnectionParameters.ServerName);
                                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "ConnectionType", "mysql");
-                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DatabaseName", Lfx.Data.DatabaseCache.DefaultCache.DatabaseName);
-                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "User", Lfx.Data.DatabaseCache.DefaultCache.UserName);
-                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "Password", Lfx.Data.DatabaseCache.DefaultCache.Password);
+                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DatabaseName", Lfx.Workspace.Master.ConnectionParameters.DatabaseName);
+                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "User", Lfx.Workspace.Master.ConnectionParameters.UserName);
+                                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "Password", Lfx.Workspace.Master.ConnectionParameters.Password);
                                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "SlowLink", Lfx.Data.DatabaseCache.DefaultCache.SlowLink ? "1" : "0");
                                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Company", "Branch", 1);
 
@@ -465,12 +465,12 @@ namespace Lazaro.WinMain.Config
                                 }
                         }
 
-                        Lfx.Data.DatabaseCache.DefaultCache.ServerName = "localhost";
-                        Lfx.Data.DatabaseCache.DefaultCache.UserName = "root";
-                        Lfx.Data.DatabaseCache.DefaultCache.Password = "";
+                        Lfx.Workspace.Master.ConnectionParameters.ServerName = "localhost";
+                        Lfx.Workspace.Master.ConnectionParameters.UserName = "root";
+                        Lfx.Workspace.Master.ConnectionParameters.Password = "";
                         Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
                         Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
-                        Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = "";
+                        Lfx.Workspace.Master.ConnectionParameters.DatabaseName = "";
 
                         Lfx.Types.OperationResult Res = this.ProbarServidor();
                         if (Res.Success) {

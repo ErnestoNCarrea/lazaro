@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Model.cs" />
     <Compile Include="Attributes\Column.cs" />
     <Compile Include="Attributes\Entity.cs" />
     <Compile Include="ColumnTypes.cs" />
@@ -82,10 +83,13 @@
     <Compile Include="IEntityManager.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Mapping\ClassMetadata.cs" />
+    <Compile Include="Mapping\ClassMetadataCollection.cs" />
+    <Compile Include="Mapping\ColumnMetadata.cs" />
+    <Compile Include="Mapping\ColumnMetadataCollection.cs" />
     <Compile Include="Mapping\IMetadataFactory.cs" />
     <Compile Include="Mapping\INamingStrategy.cs" />
     <Compile Include="Mapping\MetadataFactoryBase.cs" />
-    <Compile Include="Mapping\ReflectionMetadataFactory.cs" />
+    <Compile Include="Mapping\AnnotationMetadataFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="qGen\BeginTransactionCommand.cs" />
     <Compile Include="qGen\BuilkInsert.cs" />
@@ -121,11 +125,6 @@
     </None>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -76,12 +76,12 @@ namespace Lfx.Data
                                 ConnectionString.Append("DRIVER={" + Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver + "};");
 
                         string Server, Port;
-                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.IndexOf(':') >= 0) {
-                                string[] Temp = Lfx.Data.DatabaseCache.DefaultCache.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                        if (Lfx.Workspace.Master.ConnectionParameters.ServerName.IndexOf(':') >= 0) {
+                                string[] Temp = Lfx.Workspace.Master.ConnectionParameters.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
                                 Server = Temp[0];
                                 Port = Temp[1];
                         } else {
-                                Server = Lfx.Data.DatabaseCache.DefaultCache.ServerName;
+                                Server = Lfx.Workspace.Master.ConnectionParameters.ServerName;
                                 Port = null;
                         }
 
@@ -89,10 +89,10 @@ namespace Lfx.Data
                         if (string.IsNullOrEmpty(Port) == false)
                                 ConnectionString.Append("PORT=" + Port + ";");
 
-                        if (string.IsNullOrWhiteSpace(Lfx.Data.DatabaseCache.DefaultCache.DatabaseName) == false)
-                                ConnectionString.Append("DATABASE=" + Lfx.Data.DatabaseCache.DefaultCache.DatabaseName + ";");
-                        ConnectionString.Append("UID=" + Lfx.Data.DatabaseCache.DefaultCache.UserName + ";");
-                        ConnectionString.Append("PWD=" + Lfx.Data.DatabaseCache.DefaultCache.Password + ";");
+                        if (string.IsNullOrWhiteSpace(Lfx.Workspace.Master.ConnectionParameters.DatabaseName) == false)
+                                ConnectionString.Append("DATABASE=" + Lfx.Workspace.Master.ConnectionParameters.DatabaseName + ";");
+                        ConnectionString.Append("UID=" + Lfx.Workspace.Master.ConnectionParameters.UserName + ";");
+                        ConnectionString.Append("PWD=" + Lfx.Workspace.Master.ConnectionParameters.Password + ";");
 
                         DbConnection = this.Factory.Driver.GetConnection();
                         DbConnection.ConnectionString = ConnectionString.ToString();

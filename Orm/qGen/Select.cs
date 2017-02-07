@@ -47,7 +47,7 @@ namespace qGen
 
                 public Select Clone()
                 {
-                        Select Res = ((Select)(this.MemberwiseClone()));
+                        var Res = ((Select)(this.MemberwiseClone()));
                         if (this.WhereClause != null)
                                 Res.WhereClause = this.WhereClause.Clone();
                         if (this.HavingClause != null)

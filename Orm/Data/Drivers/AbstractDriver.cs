@@ -46,7 +46,7 @@ namespace Lazaro.Orm.Data.Drivers
                                         } else if (System.IO.File.Exists(this.AssemblyName + ".dll")) {
                                                 m_Assembly = Assembly.LoadFrom(this.AssemblyName + ".dll");
                                         } else {
-                                                throw new System.IO.FileNotFoundException(this.AssemblyName + ".dll not found.");
+                                                m_Assembly = null;
                                         }
                                 }
                                 return m_Assembly;

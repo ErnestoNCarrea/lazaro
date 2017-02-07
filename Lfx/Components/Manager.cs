@@ -17,12 +17,12 @@ namespace Lfx.Components
                 {
                         // Simplemente lo cargo... eso ya registra los tipos
                         if (ComponentesCargados.ContainsKey(componentInfo.EspacioNombres) == false) {
-                                Lfx.Types.OperationResult Res = componentInfo.Load();
+                                var Res = componentInfo.Load();
                                 if (Res.Success == false)
                                         return Res;
 
                                 // Primero ejecuto la función Try, para decidir si cargo el componenten o no
-                                Lfx.Types.OperationResult TryResult = componentInfo.Funciones["Try"].Run() as Lfx.Types.OperationResult;
+                                var TryResult = componentInfo.Funciones["Try"].Run() as Lfx.Types.OperationResult;
 
                                 if (TryResult != null && TryResult.Success) {
                                         ComponentesCargados.Add(componentInfo.EspacioNombres, componentInfo);

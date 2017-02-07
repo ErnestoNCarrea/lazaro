@@ -9,7 +9,7 @@ namespace Lfx.Components
                 public IComponent ComponentInfo;
                 public string Nombre;
                 public bool AutoRun = false;
-                public Lfx.Components.Function Instancia = null;
+                public Lfx.Components.IFunction Instancia = null;
                 public bool Ready = false;
 
                 public FunctionInfo(IComponent compInfo)
@@ -19,12 +19,13 @@ namespace Lfx.Components
 
                 public void Load()
                 {
-                        if (this.Instancia == null)
-                                this.Instancia = (Lfx.Components.Function)this.ComponentInfo.Assembly.CreateInstance(this.ComponentInfo.EspacioNombres + "." + this.Nombre);
+                        if (this.Instancia == null) {
+                                this.Instancia = this.ComponentInfo.Assembly.CreateInstance(this.ComponentInfo.EspacioNombres + "." + this.Nombre) as Lfx.Components.Function;
+                        }
 
                         if (Instancia != null) {
                                 this.Instancia.Workspace = Lfx.Workspace.Master;
-                                Lfx.Types.OperationResult Res = this.Instancia.Try();
+                                var Res = this.Instancia.Try();
                                 if (Res.Success) {
                                         this.Ready = true;
                                 } else {

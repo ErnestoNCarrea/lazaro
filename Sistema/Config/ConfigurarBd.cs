@@ -82,7 +82,7 @@ namespace Lazaro.WinMain.Config
 
                         this.Hide();
 
-                        Lfx.Data.DatabaseCache.DefaultCache.ServerName = EntradaServidor.Text;
+                        Lfx.Workspace.Master.ConnectionParameters.ServerName = EntradaServidor.Text;
                         switch (EntradaConexion.TextKey) {
                                 case "odbc":
                                         Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
@@ -102,11 +102,11 @@ namespace Lazaro.WinMain.Config
                                         break;
                         }
 
-                        Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = EntradaBD.Text;
-                        Lfx.Data.DatabaseCache.DefaultCache.UserName = EntradaUsuario.Text;
-                        Lfx.Data.DatabaseCache.DefaultCache.Password = EntradaContrasena.Text;
+                        Lfx.Workspace.Master.ConnectionParameters.DatabaseName = EntradaBD.Text;
+                        Lfx.Workspace.Master.ConnectionParameters.UserName = EntradaUsuario.Text;
+                        Lfx.Workspace.Master.ConnectionParameters.Password = EntradaContrasena.Text;
 
-                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Data.DatabaseCache.DefaultCache.ServerName);
+                        Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DataSource", Lfx.Workspace.Master.ConnectionParameters.ServerName);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "ConnectionType", EntradaConexion.TextKey);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "DatabaseName", EntradaBD.Text);
                         Lfx.Workspace.Master.CurrentConfig.WriteLocalSetting("Data", "User", EntradaUsuario.Text);

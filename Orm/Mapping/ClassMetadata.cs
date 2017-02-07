@@ -12,6 +12,6 @@ namespace Lazaro.Orm.Mapping
                 public string SchemaName { get; set; }
                 public INamingStrategy NamingStrategy { get; set; }
 
-
+                public ColumnMetadataCollection Columns { get; set; }
         }
 }

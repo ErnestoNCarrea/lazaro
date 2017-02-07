@@ -6,27 +6,15 @@ namespace Lfx.Components
 	/// <summary>
 	/// Esqueleto del componente.
 	/// </summary>
-	public class Function
+	public abstract class Function : IFunction
 	{
-                protected Lfx.Workspace m_Workspace;
-		public string ExecutableName = null;
-		public object[] Arguments = null;
-                public Lfx.Components.FunctionTypes FunctionType = FunctionTypes.MdiChildren;
+                public Lfx.Workspace Workspace { get; set; }
+                public string ExecutableName { get; set; }
+                public object[] Arguments { get; set; }
+                public Lfx.Components.FunctionTypes FunctionType { get; set; } = FunctionTypes.MdiChildren;
 
 		public Function()
 		{
-		}
-
-		public Lfx.Workspace Workspace
-		{
-			get
-			{
-				return m_Workspace;
-			}
-			set
-			{
-				m_Workspace = value;
-			}
 		}
 
 		public virtual object Run(bool wait)

@@ -66,11 +66,44 @@ namespace Lfx
                                 this.RunTime = new Lfx.RunTimeServices();
                         }
 
+                        this.Bootstrap();
+
+                        if (openConnection) {
+                                m_MasterConnection.Open();
+                        }
+
+                        // Personalizo los valores de CultureInfo
+                        this.CultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
+                        this.CultureInfo.NumberFormat.CurrencyDecimalDigits = 2;
+                        this.CultureInfo.NumberFormat.CurrencyGroupSeparator = "";
+                        this.CultureInfo.NumberFormat.CurrencySymbol = "$";
+
+                        this.CultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+                        this.CultureInfo.NumberFormat.NumberGroupSeparator = "";
+
+                        this.CultureInfo.DateTimeFormat.FullDateTimePattern = Lfx.Types.Formatting.DateTime.FullDateTimePattern;
+                        this.CultureInfo.DateTimeFormat.LongDatePattern = Lfx.Types.Formatting.DateTime.LongDatePattern;
+                        this.CultureInfo.DateTimeFormat.ShortDatePattern = Lfx.Types.Formatting.DateTime.ShortDatePattern;
+                        this.CultureInfo.DateTimeFormat.ShortTimePattern = "HH:mm";
+                        this.CultureInfo.DateTimeFormat.LongTimePattern = "HH:mm:ss";
+
+                        System.Threading.Thread.CurrentThread.CurrentCulture = this.CultureInfo;
+                        System.Threading.Thread.CurrentThread.CurrentUICulture = this.CultureInfo;
+
+                        var Fact = new Lazaro.Orm.Mapping.AnnotationMetadataFactory();
+
+                        Fact.ScanFolder(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location), true);
+                        Fact.Init();
+                }
+
+
+                protected void Bootstrap()
+                {
                         if (Lfx.Data.DatabaseCache.DefaultCache == null)
                                 Lfx.Data.DatabaseCache.DefaultCache = new Lfx.Data.DatabaseCache(m_MasterConnection);
 
                         if (this.MasterConnection == null) {
-                                switch (this.CurrentConfig.ReadLocalSettingString("Data", "ConnectionType", "mysql")) {
+                                switch (this.CurrentConfig.ReadLocalSettingString(@"Data", "ConnectionType", "mysql")) {
                                         case "odbc":
                                                 Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
                                                 break;
@@ -94,7 +127,7 @@ namespace Lfx
                                 }
                         }
 
-                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName == null) {
+                        if (this.ConnectionParameters == null) {
                                 this.ConnectionParameters = new ConnectionParameters()
                                 {
                                         ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost"),
@@ -102,16 +135,16 @@ namespace Lfx
                                         UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro"),
                                         Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty)
                                 };
-                                Lfx.Data.DatabaseCache.DefaultCache.ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost");
-                                Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = this.CurrentConfig.ReadLocalSettingString("Data", "DatabaseName", "lazaro");
-                                Lfx.Data.DatabaseCache.DefaultCache.UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro");
-                                Lfx.Data.DatabaseCache.DefaultCache.Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty);
-                                Lfx.Data.DatabaseCache.DefaultCache.Pooling = this.CurrentConfig.ReadLocalSettingInt("Data", "Pooling", 1) != 0;
+                                //Lfx.Data.DatabaseCache.DefaultCache.ServerName = this.CurrentConfig.ReadLocalSettingString("Data", "DataSource", "localhost");
+                                //Lfx.Data.DatabaseCache.DefaultCache.DatabaseName = this.CurrentConfig.ReadLocalSettingString("Data", "DatabaseName", "lazaro");
+                                //Lfx.Data.DatabaseCache.DefaultCache.UserName = this.CurrentConfig.ReadLocalSettingString("Data", "User", "lazaro");
+                                //Lfx.Data.DatabaseCache.DefaultCache.Password = this.CurrentConfig.ReadLocalSettingString("Data", "Password", string.Empty);
+                                //Lfx.Data.DatabaseCache.DefaultCache.Pooling = this.CurrentConfig.ReadLocalSettingInt("Data", "Pooling", 1) != 0;
                         }
 
-                        System.Text.RegularExpressions.Regex IpLocal1 = new System.Text.RegularExpressions.Regex(@"^192\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
-                        System.Text.RegularExpressions.Regex IpLocal2 = new System.Text.RegularExpressions.Regex(@"^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
-                        if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.Contains(".") == false || IpLocal1.IsMatch(Lfx.Data.DatabaseCache.DefaultCache.ServerName) || IpLocal2.IsMatch(Lfx.Data.DatabaseCache.DefaultCache.ServerName)) {
+                        var IpLocal1 = new System.Text.RegularExpressions.Regex(@"^192\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
+                        var IpLocal2 = new System.Text.RegularExpressions.Regex(@"^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$");
+                        if (Lfx.Workspace.Master.ConnectionParameters.ServerName.Contains(".") == false || IpLocal1.IsMatch(Lfx.Workspace.Master.ConnectionParameters.ServerName) || IpLocal2.IsMatch(Lfx.Workspace.Master.ConnectionParameters.ServerName)) {
                                 Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
                         } else {
                                 Lfx.Data.DatabaseCache.DefaultCache.SlowLink = true;
@@ -122,28 +155,6 @@ namespace Lfx
                                 m_MasterConnection.RequiresTransaction = false;
                                 Lfx.Data.DatabaseCache.DefaultCache.Connection = m_MasterConnection;
                         }
-
-                        if (openConnection) {
-                                m_MasterConnection.Open();
-                        }
-
-                        // Personalizo los valores de CultureInfo
-                        this.CultureInfo.NumberFormat.CurrencyDecimalSeparator = ".";
-                        this.CultureInfo.NumberFormat.CurrencyDecimalDigits = 2;
-                        this.CultureInfo.NumberFormat.CurrencyGroupSeparator = "";
-                        this.CultureInfo.NumberFormat.CurrencySymbol = "$";
-
-                        this.CultureInfo.NumberFormat.NumberDecimalSeparator = ".";
-                        this.CultureInfo.NumberFormat.NumberGroupSeparator = "";
-
-                        this.CultureInfo.DateTimeFormat.FullDateTimePattern = Lfx.Types.Formatting.DateTime.FullDateTimePattern;
-                        this.CultureInfo.DateTimeFormat.LongDatePattern = Lfx.Types.Formatting.DateTime.LongDatePattern;
-                        this.CultureInfo.DateTimeFormat.ShortDatePattern = Lfx.Types.Formatting.DateTime.ShortDatePattern;
-                        this.CultureInfo.DateTimeFormat.ShortTimePattern = "HH:mm";
-                        this.CultureInfo.DateTimeFormat.LongTimePattern = "HH:mm:ss";
-
-                        System.Threading.Thread.CurrentThread.CurrentCulture = this.CultureInfo;
-                        System.Threading.Thread.CurrentThread.CurrentUICulture = this.CultureInfo;
                 }
 
 
@@ -162,15 +173,17 @@ namespace Lfx
                 public void InitUpdater()
                 {
                         if (Lfx.Updates.Updater.Master == null && this.WebAppMode == false && this.DebugMode == false) {
-                                string Nivel = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Nivel", "stable");
-                                string Url = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Url", @"http://www.lazarogestion.com/aslnlwc/{0}/");
+                                var Nivel = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Nivel", "stable");
+                                var Url = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Url", @"http://www.lazarogestion.com/aslnlwc/{0}/");
                                 Lfx.Updates.Updater.Master = new Updates.Updater(Nivel);
                                 Lfx.Updates.Updater.Master.Path = Lfx.Environment.Folders.ApplicationFolder;
                                 Lfx.Updates.Updater.Master.TempPath = Lfx.Environment.Folders.UpdatesFolder;
-                                Lfx.Updates.Package LazaroPkg = new Updates.Package();
-                                LazaroPkg.Name = "Lazaro";
-                                LazaroPkg.RelativePath = "";
-                                LazaroPkg.Url = Url;
+                                var LazaroPkg = new Updates.Package
+                                {
+                                        Name = "Lazaro",
+                                        RelativePath = "",
+                                        Url = Url
+                                };
                                 Lfx.Updates.Updater.Master.Packages.Add(LazaroPkg);
                                 Lfx.Updates.Updater.Master.Start();
                         }
@@ -209,7 +222,7 @@ namespace Lfx
                                 this.DefaultScheduler.Dispose();
 
                         // Tengo que clonar this.ActiveConnections porque .Dispose() va a modificar la lista mientras la estoy recorriendo
-                        List<Data.Connection> Dbs = new List<Data.Connection>();
+                        var Dbs = new List<Data.Connection>();
                         Dbs.AddRange(this.ActiveConnections);
 
                         foreach (Lfx.Data.Connection Db in Dbs) {
@@ -220,12 +233,12 @@ namespace Lfx
 
                         this.ActiveConnections.Clear();
 
-                        //GC.SuppressFinalize(this);
+                        GC.SuppressFinalize(this);
                 }
 
                 public Lazaro.Orm.Data.IConnection GetNewConnection(string ownerName)
                 {
-                        Lfx.Data.Connection Res = new Lfx.Data.Connection(this, ownerName);
+                        var Res = new Lfx.Data.Connection(this, ownerName);
 
                         switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                 case AccessModes.MySql:
@@ -263,6 +276,8 @@ namespace Lfx
                 /// <summary>
                 /// Notifica sobre un cambio de una tabla de datos
                 /// </summary>
+                /// <param name="table">Tabla en la cual se produjo un cambio</param>
+                /// <param name="id">id del objeto cambiado</param>
                 public void NotifyTableChange(string table, int id)
                 {
                         //TODO: podría directamente modificar el caché en memoria, si quien notifica el cambio me pasara una copia del nuevo registro
@@ -306,8 +321,10 @@ namespace Lfx
                                         return;
                                 }
 
-                                Lfx.Types.OperationProgress Progreso = new Types.OperationProgress("Verificando estructuras de datos", "Se está analizando la estructura del almacén de datos y se van a realizar cambios si fuera necesario");
-                                Progreso.Modal = true;
+                                var Progreso = new Types.OperationProgress("Verificando estructuras de datos", "Se está analizando la estructura del almacén de datos y se van a realizar cambios si fuera necesario")
+                                {
+                                        Modal = true
+                                };
                                 Progreso.Begin();
 
                                 Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.VerificarVersionBd.Inicio", Lfx.Types.Formatting.FormatDateTimeSql(Lfx.Workspace.Master.MasterConnection.ServerDateTime.ToUniversalTime()));
@@ -315,8 +332,9 @@ namespace Lfx
 
                                 try {
                                         Conn.ExecuteNonQuery("FLUSH TABLES");
-                                } catch {
+                                } catch (Exception ex) {
                                         // No tengo permiso... no importa
+                                        Log.Warn("No se pudo hacer FLUSH TABLES", ex);
                                 }
 
                                 if (noTocarDatos == false && VersionActual < VersionUltima && VersionActual > 0) {
@@ -365,12 +383,15 @@ namespace Lfx
                 /// <summary>
                 /// Prepara un servidor para ser utilizado por Lázaro. Crea estructuras y realiza una carga inicial de datos.
                 /// </summary>
+                /// <param name="progreso">El objeto OperationProgress donde notificar el progreso</param>
                 public Lfx.Types.OperationResult Prepare(Lfx.Types.OperationProgress progreso)
                 {
                         bool MiProgreso = false;
                         if (progreso == null) {
-                                progreso = new Types.OperationProgress("Preparando el almacén de datos", "Se están creando las tablas de datos y se va realizar una carga inicial de datos. Esta operación puede demorar varios minutos.");
-                                progreso.Modal = true;
+                                progreso = new Types.OperationProgress("Preparando el almacén de datos", "Se están creando las tablas de datos y se va realizar una carga inicial de datos. Esta operación puede demorar varios minutos.")
+                                {
+                                        Modal = true
+                                };
                                 progreso.Begin();
                                 MiProgreso = true;
                         }

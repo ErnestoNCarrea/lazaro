@@ -51,7 +51,7 @@ namespace qGen
 
                 public override string ToString()
                 {
-                        throw new Exception("Not allowed");
+                        throw new InvalidOperationException("Not allowed");
                 }
         }
 }

@@ -116,6 +116,8 @@
     <Compile Include="Backups\Manager.cs" />
     <Compile Include="Components\Action.cs" />
     <Compile Include="Components\ActionCollection.cs" />
+    <Compile Include="Components\Attributes\Component.cs" />
+    <Compile Include="Components\IFunction.cs" />
     <Compile Include="Components\RegisterFunction.cs" />
     <Compile Include="Components\FunctionInfo.cs" />
     <Compile Include="Components\FunctionTypes.cs" />

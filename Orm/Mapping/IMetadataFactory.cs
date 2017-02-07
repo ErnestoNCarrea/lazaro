@@ -5,6 +5,6 @@ namespace Lazaro.Orm.Mapping
 {
         public interface IMetadataFactory
         {
-                Dictionary<string, ClassMetadata> ClassMetadata { get; set; }
+                ClassMetadataCollection ClassMetadata { get; set; }
         }
 }

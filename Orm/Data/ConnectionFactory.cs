@@ -7,7 +7,7 @@ namespace Lazaro.Orm.Data
 {
         public class ConnectionFactory : IConnectionFactory
         {
-                private static int LastHandle = 0;
+                private static int LastHandle;
 
                 public IDriver Driver { get; set; }
                 public IFormatter Formatter { get; set; }

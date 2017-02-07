@@ -19,3 +19,4 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 [assembly: Guid("eb7d2d6b-525b-4815-967d-0b4d93d58165")]
 [assembly: NeutralResourcesLanguageAttribute("es-AR")]
+[assembly: Lazaro.Orm.Attributes.Model(Name = "Lbl")]

@@ -26,11 +26,11 @@ namespace Lazaro.Orm.Data
                 public bool ReadOnly { get; set; } = false;
 
                 public int KeepAlive { get; set; } = 600;
-                protected System.Timers.Timer KeepAliveTimer = null;
+                protected System.Timers.Timer KeepAliveTimer;
 
-                private int m_Handle = 0;
-                protected bool m_InTransaction = false;
-                protected bool m_Closing = false;
+                private readonly int m_Handle ;
+                protected bool m_InTransaction;
+                protected bool m_Closing;
 
                 // IConnection
                 public IDbConnection DbConnection { get; set; }
@@ -90,7 +90,7 @@ namespace Lazaro.Orm.Data
                                 e.CurrentState == System.Data.ConnectionState.Connecting)) {
                                 //Estaba OK y ahora está mal
                                 while (true) {
-                                        int intentos = 10;
+                                        var intentos = 10;
                                         while (this.DbConnection.State != System.Data.ConnectionState.Open && intentos-- > 0) {
                                                 try {
                                                         this.Open();
@@ -227,7 +227,7 @@ namespace Lazaro.Orm.Data
 
                 public static int ConvertDBNullToZero(object valor)
                 {
-                        if (valor == null || valor == DBNull.Value || valor == null)
+                        if (valor == null || valor == DBNull.Value)
                                 return 0;
                         else
                                 return System.Convert.ToInt32(valor);
@@ -264,10 +264,10 @@ namespace Lazaro.Orm.Data
                 /// <returns>El primer comando de la lista.</returns>
                 public static string GetNextCommand(ref string comandos)
                 {
-                        if (comandos != null && comandos.Length == 0)
+                        if (string.IsNullOrEmpty(comandos))
                                 return "";
 
-                        int r = comandos.IndexOf(@";
+                        var r = comandos.IndexOf(@";
 ");
                         string Res;
                         if (r < 0) {
@@ -431,7 +431,7 @@ namespace Lazaro.Orm.Data
                                                         if (this.TryToRecover(ex)) {
                                                                 Log.Error(selectCommand, ex);
                                                                 ex.Data.Add("Command", selectCommand);
-                                                                throw ex;
+                                                                throw;
                                                         }
                                                 }
                                         }
@@ -473,7 +473,7 @@ namespace Lazaro.Orm.Data
                                         if (this.TryToRecover(ex) || Intentos-- <= 0) {
                                                 Log.Error(command.CommandText, ex);
                                                 ex.Data.Add("Command", command.CommandText);
-                                                throw ex;
+                                                throw;
                                         }
                                 }
                         }

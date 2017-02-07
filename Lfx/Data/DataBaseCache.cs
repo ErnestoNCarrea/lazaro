@@ -20,19 +20,14 @@ namespace Lfx.Data
                 }
                 
                 public string OdbcDriver = null;
-                public string ServerName = null, DatabaseName, UserName, Password;
                 public bool SlowLink = false, Mars = true, Pooling = true;
                 public Lfx.Data.AccessModes AccessMode = Lfx.Data.AccessModes.Undefined;
                 public qGen.SqlModes SqlMode = qGen.SqlModes.Ansi;
                 public System.Data.IsolationLevel DefaultIsolationLevel = System.Data.IsolationLevel.Serializable;
 
-                public void Clear()
+                /* public void Clear()
                 {
-                        ServerName = null;
-                        DatabaseName = null;
-                        UserName = null;
-                        Password = null;
-                }
+                } */
 
 
                 public Lfx.Data.TableCollection m_Tables = null;

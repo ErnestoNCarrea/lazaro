@@ -421,7 +421,7 @@ namespace Lazaro.WinMain
                                         if (Lfx.Workspace.Master.CurrentConfig.ReadLocalSettingString("Data", "DataSource", null) != null) {
                                                 using (Config.ErrorConexion FormError = new Config.ErrorConexion()) {
                                                         if (Res.Message.IndexOf("Unable to connect to any of the specified MySQL hosts") >= 0) {
-                                                                if (Lfx.Data.DatabaseCache.DefaultCache.ServerName.ToLowerInvariant() == "localhost") {
+                                                                if (Lfx.Workspace.Master.ConnectionParameters.ServerName.ToLowerInvariant() == "localhost") {
                                                                         string TipoServidor = "";
                                                                         switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                                                                 case Lfx.Data.AccessModes.MySql:
@@ -440,7 +440,7 @@ namespace Lazaro.WinMain
                                                                         FormError.Ayuda = @"No se puede conectar con el servidor local. Verifique que el servidor " + TipoServidor + @" se encuentra instalado y funcionando en el equipo.
 Si necesita información sobre cómo instalar o configurar un servidor SQL para Lázaro, consulte la ayuda en línea en www.lazarogestion.com";
                                                                 } else {
-                                                                        FormError.Ayuda = "No se puede conectar con el servidor remoto. Verifique que el servidor en el equipo remoto '" + Lfx.Data.DatabaseCache.DefaultCache.ServerName + @"' se encuentre funcionando y que su conexión de red esté activa.";
+                                                                        FormError.Ayuda = "No se puede conectar con el servidor remoto. Verifique que el servidor en el equipo remoto '" + Lfx.Workspace.Master.ConnectionParameters.ServerName + @"' se encuentre funcionando y que su conexión de red esté activa.";
                                                                 }
                                                         } else if (Res.Message.IndexOf("Access denied for user") >= 0) {
                                                                 FormError.Ayuda = "El servidor impidió el acceso debido a que el nombre de usuario o la contraseña son incorrectos. Haga clic en 'Configurarción' y luego en 'Configuración avanzada' y verifique la configuración proporcionada.";
@@ -498,7 +498,7 @@ Si necesita información sobre cómo instalar o configurar un servidor SQL para 
                         Lfx.Types.OperationResult iniciarReturn = new Lfx.Types.SuccessOperationResult();
 
                         //Si el servidor SQL es esta misma PC, intento iniciar el servidor
-                        if (Lfx.Environment.SystemInformation.Platform == Lfx.Environment.SystemInformation.Platforms.Windows && Lfx.Data.DatabaseCache.DefaultCache.ServerName.ToUpperInvariant() == "LOCALHOST") {
+                        if (Lfx.Environment.SystemInformation.Platform == Lfx.Environment.SystemInformation.Platforms.Windows && Lfx.Workspace.Master.ConnectionParameters.ServerName.ToUpperInvariant() == "LOCALHOST") {
                                 switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
                                         case Lfx.Data.AccessModes.MySql:
                                                 Lfx.Environment.Shell.Execute("net", "start mysql", ProcessWindowStyle.Hidden, true);

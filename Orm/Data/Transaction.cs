@@ -5,8 +5,8 @@ namespace Lazaro.Orm.Data
 {
         public class Transaction : IDbTransaction
         {
-                internal IDbTransaction DbTransaction = null;
-                private IConnection DataConnection = null;
+                internal IDbTransaction DbTransaction;
+                private readonly IConnection DataConnection;
 
                 public Transaction(IConnection connection, IsolationLevel isolationLevel)
                 {

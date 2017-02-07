@@ -47,7 +47,7 @@ namespace RunComponent
                                 Comp.EspacioNombres = ComponentName;
                                 Lfx.Components.Manager.RegisterComponent(Comp);
 
-                                Lfx.Components.Function Funcion = null;
+                                Lfx.Components.IFunction Funcion = null;
                                 try {
                                         Funcion = Comp.Funciones[FunctionName].Instancia;
                                 } catch (Exception ex) {

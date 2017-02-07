@@ -18,7 +18,7 @@ namespace Lbl
 
                 public object Tag { get; set; }
 
-                [Column(Type = ColumnTypes.Integer, Id = true)]
+                [Column(Type = ColumnTypes.Serial, Id = true)]
                 protected int m_ItemId = 0;
 
                 [NonSerialized]
