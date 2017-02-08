@@ -308,7 +308,7 @@ namespace Lbl.Impresion
                         Comando.ColumnValues.AddWithValue("obs", this.Obs);
                         Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }

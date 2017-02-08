@@ -203,7 +203,7 @@ namespace Lbl.Servicios.Importar
                                                         NewFac.ColumnValues.AddWithValue("impresa", 1);
                                                         NewFac.ColumnValues.AddWithValue("id_sucursal", 1);
                                                         NewFac.ColumnValues.AddWithValue("estado", 1);
-                                                        this.Connection.Execute(NewFac);
+                                                        this.Connection.ExecuteNonQuery(NewFac);
 
                                                         FacRow = this.Connection.FirstRowFromSelect(SelFac);
                                                 }

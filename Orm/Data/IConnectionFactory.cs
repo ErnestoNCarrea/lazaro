@@ -12,5 +12,6 @@ namespace Lazaro.Orm.Data
                 ConnectionParameters ConnectionParameters { get; set; }
 
                 IConnection GetNewConnection(string ownerName);
+                EntityManager GetEntityManager(string ownerName);
         }
 }

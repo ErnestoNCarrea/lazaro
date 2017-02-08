@@ -63,7 +63,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         }
                         ActualizarComprob.WhereClause = new qGen.Where(this.Comprobante.CampoId, this.Comprobante.Id);
 
-                        this.Comprobante.Connection.Execute(ActualizarComprob);
+                        this.Comprobante.Connection.ExecuteNonQuery(ActualizarComprob);
                 }
 
 

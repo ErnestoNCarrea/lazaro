@@ -92,7 +92,7 @@ namespace Lbl.CuentasCorrientes
                                 qGen.Update ComandoActualizarSaldo = new qGen.Update(this.TablaDatos);
                                 ComandoActualizarSaldo.ColumnValues.AddWithValue("saldo", Saldo);
                                 ComandoActualizarSaldo.WhereClause = new qGen.Where(this.CampoId, System.Convert.ToInt32(Movim[this.CampoId]));
-                                this.Connection.Execute(ComandoActualizarSaldo);
+                                this.Connection.ExecuteNonQuery(ComandoActualizarSaldo);
 
                                 Progreso.Advance(1);
                         }
@@ -100,7 +100,7 @@ namespace Lbl.CuentasCorrientes
                         qGen.Update ComandoActualizarCliente = new qGen.Update("personas");
                         ComandoActualizarCliente.ColumnValues.AddWithValue("saldo_ctacte", Saldo);
                         ComandoActualizarCliente.WhereClause = new qGen.Where("id_persona", this.Persona.Id);
-                        this.Connection.Execute(ComandoActualizarCliente);
+                        this.Connection.ExecuteNonQuery(ComandoActualizarCliente);
                         Progreso.End();
                 }
 
@@ -179,12 +179,12 @@ namespace Lbl.CuentasCorrientes
                                         ComandoInsertarMovimiento.ColumnValues.AddWithValue(extra.Key, extra.Value);
                                 }
                         }
-                        this.Connection.Execute(ComandoInsertarMovimiento);
+                        this.Connection.ExecuteNonQuery(ComandoInsertarMovimiento);
 
                         qGen.Update ComandoActualizarCliente = new qGen.Update("personas");
                         ComandoActualizarCliente.ColumnValues.AddWithValue("saldo_ctacte", NuevoSaldo);
                         ComandoActualizarCliente.WhereClause = new qGen.Where("id_persona", this.Persona.Id);
-                        this.Connection.Execute(ComandoActualizarCliente);
+                        this.Connection.ExecuteNonQuery(ComandoActualizarCliente);
                 }
 
 
@@ -305,7 +305,7 @@ namespace Lbl.CuentasCorrientes
                                 qGen.Update ActCancelarComprob = new qGen.Update("comprob");
                                 ActCancelarComprob.ColumnValues.AddWithValue("cancelado", System.Convert.ToDecimal(Factura["cancelado"]) + ImporteCancelarComprob);
                                 ActCancelarComprob.WhereClause = new qGen.Where("id_comprob", System.Convert.ToInt32(Factura["id_comprob"]));
-                                this.Connection.Execute(ActCancelarComprob);
+                                this.Connection.ExecuteNonQuery(ActCancelarComprob);
                                 ImporteCancelar -= ImporteCancelarComprob;
                                 ImporteCancelado += ImporteCancelarComprob;
 

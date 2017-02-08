@@ -198,7 +198,7 @@ namespace ServidorFiscal
                                 using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                         var Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
                                         Actualizar.ColumnValues.AddWithValue("lsa", new qGen.SqlExpression("NOW()"));
-                                        this.Impresora.Connection.Execute(Actualizar);
+                                        this.Impresora.Connection.ExecuteNonQuery(Actualizar);
                                         Trans.Commit();
                                 }
                         } catch {
@@ -238,7 +238,7 @@ namespace ServidorFiscal
                                                                 using (IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
                                                                         Actualizar.ColumnValues.AddWithValue("ultimoz", new qGen.SqlExpression("NOW()"));
-                                                                        this.Impresora.Connection.Execute(Actualizar);
+                                                                        this.Impresora.Connection.ExecuteNonQuery(Actualizar);
                                                                         Trans.Commit();
                                                                 }
                                                         }
@@ -320,7 +320,7 @@ namespace ServidorFiscal
                                 using (System.Data.IDbTransaction Trans = this.Impresora.Connection.BeginTransaction()) {
                                         qGen.Update Actualizar = new qGen.Update("pvs", new qGen.Where("id_pv", this.PVenta));
                                         Actualizar.ColumnValues.AddWithValue("lsa", null);
-                                        this.Impresora.Connection.Execute(Actualizar);
+                                        this.Impresora.Connection.ExecuteNonQuery(Actualizar);
                                         Trans.Commit();
                                 }
                         }

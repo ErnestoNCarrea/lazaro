@@ -81,7 +81,7 @@ namespace Lbl.Comprobantes
                         qGen.Update Act = new qGen.Update(this.TablaDatos);
                         Act.ColumnValues.AddWithValue("anulada", 1);
                         Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(Act);
+                        this.Connection.ExecuteNonQuery(Act);
 
                         if (anularPagos)
                                 // Anulos los pagos y descancelo los comprobantes
@@ -757,7 +757,7 @@ namespace Lbl.Comprobantes
                                                                 qGen.Update ActualizarComprob = new qGen.Update("comprob");
                                                                 ActualizarComprob.ColumnValues.AddWithValue("cancelado", new qGen.SqlExpression("cancelado+" + Lfx.Types.Formatting.FormatCurrencySql(SaldoACancelar)));
                                                                 ActualizarComprob.WhereClause = new qGen.Where("id_comprob", this.Id);
-                                                                this.Connection.Execute(ActualizarComprob);
+                                                                this.Connection.ExecuteNonQuery(ActualizarComprob);
                                                         }
                                                 }
                                                 break;
@@ -883,21 +883,21 @@ namespace Lbl.Comprobantes
 			this.ImporteCancelado += importe;
 			qGen.Update Actualizar = new qGen.Update("comprob", new qGen.Where("id_comprob", this.Id));
 			Actualizar.ColumnValues.AddWithValue("cancelado", this.ImporteCancelado);
-			this.Connection.Execute(Actualizar);
+			this.Connection.ExecuteNonQuery(Actualizar);
 
                         if (comprob is Lbl.Comprobantes.Recibo) {
                                 qGen.Insert AsentarComprobantesDeEsteRecibo = new qGen.Insert("recibos_comprob");
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob", this.Id);
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_recibo", comprob.Id);
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("importe", importe);
-                                this.Connection.Execute(AsentarComprobantesDeEsteRecibo);
+                                this.Connection.ExecuteNonQuery(AsentarComprobantesDeEsteRecibo);
                         } else if (comprob is Lbl.Comprobantes.ComprobanteConArticulos) {
                                 Lbl.Comprobantes.ComprobanteConArticulos factura = comprob as Lbl.Comprobantes.ComprobanteConArticulos;
                                 qGen.Insert AsentarComprobantesDeEsteRecibo = new qGen.Insert("comprob_comprob");
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob", factura.Id);
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("id_comprob_rel", this.Id);
                                 AsentarComprobantesDeEsteRecibo.ColumnValues.AddWithValue("importe", importe);
-                                this.Connection.Execute(AsentarComprobantesDeEsteRecibo);
+                                this.Connection.ExecuteNonQuery(AsentarComprobantesDeEsteRecibo);
                         }
 			return new Lfx.Types.SuccessOperationResult();
 		}
@@ -910,7 +910,7 @@ namespace Lbl.Comprobantes
                         this.ImporteCancelado -= importe;
                         qGen.Update Actualizar = new qGen.Update("comprob", new qGen.Where("id_comprob", this.Id));
                         Actualizar.ColumnValues.AddWithValue("cancelado", this.ImporteCancelado);
-                        this.Connection.Execute(Actualizar);
+                        this.Connection.ExecuteNonQuery(Actualizar);
 
                         // Debería eliminar la asociación entre este comprobante y el recibo (o NC) que lo canceló orignalmente?
                         return new Lfx.Types.SuccessOperationResult();
@@ -1007,7 +1007,7 @@ namespace Lbl.Comprobantes
 
 			this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
                         this.ActualizarId();
 
                         this.GuardarDetalle();
@@ -1085,7 +1085,7 @@ namespace Lbl.Comprobantes
 
                         qGen.Delete EliminarDetallesViejos = new qGen.Delete("comprob_detalle");
                         EliminarDetallesViejos.WhereClause = new qGen.Where("id_comprob", this.Id);
-                        this.Connection.Execute(EliminarDetallesViejos);
+                        this.Connection.ExecuteNonQuery(EliminarDetallesViejos);
 
                         int i = 1;
                         for (int Pasada = 1; Pasada <= 2; Pasada++) {
@@ -1131,7 +1131,7 @@ namespace Lbl.Comprobantes
 
                                                 this.AgregarTags(Comando, Art.Registro, "comprob_detalle");
 
-                                                this.Connection.Execute(Comando);
+                                                this.Connection.ExecuteNonQuery(Comando);
                                                 i++;
                                         }
                                 }

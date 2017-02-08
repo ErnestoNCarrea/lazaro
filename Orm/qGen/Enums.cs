@@ -15,7 +15,7 @@ namespace qGen
 
         internal enum SqlFunctions
         {
-                FunctNow
+                Now
         }
 
         public enum SqlModes

@@ -121,7 +121,7 @@ namespace Lbl.Notificaciones
                         InsertarMensaje.ColumnValues.AddWithValue("estacion_recibe", notif.EstacionDestino);
 
                         try {
-                                this.Connection.Execute(InsertarMensaje);
+                                this.Connection.ExecuteNonQuery(InsertarMensaje);
                                 return false;
                         } catch {
                                 return true;
@@ -181,7 +181,7 @@ namespace Lbl.Notificaciones
                                 if (this.LastMessageId > 0)
                                         ActualizarEstado.ColumnValues.AddWithValue("id_ultimomensaje", this.LastMessageId);
 
-                                this.Connection.Execute(ActualizarEstado);
+                                this.Connection.ExecuteNonQuery(ActualizarEstado);
                         } catch (Exception ex) {
                                 System.Console.WriteLine(ex.Message);
                                 if (Lfx.Environment.SystemInformation.DesignMode)

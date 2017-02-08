@@ -248,7 +248,7 @@ namespace Lfc.Tareas
                                         Actual.WhereClause = new qGen.Where();
                                         Actual.WhereClause.AddWithValue("id_comprob", 0);
                                         Actual.WhereClause.AddWithValue("id_ticket", this.Elemento.Id);
-                                        this.Connection.Execute(Actual);
+                                        this.Connection.ExecuteNonQuery(Actual);
                                         Trans.Commit();
                                 }
                         } else {

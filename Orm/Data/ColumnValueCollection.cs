@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lazaro.Orm.Data
 {
-	public class ColumnValueCollection : List<IColumnValue>
+        public class ColumnValueCollection : List<IColumnValue>
 	{
                 private static readonly ILog Log = LogManager.GetLogger(typeof(ColumnValueCollection));
 

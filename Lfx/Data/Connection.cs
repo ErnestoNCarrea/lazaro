@@ -145,23 +145,23 @@ namespace Lfx.Data
                         switch (this.SqlMode) {
                                 case qGen.SqlModes.MySql:
                                         // Pongo a MySql en modo ANSI
-                                        this.Execute(new qGen.SetCommand("sql_mode='ANSI'"));
+                                        this.ExecuteNonQuery(new qGen.SetCommand("sql_mode='ANSI'"));
                                         switch (System.Text.Encoding.Default.BodyName) {
                                                 case "utf-8":
-                                                        this.Execute(new qGen.SetCommand("CHARACTER SET UTF8"));
+                                                        this.ExecuteNonQuery(new qGen.SetCommand("CHARACTER SET UTF8"));
                                                         break;
                                                 case "iso-8859-1":
-                                                        this.Execute(new qGen.SetCommand("CHARACTER SET LATIN1"));
+                                                        this.ExecuteNonQuery(new qGen.SetCommand("CHARACTER SET LATIN1"));
                                                         break;
                                         }
                                         break;
                                 case qGen.SqlModes.PostgreSql:
                                         switch (System.Text.Encoding.Default.BodyName) {
                                                 case "utf-8":
-                                                        this.Execute(new qGen.SetCommand("CLIENT_ENCODING TO 'UTF8'"));
+                                                        this.ExecuteNonQuery(new qGen.SetCommand("CLIENT_ENCODING TO 'UTF8'"));
                                                         break;
                                                 case "iso-8859-1":
-                                                        this.Execute(new qGen.SetCommand("CLIENT_ENCODING TO 'LATIN1'"));
+                                                        this.ExecuteNonQuery(new qGen.SetCommand("CLIENT_ENCODING TO 'LATIN1'"));
                                                         break;
                                         }
                                         break;
@@ -826,20 +826,7 @@ LEFT JOIN pg_attribute
                 }
                 
 
-                public int Execute(qGen.IStatement statementOrQuery)
-                {
-                        if (this.ReadOnly)
-                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
 
-                        if (statementOrQuery is qGen.Update || statementOrQuery is qGen.Insert || statementOrQuery is qGen.Delete) {
-                                if (this.RequiresTransaction && this.m_InTransaction == false)
-                                        throw new InvalidOperationException("Comando fuera una transacción: " + statementOrQuery);
-                        }
-
-                        using (System.Data.IDbCommand Cmd = this.GetCommand(this.Factory.Formatter.SqlText(statementOrQuery))) {
-                                return this.ExecuteNonQuery(Cmd);
-                        }
-                }
 
 
                 public string FieldString(qGen.Select selectCommand)
@@ -1034,15 +1021,15 @@ LEFT JOIN pg_attribute
                         switch (this.SqlMode) {
                                 case qGen.SqlModes.MySql:
                                         if (enable)
-                                                this.Execute(new qGen.SetCommand("FOREIGN_KEY_CHECKS=1"));
+                                                this.ExecuteNonQuery(new qGen.SetCommand("FOREIGN_KEY_CHECKS=1"));
                                         else
-                                                this.Execute(new qGen.SetCommand("FOREIGN_KEY_CHECKS=0"));
+                                                this.ExecuteNonQuery(new qGen.SetCommand("FOREIGN_KEY_CHECKS=0"));
                                         break;
                                 case qGen.SqlModes.PostgreSql:
                                         if (enable)
-                                                this.Execute(new qGen.SetCommand("CONSTRAINTS ALL IMMEDIATE"));
+                                                this.ExecuteNonQuery(new qGen.SetCommand("CONSTRAINTS ALL IMMEDIATE"));
                                         else
-                                                this.Execute(new qGen.SetCommand("CONSTRAINTS ALL DEFERRED"));
+                                                this.ExecuteNonQuery(new qGen.SetCommand("CONSTRAINTS ALL DEFERRED"));
                                         break;
                         }
                         m_ConstraintsEnabled = enable;
@@ -1140,7 +1127,7 @@ LEFT JOIN pg_attribute
                                         throw new ArgumentException("No se reconoce el nivel de aislamiento");
                         }
 
-                        this.Execute(new qGen.SetCommand(SqlCommand + " " + SqlLevel));
+                        this.ExecuteNonQuery(new qGen.SetCommand(SqlCommand + " " + SqlLevel));
                 }
 
 

@@ -106,7 +106,7 @@ namespace Lfx.Data
                         InsertOrUpdate.ColumnValues.AddWithValue("internal", this.Internal ? 1 : 0);
                         InsertOrUpdate.ColumnValues.AddWithValue("access", this.Access);
 
-                        this.Connection.Execute(InsertOrUpdate);
+                        this.Connection.ExecuteNonQuery(InsertOrUpdate);
                 }
         }
 }

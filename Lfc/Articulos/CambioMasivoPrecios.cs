@@ -71,7 +71,7 @@ namespace Lfc.Articulos
                                         ActualizarPrecio.WhereClause = new qGen.Where();
                                         ActualizarPrecio.WhereClause.AddWithValue("id_articulo", ArtId);
 
-                                        this.Connection.Execute(ActualizarPrecio);
+                                        this.Connection.ExecuteNonQuery(ActualizarPrecio);
                                 }
                                 Trans.Commit();
                         }

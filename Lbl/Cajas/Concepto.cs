@@ -62,7 +62,7 @@ namespace Lbl.Cajas
                         else
                                 Comando.ColumnValues.AddWithValue("grupo", this.Grupo);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }

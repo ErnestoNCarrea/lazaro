@@ -59,7 +59,7 @@ namespace Lbl.Articulos
 
 			this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
 			return base.Guardar();
 		}

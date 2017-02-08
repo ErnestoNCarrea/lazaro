@@ -45,7 +45,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                                                 qGen.Update Act = new qGen.Update("comprob_detalle");
                                                 Act.ColumnValues.AddWithValue("costo", Det.Articulo.Costo);
                                                 Act.WhereClause = new qGen.Where("id_comprob_detalle", Det.Id);
-                                                this.Connection.Execute(Act);
+                                                this.Connection.ExecuteNonQuery(Act);
                                         }
                                 }
                         }

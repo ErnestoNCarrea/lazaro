@@ -239,7 +239,7 @@ namespace Lfc.Bancos.Cheques
                                                         Depo.WhereClause = new qGen.Where();
                                                         Depo.WhereClause.AddWithValue("estado", 0);
                                                         Depo.WhereClause.AddWithValue("id_cheque", qGen.ComparisonOperators.In, Codigos);
-                                                        this.Connection.Execute(Depo);
+                                                        this.Connection.ExecuteNonQuery(Depo);
                                                         Trans.Commit();
                                                 }
                                                 foreach (System.Windows.Forms.ListViewItem itm in Listado.Items) {

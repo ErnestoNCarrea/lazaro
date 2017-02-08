@@ -148,7 +148,7 @@ namespace Lbl.Personas
                         }
 
                         this.AgregarTags(Comando);
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
                         return base.Guardar();
                 }
 
@@ -683,7 +683,7 @@ namespace Lbl.Personas
                         ActCmd.ColumnValues.AddWithValue("estado", this.Estado);
                         ActCmd.ColumnValues.AddWithValue("fechabaja", new qGen.SqlExpression("NOW()"));
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActCmd);
+                        this.Connection.ExecuteNonQuery(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");
                 }
 	}

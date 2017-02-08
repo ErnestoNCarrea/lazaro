@@ -34,7 +34,7 @@ namespace Lbl.Sys
 
                         Comando.ColumnValues.AddWithValue("imagen", this.Imagen);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
                         
                         return base.Guardar();
                 }

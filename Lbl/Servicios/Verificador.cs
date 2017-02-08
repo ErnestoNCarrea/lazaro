@@ -63,7 +63,7 @@ HAVING SUM(ctacte.importe)<>(SELECT saldo FROM ctacte WHERE ctacte.id_cliente=pe
                                 qGen.Update PonerNullablesEnNull = new qGen.Update(table.Name);
                                 PonerNullablesEnNull.ColumnValues.AddWithValue(Cons.Column, null);
                                 PonerNullablesEnNull.WhereClause = new qGen.Where(Cons.Column, 0);
-                                this.Connection.Execute(PonerNullablesEnNull);
+                                this.Connection.ExecuteNonQuery(PonerNullablesEnNull);
 
                                 // Busco problemas de integridad referencial
                                 if (Cons.TableName != Cons.ReferenceTable) {
@@ -88,7 +88,7 @@ HAVING SUM(ctacte.importe)<>(SELECT saldo FROM ctacte WHERE ctacte.id_cliente=pe
                                         ElimRefInvalidas.WhereClause = new qGen.Where(Cons.Column, qGen.ComparisonOperators.NotIn, RefValidas);
 
                                         System.Console.WriteLine(ElimRefInvalidas.ToString());
-                                        this.Connection.Execute(ElimRefInvalidas);
+                                        this.Connection.ExecuteNonQuery(ElimRefInvalidas);
                                 }
                         }
                 }

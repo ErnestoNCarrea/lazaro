@@ -158,7 +158,7 @@ namespace Lbl.Bancos
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
                         ActualizarEstado.ColumnValues.AddWithValue("estado", 10);
                         ActualizarEstado.WhereClause =new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActualizarEstado);
+                        this.Connection.ExecuteNonQuery(ActualizarEstado);
                 }
 
                 public int Numero
@@ -316,13 +316,13 @@ namespace Lbl.Bancos
 
 			this.AgregarTags(Comando);
 
-			this.Connection.Execute(Comando);
+			this.Connection.ExecuteNonQuery(Comando);
 
                         if (this.Chequera != null) {
                                 qGen.Update ActualizarChequeras = new qGen.Update("chequeras");
                                 ActualizarChequeras.ColumnValues.AddWithValue("cheques_emitidos", new qGen.SqlExpression("cheques_emitidos+1"));
                                 ActualizarChequeras.WhereClause = new qGen.Where("id_chequera", this.Chequera.Id);
-                                this.Connection.Execute(ActualizarChequeras);
+                                this.Connection.ExecuteNonQuery(ActualizarChequeras);
                         }
 
                         if (this.Existe == false && this.Emitido == false) {
@@ -362,7 +362,7 @@ namespace Lbl.Bancos
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
                                 Act.ColumnValues.AddWithValue("estado", this.Estado);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                this.Connection.Execute(Act);
+                                this.Connection.ExecuteNonQuery(Act);
 
                                 if (this.Emitido == false) {
                                         //Asiento en la cuenta cheques, sólo para cheques de cobro
@@ -420,7 +420,7 @@ namespace Lbl.Bancos
                         qGen.Update ActualizarEstado = new qGen.Update(this.TablaDatos);
                         ActualizarEstado.ColumnValues.AddWithValue("estado", this.Estado);
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActualizarEstado);
+                        this.Connection.ExecuteNonQuery(ActualizarEstado);
                 }
 	}
 }

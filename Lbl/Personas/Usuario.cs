@@ -159,12 +159,12 @@ namespace Lbl.Personas
 
                         Comando.ColumnValues.AddWithValue("tipo", this.Tipo);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         // Eliminar todos los permisos asociados con el usuario
                         qGen.Delete EliminarPermisosActuales = new qGen.Delete("sys_permisos");
                         EliminarPermisosActuales.WhereClause = new qGen.Where("id_persona", this.Id);
-                        this.Connection.Execute(EliminarPermisosActuales);
+                        this.Connection.ExecuteNonQuery(EliminarPermisosActuales);
                         
                         // Guardar la nueva lista de permisos del usuario
                         foreach (Sys.Permisos.Permiso Perm in this.Pemisos) {
@@ -176,7 +176,7 @@ namespace Lbl.Personas
                                 else
                                         InsertarPermiso.ColumnValues.AddWithValue("items", Perm.Item.ToString());
                                 InsertarPermiso.ColumnValues.AddWithValue("ops", (int)(Perm.Operaciones));
-                                this.Connection.Execute(InsertarPermiso);
+                                this.Connection.ExecuteNonQuery(InsertarPermiso);
                         }
 
                         return base.Guardar();

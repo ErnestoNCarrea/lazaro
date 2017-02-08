@@ -25,6 +25,7 @@ namespace Lazaro.Orm.Data
                 void Rollback(Transaction transaction);
 
                 int ExecuteNonQuery(string sqlCommand);
+                int ExecuteNonQuery(qGen.IStatementOrQuery sqlCommand);
                 System.Data.DataTable Select(string selectCommand);
 
                 string CustomizeSql(string sqlOrigen);

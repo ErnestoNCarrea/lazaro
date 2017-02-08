@@ -290,7 +290,7 @@ namespace Lfc.Comprobantes.Facturas
                                                 InsertarComprob.ColumnValues.AddWithValue("obs", "Comprobante anulado antes de ser impreso.");
                                                 InsertarComprob.ColumnValues.AddWithValue("impresa", 1);
                                                 InsertarComprob.ColumnValues.AddWithValue("anulada", 1);
-                                                Connection.Execute(InsertarComprob);
+                                                Connection.ExecuteNonQuery(InsertarComprob);
                                                 m_Id = Connection.FieldInt("SELECT LAST_INSERT_ID()");
                                                 Lbl.Comprobantes.ComprobanteConArticulos NuevoComprob = new Lbl.Comprobantes.ComprobanteConArticulos(this.Connection, m_Id);
                                                 new Lbl.Comprobantes.Numerador(NuevoComprob).Numerar(true);

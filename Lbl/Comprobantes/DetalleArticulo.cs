@@ -587,7 +587,7 @@ namespace Lbl.Comprobantes
 
                         this.AgregarTags(Comando, this.Registro, this.TablaDatos);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }

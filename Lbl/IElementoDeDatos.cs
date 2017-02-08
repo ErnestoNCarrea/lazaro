@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using Lazaro.Orm;
+using Lazaro.Orm.Mapping;
 
 namespace Lbl
 {

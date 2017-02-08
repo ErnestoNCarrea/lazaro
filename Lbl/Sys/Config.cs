@@ -101,7 +101,7 @@ namespace Lbl.Sys
                         qGen.Update DesactComprob = new qGen.Update("documentos_tipos");
                         DesactComprob.ColumnValues.AddWithValue("estado", nuevoPais.Id == 1 ? 1 : 0);
                         DesactComprob.WhereClause = new qGen.Where("letra", qGen.ComparisonOperators.In, new string[] { "FC", "FE", "FM", "NDC", "NDE", "NDM", "NCC", "NCE", "NCM" });
-                        Lfx.Workspace.Master.MasterConnection.Execute(DesactComprob);
+                        Lfx.Workspace.Master.MasterConnection.ExecuteNonQuery(DesactComprob);
 
                         string CarpetaPlantillas = System.IO.Path.Combine(Lfx.Environment.Folders.UserFolder, "Plantillas" + System.IO.Path.DirectorySeparatorChar);
                         string NombrePlantilla;
@@ -160,7 +160,7 @@ namespace Lbl.Sys
                                         Comando.ColumnValues.AddWithValue("item_id", elemento.Id);
                                 }
                                 Comando.ColumnValues.AddWithValue("extra1", extra1);
-                                conn.Execute(Comando);
+                                conn.ExecuteNonQuery(Comando);
                         } catch (System.Exception ex) {
                                 System.Console.WriteLine(ex.ToString());
                         }

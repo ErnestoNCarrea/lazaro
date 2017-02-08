@@ -42,8 +42,6 @@ namespace Lfx.Data
                 Row Row(string tableName, string fieldList, string idField, int id);
                 Row Row(string tableName, string idField, int id);
 
-                int Execute(qGen.IStatement sqlCommand);
-
                 string EscapeString(string stringValue);
         }
 }

@@ -47,7 +47,7 @@ namespace Lbl.Personas
                         else
                                 Comando.ColumnValues.AddWithValue("parent", null);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
                         
                         return base.Guardar();
                 }

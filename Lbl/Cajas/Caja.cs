@@ -148,7 +148,7 @@ namespace Lbl.Cajas
                         Comando.ColumnValues.AddWithValue("cbu", this.ClaveBancaria);
                         Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }
@@ -194,7 +194,7 @@ namespace Lbl.Cajas
 			InsertarMovimiento.ColumnValues.AddWithValue("comprob", comprobantes);
 			InsertarMovimiento.ColumnValues.AddWithValue("saldo", SaldoActual + importe);
 			InsertarMovimiento.ColumnValues.AddWithValue("obs", obs);
-			this.Connection.Execute(InsertarMovimiento);
+			this.Connection.ExecuteNonQuery(InsertarMovimiento);
 		}
 
 
@@ -215,7 +215,7 @@ namespace Lbl.Cajas
                                 qGen.Update Upd = new qGen.Update("cajas_movim");
                                 Upd.ColumnValues.AddWithValue("saldo", Saldo);
                                 Upd.WhereClause = new qGen.Where("id_movim", System.Convert.ToInt32(Movim["id_movim"]));
-                                this.Connection.Execute(Upd);
+                                this.Connection.ExecuteNonQuery(Upd);
 
                                 Progreso.Advance(1);
                         }
@@ -229,7 +229,7 @@ namespace Lbl.Cajas
                         qGen.Update ActCmd = new qGen.Update(this.TablaDatos);
                         ActCmd.ColumnValues.AddWithValue("estado", activar ? 1 : 0);
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActCmd);
+                        this.Connection.ExecuteNonQuery(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");
                 }
 	}

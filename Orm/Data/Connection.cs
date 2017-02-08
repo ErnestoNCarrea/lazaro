@@ -8,6 +8,7 @@ using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
 using qGen;
 using log4net;
+using System.Diagnostics;
 
 namespace Lazaro.Orm.Data
 {
@@ -15,6 +16,7 @@ namespace Lazaro.Orm.Data
         /// Proporciona una conexión a la base de datos y acceso de bajo nivel (sin abstracción) a los datos. Se utiliza normalmente para ejecutar consultas.
         /// Vea Lbl.* para para acceso de alto nivel a los datos.
         /// </summary>
+        [DebuggerDisplay("Name = {Name}")]
         public class Connection : IDisposable, IConnection, System.Data.IDbConnection
         {
                 private static readonly ILog Log = LogManager.GetLogger(typeof(Connection));
@@ -140,20 +142,27 @@ namespace Lazaro.Orm.Data
                 }
 
 
-                public System.Data.IDbCommand GetCommand(string commandText)
+                public System.Data.IDbCommand GetCommand()
                 {
-                        System.Data.IDbCommand TempCommand = this.Factory.Driver.GetCommand();
+                        var TempCommand = this.Factory.Driver.GetCommand();
                         TempCommand.Connection = this.DbConnection;
-                        TempCommand.CommandText = commandText;
-
                         return TempCommand;
                 }
 
-                public System.Data.IDbCommand GetCommand(qGen.IConvertibleToDbCommand command)
+
+                public System.Data.IDbCommand GetCommand(string commandText)
+                {
+                        var TempCommand = this.GetCommand();
+                        TempCommand.CommandText = commandText;
+                        return TempCommand;
+                }
+
+
+                public System.Data.IDbCommand GetCommand(qGen.IStatementOrQuery command)
                 {
                         System.Data.IDbCommand TempCommand = this.Factory.Driver.GetCommand();
                         TempCommand.Connection = this.DbConnection;
-                        return this.Factory.Formatter.SetupDbCommand(command, ref TempCommand, this);
+                        return this.Factory.Formatter.SetupDbCommand(command, this);
                 }
 
                 
@@ -447,6 +456,22 @@ namespace Lazaro.Orm.Data
                                 this.Open();
 
                         return this.Select(this.Factory.Formatter.SqlText(selectCommand));
+                }
+
+
+                public int ExecuteNonQuery(qGen.IStatementOrQuery statementOrQuery)
+                {
+                        if (this.ReadOnly)
+                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
+
+                        if (statementOrQuery is qGen.Update || statementOrQuery is qGen.Insert || statementOrQuery is qGen.Delete) {
+                                if (this.RequiresTransaction && this.m_InTransaction == false)
+                                        throw new InvalidOperationException("Comando fuera una transacción: " + statementOrQuery);
+                        }
+
+                        using (var Cmd = this.Factory.Formatter.SetupDbCommand(statementOrQuery, this)) {
+                                return this.ExecuteNonQuery(Cmd);
+                        }
                 }
 
 

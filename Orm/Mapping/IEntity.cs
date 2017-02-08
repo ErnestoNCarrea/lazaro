@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
-namespace Lazaro.Orm
+namespace Lazaro.Orm.Mapping
 {
         public interface IEntity<T>
         {

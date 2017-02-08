@@ -251,7 +251,7 @@ namespace Lbl.Pagos
                         ActualizarEstado.ColumnValues.AddWithValue("estado", 10);
                         ActualizarEstado.ColumnValues.AddWithValue("fecha_pres", new qGen.SqlExpression("NOW()"));
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActualizarEstado);
+                        this.Connection.ExecuteNonQuery(ActualizarEstado);
                 }
 
 
@@ -261,7 +261,7 @@ namespace Lbl.Pagos
                         ActualizarEstado.ColumnValues.AddWithValue("estado", 20);
                         ActualizarEstado.ColumnValues.AddWithValue("fecha_acred", new qGen.SqlExpression("NOW()"));
                         ActualizarEstado.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActualizarEstado);
+                        this.Connection.ExecuteNonQuery(ActualizarEstado);
                 }
 
 
@@ -363,7 +363,7 @@ namespace Lbl.Pagos
 
 			this.AgregarTags(Comando);
 
-			this.Connection.Execute(Comando);
+			this.Connection.ExecuteNonQuery(Comando);
 
 			return new Lfx.Types.SuccessOperationResult();
 		}
@@ -375,7 +375,7 @@ namespace Lbl.Pagos
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
                                 Act.ColumnValues.AddWithValue("estado", 1);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                this.Connection.Execute(Act);
+                                this.Connection.ExecuteNonQuery(Act);
 
                                 Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, null);
                         }

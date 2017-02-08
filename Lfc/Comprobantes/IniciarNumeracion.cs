@@ -116,7 +116,7 @@ namespace Lfc.Comprobantes
                                 InsertarComprob.ColumnValues.AddWithValue("obs", "Marcador de inicio de numeración.");
                                 InsertarComprob.ColumnValues.AddWithValue("impresa", 1);
                                 InsertarComprob.ColumnValues.AddWithValue("anulada", 1);
-                                this.Connection.Execute(InsertarComprob);
+                                this.Connection.ExecuteNonQuery(InsertarComprob);
                                 Trans.Commit();
                         }
 

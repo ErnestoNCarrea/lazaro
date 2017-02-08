@@ -130,7 +130,7 @@ namespace Lbl.Bancos
                         Comando.ColumnValues.AddWithValue("titular", this.Titular);
                         Comando.ColumnValues.AddWithValue("estado", this.Estado);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
                         this.ActualizarId();
 
                         if (this.Desde > 0 && this.Hasta > 0 && this.Hasta > this.Desde) {
@@ -140,7 +140,7 @@ namespace Lbl.Bancos
                                 Actua.WhereClause.AddWithValue("emitido", 1);
                                 Actua.WhereClause.AddWithValue("id_banco", this.Banco.Id);
                                 Actua.WhereClause.AddWithValue("numero", this.Desde, this.Hasta);
-				Connection.Execute(Actua);
+				Connection.ExecuteNonQuery(Actua);
 				
 				Actua = new qGen.Update("bancos_cheques");
 				Actua.ColumnValues.Add(new Lazaro.Orm.Data.ColumnValue("id_chequera", Lazaro.Orm.ColumnTypes.Integer, null));
@@ -152,7 +152,7 @@ namespace Lbl.Bancos
                                 Numeros.AddWithValue("numero", qGen.ComparisonOperators.LessThan, this.Desde);
                                 Numeros.AddWithValue("numero", qGen.ComparisonOperators.GreaterThan, this.Hasta);
                                 Actua.WhereClause.AddWithValue(Numeros);
-				Connection.Execute(Actua);
+				Connection.ExecuteNonQuery(Actua);
 
                         }
 

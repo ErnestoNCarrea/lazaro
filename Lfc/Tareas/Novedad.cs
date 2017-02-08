@@ -23,7 +23,7 @@ namespace Lfc.Tareas
                                 InsertarNovedad.ColumnValues.AddWithValue("privado", EntradaCondicion.TextKey);
                                 InsertarNovedad.ColumnValues.AddWithValue("descripcion", EntradaDescripcion.Text);
                                 InsertarNovedad.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
-                                this.Connection.Execute(InsertarNovedad);
+                                this.Connection.ExecuteNonQuery(InsertarNovedad);
                                 Trans.Commit();
                         }
 

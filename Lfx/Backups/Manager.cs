@@ -439,7 +439,7 @@ namespace Lfx.Backups
 
                                                                         qGen.Delete DelCmd = new qGen.Delete(TablaActual);
                                                                         DelCmd.EnableDeleleteWithoutWhere = true;
-                                                                        ConnRestaurar.Execute(DelCmd);
+                                                                        ConnRestaurar.ExecuteNonQuery(DelCmd);
                                                                         break;
                                                                 case ":FDL":
                                                                         ListaCampos = Lector.ReadPrefixedString4().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
@@ -468,7 +468,7 @@ namespace Lfx.Backups
                                                         }
                                                         if (EndTable || Insertador.Count >= 1000) {
                                                                 if (Insertador.Count > 0)
-                                                                        ConnRestaurar.Execute(Insertador);
+                                                                        ConnRestaurar.ExecuteNonQuery(Insertador);
                                                                 Insertador.Clear();
                                                                 Progreso.Value = (int)(Lector.Position / 1024);
                                                         }
@@ -521,7 +521,7 @@ namespace Lfx.Backups
                                                                         ArchivoImagen.Close();
 
                                                                         ActualizarBlob.ColumnValues.AddWithValue(Campo, Contenido);
-                                                                        ConnRestaurar.Execute(ActualizarBlob);
+                                                                        ConnRestaurar.ExecuteNonQuery(ActualizarBlob);
                                                                 }
                                                         }
                                                         while (InfoImagen != null);

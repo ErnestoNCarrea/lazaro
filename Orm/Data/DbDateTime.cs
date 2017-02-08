@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics;
 
 namespace System
 {
+        [DebuggerDisplay("Value = {Value}")]
         public class DbDateTime
         {
                 public DateTime Value;

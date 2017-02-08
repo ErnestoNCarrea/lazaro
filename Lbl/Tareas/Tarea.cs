@@ -239,7 +239,7 @@ namespace Lbl.Tareas
 
                         this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
                         this.ActualizarId();
 
                         if (this.RegistroOriginal != null && this.RegistroOriginal["estado"] != this.Registro["estado"])
@@ -248,7 +248,7 @@ namespace Lbl.Tareas
                         if (this.Articulos != null && this.Articulos.HayCambios) {
                                 qGen.Delete EliminarArticulos = new qGen.Delete("tickets_articulos");
                                 EliminarArticulos.WhereClause = new qGen.Where("id_ticket", this.Id);
-                                this.Connection.Execute(EliminarArticulos);
+                                this.Connection.ExecuteNonQuery(EliminarArticulos);
 
                                 int i = 1;
                                 foreach (Lbl.Comprobantes.DetalleArticulo Det in this.Articulos) {
@@ -266,7 +266,7 @@ namespace Lbl.Tareas
                                         InsertarArticulo.ColumnValues.AddWithValue("cantidad", Det.Cantidad);
                                         InsertarArticulo.ColumnValues.AddWithValue("precio", Det.ImporteUnitario);
                                         InsertarArticulo.ColumnValues.AddWithValue("descuento", Det.Descuento);
-                                        Connection.Execute(InsertarArticulo);
+                                        Connection.ExecuteNonQuery(InsertarArticulo);
                                 }
                         }
 

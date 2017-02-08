@@ -18,7 +18,7 @@ namespace Lbl
 
                 public object Tag { get; set; }
 
-                [Column(Type = ColumnTypes.Serial, Id = true)]
+                [Column(Type = ColumnTypes.Integer, Nullable = false, Unique = true, Id = true, GeneratedValueStategy = GeneratedValueStategies.DbGenerated)]
                 protected int m_ItemId = 0;
 
                 [NonSerialized]
@@ -198,12 +198,13 @@ namespace Lbl
 		}
 
 
-		//Campos estándar
-		
+                //Campos estándar
+
                 /// <summary>
                 /// Obtiene o establece el nombre del elemento. Normalmente es el valor guadado en el el campo CampoNombre.
                 /// </summary>
-		public virtual string Nombre
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public virtual string Nombre
 		{
 			get
 			{
@@ -391,7 +392,7 @@ namespace Lbl
                         NuevoCom.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         NuevoCom.ColumnValues.AddWithValue("extra1", texto);
 
-                        this.Connection.Execute(NuevoCom);
+                        this.Connection.ExecuteNonQuery(NuevoCom);
                 }
 
 
@@ -430,12 +431,12 @@ namespace Lbl
                                                 qGen.Update ActualizarImagen = new qGen.Update(this.TablaImagenes);
                                                 ActualizarImagen.ColumnValues.AddWithValue("imagen", null);
                                                 ActualizarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                                this.Connection.Execute(ActualizarImagen);
+                                                this.Connection.ExecuteNonQuery(ActualizarImagen);
                                         } else {
                                                 // Usa una tabla separada para las imágenes
                                                 qGen.Delete EliminarImagen = new qGen.Delete(this.TablaImagenes);
                                                 EliminarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                                this.Connection.Execute(EliminarImagen);
+                                                this.Connection.ExecuteNonQuery(EliminarImagen);
                                         }
                                         Lbl.Sys.Config.ActionLog(this.Connection, Sys.Log.Acciones.Save, this, "Se eliminó la imagen");
                                 } else {
@@ -464,7 +465,7 @@ namespace Lbl
                                                 if (this.TablaImagenes != this.TablaDatos) {
                                                         qGen.Delete EliminarImagen = new qGen.Delete(this.TablaImagenes);
                                                         EliminarImagen.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                                        this.Connection.Execute(EliminarImagen);
+                                                        this.Connection.ExecuteNonQuery(EliminarImagen);
 
                                                         CambiarImagen = new qGen.Insert(this.TablaImagenes);
                                                         CambiarImagen.ColumnValues.AddWithValue(this.CampoId, this.Id);
@@ -474,7 +475,7 @@ namespace Lbl
                                                 }
 
                                                 CambiarImagen.ColumnValues.AddWithValue("imagen", ImagenBytes);
-                                                this.Connection.Execute(CambiarImagen);
+                                                this.Connection.ExecuteNonQuery(CambiarImagen);
                                                 Lbl.Sys.Config.ActionLog(this.Connection, Sys.Log.Acciones.Save, this, "Se cargó una imagen nueva");
                                         }
                                 }
@@ -505,7 +506,7 @@ namespace Lbl
                                 qGen.Delete EliminarEtiquetas = new qGen.Delete("sys_labels_values");
                                 EliminarEtiquetas.WhereClause = new qGen.Where("item_id", this.Id);
                                 EliminarEtiquetas.WhereClause.Add(new qGen.ComparisonCondition("id_label", qGen.ComparisonOperators.In, ListaEtiquetas.GetAllIds()));
-                                this.Connection.Execute(EliminarEtiquetas);
+                                this.Connection.ExecuteNonQuery(EliminarEtiquetas);
                         }
 
                         // Agrego las etiquetas nuevas.
@@ -515,7 +516,7 @@ namespace Lbl
                                         qGen.Insert CrearEtiquetas = new qGen.Insert("sys_labels_values");
                                         CrearEtiquetas.ColumnValues.AddWithValue("id_label", El.Id);
                                         CrearEtiquetas.ColumnValues.AddWithValue("item_id", this.Id);
-                                        this.Connection.Execute(CrearEtiquetas);
+                                        this.Connection.ExecuteNonQuery(CrearEtiquetas);
                                 }
                         }
                 }

@@ -1,9 +1,11 @@
 using System;
 using Lazaro.Orm;
+using System.Diagnostics;
 
 namespace Lazaro.Orm.Data
 {
-	public class ColumnValue : IColumnValue
+        [DebuggerDisplay("Name = {ColumnName}, Value = {Value}")]
+        public class ColumnValue : IColumnValue
 	{
                 public string ColumnName { get; set; }
 		public object Value { get; set; }

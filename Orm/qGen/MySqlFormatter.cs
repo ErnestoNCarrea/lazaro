@@ -2,6 +2,7 @@
 using System.Text;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
+using System.Data;
 
 namespace qGen
 {
@@ -31,10 +32,12 @@ namespace qGen
                 }
 
 
-                public System.Data.IDbCommand SetupDbCommand(Insert insertCommand, ref System.Data.IDbCommand baseCommand, IConnection connection)
+                public System.Data.IDbCommand SetupDbCommand(Insert insertCommand, IConnection connection)
                 {
-                        System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
-                        System.Text.StringBuilder ParamList = new System.Text.StringBuilder();
+                        var FieldList = new System.Text.StringBuilder();
+                        var ParamList = new System.Text.StringBuilder();
+                        var DbCommand = connection.DbConnection.CreateCommand();
+
                         foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
                                 if (FieldList.Length == 0)
                                         FieldList.Append(@"""" + ThisField.ColumnName + @"""");
@@ -45,7 +48,7 @@ namespace qGen
 
                                 if (ThisField.Value is qGen.SqlFunctions) {
                                         switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                case SqlFunctions.FunctNow:
+                                                case SqlFunctions.Now:
                                                         FieldParam = "NOW()";
                                                         break;
                                                 default:
@@ -54,7 +57,7 @@ namespace qGen
                                 } else if (ThisField.Value is qGen.SqlExpression) {
                                         FieldParam = ThisField.Value.ToString();
                                 } else {
-                                        if (baseCommand.Connection is System.Data.Odbc.OdbcConnection)
+                                        if (connection.DbConnection is System.Data.Odbc.OdbcConnection)
                                                 FieldParam = "?";
                                         else
                                                 FieldParam = "@" + ThisField.ColumnName;
@@ -79,11 +82,11 @@ namespace qGen
                                         if (connection.Factory.Driver is OdbcDriver && ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 ((System.Data.Odbc.OdbcParameter)Param).OdbcType = System.Data.Odbc.OdbcType.VarBinary;
 
-                                        baseCommand.Parameters.Add(Param);
+                                        DbCommand.Parameters.Add(Param);
                                 }
 
                         }
-                        baseCommand.CommandText += @"INSERT INTO """ + string.Join<string>(",", insertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
+                        DbCommand.CommandText += @"INSERT INTO """ + string.Join<string>(",", insertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES (" + ParamList.ToString() + ")";
 
                         if (insertCommand.OnDuplicateKeyUpdate) {
                                 var UpdateClause = new StringBuilder();
@@ -94,10 +97,10 @@ namespace qGen
                                                 UpdateClause.Append(@", """ + ThisField.ColumnName + @"""=VALUES(""" + ThisField.ColumnName + @""")");
                                 }
 
-                                baseCommand.CommandText += UpdateClause.ToString();
+                                DbCommand.CommandText += UpdateClause.ToString();
                         }
 
-                        return baseCommand;
+                        return DbCommand;
                 }
 
 
@@ -125,7 +128,7 @@ namespace qGen
                                                 case "SqlFunctions":
                                                 case "qGen.SqlFunctions":
                                                         switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                                case SqlFunctions.FunctNow:
+                                                                case SqlFunctions.Now:
                                                                         ParamValue = "NOW()";
                                                                         break;
                                                                 default:
@@ -212,22 +215,6 @@ namespace qGen
                                 return this.SqlText(command as BuilkInsert);
                         } else {
                                 throw new NotImplementedException("Unrecognized ICommand command type " + command.GetType().ToString());
-                        }
-                }
-
-
-                public System.Data.IDbCommand SetupDbCommand(IConvertibleToDbCommand command, ref System.Data.IDbCommand dbCommand, IConnection connection)
-                {
-                        if(command is Update) {
-                                return this.SetupDbCommand(command as Update, ref dbCommand, connection);
-                        } else if (command is Insert) {
-                                return this.SetupDbCommand(command as Insert, ref dbCommand, connection);
-                        } else if (command is Delete) {
-                                return this.SetupDbCommand(command as Delete, ref dbCommand, connection);
-                        } else if (command is BuilkInsert) {
-                                return SetupDbCommand(command as BuilkInsert, ref dbCommand, connection);
-                        } else {
-                                throw new NotImplementedException("Unrecognized IConvertibleToDbCommand command type");
                         }
                 }
 
@@ -319,16 +306,17 @@ namespace qGen
                 }
 
 
-                public System.Data.IDbCommand SetupDbCommand(Update updateCommand, ref System.Data.IDbCommand dbCommand, IConnection connection)
+                public System.Data.IDbCommand SetupDbCommand(Update updateCommand, IConnection connection)
                 {
-                        dbCommand.Parameters.Clear();
-                        System.Text.StringBuilder FieldList = new System.Text.StringBuilder();
+                        var FieldList = new System.Text.StringBuilder();
+                        var DbCommand = connection.DbConnection.CreateCommand();
+
                         foreach (IColumnValue Fld in updateCommand.ColumnValues) {
                                 string FieldParam;
 
                                 if (Fld.Value is qGen.SqlFunctions) {
                                         switch (((qGen.SqlFunctions)(Fld.Value))) {
-                                                case SqlFunctions.FunctNow:
+                                                case SqlFunctions.Now:
                                                         FieldParam = "NOW()";
                                                         break;
                                                 default:
@@ -337,7 +325,7 @@ namespace qGen
                                 } else if (Fld.Value is qGen.SqlExpression) {
                                         FieldParam = Fld.Value.ToString();
                                 } else {
-                                        if (dbCommand.Connection is System.Data.Odbc.OdbcConnection)
+                                        if (connection.DbConnection is System.Data.Odbc.OdbcConnection)
                                                 FieldParam = "?";
                                         else
                                                 FieldParam = "@" + Fld.ColumnName;
@@ -363,60 +351,25 @@ namespace qGen
                                         // FIXME: no debería hacer una excepción para OdbcDriver
                                         if (connection.Factory.Driver is OdbcDriver && Fld.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                 ((System.Data.Odbc.OdbcParameter)Param).OdbcType = System.Data.Odbc.OdbcType.VarBinary;
-                                        dbCommand.Parameters.Add(Param);
+                                        DbCommand.Parameters.Add(Param);
                                 }
                         }
-                        dbCommand.CommandText = @"UPDATE """ + string.Join<string>(",", updateCommand.Tables) + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
+                        DbCommand.CommandText = @"UPDATE """ + string.Join<string>(",", updateCommand.Tables) + @""" SET " + FieldList.ToString() + " WHERE " + this.SqlText(updateCommand.WhereClause);
 
-                        return dbCommand;
+                        return DbCommand;
                 }
 
                 public string SqlText(Update updateCommand)
                 {
                         var FieldList = new System.Text.StringBuilder();
                         foreach (IColumnValue ThisField in updateCommand.ColumnValues) {
-                                if (FieldList.Length == 0)
+                                if (FieldList.Length == 0) {
                                         FieldList.Append(@"""" + ThisField.ColumnName + @"""");
-                                else
-                                        FieldList.Append(@", """ + ThisField.ColumnName + @"""");
-
-                                string ParamValue;
-                                if (ThisField.Value == null || ThisField.Value == DBNull.Value) {
-                                        ParamValue = "NULL";
                                 } else {
-                                        switch (ThisField.Value.GetType().Name) {
-                                                case "qGen.SqlFunctions":
-                                                        switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                                case SqlFunctions.FunctNow:
-                                                                        ParamValue = "NOW()";
-                                                                        break;
-                                                                default:
-                                                                        throw new NotImplementedException();
-                                                        }
-                                                        break;
-                                                case "Lfx.Data.SqlLiteral":
-                                                case "qGen.SqlExpression":
-                                                case "SqlExpression":
-                                                        ParamValue = ThisField.Value.ToString();
-                                                        break;
-                                                case "System.Single":
-                                                case "System.Double":
-                                                case "System.Decimal":
-                                                        ParamValue = this.FormatDecimal(System.Convert.ToDecimal(ThisField.Value), 8);
-                                                        break;
-                                                case "System.Integer":
-                                                case "System.Int16":
-                                                case "System.Int32":
-                                                case "System.Int64":
-                                                        ParamValue = System.Convert.ToInt32(ThisField.Value).ToString();
-                                                        break;
-                                                default:
-                                                        ParamValue = "'" + this.EscapeString(ThisField.Value.ToString()) + "'";
-                                                        break;
-                                        }
+                                        FieldList.Append(@", """ + ThisField.ColumnName + @"""");
                                 }
 
-                                FieldList.Append("=" + ParamValue);
+                                FieldList.Append("=" + this.FormatValue(ThisField.Value));
 
                         }
 
@@ -511,11 +464,9 @@ namespace qGen
                         } else if (value is qGen.Select) {
                                 // Sub select
                                 return "(" + value.ToString() + ")";
-                        } else if (value is SqlExpression) {
-                                return value.ToString();
                         } else if (value is SqlFunctions) {
                                 switch ((SqlFunctions)value) {
-                                        case SqlFunctions.FunctNow:
+                                        case SqlFunctions.Now:
                                                 return "NOW()";
                                         default:
                                                 return value.ToString();
@@ -678,12 +629,31 @@ namespace qGen
                 }
 
 
-                public static System.Data.IDbCommand SetupDbCommand(BuilkInsert insertCommand, ref System.Data.IDbCommand dbCommand, IConnection connection)
+                public System.Data.IDbCommand SetupDbCommand(IStatementOrQuery statementOrQuery, IConnection connection)
+                {
+                        if (statementOrQuery is Update) {
+                                return this.SetupDbCommand(statementOrQuery as Update, connection);
+                        } else if (statementOrQuery is Insert) {
+                                return this.SetupDbCommand(statementOrQuery as Insert, connection);
+                        } else if (statementOrQuery is Delete) {
+                                return this.SetupDbCommand(statementOrQuery as Delete, connection);
+                        } else if (statementOrQuery is BuilkInsert) {
+                                return SetupDbCommand(statementOrQuery as BuilkInsert, connection);
+                        } else {
+                                var DbCommand = connection.DbConnection.CreateCommand();
+                                DbCommand.CommandText = this.SqlText(statementOrQuery);
+                                return DbCommand;
+                        }
+                }
+
+
+                public static System.Data.IDbCommand SetupDbCommand(BuilkInsert insertCommand, IConnection connection)
                 {
                         if (insertCommand.InsertCommands.Count == 0)
-                                return dbCommand;
+                                return null;
 
-                        var CmdText = new System.Text.StringBuilder(dbCommand.CommandText);
+                        var CmdText = new System.Text.StringBuilder();
+                        var DbCommand = connection.DbConnection.CreateCommand();
 
                         var FieldList = new System.Text.StringBuilder();
                         foreach (var Fld in insertCommand.ColumnValues) {
@@ -704,7 +674,7 @@ namespace qGen
                                         var ParamName = "@" + ThisField.ColumnName + "_" + CmdNum.ToString();
                                         if (ThisField.Value is qGen.SqlFunctions) {
                                                 switch (((qGen.SqlFunctions)(ThisField.Value))) {
-                                                        case SqlFunctions.FunctNow:
+                                                        case SqlFunctions.Now:
                                                                 FieldParam = "NOW()";
                                                                 break;
                                                         default:
@@ -713,7 +683,7 @@ namespace qGen
                                         } else if (ThisField.Value is qGen.SqlExpression) {
                                                 FieldParam = ThisField.Value.ToString();
                                         } else {
-                                                if (dbCommand.Connection is System.Data.Odbc.OdbcConnection)
+                                                if (connection.DbConnection is System.Data.Odbc.OdbcConnection)
                                                         FieldParam = "?";
                                                 else
                                                         FieldParam = ParamName;
@@ -738,7 +708,7 @@ namespace qGen
                                                 if (connection.Factory.Driver is OdbcDriver && ThisField.DataType == Lazaro.Orm.ColumnTypes.Blob)
                                                         ((System.Data.Odbc.OdbcParameter)Param).OdbcType = System.Data.Odbc.OdbcType.VarBinary;
 
-                                                dbCommand.Parameters.Add(Param);
+                                                DbCommand.Parameters.Add(Param);
                                         }
 
                                 }
@@ -748,9 +718,9 @@ namespace qGen
                                 CmdNum++;
                         }
 
-                        dbCommand.CommandText = CmdText.ToString();
+                        DbCommand.CommandText = CmdText.ToString();
 
-                        return dbCommand;
+                        return DbCommand;
                 }
 
                 public string SqlText(BuilkInsert insertCommand)

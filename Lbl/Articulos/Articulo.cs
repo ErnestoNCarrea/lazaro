@@ -431,7 +431,7 @@ namespace Lbl.Articulos
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("id_articulo", this.Id);
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("id_situacion", situacionOrigen.Id);
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("cantidad", -cantidad);
-                                                this.Connection.Execute(InsertarCantidadSituacion);
+                                                this.Connection.ExecuteNonQuery(InsertarCantidadSituacion);
                                         } else {
                                                 // Actualizo el stock en la nueva situación
                                                 qGen.Update ActualizarCantidadSituacion = new qGen.Update("articulos_stock");
@@ -439,7 +439,7 @@ namespace Lbl.Articulos
                                                 ActualizarCantidadSituacion.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionOrigen.Id));
-                                                this.Connection.Execute(ActualizarCantidadSituacion);
+                                                this.Connection.ExecuteNonQuery(ActualizarCantidadSituacion);
                                         }
 
                                         if (seguimiento != null) {
@@ -454,7 +454,7 @@ namespace Lbl.Articulos
                                                         ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                         ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionOrigen.Id));
                                                         ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("serie", Dat.Variacion));
-                                                        this.Connection.Execute(ActualizarSeries);
+                                                        this.Connection.ExecuteNonQuery(ActualizarSeries);
                                                 }
                                         }
 
@@ -470,7 +470,7 @@ namespace Lbl.Articulos
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("id_articulo", this.Id);
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("id_situacion", situacionDestino.Id);
                                                 InsertarCantidadSituacion.ColumnValues.AddWithValue("cantidad", cantidad);
-                                                this.Connection.Execute(InsertarCantidadSituacion);
+                                                this.Connection.ExecuteNonQuery(InsertarCantidadSituacion);
                                         } else {
                                                 // Actualizo el stock en la nueva situación
                                                 qGen.Update ActualizarCantidadSituacion = new qGen.Update("articulos_stock");
@@ -478,7 +478,7 @@ namespace Lbl.Articulos
                                                 ActualizarCantidadSituacion.WhereClause = new qGen.Where(qGen.AndOr.And);
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                 ActualizarCantidadSituacion.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionDestino.Id));
-                                                this.Connection.Execute(ActualizarCantidadSituacion);
+                                                this.Connection.ExecuteNonQuery(ActualizarCantidadSituacion);
                                         }
 
                                         if (seguimiento != null) {
@@ -495,14 +495,14 @@ namespace Lbl.Articulos
                                                                 ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_articulo", this.Id));
                                                                 ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("id_situacion", situacionDestino.Id));
                                                                 ActualizarSeries.WhereClause.Add(new qGen.ComparisonCondition("serie", Dat.Variacion));
-                                                                this.Connection.Execute(ActualizarSeries);
+                                                                this.Connection.ExecuteNonQuery(ActualizarSeries);
                                                         } else {
                                                                 qGen.Insert InsertarSerie = new qGen.Insert("articulos_series");
                                                                 InsertarSerie.ColumnValues.AddWithValue("id_articulo", this.Id);
                                                                 InsertarSerie.ColumnValues.AddWithValue("id_situacion", situacionDestino.Id);
                                                                 InsertarSerie.ColumnValues.AddWithValue("serie", Dat.Variacion);
                                                                 InsertarSerie.ColumnValues.AddWithValue("cantidad", Dat.Cantidad);
-                                                                this.Connection.Execute(InsertarSerie);
+                                                                this.Connection.ExecuteNonQuery(InsertarSerie);
                                                         }
                                                 }
                                         }
@@ -515,7 +515,7 @@ namespace Lbl.Articulos
                                         qGen.Update ActualizarCantidad = new qGen.Update("articulos");
                                         ActualizarCantidad.ColumnValues.AddWithValue("stock_actual", new qGen.SqlExpression(@"""stock_actual""+" + Lfx.Types.Formatting.FormatStockSql(CantidadEntranteOSaliente)));
                                         ActualizarCantidad.WhereClause = new qGen.Where("id_articulo", this.Id);
-                                        this.Connection.Execute(ActualizarCantidad);
+                                        this.Connection.ExecuteNonQuery(ActualizarCantidad);
 
                                         // Si ees un artículo compuesto
                                         // Propagar los cambios de stock hacia abajo.
@@ -535,7 +535,7 @@ namespace Lbl.Articulos
                                                         qGen.Update UpdateSuperArt = new qGen.Update("articulos");
                                                         UpdateSuperArt.ColumnValues.AddWithValue("stock_actual", SuperArt.ObtenerExistencias());
                                                         UpdateSuperArt.WhereClause = new qGen.Where("id_articulo", SuperArt.Id);
-                                                        this.Connection.Execute(UpdateSuperArt);
+                                                        this.Connection.ExecuteNonQuery(UpdateSuperArt);
                                                 }
                                         }
                                 }
@@ -572,7 +572,7 @@ namespace Lbl.Articulos
                         else
                                 Comando.ColumnValues.AddWithValue("id_comprob", comprob.Id);
 			
-			this.Connection.Execute(Comando);
+			this.Connection.ExecuteNonQuery(Comando);
 		}
 
                 /// <summary>
@@ -809,7 +809,7 @@ namespace Lbl.Articulos
 
 			this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         if (this.Existe == false) {
                                 this.ActualizarId();
@@ -829,7 +829,7 @@ namespace Lbl.Articulos
                                         ActualizarPrecio.ColumnValues.AddWithValue("pvp", this.Pvp);
                                         ActualizarPrecio.ColumnValues.AddWithValue("fecha_precio", new qGen.SqlExpression("NOW()"));
                                         ActualizarPrecio.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                        this.Connection.Execute(ActualizarPrecio);
+                                        this.Connection.ExecuteNonQuery(ActualizarPrecio);
 
                                         // Y creo un evento en el historial de precios
 					qGen.Insert AgregarAlHistorialDePrecios = new qGen.Insert("articulos_precios");
@@ -842,14 +842,14 @@ namespace Lbl.Articulos
                                                 AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_margen", this.Margen.Id);
                                         AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("pvp", this.Pvp);
                                         AgregarAlHistorialDePrecios.ColumnValues.AddWithValue("id_persona", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                                        this.Connection.Execute(AgregarAlHistorialDePrecios);
+                                        this.Connection.ExecuteNonQuery(AgregarAlHistorialDePrecios);
                                 }
                         }
 
                         // Si hay una receta guardada, la elimino
                         qGen.Delete EliminarReceta = new qGen.Delete("articulos_recetas");
                         EliminarReceta.WhereClause = new qGen.Where("id_articulo", this.Id);
-                        this.Connection.Execute(EliminarReceta);
+                        this.Connection.ExecuteNonQuery(EliminarReceta);
 
                         // Guardar la receta del artículo, si corresponde
                         if (this.TipoDeArticulo == Articulos.TiposDeArticulo.ProductoCompuesto && this.Receta != null) {
@@ -858,7 +858,7 @@ namespace Lbl.Articulos
                                         InsertarItemReceta.ColumnValues.AddWithValue("id_articulo", this.Id);
                                         InsertarItemReceta.ColumnValues.AddWithValue("id_item", Itm.Articulo.Id);
                                         InsertarItemReceta.ColumnValues.AddWithValue("cantidad", Itm.Cantidad);
-                                        this.Connection.Execute(InsertarItemReceta);
+                                        this.Connection.ExecuteNonQuery(InsertarItemReceta);
                                 }
                         }
 
@@ -878,7 +878,7 @@ namespace Lbl.Articulos
                                         qGen.Update UpdateSuperArt = new qGen.Update("articulos");
                                         UpdateSuperArt.ColumnValues.AddWithValue("costo", SuperArt.ObtenerCosto());
                                         UpdateSuperArt.WhereClause = new qGen.Where("id_articulo", SuperArt.Id);
-                                        this.Connection.Execute(UpdateSuperArt);
+                                        this.Connection.ExecuteNonQuery(UpdateSuperArt);
                                         SuperArt.RecalcularCostoSuperArticulos();
                                 }
                         }
@@ -896,7 +896,7 @@ namespace Lbl.Articulos
                         qGen.Update ActCmd = new qGen.Update(this.TablaDatos);
                         ActCmd.ColumnValues.AddWithValue("estado", activar ? 1 : 0);
                         ActCmd.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                        this.Connection.Execute(ActCmd);
+                        this.Connection.ExecuteNonQuery(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");
                 }
 	}

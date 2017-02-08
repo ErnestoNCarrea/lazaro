@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Lazaro.Orm;
 using Lazaro.Orm.Attributes;
+using Lazaro.Orm.Mapping;
 
 namespace Lbl.Impuestos
 {
@@ -70,7 +71,7 @@ namespace Lbl.Impuestos
 
                         this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }

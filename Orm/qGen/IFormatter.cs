@@ -10,18 +10,15 @@ namespace qGen
                 string EscapeString(string stringValue);
 
                 string SqlText(IStatementOrQuery command);
-                System.Data.IDbCommand SetupDbCommand(IConvertibleToDbCommand command, ref System.Data.IDbCommand dbCommand, IConnection connection);
+                System.Data.IDbCommand SetupDbCommand(IStatementOrQuery command, IConnection connection);
 
-                System.Data.IDbCommand SetupDbCommand(Insert insertCommand, ref System.Data.IDbCommand dbCommand, IConnection connection);
                 string SqlText(Insert insertCommand);
                 string SqlText(Insert insertCommand, bool valuesOnly);
 
-                System.Data.IDbCommand SetupDbCommand(Update updateCommand, ref System.Data.IDbCommand dbCommand, IConnection connection);
                 string SqlText(Update updateCommand);
 
                 string SqlText(Select selectCommand);
 
-                System.Data.IDbCommand SetupDbCommand(Delete deleteCommand, ref System.Data.IDbCommand dbCommand, IConnection connection);
                 string SqlText(Delete deleteCommand);
 
                 string SqlText(Join join);

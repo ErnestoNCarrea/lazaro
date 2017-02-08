@@ -284,7 +284,7 @@ namespace Lbl.Comprobantes
 
                         this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
                         this.ActualizarId();
 
                         string ObsPago = string.Empty;
@@ -590,7 +590,7 @@ namespace Lbl.Comprobantes
                                 qGen.Update Act = new qGen.Update(this.TablaDatos);
                                 Act.ColumnValues.AddWithValue("estado", this.Estado);
                                 Act.WhereClause = new qGen.Where(this.CampoId, this.Id);
-                                this.Connection.Execute(Act);
+                                this.Connection.ExecuteNonQuery(Act);
 
                                 Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, null);
 

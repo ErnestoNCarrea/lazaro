@@ -9,7 +9,6 @@ namespace Lazaro.Orm.Mapping
         {
                 private static readonly ILog Log = LogManager.GetLogger(typeof(AnnotationMetadataFactory));
 
-                public ClassMetadataCollection ClassMetadata { get; set; } = new ClassMetadataCollection();
                 public List<Assembly> Assemblies { get; set; } = new List<Assembly>();
 
                 public AnnotationMetadataFactory()
@@ -58,8 +57,9 @@ namespace Lazaro.Orm.Mapping
                                                 TableName = EntityAttr.TableName,
                                                 Columns = this.ScanClass(Cls)
                                         };
+                                        ClsMeta.ObjectInfo = new Mapping.ObjectInfo(Cls, ClsMeta);
 
-                                        if(string.IsNullOrWhiteSpace(EntityAttr.IdFieldName) == false) {
+                                        if (string.IsNullOrWhiteSpace(EntityAttr.IdFieldName) == false) {
                                                 // Overide id column name at table level, for compatibility with some ORMs
                                                 ClsMeta.Columns.GetIdColumns()[0].Name = EntityAttr.IdFieldName;
                                         }
@@ -76,19 +76,26 @@ namespace Lazaro.Orm.Mapping
 
                         var Members = clsType.GetMembers(BindingFlags.Instance | BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Public);
                         foreach(MemberInfo Mbr in Members) {
-                                var Attrs = Mbr.GetCustomAttributes(typeof(Attributes.Column), true);
-                                if(Attrs.Length > 0) {
-                                        var ColumnAttr = Attrs[0] as Attributes.Column;
+                                var ColAttrs = Mbr.GetCustomAttributes(typeof(Attributes.Column), true);
+                                if(ColAttrs.Length > 0) {
+                                        var ColumnAttr = ColAttrs[0] as Attributes.Column;
                                         var NewCol = new ColumnMetadata()
                                         {
+                                                MemberName = Mbr.Name,
                                                 Id = ColumnAttr.Id,
+                                                GeneratedValueStategy = ColumnAttr.GeneratedValueStategy,
                                                 Name = ColumnAttr.Name,
                                                 Type = ColumnAttr.Type,
                                                 Length = ColumnAttr.Length,
                                                 Precision = ColumnAttr.Precision,
                                                 Nullable = ColumnAttr.Nullable,
-                                                Unique = ColumnAttr.Unique
+                                                Unique = ColumnAttr.Unique,
                                         };
+                                        if(Mbr is PropertyInfo) {
+                                                NewCol.PropertyInfo = Mbr as PropertyInfo;
+                                        } else if (Mbr is FieldInfo) {
+                                                NewCol.FieldInfo = Mbr as FieldInfo;
+                                        }
 
                                         Res.Add(NewCol);
                                 }

@@ -84,7 +84,7 @@ namespace Lbl.Impresion
 
                         this.AgregarTags(Comando);
 
-                        Connection.Execute(Comando);
+                        Connection.ExecuteNonQuery(Comando);
 
                         return base.Guardar();
                 }

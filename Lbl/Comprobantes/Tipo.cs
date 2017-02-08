@@ -474,13 +474,13 @@ namespace Lbl.Comprobantes
 
                         this.AgregarTags(Comando);
 
-                        this.Connection.Execute(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);
 
                         if (this.Impresoras != null && this.Impresoras.HayCambios) {
                                 // Eliminar todas las impresoras asociadas con el tipo
                                 qGen.Delete EliminarImpresorasActuales = new qGen.Delete("comprob_tipo_impresoras");
                                 EliminarImpresorasActuales.WhereClause = new qGen.Where("id_tipo", this.Id);
-                                this.Connection.Execute(EliminarImpresorasActuales);
+                                this.Connection.ExecuteNonQuery(EliminarImpresorasActuales);
 
                                 // Guardar la nueva lista de permisos del usuario
                                 foreach (Lbl.Impresion.TipoImpresora Impr in this.Impresoras) {
@@ -498,7 +498,7 @@ namespace Lbl.Comprobantes
                                         InsertarImpresora.ColumnValues.AddWithValue("estacion", Impr.Estacion);
                                         InsertarImpresora.ColumnValues.AddWithValue("nombre", Impr.Nombre);
 
-                                        this.Connection.Execute(InsertarImpresora);
+                                        this.Connection.ExecuteNonQuery(InsertarImpresora);
                                 }
                         }
 

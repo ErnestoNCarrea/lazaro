@@ -8,6 +8,8 @@ namespace Lazaro.Orm.Attributes
         {
                 public bool Id { get; set; } = false;
                 public ColumnTypes Type { get; set; } = ColumnTypes.VarChar;
+                public GeneratedValueStategies GeneratedValueStategy { get; set; } = GeneratedValueStategies.None;
+
                 public string Name { get; set; }
                 public int Length { get; set; }
                 public int Precision { get; set; }

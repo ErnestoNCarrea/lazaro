@@ -72,7 +72,7 @@ namespace Lbl.Comprobantes
 
                         ActualizarComprob.WhereClause = new qGen.Where(this.Comprob.CampoId, this.Comprob.Id);
 
-                        this.Comprob.Connection.Execute(ActualizarComprob);
+                        this.Comprob.Connection.ExecuteNonQuery(ActualizarComprob);
                 }
 
                 /// <summary>

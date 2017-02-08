@@ -69,7 +69,7 @@ namespace Lfx.Services
 
                         try {
                                 using (System.Data.IDbTransaction Trans = this.DataBase.BeginTransaction()) {
-                                        this.DataBase.Execute(Comando);
+                                        this.DataBase.ExecuteNonQuery(Comando);
                                         Trans.Commit();
                                 }
                         }
@@ -128,8 +128,8 @@ namespace Lfx.Services
                                 Actualizar.ColumnValues.AddWithValue("estado", 1);
 
                                 using (System.Data.IDbTransaction Trans = this.DataBase.BeginTransaction()) {
-                                        this.DataBase.Execute(Actualizar);
-                                        this.DataBase.Execute(new qGen.Delete("sys_programador", new qGen.Where("fecha", qGen.ComparisonOperators.LessThan, System.DateTime.Now.AddDays(-7))));
+                                        this.DataBase.ExecuteNonQuery(Actualizar);
+                                        this.DataBase.ExecuteNonQuery(new qGen.Delete("sys_programador", new qGen.Where("fecha", qGen.ComparisonOperators.LessThan, System.DateTime.Now.AddDays(-7))));
                                         Trans.Commit();
                                 }
 

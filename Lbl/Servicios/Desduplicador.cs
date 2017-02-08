@@ -37,7 +37,7 @@ namespace Lbl.Servicios
                                         // Quito la imagen del elemento duplicado... para que no choque con la original
                                         qGen.Delete QuitarImagen = new qGen.Delete("personas_imagenes");
                                         QuitarImagen.WhereClause = new qGen.Where("id_persona", this.IdDuplicado);
-                                        this.Connection.Execute(QuitarImagen);
+                                        this.Connection.ExecuteNonQuery(QuitarImagen);
                                         break;
                         }
 
@@ -48,13 +48,13 @@ namespace Lbl.Servicios
                                 qGen.Update Upd = new qGen.Update(Rel.ReferenceTable);
                                 Upd.ColumnValues.AddWithValue(Rel.ReferenceColumn, IdOriginal);
                                 Upd.WhereClause = new qGen.Where(Rel.ReferenceColumn, IdDuplicado);
-                                this.Connection.Execute(Upd);
+                                this.Connection.ExecuteNonQuery(Upd);
                         }
 
                         // Ahora que no queda nada apuntando al registro duplicado, lo elimino
                         qGen.Delete Del = new qGen.Delete(this.TablaOriginal);
                         Del.WhereClause = new qGen.Where(this.CampoIdOriginal, this.IdDuplicado);
-                        this.Connection.Execute(Del);
+                        this.Connection.ExecuteNonQuery(Del);
 
                         // Le doy tratamiento especial a algunas situaciones
                         switch (TablaOriginal) {

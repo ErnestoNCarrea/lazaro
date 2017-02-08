@@ -1,5 +1,7 @@
+using Lazaro.Orm;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
+using Lazaro.Orm.Mapping;
 using Lfx.Data;
 using log4net;
 using qGen;
@@ -37,6 +39,7 @@ namespace Lfx
                 public IDriver Driver { get; set; }
                 public IFormatter Formatter { get; set; }
                 public ConnectionParameters ConnectionParameters { get; set; }
+                public AnnotationMetadataFactory MetadataFactory { get; set; }
 
                 private TableCollection m_Tables = null;
 
@@ -90,10 +93,8 @@ namespace Lfx
                         System.Threading.Thread.CurrentThread.CurrentCulture = this.CultureInfo;
                         System.Threading.Thread.CurrentThread.CurrentUICulture = this.CultureInfo;
 
-                        var Fact = new Lazaro.Orm.Mapping.AnnotationMetadataFactory();
-
-                        Fact.ScanFolder(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location), true);
-                        Fact.Init();
+                        this.MetadataFactory = new Lazaro.Orm.Mapping.AnnotationMetadataFactory();
+                        this.MetadataFactory.ScanFolder(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location), true);
                 }
 
 
@@ -235,6 +236,17 @@ namespace Lfx
 
                         GC.SuppressFinalize(this);
                 }
+
+
+                public EntityManager GetEntityManager(string ownerName)
+                {
+                        var Res = new EntityManager(this.GetNewConnection(ownerName));
+
+                        Res.MetadataFactory = this.MetadataFactory;
+
+                        return Res;
+                }
+
 
                 public Lazaro.Orm.Data.IConnection GetNewConnection(string ownerName)
                 {
