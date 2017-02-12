@@ -459,6 +459,13 @@ namespace Lazaro.Orm.Data
                 }
 
 
+                public int GetLastInsertId()
+                {
+                        var Tbl = this.Select("SELECT LAST_INSERT_ID()");
+                        return System.Convert.ToInt32(Tbl.Rows[0][0]);
+                }
+
+
                 public int ExecuteNonQuery(qGen.IStatementOrQuery statementOrQuery)
                 {
                         if (this.ReadOnly)

@@ -240,9 +240,7 @@ namespace Lfx
 
                 public EntityManager GetEntityManager(string ownerName)
                 {
-                        var Res = new EntityManager(this.GetNewConnection(ownerName));
-
-                        Res.MetadataFactory = this.MetadataFactory;
+                        var Res = new EntityManager(this.GetNewConnection(ownerName), this.MetadataFactory);
 
                         return Res;
                 }

@@ -64,7 +64,7 @@ namespace Lazaro.Orm.Mapping
                         var IdColumns = this.ClassMetadata.Columns.GetIdColumns();
 
                         foreach (var IdCol in IdColumns) {
-                                IdDefaultValues.Add(GetDefault(IdCol.GetType()));
+                                IdDefaultValues.Add(GetDefault(IdCol.MemberType));
                         }
 
                         return IdDefaultValues.ToArray();
@@ -91,6 +91,18 @@ namespace Lazaro.Orm.Mapping
                                 return col.PropertyInfo.GetValue(obj, null);
                         } else if (col.FieldInfo != null) {
                                 return col.FieldInfo.GetValue(obj);
+                        } else {
+                                throw new ApplicationException("Column has no associated field or property.");
+                        }
+                }
+
+
+                public void SetColumnValue(object obj, ColumnMetadata col, object newValue)
+                {
+                        if (col.PropertyInfo != null) {
+                                col.PropertyInfo.SetValue(obj, newValue, null);
+                        } else if (col.FieldInfo != null) {
+                                col.FieldInfo.SetValue(obj, newValue);
                         } else {
                                 throw new ApplicationException("Column has no associated field or property.");
                         }

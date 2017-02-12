@@ -32,7 +32,6 @@ namespace Lfx.Data
                 DateTime FieldDateTime(string selectCommand, DateTime defaultValue);
                 string FieldIntCSV(string selectCommand);
 
-                System.Data.DataTable Select(qGen.Select selectCommand);
                 int Update(qGen.Update updateCommand);
                 int Delete(qGen.Delete deleteCommand);
                 int Insert(qGen.Insert insertCommand);

@@ -93,8 +93,10 @@ namespace Lazaro.Orm.Mapping
                                         };
                                         if(Mbr is PropertyInfo) {
                                                 NewCol.PropertyInfo = Mbr as PropertyInfo;
+                                                NewCol.MemberType = NewCol.PropertyInfo.PropertyType;
                                         } else if (Mbr is FieldInfo) {
                                                 NewCol.FieldInfo = Mbr as FieldInfo;
+                                                NewCol.MemberType = NewCol.FieldInfo.FieldType;
                                         }
 
                                         Res.Add(NewCol);

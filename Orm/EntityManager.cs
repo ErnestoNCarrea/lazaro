@@ -10,11 +10,12 @@ namespace Lazaro.Orm
         public class EntityManager : IEntityManager
         {
                 public IConnection Connection { get; set; }
-                public Mapping.IMetadataFactory MetadataFactory { get; set; }
+                public IMetadataFactory MetadataFactory { get; set; }
 
-                public EntityManager(IConnection connection)
+                public EntityManager(IConnection connection, IMetadataFactory metadataFactory)
                 {
                         this.Connection = connection;
+                        this.MetadataFactory = metadataFactory;
                 }
 
                 
@@ -48,6 +49,15 @@ namespace Lazaro.Orm
                         }
 
                         this.Connection.ExecuteNonQuery(InsertOrUpdate);
+
+                        if (InsertOrUpdate is qGen.Insert) {
+                                foreach (var Col in ClassMetadata.Columns) {
+                                        if (Col.GeneratedValueStategy == GeneratedValueStategies.DbGenerated) {
+                                                ClassMetadata.ObjectInfo.SetColumnValue(entity, Col, this.Connection.GetLastInsertId());
+                                                break;
+                                        }
+                                }
+                        }
                 }
         }
 }

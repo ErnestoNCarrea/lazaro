@@ -26,7 +26,11 @@ namespace Lazaro.Orm.Data
 
                 int ExecuteNonQuery(string sqlCommand);
                 int ExecuteNonQuery(qGen.IStatementOrQuery sqlCommand);
-                System.Data.DataTable Select(string selectCommand);
+
+                System.Data.DataTable Select(string select);
+                System.Data.DataTable Select(qGen.Select select);
+
+                int GetLastInsertId();
 
                 string CustomizeSql(string sqlOrigen);
         }
