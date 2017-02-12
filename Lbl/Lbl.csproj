@@ -134,6 +134,7 @@
     <Compile Include="Consultas\Parametro.cs" />
     <Compile Include="CuentasCorrientes\Movimiento.cs" />
     <Compile Include="Entidades\ClaveUnica.cs" />
+    <Compile Include="IEntidad.cs" />
     <Compile Include="Notificaciones\Administrador.cs" />
     <Compile Include="Notificaciones\ColeccionUsuarioConectado.cs" />
     <Compile Include="Notificaciones\INotificacion.cs" />

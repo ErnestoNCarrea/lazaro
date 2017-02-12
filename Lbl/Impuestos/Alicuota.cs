@@ -15,7 +15,7 @@ namespace Lbl.Impuestos
         [Lbl.Atributos.Presentacion()]
 
         [Entity(TableName = "alicuotas", IdFieldName = "id_alicuota")]
-        public class Alicuota : ElementoDeDatos, IEntity<Alicuota>
+        public class Alicuota : ElementoDeDatos, IEntity<Alicuota>, IEntidad
         {
                 public Alicuota(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
@@ -56,7 +56,11 @@ namespace Lbl.Impuestos
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.IStatement Comando;
+                        var Em = new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory);
+
+                        Em.Persist(this);
+
+                        /* qGen.IStatement Comando;
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
@@ -71,7 +75,7 @@ namespace Lbl.Impuestos
 
                         this.AgregarTags(Comando);
 
-                        this.Connection.ExecuteNonQuery(Comando);
+                        this.Connection.ExecuteNonQuery(Comando); */
 
                         return base.Guardar();
                 }
