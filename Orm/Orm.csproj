@@ -57,6 +57,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Association.cs" />
+    <Compile Include="Attributes\Id.cs" />
+    <Compile Include="Attributes\ManyToOne.cs" />
+    <Compile Include="Attributes\OneToOne.cs" />
+    <Compile Include="Attributes\OneToMany.cs" />
+    <Compile Include="Attributes\ManyToMany.cs" />
     <Compile Include="Attributes\Model.cs" />
     <Compile Include="Attributes\Column.cs" />
     <Compile Include="Attributes\Entity.cs" />
@@ -84,6 +90,8 @@
     <Compile Include="IdentifierStategies.cs" />
     <Compile Include="IEntityManager.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Mapping\AssociationMetadata.cs" />
+    <Compile Include="Mapping\AssociationTypes.cs" />
     <Compile Include="Mapping\ClassMetadata.cs" />
     <Compile Include="Mapping\ClassMetadataCollection.cs" />
     <Compile Include="Mapping\ColumnMetadata.cs" />

@@ -1,7 +1,9 @@
 ﻿using log4net;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Lazaro.Orm.Attributes;
 
 namespace Lazaro.Orm.Mapping
 {
@@ -26,6 +28,7 @@ namespace Lazaro.Orm.Mapping
                                 }
                         } */
                 }
+
 
                 public void ScanFolder(string folderName, bool recursive)
                 {
@@ -67,8 +70,11 @@ namespace Lazaro.Orm.Mapping
                                         this.ClassMetadata.Add(Cls.FullName, ClsMeta);
                                 }
                         }
-                }
 
+
+                        this.FillAssociationInfo();
+                }
+                
 
                 private ColumnMetadataCollection ScanClass(Type clsType)
                 {
@@ -77,30 +83,65 @@ namespace Lazaro.Orm.Mapping
                         var Members = clsType.GetMembers(BindingFlags.Instance | BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.NonPublic | BindingFlags.Public);
                         foreach(MemberInfo Mbr in Members) {
                                 var ColAttrs = Mbr.GetCustomAttributes(typeof(Attributes.Column), true);
-                                if(ColAttrs.Length > 0) {
-                                        var ColumnAttr = ColAttrs[0] as Attributes.Column;
-                                        var NewCol = new ColumnMetadata()
-                                        {
-                                                MemberName = Mbr.Name,
-                                                Id = ColumnAttr.Id,
-                                                GeneratedValueStategy = ColumnAttr.GeneratedValueStategy,
-                                                Name = ColumnAttr.Name,
-                                                Type = ColumnAttr.Type,
-                                                Length = ColumnAttr.Length,
-                                                Precision = ColumnAttr.Precision,
-                                                Nullable = ColumnAttr.Nullable,
-                                                Unique = ColumnAttr.Unique,
-                                        };
-                                        if(Mbr is PropertyInfo) {
-                                                NewCol.PropertyInfo = Mbr as PropertyInfo;
-                                                NewCol.MemberType = NewCol.PropertyInfo.PropertyType;
-                                        } else if (Mbr is FieldInfo) {
-                                                NewCol.FieldInfo = Mbr as FieldInfo;
-                                                NewCol.MemberType = NewCol.FieldInfo.FieldType;
+                                if(ColAttrs.Length == 1) {
+                                        var NewCol = ColumnMetadataFromColumnAttribute(Mbr, ColAttrs[0] as Attributes.Column);
+
+                                        var IdAttrs = Mbr.GetCustomAttributes(typeof(Attributes.Id), true);
+                                        if (IdAttrs.Length == 1) {
+                                                NewCol.Id = true;
+                                        }
+
+                                        var AssocAttrs = Mbr.GetCustomAttributes(typeof(Attributes.Association), true);
+                                        if (AssocAttrs.Length == 1) {
+                                                NewCol.AssociationMetada = AssociationMetadataFromAttribute(AssocAttrs[0] as Attributes.Association);
                                         }
 
                                         Res.Add(NewCol);
                                 }
+
+                        }
+
+                        return Res;
+                }
+
+                private AssociationMetadata AssociationMetadataFromAttribute(Association assocAttr)
+                {
+                        var Res = new Mapping.AssociationMetadata();
+
+                        if (assocAttr is Attributes.ManyToMany) {
+                                Res.AssociationType = AssociationTypes.ManyToMany;
+                        } else if (assocAttr is Attributes.ManyToOne) {
+                                Res.AssociationType = AssociationTypes.ManyToOne;
+                        } else if (assocAttr is Attributes.OneToMany) {
+                                Res.AssociationType = AssociationTypes.OneToMany;
+                        } else if (assocAttr is Attributes.OneToOne) {
+                                Res.AssociationType = AssociationTypes.OneToOne;
+                        }
+
+                        return Res;
+                }
+
+                protected ColumnMetadata ColumnMetadataFromColumnAttribute(MemberInfo mbrInfo, Attributes.Column colAttr)
+                {
+                        var Res = new ColumnMetadata()
+                        {
+                                MemberName = mbrInfo.Name,
+                                Id = colAttr.Id,
+                                GeneratedValueStategy = colAttr.GeneratedValueStategy,
+                                Name = colAttr.Name,
+                                Type = colAttr.Type,
+                                Length = colAttr.Length,
+                                Precision = colAttr.Precision,
+                                Nullable = colAttr.Nullable,
+                                Unique = colAttr.Unique,
+                        };
+
+                        if (mbrInfo is PropertyInfo) {
+                                Res.PropertyInfo = mbrInfo as PropertyInfo;
+                                Res.MemberType = Res.PropertyInfo.PropertyType;
+                        } else if (mbrInfo is FieldInfo) {
+                                Res.FieldInfo = mbrInfo as FieldInfo;
+                                Res.MemberType = Res.FieldInfo.FieldType;
                         }
 
                         return Res;

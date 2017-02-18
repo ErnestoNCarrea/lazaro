@@ -11,6 +11,8 @@ namespace Lazaro.Orm.Mapping
                 public PropertyInfo PropertyInfo { get; internal set; }
                 public FieldInfo FieldInfo { get; internal set; }
 
+                public AssociationMetadata AssociationMetada { get; set; }
+
                 public bool Id { get; internal set; }
                 public GeneratedValueStategies GeneratedValueStategy { get; internal set; }
                 public string Name { get; internal set; }
