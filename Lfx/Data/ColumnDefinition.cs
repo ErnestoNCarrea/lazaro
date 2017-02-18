@@ -40,7 +40,7 @@ namespace Lfx.Data
                         switch (FieldType) {
                                 case ColumnTypes.Serial:
                                         return "$SERIAL$";
-                                case ColumnTypes.Relation:
+                                case ColumnTypes.Association:
                                         Def = "MEDIUMINT";
                                         break;
                                 case ColumnTypes.DateTime:
