@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +9,9 @@ namespace Lbl.Articulos
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Rubro", Grupo = "Artículos")]
         [Lbl.Atributos.Datos(TablaDatos = "articulos_rubros", CampoId = "id_rubro")]
         [Lbl.Atributos.Presentacion()]
-	public class Rubro : ElementoDeDatos
+
+        [Entity(TableName = "articulos_rubros", IdFieldName = "id_rubro")]
+        public class Rubro : ElementoDeDatos
 	{
                 private Lbl.Impuestos.Alicuota m_Alicuota = null;
 
@@ -22,7 +26,11 @@ namespace Lbl.Articulos
 
 		public override Lfx.Types.OperationResult Guardar()
                 {
-			qGen.IStatement Comando;
+                        var Em = new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory);
+
+                        Em.Persist(this);
+
+                        /* qGen.IStatement Comando;
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
@@ -39,11 +47,13 @@ namespace Lbl.Articulos
 
 			this.AgregarTags(Comando);
 
-                        this.Connection.ExecuteNonQuery(Comando);
+                        this.Connection.ExecuteNonQuery(Comando); */
 
 			return base.Guardar();
 		}
 
+                [Column(Name = "id_alicuota", Type = ColumnTypes.Integer)]
+                [ManyToOne]
                 public Lbl.Impuestos.Alicuota Alicuota
                 {
                         get

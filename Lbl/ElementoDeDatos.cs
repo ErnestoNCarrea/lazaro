@@ -19,6 +19,7 @@ namespace Lbl
                 public object Tag { get; set; }
 
                 [Column(Type = ColumnTypes.Integer, Nullable = false, Unique = true, Id = true, GeneratedValueStategy = GeneratedValueStategies.DbGenerated)]
+                [Id]
                 protected int m_ItemId = 0;
 
                 [NonSerialized]

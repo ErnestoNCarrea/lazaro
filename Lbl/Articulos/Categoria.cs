@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +9,8 @@ namespace Lbl.Articulos
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Categoría de Artículos", Grupo = "Artículos")]
         [Lbl.Atributos.Datos(TablaDatos = "articulos_categorias", CampoId = "id_categoria")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "articulos_categorias", IdFieldName = "id_categoria")]
         public class Categoria : ElementoDeDatos, IElementoConImagen
 	{
                 protected Rubro m_Rubro = null;
@@ -21,8 +25,9 @@ namespace Lbl.Articulos
                 public Categoria(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-		
-		public virtual string NombreSingular
+
+                [Column(Name = "nombresing", Type = ColumnTypes.VarChar)]
+                public virtual string NombreSingular
 		{
 			get
 			{
@@ -34,7 +39,8 @@ namespace Lbl.Articulos
 			}
 		}
 
-		public decimal PuntoDeReposicion
+                [Column(Name = "stock_minimo", Type = ColumnTypes.Numeric)]
+                public decimal PuntoDeReposicion
 		{
 			get
 			{
@@ -46,6 +52,7 @@ namespace Lbl.Articulos
 			}
 		}
 
+                [Column(Name = "garantia", Type = ColumnTypes.Integer)]
                 public int Garantia
                 {
                         get
@@ -58,7 +65,8 @@ namespace Lbl.Articulos
                         }
                 }
 
-		public int PublicacionWeb
+                [Column(Name = "web", Type = ColumnTypes.SmallInt)]
+                public int PublicacionWeb
 		{
 			get
 			{
@@ -70,6 +78,8 @@ namespace Lbl.Articulos
 			}
 		}
 
+
+                [Column(Name = "requierens", Type = ColumnTypes.Integer)]
                 public Seguimientos Seguimiento
                 {
                         get
@@ -97,6 +107,8 @@ namespace Lbl.Articulos
                 }
 
 
+                [Column(Name = "id_rubro")]
+                [ManyToOne]
                 public Rubro Rubro
                 {
                         get
@@ -113,6 +125,9 @@ namespace Lbl.Articulos
                         }
                 }
 
+
+                [Column(Name = "id_alicuota")]
+                [ManyToOne]
                 public Lbl.Impuestos.Alicuota Alicuota
                 {
                         get
@@ -140,7 +155,11 @@ namespace Lbl.Articulos
 
 		public override Lfx.Types.OperationResult Guardar()
                 {
-			qGen.IStatement Comando;
+                        var Em = new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory);
+
+                        Em.Persist(this);
+
+                        /* qGen.IStatement Comando;
 
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
@@ -167,7 +186,7 @@ namespace Lbl.Articulos
 
 			this.AgregarTags(Comando);
 
-                        this.Connection.ExecuteNonQuery(Comando);
+                        this.Connection.ExecuteNonQuery(Comando); */
 
 			return base.Guardar();
 		}

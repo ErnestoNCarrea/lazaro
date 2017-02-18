@@ -10,6 +10,7 @@ namespace Lbl
         public interface IElementoDeDatos : IEquatable<ElementoDeDatos>
         {
                 Lfx.Data.IConnection Connection { get; set;  }
+
                 int Id { get; }
                 string TablaDatos { get; }
                 string TablaImagenes { get; }
