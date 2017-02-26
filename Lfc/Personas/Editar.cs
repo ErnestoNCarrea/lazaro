@@ -112,7 +112,7 @@ namespace Lfc.Personas
                                                                 return new Lfx.Types.SuccessOperationResult();
                                                         case DialogResult.Cancel:
                                                                 //Volver a la edición
-                                                                return new Lfx.Types.OperationResult(false);
+                                                                return new Lfx.Types.CancelOperationResult();
                                                 }
                                         }
                                 }

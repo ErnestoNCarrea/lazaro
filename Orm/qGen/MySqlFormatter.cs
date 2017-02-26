@@ -91,7 +91,7 @@ namespace qGen
                         if (insertCommand.OnDuplicateKeyUpdate) {
                                 var UpdateClause = new StringBuilder();
                                 foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
-                                        if (UpdateClause == null)
+                                        if (UpdateClause.Length == 0)
                                                 UpdateClause.Append(@" ON DUPLICATE KEY UPDATE """ + ThisField.ColumnName + @"""=VALUES(""" + ThisField.ColumnName + @""")");
                                         else
                                                 UpdateClause.Append(@", """ + ThisField.ColumnName + @"""=VALUES(""" + ThisField.ColumnName + @""")");
@@ -621,11 +621,13 @@ namespace qGen
                         return Res;
                 }
 
-                public System.Data.IDbCommand SetupDbCommand(Delete deleteCommand, ref System.Data.IDbCommand dbCommand, IConnection connection)
+                public System.Data.IDbCommand SetupDbCommand(Delete deleteCommand, IConnection connection)
                 {
-                        dbCommand.CommandText = this.SqlText(deleteCommand);
+                        var DbCommand = connection.DbConnection.CreateCommand();
 
-                        return dbCommand;
+                        DbCommand.CommandText = this.SqlText(deleteCommand);
+
+                        return DbCommand;
                 }
 
 

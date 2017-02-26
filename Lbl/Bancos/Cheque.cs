@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,9 @@ namespace Lbl.Bancos
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Cheque", Grupo = "Cobros y pagos")]
         [Lbl.Atributos.Datos(TablaDatos = "bancos_cheques", CampoId = "id_cheque")]
         [Lbl.Atributos.Presentacion()]
-	public class Cheque : ElementoDeDatos
+
+        [Entity(TableName = "bancos_cheques", IdFieldName = "id_cheque")]
+        public class Cheque : ElementoDeDatos
 	{
                 public Bancos.Banco Banco;
                 public Lbl.Comprobantes.Recibo m_Recibo, m_ReciboPago;
@@ -77,6 +80,7 @@ namespace Lbl.Bancos
                 }
 
 
+                [Column(Name = "id_recibo")]
                 public Lbl.Comprobantes.Recibo ReciboCobro
                 {
                         get
@@ -92,6 +96,7 @@ namespace Lbl.Bancos
                 }
 
 
+                [Column(Name = "id_recibo_pago")]
                 public Lbl.Comprobantes.Recibo ReciboPago
                 {
                         get
@@ -121,6 +126,8 @@ namespace Lbl.Bancos
 			return Res;
 		}
 
+
+                [Column(Name = "emitido")]
                 public bool Emitido
                 {
                         get
@@ -133,6 +140,8 @@ namespace Lbl.Bancos
                         }
                 }
 
+
+                [Column(Name = "emitidopor")]
                 public string Emisor
                 {
                         get
@@ -144,6 +153,7 @@ namespace Lbl.Bancos
                                 this.Registro["emitidopor"] = value;
                         }
                 }
+
 
                 public void Pagar(Lbl.Cajas.Caja cajaOrigen)
                 {
@@ -161,6 +171,8 @@ namespace Lbl.Bancos
                         this.Connection.ExecuteNonQuery(ActualizarEstado);
                 }
 
+
+                [Column(Name = "numero")]
                 public int Numero
                 {
                         get
@@ -173,6 +185,8 @@ namespace Lbl.Bancos
                         }
                 }
 
+
+                [Column(Name = "concepto")]
                 public string ConceptoTexto
                 {
                         get
@@ -185,6 +199,8 @@ namespace Lbl.Bancos
                         }
                 }
 
+
+                [Column(Name = "importe")]
                 public decimal Importe
                 {
                         get
@@ -197,6 +213,8 @@ namespace Lbl.Bancos
                         }
                 }
 
+
+                [Column(Name = "fechaemision")]
                 public DbDateTime FechaEmision
                 {
                         get
@@ -209,6 +227,8 @@ namespace Lbl.Bancos
                         }
                 }
 
+
+                [Column(Name = "fechacobro")]
                 public DbDateTime FechaCobro
                 {
                         get
@@ -220,6 +240,7 @@ namespace Lbl.Bancos
                                 this.Registro["fechacobro"] = value;
                         }
                 }
+
 
                 public bool Anulado
                 {

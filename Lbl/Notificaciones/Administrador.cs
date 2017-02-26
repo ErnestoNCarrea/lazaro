@@ -163,10 +163,7 @@ namespace Lbl.Notificaciones
                                                 Lfx.Workspace.Master.RunTime.Notify(Destino, Res);
 
                                                 // Se lo notifico directamente al componente
-                                                if (Lfx.Components.Manager.ComponentesCargados[Destino].Funciones.ContainsKey("Notify")) {
-                                                        Lfx.Components.Manager.ComponentesCargados[Destino].Funciones["Notify"].Instancia.Arguments = new object[] { Res };
-                                                        Lfx.Components.Manager.ComponentesCargados[Destino].Funciones["Notify"].Run();
-                                                }
+                                                Lfx.Components.Manager.ComponentesCargados[Destino].ComponentInstance.Do("Notify", new object[] { Res });
                                         } else {
                                                 Lfx.Workspace.Master.RunTime.Notify(Destino, Res);
                                         }

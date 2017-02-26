@@ -26,7 +26,7 @@ namespace Lbl.Articulos
                         : base(dataBase, row) { }
 
 
-                [Column(Name = "nombresing", Type = ColumnTypes.VarChar)]
+                [Column(Name = "nombresing")]
                 public virtual string NombreSingular
 		{
 			get
@@ -39,7 +39,7 @@ namespace Lbl.Articulos
 			}
 		}
 
-                [Column(Name = "stock_minimo", Type = ColumnTypes.Numeric)]
+                [Column(Name = "stock_minimo")]
                 public decimal PuntoDeReposicion
 		{
 			get
@@ -52,7 +52,7 @@ namespace Lbl.Articulos
 			}
 		}
 
-                [Column(Name = "garantia", Type = ColumnTypes.Integer)]
+                [Column(Name = "garantia")]
                 public int Garantia
                 {
                         get
@@ -65,7 +65,7 @@ namespace Lbl.Articulos
                         }
                 }
 
-                [Column(Name = "web", Type = ColumnTypes.SmallInt)]
+                [Column(Name = "web")]
                 public int PublicacionWeb
 		{
 			get
@@ -79,7 +79,7 @@ namespace Lbl.Articulos
 		}
 
 
-                [Column(Name = "requierens", Type = ColumnTypes.Integer)]
+                [Column(Name = "requierens")]
                 public Seguimientos Seguimiento
                 {
                         get

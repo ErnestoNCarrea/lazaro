@@ -274,7 +274,7 @@ namespace Lazaro.WinMain.Principal
 
                 private void CargarMenuComponentes()
                 {
-                        foreach (Lfx.Components.IComponent CompInfo in Lfx.Components.Manager.ComponentesCargados.Values) {
+                        foreach (Lfx.Components.IComponentInfo CompInfo in Lfx.Components.Manager.ComponentesCargados.Values) {
                                 // Registro el componente
                                 Lfx.Types.OperationResult Res = Lfx.Components.Manager.RegisterComponent(CompInfo);
 

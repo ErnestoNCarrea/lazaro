@@ -69,6 +69,11 @@
     <OutputPath>bin\x86\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.7\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -119,6 +124,7 @@
     <Compile Include="Cajas\Movimiento.Designer.cs">
       <DependentUpon>Movimiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Component.cs" />
     <Compile Include="Comprobantes\Compra\Editar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -388,8 +394,6 @@
     <Compile Include="FormularioListadoBase.Designer.cs">
       <DependentUpon>FormularioListadoBase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Funciones\GetTypes.cs" />
-    <Compile Include="Funciones\Try.cs" />
     <Compile Include="Importar\ImportarArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1154,6 +1158,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\contact-new.png" />
     <None Include="Resources\edit-copy.png" />
     <None Include="Resources\edit-undo.png" />

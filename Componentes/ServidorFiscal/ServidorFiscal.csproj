@@ -106,11 +106,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component.cs" />
     <Compile Include="Forms\Estado.Designer.cs">
       <DependentUpon>Estado.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Componente.cs" />
+    <Compile Include="ServidorFiscal.cs" />
     <Compile Include="Forms\Estado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,26 +141,32 @@
     <ProjectReference Include="..\..\Base\Base.csproj">
       <Project>{c47fcc4e-7d7e-4b81-acf8-af83b0997566}</Project>
       <Name>Base</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Lbl\Lbl.csproj">
       <Project>{56F39851-6542-405C-9F47-E8414B757EF6}</Project>
       <Name>Lbl</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Lfx\Lfx.csproj">
       <Project>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</Project>
       <Name>Lfx</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Lui\Lui.csproj">
       <Project>{FD8409C3-35CF-4F30-8898-F4CC17FC35D6}</Project>
       <Name>Lui</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Orm\Orm.csproj">
       <Project>{01085c08-19ad-4390-9822-1895ac99167a}</Project>
       <Name>Orm</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\Pres\Pres.csproj">
       <Project>{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}</Project>
       <Name>Pres</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

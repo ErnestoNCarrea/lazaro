@@ -27,7 +27,7 @@ namespace Lbl.Impuestos
                         : base(dataBase, row) { }
 
 
-                [Column(Name = "porcentaje", Type = ColumnTypes.Numeric)]
+                [Column(Name = "porcentaje")]
                 public decimal Porcentaje
                 {
                         get
@@ -40,7 +40,7 @@ namespace Lbl.Impuestos
                         }
                 }
 
-                [Column(Name = "importe_minimo", Type = ColumnTypes.Numeric)]
+                [Column(Name = "importe_minimo")]
                 public decimal ImporteMinimo
                 {
                         get

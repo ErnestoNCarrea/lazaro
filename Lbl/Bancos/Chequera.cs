@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,8 @@ namespace Lbl.Bancos
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Chequera", Grupo = "Bancos")]
         [Lbl.Atributos.Datos(TablaDatos = "chequeras", CampoId = "id_chequera")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "chequeras", IdFieldName = "id_chequera")]
         public class Chequera : ElementoDeDatos, ICamposBaseEstandar
         {
                 public Bancos.Banco Banco;
@@ -31,6 +34,7 @@ namespace Lbl.Bancos
                 }
 
 
+                [Column(Name = "titular")]
                 public string Titular
                 {
                         get
@@ -43,6 +47,7 @@ namespace Lbl.Bancos
                         }
                 }
 
+                [Column(Name = "prefijo")]
                 public int Prefijo
                 {
                         get
@@ -55,6 +60,7 @@ namespace Lbl.Bancos
                         }
                 }
 
+                [Column(Name = "desde")]
                 public int Desde
                 {
                         get
@@ -67,6 +73,7 @@ namespace Lbl.Bancos
                         }
                 }
 
+                [Column(Name = "hasta")]
                 public int Hasta
                 {
                         get

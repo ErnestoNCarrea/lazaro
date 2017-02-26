@@ -195,7 +195,7 @@ namespace Lfc.Comprobantes.Facturas
                 {
                         Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.Elemento as Lbl.Comprobantes.ComprobanteConArticulos;
                         if (Comprob.Articulos.Count >= 1 && (Comprob.Articulos[0].Cantidad < 0 || Comprob.Articulos[0].ImporteUnitario < 0))
-                                return new Lfx.Types.OperationResult(false, "El primer ítem de la factura no puede ser negativo. Utilice los ítem negativos en último lugar.");
+                                return new Lfx.Types.FailureOperationResult("El primer ítem de la factura no puede ser negativo. Utilice los ítem negativos en último lugar.");
 
                         Comprob.Cliente.Cargar();
 
@@ -266,7 +266,7 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                                                                         break;
                                                                 default:
                                                                         //Cancelar y volver a la edición.
-                                                                        return new Lfx.Types.OperationResult(false);
+                                                                        return new Lfx.Types.CancelOperationResult();
                                                         }
                                                 }
                                         }

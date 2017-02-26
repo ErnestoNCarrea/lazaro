@@ -52,7 +52,7 @@ namespace Lbl.Articulos
 			return base.Guardar();
 		}
 
-                [Column(Name = "id_alicuota", Type = ColumnTypes.Integer)]
+                [Column(Name = "id_alicuota")]
                 [ManyToOne]
                 public Lbl.Impuestos.Alicuota Alicuota
                 {

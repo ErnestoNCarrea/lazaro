@@ -7,7 +7,7 @@ namespace Lfx.Types
         /// <summary>
         /// Representa el resultado de una operación.
         /// </summary>
-	public class OperationResult
+	public abstract class OperationResult
 	{
 		public bool Success = false;
 		public string Message = null;

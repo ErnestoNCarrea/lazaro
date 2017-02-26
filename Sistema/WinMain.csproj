@@ -104,6 +104,10 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -304,34 +308,42 @@
     <ProjectReference Include="..\Base\Base.csproj">
       <Project>{c47fcc4e-7d7e-4b81-acf8-af83b0997566}</Project>
       <Name>Base</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Lbl\Lbl.csproj">
       <Project>{56F39851-6542-405C-9F47-E8414B757EF6}</Project>
       <Name>Lbl</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Lcc\Lcc.csproj">
       <Project>{AB7DC5CD-044F-4573-A295-4D702EFD4D8B}</Project>
       <Name>Lcc</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Lfc\Lfc.csproj">
       <Project>{F17DC014-DB1E-4278-820C-EA49B2B92C79}</Project>
       <Name>Lfc</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Lfx\Lfx.csproj">
       <Project>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</Project>
       <Name>Lfx</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Lui\Lui.csproj">
       <Project>{FD8409C3-35CF-4F30-8898-F4CC17FC35D6}</Project>
       <Name>Lui</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Orm\Orm.csproj">
       <Project>{01085c08-19ad-4390-9822-1895ac99167a}</Project>
       <Name>Orm</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Pres\Pres.csproj">
       <Project>{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}</Project>
       <Name>Pres</Name>
+      <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

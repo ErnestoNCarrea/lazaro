@@ -118,18 +118,13 @@
     <Compile Include="Components\Action.cs" />
     <Compile Include="Components\ActionCollection.cs" />
     <Compile Include="Components\Attributes\Component.cs" />
-    <Compile Include="Components\IFunction.cs" />
-    <Compile Include="Components\RegisterFunction.cs" />
-    <Compile Include="Components\FunctionInfo.cs" />
-    <Compile Include="Components\FunctionTypes.cs" />
-    <Compile Include="Components\GetTypesFunction.cs" />
     <Compile Include="Components\IComponent.cs" />
+    <Compile Include="Components\FunctionTypes.cs" />
+    <Compile Include="Components\IComponentInfo.cs" />
     <Compile Include="Components\IRegisteredType.cs" />
     <Compile Include="Components\MenuEntry.cs" />
-    <Compile Include="Components\FunctionInfoCollection.cs" />
     <Compile Include="Components\RegisteredType.cs" />
     <Compile Include="Components\RegisteredTypeCollection.cs" />
-    <Compile Include="Components\TryFunction.cs" />
     <Compile Include="Data\Aggregate.cs" />
     <Compile Include="Data\Grouping.cs" />
     <Compile Include="Data\IConnection.cs" />
@@ -149,7 +144,6 @@
     <Compile Include="Updates\Package.cs" />
     <Compile Include="Updates\PackageCollection.cs" />
     <Compile Include="Updates\Updater.cs" />
-    <Compile Include="Components\Function.cs" />
     <Compile Include="Components\Manager.cs" />
     <Compile Include="Config\CompanyConfig.cs" />
     <Compile Include="Config\ConfigManager.cs" />
@@ -244,7 +238,6 @@
       <Link>log4net.config</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

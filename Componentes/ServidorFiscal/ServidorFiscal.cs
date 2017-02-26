@@ -6,20 +6,9 @@ using System.Data;
 namespace ServidorFiscal
 {
         /// <summary>
-        /// La función Try se usa para decidir si cargar el componente o no.
-        /// </summary>
-        public class Try : Lfx.Components.TryFunction
-        {
-                public override object Run()
-                {
-                        return new Lfx.Types.SuccessOperationResult();
-                }
-        }
-
-        /// <summary>
         /// Servidor de Impresora Fiscal
         /// </summary>
-        public class ServidorFiscal : Lfx.Components.Function
+        public class ServidorFiscal 
         {
                 public Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.Impresora Impresora;
                 private Lbl.Comprobantes.PuntoDeVenta m_PuntoDeVenta = null;
@@ -29,12 +18,7 @@ namespace ServidorFiscal
                 private Forms.Estado FormEstado = null;
                 public Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.ImpresoraEventArgs UltimoEvento;
 
-                public ServidorFiscal()
-                {
-                        this.FunctionType = Lfx.Components.FunctionTypes.Loadable;
-                }
-
-                public override object Run(bool wait)
+                public object Run(object[] argv)
                 {
                         try {
                                 Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(ThreadExceptionHandler);
@@ -73,7 +57,7 @@ namespace ServidorFiscal
                         Watchdog.Elapsed += new System.Timers.ElapsedEventHandler(EventoWatchdog);
                         Watchdog.Start();
 
-                        if (wait) {
+                        if (true) {
                                 while (Impresora.EstadoServidor != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Apagando
                                         && Impresora.EstadoServidor != Lazaro.Base.Util.Impresion.Comprobantes.Fiscal.EstadoServidorFiscal.Reiniciando) {
                                         System.Threading.Thread.Sleep(100);
@@ -329,11 +313,7 @@ namespace ServidorFiscal
                         FormEstado.Close();
 
                         if (reboot) {
-                                string[] ParametrosAPasar = (string[])(this.Arguments);
-                                ParametrosAPasar[0] = "";
-                                string Params = string.Join(" ", ParametrosAPasar).Trim();
-
-                                Lfx.Environment.Shell.Execute(this.ExecutableName, Params, System.Diagnostics.ProcessWindowStyle.Minimized, false);
+                                Lfx.Environment.Shell.Execute(System.Environment.CommandLine, string.Join(" ", System.Environment.GetCommandLineArgs()), System.Diagnostics.ProcessWindowStyle.Minimized, false);
                         }
                         System.Windows.Forms.Application.Exit();
                 }

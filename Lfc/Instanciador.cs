@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,6 +7,8 @@ namespace Lfc
 {
         public static class Instanciador
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Instanciador));
+
                 /// <summary>
                 /// Crea un formulario de edición para el ElementoDeDatos proporcionado.
                 /// </summary>
@@ -34,6 +37,8 @@ namespace Lfc
 
                 public static Lfc.FormularioListado InstanciarFormularioListado(Type tipo, string args)
                 {
+                        Log.Info("Instanciando " + tipo.FullName);
+
                         object Res;
                         if (args == null || args == string.Empty) {
                                 Res = Activator.CreateInstance(tipo);
@@ -49,9 +54,11 @@ namespace Lfc
                         }
 
                         if (Res is Lazaro.Pres.Listings.Listing) {
+                                Log.Info("Devolvió Lazaro.Pres.Listings.Listing, creando un formulario para contenerlo");
                                 Lfc.FormularioListado NewForm = new Lfc.FormularioListado(Res as Lazaro.Pres.Listings.Listing);
                                 return NewForm;
                         } else {
+                                Log.Info("Devolvió " + Res.GetType().FullName + ", que deriva de " + Res.GetType().BaseType.FullName);
                                 return Res as Lfc.FormularioListado;
                         }
                 }

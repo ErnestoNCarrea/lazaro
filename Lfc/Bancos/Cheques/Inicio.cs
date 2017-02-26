@@ -279,7 +279,7 @@ namespace Lfc.Bancos.Cheques
                                         this.RefreshList();
                                         return new Lfx.Types.SuccessOperationResult();
                                 } else {
-                                        return new Lfx.Types.OperationResult(false);
+                                        return new Lfx.Types.CancelOperationResult();
                                 }
                         } else {
                                 return new Lfx.Types.FailureOperationResult("Por favor marque uno o más cheques a pagar.");

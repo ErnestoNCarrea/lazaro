@@ -1,3 +1,5 @@
+using Lfx.Components;
+using log4net;
 using System;
 using System.Collections.Generic;
 
@@ -9,11 +11,14 @@ namespace Lbl.Componentes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Componente", Grupo = "Sistema")]
         [Lbl.Atributos.Datos(TablaDatos = "sys_components", CampoId = "id_component")]
         [Lbl.Atributos.Presentacion()]
-        public class Componente : ElementoDeDatos, Lfx.Components.IComponent
+        public class Componente : ElementoDeDatos, Lfx.Components.IComponentInfo
         {
-                public Lfx.Components.FunctionInfoCollection Funciones { get; set; }
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Componente));
+
+                //public Lfx.Components.FunctionInfoCollection Funciones { get; set; }
                 public Lfx.Components.RegisteredTypeCollection TiposRegistrados { get; set; }
                 public System.Reflection.Assembly Assembly { get; set; }
+                public Lfx.Components.IComponent ComponentInstance { get; set; }
                 public IList<Lfx.Components.MenuEntry> MenuEntries { get; set; }
                 public string CifFileName { get; set; }
                 public bool Disabled { get; set; }
@@ -182,12 +187,12 @@ namespace Lbl.Componentes
                         if (this.Cif == null)
                                 return;
 
-                        System.Xml.XmlDocument DocumentoCif = new System.Xml.XmlDocument();
+                        var DocumentoCif = new System.Xml.XmlDocument();
                         DocumentoCif.LoadXml(this.Cif);
-                        System.Xml.XmlNodeList ListaComponentes = DocumentoCif.GetElementsByTagName("Component");
+                        var ListaComponentes = DocumentoCif.GetElementsByTagName("Component");
                         //Abro el/los nodo(s) de componentes
-                        foreach (System.Xml.XmlNode Componente in ListaComponentes) {
-                                System.Xml.XmlNodeList NodosMenu = DocumentoCif.GetElementsByTagName("MenuItem");
+                        foreach (var Componente in ListaComponentes) {
+                                var NodosMenu = DocumentoCif.GetElementsByTagName("MenuItem");
                                 foreach (System.Xml.XmlNode NodoMenu in NodosMenu) {
                                         if (this.MenuEntries == null)
                                                 this.MenuEntries = new List<Lfx.Components.MenuEntry>();
@@ -206,7 +211,7 @@ namespace Lbl.Componentes
                                 }
 
                                 // Cargo las funciones personalizadas
-                                System.Xml.XmlNodeList NodosFunciones = DocumentoCif.GetElementsByTagName("Function");
+                                /* System.Xml.XmlNodeList NodosFunciones = DocumentoCif.GetElementsByTagName("Function");
                                 foreach (System.Xml.XmlNode NodoFuncion in NodosFunciones) {
                                         Lfx.Components.FunctionInfo Func = new Lfx.Components.FunctionInfo(this);
                                         Func.Nombre = NodoFuncion.Attributes["name"].Value;
@@ -216,7 +221,7 @@ namespace Lbl.Componentes
 
                                                 this.Funciones.Add(Func);
                                         }
-                                }
+                                } */
                         }
                 }
 
@@ -227,7 +232,7 @@ namespace Lbl.Componentes
 
                                 if (Lfx.Workspace.Master.DebugMode) {
                                         WhereToLook = new string[] {
-                                                System.IO.Path.Combine(Lfx.Environment.Folders.ApplicationFolder, @"../../../Componentes/bin/dev/" + this.EspacioNombres + ".dll"),
+                                                System.IO.Path.Combine(Lfx.Environment.Folders.ApplicationFolder, @"../../../Componentes/bin/Debug/" + this.EspacioNombres + ".dll"),
                                                 System.IO.Path.Combine(Lfx.Environment.Folders.ComponentsFolder, this.EspacioNombres + System.IO.Path.DirectorySeparatorChar + this.EspacioNombres + ".dll"),
 					        Lfx.Environment.Folders.ComponentsFolder + this.EspacioNombres + ".dll",
 					        Lfx.Environment.Folders.ApplicationFolder + this.EspacioNombres + ".dll"
@@ -243,6 +248,7 @@ namespace Lbl.Componentes
                                 foreach (string Archivo in WhereToLook) {
                                         if (System.IO.File.Exists(Archivo)) {
                                                 try {
+                                                        Log.Info("Cargando componente desde " + Archivo);
                                                         this.Assembly = System.Reflection.Assembly.LoadFrom(Archivo);
                                                         break;
                                                 } catch {
@@ -266,32 +272,12 @@ namespace Lbl.Componentes
                                         }
                                 }
 
-                                this.TiposRegistrados = new Lfx.Components.RegisteredTypeCollection();
-                                this.Funciones = new Lfx.Components.FunctionInfoCollection();
 
-                                // Creo la función Try, que la tienen que definir todos los componentes
-                                Lfx.Components.FunctionInfo TryFunc = new Lfx.Components.FunctionInfo(this);
-                                TryFunc.Nombre = "Try";
-                                this.Funciones.Add(TryFunc);
-
-                                // Creo la función Register, que la tienen que definir todos los componentes
-                                Lfx.Components.FunctionInfo RegisterFunc = new Lfx.Components.FunctionInfo(this);
-                                RegisterFunc.Nombre = "Register";
-                                this.Funciones.Add(RegisterFunc);
-
-                                // Creo la función GetTypes, que la tienen que definir todos los componentes
-                                Lfx.Components.FunctionInfo GetTypesFunc = new Lfx.Components.FunctionInfo(this);
-                                GetTypesFunc.Nombre = "GetTypes";
-                                this.Funciones.Add(GetTypesFunc);
+                                var Cmp = Assembly.CreateInstance(this.EspacioNombres + ".Component");
+                                this.ComponentInstance = Cmp as IComponent;
+                                this.ComponentInstance.Workspace = Lfx.Workspace.Master;
 
                                 this.LoadCif();
-
-                                // Agrego los tipos registrados
-                                this.Funciones["Register"].Run();
-
-                                Lfx.Components.RegisteredTypeCollection Col = this.Funciones["GetTypes"].Run() as Lfx.Components.RegisteredTypeCollection;
-                                if (Col != null)
-                                        this.TiposRegistrados.AddRange(Col);
 
                                 return new Lfx.Types.SuccessOperationResult();
                         }

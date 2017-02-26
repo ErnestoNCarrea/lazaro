@@ -1,10 +1,17 @@
+﻿using Lfx.Components;
+using System;
+using Lfx;
+using Lfx.Types;
+
 namespace Lfc
 {
-        public class GetTypes : Lfx.Components.GetTypesFunction
+        public class Component : IComponent
         {
-                public override object Run()
+                public Workspace Workspace { get; set; }
+
+                public RegisteredTypeCollection GetRegisteredTypes()
                 {
-                        Lfx.Components.RegisteredTypeCollection Res = new Lfx.Components.RegisteredTypeCollection();
+                        var Res = new Lfx.Components.RegisteredTypeCollection();
 
                         // Ordenados por TipoLbl
 
@@ -314,6 +321,26 @@ namespace Lfc
                                 }));
 
                         return Res;
+                }
+
+                public OperationResult Register()
+                {
+                        return new SuccessOperationResult();
+                }
+
+                public OperationResult Run()
+                {
+                        return new SuccessOperationResult();
+                }
+
+                public OperationResult Try()
+                {
+                        return new SuccessOperationResult();
+                }
+
+                public object Do(string actionName, object[] argv)
+                {
+                        return new FailureOperationResult("No existe la función " + actionName);
                 }
         }
 }

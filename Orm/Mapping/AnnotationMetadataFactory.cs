@@ -50,7 +50,7 @@ namespace Lazaro.Orm.Mapping
 
                         foreach (var Cls in assembly.GetExportedTypes()) {
                                 var Attr = Cls.GetCustomAttributes(typeof(Attributes.Entity), false);
-                                if (Attr.Length > 0) {
+                                if (Attr.Length > 0 && this.ClassMetadata.ContainsKey(Cls.FullName) == false) {
                                         var EntityAttr = Attr[0] as Attributes.Entity;
                                         Log.Info("Entity found on " + Cls.FullName);
 
@@ -142,6 +142,22 @@ namespace Lazaro.Orm.Mapping
                         } else if (mbrInfo is FieldInfo) {
                                 Res.FieldInfo = mbrInfo as FieldInfo;
                                 Res.MemberType = Res.FieldInfo.FieldType;
+                        }
+
+                        if (Res.Type == ColumnTypes.None) {
+                                if (Res.MemberType.IsEnum) {
+                                        Res.Type = ColumnTypes.SmallInt;
+                                } else if (Res.MemberType.IsInstanceOfType(typeof(int))) {
+                                        Res.Type = ColumnTypes.Integer;
+                                } else if (Res.MemberType.IsInstanceOfType(typeof(decimal))) {
+                                        Res.Type = ColumnTypes.Numeric;
+                                } else if (Res.MemberType.IsInstanceOfType(typeof(string))) {
+                                        Res.Type = ColumnTypes.VarChar;
+                                } else if (Res.MemberType.IsInstanceOfType(typeof(DateTime))) {
+                                        Res.Type = ColumnTypes.DateTime;
+                                } else {
+                                        throw new ApplicationException("Unable to infer column type from " + Res.MemberType.ToString() + " for member " + Res.MemberName);
+                                }
                         }
 
                         return Res;

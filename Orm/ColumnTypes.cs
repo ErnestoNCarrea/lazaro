@@ -4,6 +4,7 @@ namespace Lazaro.Orm
 {
         public enum ColumnTypes
         {
+                None = 0,
                 Serial,
                 Association,
                 Integer,

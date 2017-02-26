@@ -41,7 +41,7 @@ namespace Lfx.Data
                                 case AccessModes.MySql:
                                         ConnectionString.Append("Convert Zero Datetime=true;");
                                         ConnectionString.Append("Connection Timeout=10;");
-                                        ConnectionString.Append("Default Command Timeout=30;");
+                                        ConnectionString.Append("Default Command Timeout=300;");
                                         ConnectionString.Append("Allow User Variables=True;");
                                         ConnectionString.Append("Allow Batch=True;");
                                         // ConnectionString.Append("KeepAlive=20;");     // No sirve, uso KeepAlive propio

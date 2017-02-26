@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Lfx.Components;
 
 namespace Lazaro.WinMain
 {
@@ -222,23 +223,18 @@ namespace Lazaro.WinMain
                                         if (Lfx.Components.Manager.ComponentesCargados.ContainsKey(NombreComponente) == false) {
                                                 return new Lfx.Types.FailureOperationResult("No se encuentra el componente " + NombreComponente);
                                         } else {
-                                                Lfx.Components.IComponent Componente = Lfx.Components.Manager.ComponentesCargados[NombreComponente];
-                                                if (Componente.Funciones.ContainsKey(NombreFuncion) == false) {
-                                                        return new Lfx.Types.FailureOperationResult("No se encuentra el la función " + NombreComponente + "." + NombreFuncion);
-                                                } else {
-                                                        Lfx.Components.FunctionInfo Funcion = Componente.Funciones[NombreFuncion];
-                                                        object RunResult = Funcion.Run();
+                                                IComponentInfo Componente = Lfx.Components.Manager.ComponentesCargados[NombreComponente];
+                                                object DoResult = Componente.ComponentInstance.Do(NombreFuncion, null);
 
-                                                        if (RunResult is System.Windows.Forms.Form) {
-                                                                if (Funcion.Instancia.FunctionType == Lfx.Components.FunctionTypes.MdiChildren)
-                                                                        ((System.Windows.Forms.Form)(RunResult)).MdiParent = Aplicacion.Flotante ? null : Aplicacion.FormularioPrincipal;
-                                                                ((System.Windows.Forms.Form)(RunResult)).Show();
-                                                        } else if (RunResult is Lfx.Types.OperationResult) {
-                                                                Lfx.Types.OperationResult OpeResult = RunResult as Lfx.Types.OperationResult;
-                                                                if (OpeResult.Message != null && OpeResult.Message.Length > 0)
-                                                                        Lfx.Workspace.Master.RunTime.Toast(OpeResult.Message, OpeResult.Success ? "Aviso" : "Error");
-                                                        }
-
+                                                if (DoResult is System.Windows.Forms.Form) {
+                                                        var FormResult = DoResult as System.Windows.Forms.Form;
+                                                        //if (Funcion.Instancia.FunctionType == Lfx.Components.FunctionTypes.MdiChildren)
+                                                        FormResult.MdiParent = Aplicacion.Flotante ? null : Aplicacion.FormularioPrincipal;
+                                                        FormResult.Show();
+                                                } else if (DoResult is Lfx.Types.OperationResult) {
+                                                        Lfx.Types.OperationResult OpeResult = DoResult as Lfx.Types.OperationResult;
+                                                        if (OpeResult.Message != null && OpeResult.Message.Length > 0)
+                                                                Lfx.Workspace.Master.RunTime.Toast(OpeResult.Message, OpeResult.Success ? "Aviso" : "Error");
                                                 }
                                         }
                                         break;
@@ -258,7 +254,7 @@ namespace Lazaro.WinMain
                                         if (Lfx.Workspace.Master.DebugMode)
                                                 throw new NotImplementedException(comando);
                                         else
-                                                return new Lfx.Types.OperationResult(false);
+                                                return new Lfx.Types.FailureOperationResult("No existe el comando " + comando);
                         }
 
                         return null;
@@ -278,7 +274,7 @@ namespace Lazaro.WinMain
                         if (Lfx.Components.Manager.ComponentesCargados.ContainsKey(Prefijo) == false)
                                 return new Lfx.Types.FailureOperationResult("No se reconoce el prefijo " + Prefijo);
 
-                        Lfx.Components.IComponent Comp = Lfx.Components.Manager.ComponentesCargados[Prefijo];
+                        Lfx.Components.IComponentInfo Comp = Lfx.Components.Manager.ComponentesCargados[Prefijo];
                         Type Tipo = Comp.Assembly.GetType(Prefijo + "." + SubComando);
 
                         object Res = null;

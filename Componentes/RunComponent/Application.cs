@@ -47,20 +47,7 @@ namespace RunComponent
                                 Comp.EspacioNombres = ComponentName;
                                 Lfx.Components.Manager.RegisterComponent(Comp);
 
-                                Lfx.Components.IFunction Funcion = null;
-                                try {
-                                        Funcion = Comp.Funciones[FunctionName].Instancia;
-                                } catch (Exception ex) {
-                                        System.Windows.Forms.MessageBox.Show(ex.ToString(), "Error");
-                                }
-                                if (Funcion != null) {
-                                        Funcion.Workspace = Lfx.Workspace.Master;
-                                        Funcion.ExecutableName = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                                        Funcion.Arguments = Environment.GetCommandLineArgs();
-                                        Funcion.Run(true);
-                                } else {
-                                        System.Windows.Forms.MessageBox.Show("No se puede ejecutar " + ComponentName + "." + FunctionName, "Error");
-                                }
+                                Comp.ComponentInstance.Do(FunctionName, Environment.GetCommandLineArgs());
                         } else {
                                 Console.WriteLine("Uso:");
                                 Console.WriteLine("    RunComponent [NombreComponente] [NombreFuncion]");
