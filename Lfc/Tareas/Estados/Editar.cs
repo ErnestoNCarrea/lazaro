@@ -10,7 +10,7 @@ namespace Lfc.Tareas.Estados
         {
                 public Editar()
                 {
-                        ElementoTipo = typeof(Lbl.Tareas.Estado);
+                        ElementoTipo = typeof(Lbl.Tareas.EstadoTarea);
 
                         InitializeComponent();
 
@@ -19,7 +19,7 @@ namespace Lfc.Tareas.Estados
 
                 public override void ActualizarControl()
                 {
-                        Lbl.Tareas.Estado Elem = this.Elemento as Lbl.Tareas.Estado;
+                        Lbl.Tareas.EstadoTarea Elem = this.Elemento as Lbl.Tareas.EstadoTarea;
 
                         EntradaNombre.Text = Elem.Nombre;
                         EntradaObs.Text = Elem.Obs;
@@ -29,7 +29,7 @@ namespace Lfc.Tareas.Estados
 
                 public override void ActualizarElemento()
                 {
-                        Lbl.Tareas.Estado Elem = this.Elemento as Lbl.Tareas.Estado;
+                        Lbl.Tareas.EstadoTarea Elem = this.Elemento as Lbl.Tareas.EstadoTarea;
 
                         Elem.Nombre = EntradaNombre.Text;
                         Elem.Obs = EntradaObs.Text;

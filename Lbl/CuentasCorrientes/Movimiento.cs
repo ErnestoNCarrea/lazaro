@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -17,6 +19,53 @@ namespace Lbl.CuentasCorrientes
 
                 public Movimiento(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// Obtiene o establece un texto que representa las observaciones del elemento.
+                /// </summary>
+                [Column(Name = "obs")]
+                public string Obs
+                {
+                        get
+                        {
+                                if (this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
+                                        return null;
+                                else
+                                        return this.Registro["obs"].ToString();
+                        }
+                        set
+                        {
+                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                        }
+                }
+
+
+                [Column(Name = "fecha")]
+                public DateTime Fecha
+                {
+                        get
+                        {
+                                return this.GetFieldValue<DateTime>("fecha");
+                        }
+                }
 
 
                 public override Lfx.Types.OperationResult Guardar()

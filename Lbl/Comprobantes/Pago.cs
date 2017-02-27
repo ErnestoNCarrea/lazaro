@@ -130,7 +130,7 @@ namespace Lbl.Comprobantes
                 }
 
 
-                public override string Obs
+                public string Obs
                 {
                         get
                         {
@@ -145,11 +145,11 @@ namespace Lbl.Comprobantes
                                                         return Valor.Obs;
                                                 break;
                                 }
-                                return base.Obs;
+                                return this.Obs;
                         }
                         set
                         {
-                                base.Obs = value;
+                                this.Obs = value;
                                 switch (FormaDePago.Tipo) {
                                         case Lbl.Pagos.TiposFormasDePago.ChequePropio:
                                         case Lbl.Pagos.TiposFormasDePago.ChequeTerceros:

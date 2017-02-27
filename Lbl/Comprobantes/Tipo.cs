@@ -29,6 +29,23 @@ namespace Lbl.Comprobantes
                         this.FromRow(Rw);
                 }
 
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                public virtual string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
                 public override void Crear()
                 {
                         m_Impresoras = new ColeccionGenerica<Lbl.Impresion.TipoImpresora>(this.Connection);

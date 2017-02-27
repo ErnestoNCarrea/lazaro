@@ -199,81 +199,6 @@ namespace Lbl
 		}
 
 
-                //Campos estándar
-
-                /// <summary>
-                /// Obtiene o establece el nombre del elemento. Normalmente es el valor guadado en el el campo CampoNombre.
-                /// </summary>
-                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
-                public virtual string Nombre
-		{
-			get
-			{
-                                return this.GetFieldValue<string>(CampoNombre);
-			}
-			set
-			{
-				this.Registro[CampoNombre] = value;
-			}
-		}
-
-                /// <summary>
-                /// Obtiene o establece un texto que representa las observaciones del elemento.
-                /// </summary>
-		public virtual string Obs
-		{
-			get
-			{
-				if(this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
-					return null;
-				else
-					return this.Registro["obs"].ToString();
-			}
-			set
-			{
-                                string NuevaObs = value;
-
-                                if (NuevaObs != null) {
-                                        if (NuevaObs.Length >= 2 && NuevaObs.Substring(NuevaObs.Length - 2, 2) == Lfx.Types.ControlChars.CrLf)
-                                                //Quito el CrLf al final
-                                                NuevaObs = NuevaObs.Substring(0, NuevaObs.Length - 2);
-                                        else if (NuevaObs.Length >= 1 && NuevaObs.Substring(NuevaObs.Length - 1, 1) == Lfx.Types.ControlChars.Lf.ToString())
-                                                //Quito el Lf al final (para Unix)
-                                                NuevaObs = NuevaObs.Substring(0, NuevaObs.Length - 1);
-
-                                        if (NuevaObs.Length > 5 && NuevaObs.Substring(0, 5) == " /// ")
-                                                NuevaObs = NuevaObs.Substring(5, NuevaObs.Length - 5);
-                                }
-
-                                this.Registro["obs"] = NuevaObs;
-			}
-		}
-
-
-                public DateTime Fecha
-                {
-                        get
-                        {
-                                return this.GetFieldValue<DateTime>("fecha");
-                        }
-                }
-
-
-                /// <summary>
-                /// Devuelve o establece el estado del elemento. El valor de esta propiedad tiene diferentes significados para cada clase derivada.
-                /// </summary>
-		public virtual int Estado
-		{
-			get
-			{
-				return this.GetFieldValue<int>("estado");
-			}
-			set
-			{
-				this.Registro["estado"] = value;
-			}
-		}
-
 
                 /// <summary>
                 /// Devuelve o establece el estado del elemento. El valor de esta propiedad tiene diferentes significados para cada clase derivada.
@@ -369,7 +294,7 @@ namespace Lbl
                         m_RegistroOriginal = null;
                         m_Etiquetas = null;
                         if (this is ICamposBaseEstandar) {
-                                this.Estado = 1;
+                                ((ICamposBaseEstandar)this).Estado = 1;
                                 this.SetFieldValue("fecha", this.Connection.ServerDateTime);
                         }
 		}

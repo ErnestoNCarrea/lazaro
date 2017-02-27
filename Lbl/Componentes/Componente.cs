@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using Lfx.Components;
 using log4net;
 using System;
@@ -32,6 +33,42 @@ namespace Lbl.Componentes
 
                 public Componente(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                public virtual string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// Obtiene o establece un texto que representa las observaciones del elemento.
+                /// </summary>
+                [Column(Name = "obs")]
+                public string Obs
+                {
+                        get
+                        {
+                                if (this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
+                                        return null;
+                                else
+                                        return this.Registro["obs"].ToString();
+                        }
+                        set
+                        {
+                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                        }
+                }
 
 
                 /// <summary>

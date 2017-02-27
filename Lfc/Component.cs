@@ -307,7 +307,7 @@ namespace Lfc
                                 }));
 
                         Res.Add(new Lfx.Components.RegisteredType(
-                                typeof(Lbl.Tareas.Estado),
+                                typeof(Lbl.Tareas.EstadoTarea),
                                 new Lfx.Components.ActionCollection() {
                                         new Lfx.Components.Action("list", typeof(Lfc.Tareas.Estados.Inicio)),
                                         new Lfx.Components.Action("edit", typeof(Lfc.Tareas.Estados.Editar))

@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,6 +16,16 @@ namespace Lbl.Sys.Log
 
                 public Entrada(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                [Column(Name = "fecha")]
+                public DateTime Fecha
+                {
+                        get
+                        {
+                                return this.GetFieldValue<DateTime>("fecha");
+                        }
+                }
 
 
                 public string ComandoTexto

@@ -26,6 +26,23 @@ namespace Lbl.Articulos
                         : base(dataBase, row) { }
 
 
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
                 [Column(Name = "nombresing")]
                 public virtual string NombreSingular
 		{

@@ -1,3 +1,5 @@
+using Lazaro.Orm.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace Lbl.Comprobantes
@@ -74,6 +76,27 @@ namespace Lbl.Comprobantes
                 {
                         this.Valor = valor;
                 }
+
+
+                /// <summary>
+                /// Obtiene o establece un texto que representa las observaciones del elemento.
+                /// </summary>
+                [Column(Name = "obs")]
+                public string Obs
+                {
+                        get
+                        {
+                                if (this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
+                                        return null;
+                                else
+                                        return this.Registro["obs"].ToString();
+                        }
+                        set
+                        {
+                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                        }
+                }
+
 
                 public decimal Importe
                 {

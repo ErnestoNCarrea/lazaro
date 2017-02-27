@@ -21,6 +21,23 @@ namespace Lbl.Cajas
                 public Concepto(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                public virtual string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
                 public int Direccion
                 {
                         get

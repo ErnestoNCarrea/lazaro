@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +12,8 @@ namespace Lbl.Personas
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Persona")]
         [Lbl.Atributos.Datos(TablaDatos = "personas", CampoId = "id_persona", CampoNombre = "nombre_visible", TablaImagenes = "personas_imagenes")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Siempre)]
+
+        [Entity(TableName = "personas", IdFieldName = "id_persona")]
         public class Persona : ElementoDeDatos, IElementoConImagen, ICamposBaseEstandar, IEstadosEstandar
 	{
                 private Entidades.Localidad m_Localidad = null;
@@ -29,6 +33,71 @@ namespace Lbl.Personas
 
                 public Persona(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public virtual string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// Obtiene o establece un texto que representa las observaciones del elemento.
+                /// </summary>
+                [Column(Name = "obs")]
+                public string Obs
+                {
+                        get
+                        {
+                                if (this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
+                                        return null;
+                                else
+                                        return this.Registro["obs"].ToString();
+                        }
+                        set
+                        {
+                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                        }
+                }
+
+
+                [Column(Name = "fecha")]
+                public DateTime Fecha
+                {
+                        get
+                        {
+                                return this.GetFieldValue<DateTime>("fecha");
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve o establece el estado del elemento. El valor de esta propiedad tiene diferentes significados para cada clase derivada.
+                /// </summary>
+                [Column(Name = "estado")]
+                public int Estado
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("estado");
+                        }
+                        set
+                        {
+                                this.Registro["estado"] = value;
+                        }
+                }
+
 
                 public override void Crear()
                 {
@@ -167,6 +236,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "genero")]
                 public int Genero
                 {
                         get
@@ -180,6 +250,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "numerocuenta")]
                 public string NumeroCuenta
 		{
 			get
@@ -192,6 +263,8 @@ namespace Lbl.Personas
                         }
 		}
 
+
+                [Column(Name = "cbu")]
                 public string ClaveBancaria
                 {
                         get
@@ -205,6 +278,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "id_tipo_cuit")]
                 public Lbl.Entidades.ClaveUnica TipoClaveTributaria
                 {
                         get
@@ -245,6 +319,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "cuit")]
                 public IIdentificadorUnico ClaveTributaria
 		{
 			get
@@ -275,9 +350,10 @@ namespace Lbl.Personas
                                         return this.Localidad.ObtenerIva();
                         }
                 }
-                       
 
-		public EstadoCredito EstadoCredito
+
+                [Column(Name = "estadocredito")]
+                public EstadoCredito EstadoCredito
 		{
 			get
 			{
@@ -290,6 +366,7 @@ namespace Lbl.Personas
 		}
 
 
+                [Column(Name = "tipocuenta")]
                 public TiposCuenta TipoCuenta
                 {
                         get
@@ -303,7 +380,8 @@ namespace Lbl.Personas
                 }
 
 
-		public string FacturaPreferida
+                [Column(Name = "tipo_fac")]
+                public string FacturaPreferida
 		{
 			get
 			{
@@ -336,7 +414,8 @@ namespace Lbl.Personas
                 }
 
 
-		public Lbl.Entidades.ClaveUnica TipoDocumento
+                [Column(Name = "id_tipo_doc")]
+                public Lbl.Entidades.ClaveUnica TipoDocumento
 		{
 			get
 			{
@@ -352,6 +431,7 @@ namespace Lbl.Personas
 		}
 
 
+                [Column(Name = "num_doc")]
                 public string NumeroDocumento
                 {
                         get
@@ -365,6 +445,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "tipo")]
                 public int Tipo
                 {
                         get
@@ -377,6 +458,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "apellido")]
                 public string Apellido
                 {
                         get
@@ -393,6 +476,7 @@ namespace Lbl.Personas
                 /// <summary>
                 /// El nombre de pila.
                 /// </summary>
+                [Column(Name = "nombre")]
                 public virtual string Nombres
                 {
                         get
@@ -405,6 +489,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "nombre_fantasia")]
                 public string NombreFantasia
                 {
                         get
@@ -417,6 +503,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "razon_social")]
                 public string RazonSocial
                 {
                         get
@@ -429,7 +517,9 @@ namespace Lbl.Personas
                         }
                 }
 
-		public string Domicilio
+
+                [Column(Name = "domicilio")]
+                public string Domicilio
 		{
 			get
 			{
@@ -441,7 +531,9 @@ namespace Lbl.Personas
                         }
 		}
 
-		public string DomicilioLaboral
+
+                [Column(Name = "domiciliotrabajo")]
+                public string DomicilioLaboral
 		{
 			get
 			{
@@ -453,7 +545,9 @@ namespace Lbl.Personas
                         }
 		}
 
-		public string Telefono
+
+                [Column(Name = "telefono")]
+                public string Telefono
 		{
 			get
 			{
@@ -465,7 +559,9 @@ namespace Lbl.Personas
                         }
 		}
 
-		public string Email
+
+                [Column(Name = "email")]
+                public string Email
 		{
 			get
 			{
@@ -477,6 +573,8 @@ namespace Lbl.Personas
                         }
 		}
 
+
+                [Column(Name = "url")]
                 public string Url
                 {
                         get
@@ -490,6 +588,7 @@ namespace Lbl.Personas
                 }
 
 
+                [Column(Name = "fechanac")]
                 public DbDateTime FechaNacimiento
 		{
 			get
@@ -502,6 +601,8 @@ namespace Lbl.Personas
                         }
 		}
 
+
+                [Column(Name = "fechaalta")]
                 public DbDateTime FechaAlta
                 {
                         get
@@ -514,6 +615,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "fechabaja")]
                 public DbDateTime FechaBaja
                 {
                         get
@@ -526,7 +629,9 @@ namespace Lbl.Personas
                         }
                 }
 
-		public string Extra1
+
+                [Column(Name = "extra1")]
+                public string Extra1
 		{
 			get
 			{
@@ -538,7 +643,9 @@ namespace Lbl.Personas
                         }
 		}
 
-		public decimal LimiteCredito
+
+                [Column(Name = "limitecredito")]
+                public decimal LimiteCredito
 		{
 			get
 			{
@@ -550,6 +657,8 @@ namespace Lbl.Personas
                         }
 		}
 
+
+                [Column(Name = "limitecreditofecha")]
                 public DbDateTime LimiteCreditoFecha
                 {
                         get
@@ -562,6 +671,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "id_grupo")]
                 public Lbl.Personas.Grupo Grupo
                 {
                         get
@@ -578,6 +689,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "id_subgrupo")]
                 public Lbl.Personas.Grupo SubGrupo
                 {
                         get
@@ -594,6 +707,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "id_localidad")]
                 public Lbl.Entidades.Localidad Localidad
                 {
                         get
@@ -614,6 +729,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "id_situacion")]
                 public Lbl.Impuestos.SituacionTributaria SituacionTributaria
                 {
                         get
@@ -660,6 +777,8 @@ namespace Lbl.Personas
                         }
                 }
 
+
+                [Column(Name = "id_vendedor")]
                 public Lbl.Personas.Persona Vendedor
                 {
                         get

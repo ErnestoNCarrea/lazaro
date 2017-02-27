@@ -26,6 +26,22 @@ namespace Lbl
                         : base(dataBase, row) { }
 
 
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
                 public static implicit operator Etiqueta(Lfx.Data.Row row)
                 {
                         Etiqueta Res = new Etiqueta(((Lfx.Data.Table)(row.Table)).Connection);

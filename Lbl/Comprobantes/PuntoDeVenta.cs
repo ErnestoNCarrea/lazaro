@@ -141,7 +141,7 @@ namespace Lbl.Comprobantes
                 }
 
 
-                public override string Nombre
+                public string Nombre
                 {
                         get
                         {

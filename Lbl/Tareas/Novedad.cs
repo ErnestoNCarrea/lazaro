@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,23 @@ namespace Lbl.Tareas
 
                 public Novedad(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// Devuelve o establece el estado del elemento. El valor de esta propiedad tiene diferentes significados para cada clase derivada.
+                /// </summary>
+                [Column(Name = "estado")]
+                public int Estado
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("estado");
+                        }
+                        set
+                        {
+                                this.Registro["estado"] = value;
+                        }
+                }
 
 
                 public string Descripcion

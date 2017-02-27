@@ -14,7 +14,7 @@ namespace Lfc.Tareas.Estados
 
                         this.Definicion = new Lazaro.Pres.Listings.Listing()
                         {
-                                ElementoTipo = typeof(Lbl.Tareas.Estado),
+                                ElementoTipo = typeof(Lbl.Tareas.EstadoTarea),
 
                                 TableName = "tickets_estados",
                                 KeyColumn = new Lazaro.Pres.Field("tickets_estados.id_ticket_estado", "Cód.", Lfx.Data.InputFieldTypes.Serial, 64),

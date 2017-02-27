@@ -35,7 +35,7 @@ namespace Lbl.Impresion
                 }
 
 
-                public override string Nombre
+                public string Nombre
                 {
                         get
                         {
@@ -49,10 +49,6 @@ namespace Lbl.Impresion
                                 if (this.PuntoDeVenta != null)
                                         NombreStr += " en PV " + this.PuntoDeVenta.Numero.ToString();
                                 return NombreStr;
-                        }
-                        set
-                        {
-                                base.Nombre = value;
                         }
                 }
 

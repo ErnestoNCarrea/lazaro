@@ -24,7 +24,25 @@ namespace Lbl.Articulos
                 public Rubro(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
-		public override Lfx.Types.OperationResult Guardar()
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
+                public override Lfx.Types.OperationResult Guardar()
                 {
                         var Em = new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory);
 

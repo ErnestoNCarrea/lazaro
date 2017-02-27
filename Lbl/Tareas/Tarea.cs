@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,6 +31,60 @@ namespace Lbl.Tareas
 
                 public Tarea(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public virtual string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// Obtiene o establece un texto que representa las observaciones del elemento.
+                /// </summary>
+                [Column(Name = "obs")]
+                public string Obs
+                {
+                        get
+                        {
+                                if (this.Registro["obs"] == null || this.Registro["obs"] == DBNull.Value)
+                                        return null;
+                                else
+                                        return this.Registro["obs"].ToString();
+                        }
+                        set
+                        {
+                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                        }
+                }
+
+
+                /// <summary>
+                /// Devuelve o establece el estado del elemento. El valor de esta propiedad tiene diferentes significados para cada clase derivada.
+                /// </summary>
+                [Column(Name = "estado")]
+                public int Estado
+                {
+                        get
+                        {
+                                return this.GetFieldValue<int>("estado");
+                        }
+                        set
+                        {
+                                this.Registro["estado"] = value;
+                        }
+                }
 
 
                 public string Descripcion
@@ -119,7 +175,7 @@ namespace Lbl.Tareas
                 }
 
 
-                public new DateTime Fecha
+                public DateTime Fecha
                 {
                         get
                         {
@@ -243,7 +299,7 @@ namespace Lbl.Tareas
                         this.ActualizarId();
 
                         if (this.RegistroOriginal != null && this.RegistroOriginal["estado"] != this.Registro["estado"])
-                                this.AgregarComentario("Actualización de Estado: " + Lbl.Tareas.Estado.TodosPorNumero[this.Estado].ToString());
+                                this.AgregarComentario("Actualización de Estado: " + Lbl.Tareas.EstadoTarea.TodosPorNumero[this.Estado].ToString());
 
                         if (this.Articulos != null && this.Articulos.HayCambios) {
                                 qGen.Delete EliminarArticulos = new qGen.Delete("tickets_articulos");

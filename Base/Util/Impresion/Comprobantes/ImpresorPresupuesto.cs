@@ -130,15 +130,15 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes
                         // Obs
                         int AlturaPie = 0;
 
-                        if (this.Elemento.Obs != null && this.Elemento.Obs.Length > 0) {
+                        if (this.Presupuesto.Obs != null && this.Presupuesto.Obs.Length > 0) {
                                 Rect = new RectangleF(MarginLeft, 0, PrintAreaWidth, 500);
-                                SizeF Tamano = e.Graphics.MeasureString("Obs: " + this.Elemento.Obs,
+                                SizeF Tamano = e.Graphics.MeasureString("Obs: " + this.Presupuesto.Obs,
                                                                          FuentePequena,
                                                                          Rect.Size,
                                                                          FormatoLT);
                                 Rect.Height = Tamano.Height;
                                 Rect.Y = MarginTop + PrintAreaHeight - 20 - Rect.Height;
-                                e.Graphics.DrawString("Obs: " + this.Elemento.Obs, FuentePequena,
+                                e.Graphics.DrawString("Obs: " + this.Presupuesto.Obs, FuentePequena,
                                                        Brushes.Black, Rect,
                                                        FormatoLT);
                                 AlturaPie += System.Convert.ToInt32(Rect.Height);
