@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,8 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Nota de Débito", Grupo = "Comprobantes")]
         [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprob")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "comprob", IdFieldName = "id_comprob")]
         public class NotaDeDebito : ComprobanteFacturable
         {
                 //Heredar constructor

@@ -18,18 +18,17 @@ namespace Lbl.Test
                 {
                         Lfx.Workspace.Master = new Lfx.Workspace("test", false, false);
                         Lfx.Workspace.Master.DebugMode = true;
-                        Lfx.Workspace.Master.TraceMode = true;
                         
                         // Habilito el gestor de configuración
                         Lbl.Sys.Config.Actual = new Lbl.Sys.Configuracion.Global();
                         Lbl.Sys.Config.Cargar();
                         
                         // Habilito la recuperación de conexiones
-                        Lfx.Workspace.Master.MasterConnection.EnableRecover = true;
+                        Lfx.Workspace.Master.MasterConnection.EnableRecover = false;
 
                         //Lbl.Componentes.Cargador.CargarComponentes();
 
-                        Connection = Lfx.Workspace.Master.GetNewConnection("Pruebas unitarias");
+                        Connection = Lfx.Workspace.Master.GetNewConnection("Pruebas unitarias") as Lfx.Data.Connection;
                         Trans = Connection.BeginTransaction();
                         
                 }
@@ -37,8 +36,15 @@ namespace Lbl.Test
                 [OneTimeTearDown]
                 public void OneTimeTearDown()
                 {
-                        Trans.Rollback();
-                        Connection.Close();
+                        if (Trans != null)
+                        {
+                                Trans.Rollback();
+                        }
+
+                        if (Connection != null && Connection.IsOpen())
+                        {
+                                Connection.Close();
+                        }
                 }
         }
 }

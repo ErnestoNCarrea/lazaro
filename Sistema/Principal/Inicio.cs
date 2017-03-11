@@ -96,9 +96,9 @@ namespace Lazaro.WinMain.Principal
                         if (this.Visible) {
                                 //Ejecuto tareas del programador
                                 Lfx.Services.Task ProximaTarea = null;
-                                // En conexiones lentas, 1 vez por minuto
+                                // En conexiones lentas o en tiempo de diseño, 1 vez por minuto
                                 // En conexiones rápidas, cada 5 segundos
-                                if (Lfx.Workspace.Master.SlowLink) {
+                                if (Lfx.Workspace.Master.SlowLink || Lfx.Environment.SystemInformation.DesignMode) {
                                         if (Lfx.Workspace.Master.DefaultScheduler.LastGetTask == System.DateTime.MinValue || (DateTime.Now - Lfx.Workspace.Master.DefaultScheduler.LastGetTask).Minutes >= 1)
                                                 ProximaTarea = Lfx.Workspace.Master.DefaultScheduler.GetNextTask("lazaro");
                                 } else {

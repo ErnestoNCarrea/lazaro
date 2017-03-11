@@ -325,7 +325,7 @@ namespace Lbl
                 /// <summary>
                 /// Actualiza el Id del elemento, sólo después de crear.
                 /// </summary>
-                protected void ActualizarId()
+                public void ActualizarId()
                 {
                         if (this.Id == 0)
                                 m_ItemId = this.Connection.FieldInt("SELECT LAST_INSERT_ID()");

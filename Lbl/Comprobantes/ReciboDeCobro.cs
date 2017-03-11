@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,8 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Recibo de cobro", Grupo = "Comprobantes")]
         [Lbl.Atributos.Datos(TablaDatos = "recibos", CampoId = "id_recibo", TablaImagenes = "recibos_imagenes")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "recibos", IdFieldName = "id_recibo")]
         public class ReciboDeCobro : Recibo
         {
                 //Heredar constructor

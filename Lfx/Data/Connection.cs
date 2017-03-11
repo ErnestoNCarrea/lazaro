@@ -705,10 +705,10 @@ LEFT JOIN pg_attribute
                 public override void Dispose()
                 {
                         if (this.Handle == 0 && Lfx.Workspace.Master.Disposing == false) {
-                                throw new InvalidOperationException("No se puede deshechar el espacio de trabajo maestro");
+                                throw new InvalidOperationException("No se puede cerrar la conexión principal del espacio de trabajo maestro");
                         } else {
                                 Lfx.Workspace.Master.ActiveConnections.Remove(this);
-                                Log.Info(this.Handle.ToString() + ": Deshechando " + this.Name);
+                                Log.Info(this.Handle.ToString() + ": Cerrando conexión " + this.Name);
 
                                 base.Dispose();
                         }
@@ -816,7 +816,10 @@ LEFT JOIN pg_attribute
                                 this.Open();
 
                         System.Data.IDbCommand TempCommand = this.GetCommand(insertCommand);
-                        Log.Debug(this.Handle.ToString() + ":  " + TempCommand.CommandText);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + TempCommand.CommandText);
+                        }
+
                         try {
                                 return TempCommand.ExecuteNonQuery();
                         } catch (Exception ex) {
@@ -892,7 +895,10 @@ LEFT JOIN pg_attribute
                                 this.Open();
 
                         System.Data.IDbCommand Cmd = this.GetCommand(selectCommand);
-                        Log.Debug(this.Handle.ToString() + ":  " + Cmd.CommandText);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + Cmd.CommandText);
+                        }
+
                         int Intentos = 3;
                         while (true) {
                                 try {

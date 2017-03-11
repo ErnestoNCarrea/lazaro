@@ -15,7 +15,7 @@ namespace Lbl.Personas
 
         [Entity(TableName = "personas", IdFieldName = "id_persona")]
         public class Persona : ElementoDeDatos, IElementoConImagen, ICamposBaseEstandar, IEstadosEstandar
-	{
+        {
                 private Entidades.Localidad m_Localidad = null;
                 private Grupo m_Grupo = null, m_SubGrupo = null;
                 private Lbl.Impuestos.SituacionTributaria m_SituacionTributaria = null;
@@ -28,8 +28,8 @@ namespace Lbl.Personas
                 public Persona(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
-		public Persona(Lfx.Data.IConnection dataBase, int itemId)
-			: base(dataBase, itemId) { }
+                public Persona(Lfx.Data.IConnection dataBase, int itemId)
+                        : base(dataBase, itemId) { }
 
                 public Persona(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
@@ -111,7 +111,8 @@ namespace Lbl.Personas
                         if (IdGrupoPredet != 0)
                                 this.Grupo = new Lbl.Personas.Grupo(this.Connection, IdGrupoPredet);
                         this.SubGrupo = null;
-                        if (Lbl.Sys.Config.Pais != null) {
+                        if (Lbl.Sys.Config.Pais != null)
+                        {
                                 if (Lbl.Sys.Config.Pais.ClavePersonasFisicas != null)
                                         this.TipoDocumento = Lbl.Sys.Config.Pais.ClavePersonasFisicas;
                                 if (Lbl.Sys.Config.Pais.ClavePersonasFisicas != null)
@@ -127,11 +128,14 @@ namespace Lbl.Personas
                 {
                         qGen.IStatement Comando;
 
-                        if (this.Existe == false) {
+                        if (this.Existe == false)
+                        {
                                 Comando = new qGen.Insert(this.TablaDatos);
                                 Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                                 Comando.ColumnValues.AddWithValue("fechaalta", new qGen.SqlExpression("NOW()"));
-                        } else {
+                        }
+                        else
+                        {
                                 Comando = new qGen.Update(this.TablaDatos);
                                 Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
                         }
@@ -190,13 +194,18 @@ namespace Lbl.Personas
                                 // Esta dado de baja y antes no lo estaba
                                 Comando.ColumnValues.AddWithValue("fechabaja", new qGen.SqlExpression("NOW()"));
                         Comando.ColumnValues.AddWithValue("limitecredito", this.LimiteCredito);
-                        if (this.Existe) {
-                                if ((decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito) {
+                        if (this.Existe)
+                        {
+                                if ((decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito)
+                                {
                                         //Guardo la fecha en la cual se modifico el limite de credito
                                         Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
-                        } else {
-                                if (this.LimiteCredito > 0) {
+                        }
+                        else
+                        {
+                                if (this.LimiteCredito > 0)
+                                {
                                         Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
                         }
@@ -208,7 +217,8 @@ namespace Lbl.Personas
 
                         Comando.ColumnValues.AddWithValue("genero", this.Genero);
 
-                        if (this.Existe == false) {
+                        if (this.Existe == false)
+                        {
                                 // Si estoy creando una persona, le asigno una contraseña aleatoria de 6 digitos
                                 string Contrasena = new System.Random().Next(100000, 999999).ToString();
                                 Comando.ColumnValues.AddWithValue("contrasena", Contrasena);
@@ -252,16 +262,16 @@ namespace Lbl.Personas
 
                 [Column(Name = "numerocuenta")]
                 public string NumeroCuenta
-		{
-			get
-			{
-				return this.GetFieldValue<string>("numerocuenta");
-			}
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("numerocuenta");
+                        }
                         set
                         {
                                 this.Registro["numerocuenta"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "cbu")]
@@ -321,14 +331,14 @@ namespace Lbl.Personas
 
                 [Column(Name = "cuit")]
                 public IIdentificadorUnico ClaveTributaria
-		{
-			get
-			{
+                {
+                        get
+                        {
                                 if (this.GetFieldValue<string>("cuit") == null)
                                         return null;
                                 else
-				        return new Claves.Cuit(this.GetFieldValue<string>("cuit"));
-			}
+                                        return new Claves.Cuit(this.GetFieldValue<string>("cuit"));
+                        }
                         set
                         {
                                 if (value == null)
@@ -336,7 +346,7 @@ namespace Lbl.Personas
                                 else
                                         this.Registro["cuit"] = value.Valor;
                         }
-		}
+                }
 
                 public Impuestos.SituacionIva PagaIva
                 {
@@ -354,16 +364,16 @@ namespace Lbl.Personas
 
                 [Column(Name = "estadocredito")]
                 public EstadoCredito EstadoCredito
-		{
-			get
-			{
-				return (EstadoCredito)(this.GetFieldValue<int>("estadocredito"));
-			}
+                {
+                        get
+                        {
+                                return (EstadoCredito)(this.GetFieldValue<int>("estadocredito"));
+                        }
                         set
                         {
                                 this.SetFieldValue("estadocredito", (int)value);
                         }
-		}
+                }
 
 
                 [Column(Name = "tipocuenta")]
@@ -382,28 +392,33 @@ namespace Lbl.Personas
 
                 [Column(Name = "tipo_fac")]
                 public string FacturaPreferida
-		{
-			get
-			{
+                {
+                        get
+                        {
                                 if (this.Registro["tipo_fac"] == null || this.Registro["tipo_fac"] == DBNull.Value || this.Registro["tipo_fac"].ToString().Length == 0)
                                         return null;
                                 else
                                         return this.Registro["tipo_fac"].ToString();
-			}
+                        }
                         set
                         {
                                 this.Registro["tipo_fac"] = value;
                         }
-		}
+                }
 
                 public Comprobantes.Tipo ObtenerTipoComprobante()
                 {
                         string TipoComprob;
-                        if (this.FacturaPreferida != null) {
+                        if (this.FacturaPreferida != null)
+                        {
                                 TipoComprob = "F" + this.FacturaPreferida;
-                        } else if (this.SituacionTributaria != null) {
+                        }
+                        else if (this.SituacionTributaria != null)
+                        {
                                 TipoComprob = "F" + this.SituacionTributaria.ObtenerLetraPredeterminada();
-                        } else {
+                        }
+                        else
+                        {
                                 TipoComprob = "F" + this.LetraPredeterminada();
                         }
 
@@ -416,19 +431,19 @@ namespace Lbl.Personas
 
                 [Column(Name = "id_tipo_doc")]
                 public Lbl.Entidades.ClaveUnica TipoDocumento
-		{
-			get
-			{
-				if(Registro["id_tipo_doc"] == null)
-					return null;
-				else
-					return this.GetFieldValue<Entidades.ClaveUnica>("id_tipo_doc");
-			}
+                {
+                        get
+                        {
+                                if (Registro["id_tipo_doc"] == null)
+                                        return null;
+                                else
+                                        return this.GetFieldValue<Entidades.ClaveUnica>("id_tipo_doc");
+                        }
                         set
                         {
                                 this.SetFieldValue("id_tipo_doc", value);
                         }
-		}
+                }
 
 
                 [Column(Name = "num_doc")]
@@ -520,58 +535,58 @@ namespace Lbl.Personas
 
                 [Column(Name = "domicilio")]
                 public string Domicilio
-		{
-			get
-			{
-				return this.GetFieldValue<string>("domicilio");
-			}
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("domicilio");
+                        }
                         set
                         {
                                 this.Registro["domicilio"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "domiciliotrabajo")]
                 public string DomicilioLaboral
-		{
-			get
-			{
+                {
+                        get
+                        {
                                 return this.GetFieldValue<string>("domiciliotrabajo");
-			}
+                        }
                         set
                         {
                                 this.Registro["domiciliotrabajo"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "telefono")]
                 public string Telefono
-		{
-			get
-			{
-				return this.GetFieldValue<string>("telefono");
-			}
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("telefono");
+                        }
                         set
                         {
                                 this.Registro["telefono"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "email")]
                 public string Email
-		{
-			get
-			{
-				return this.GetFieldValue<string>("email");
-			}
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("email");
+                        }
                         set
                         {
                                 this.Registro["email"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "url")]
@@ -590,16 +605,16 @@ namespace Lbl.Personas
 
                 [Column(Name = "fechanac")]
                 public DbDateTime FechaNacimiento
-		{
-			get
-			{
-				return this.FieldDateTime("fechanac");
-			}
+                {
+                        get
+                        {
+                                return this.FieldDateTime("fechanac");
+                        }
                         set
                         {
                                 this.Registro["fechanac"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "fechaalta")]
@@ -632,30 +647,30 @@ namespace Lbl.Personas
 
                 [Column(Name = "extra1")]
                 public string Extra1
-		{
-			get
-			{
-				return this.GetFieldValue<string>("extra1");
-			}
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("extra1");
+                        }
                         set
                         {
                                 this.Registro["extra1"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "limitecredito")]
                 public decimal LimiteCredito
-		{
-			get
-			{
+                {
+                        get
+                        {
                                 return this.GetFieldValue<decimal>("limitecredito");
-			}
+                        }
                         set
                         {
                                 this.Registro["limitecredito"] = value;
                         }
-		}
+                }
 
 
                 [Column(Name = "limitecreditofecha")]
@@ -713,7 +728,8 @@ namespace Lbl.Personas
                 {
                         get
                         {
-                                if (m_Localidad == null) {
+                                if (m_Localidad == null)
+                                {
                                         if (this.Id == 999)
                                                 // El cliente especial "Consumidor Final" está siempre en la ciudad actual
                                                 m_Localidad = Lbl.Sys.Config.Empresa.SucursalActual.Localidad;
@@ -749,8 +765,10 @@ namespace Lbl.Personas
 
                 public string LetraPredeterminada()
                 {
-                        if (this.FacturaPreferida == null) {
-                                if (this.SituacionTributaria == null) {
+                        if (this.FacturaPreferida == null)
+                        {
+                                if (this.SituacionTributaria == null)
+                                {
                                         if (Lbl.Sys.Config.Empresa.SituacionTributaria == 4)
                                                 // Soy monotributista
                                                 return "C";
@@ -759,10 +777,14 @@ namespace Lbl.Personas
                                         else
                                                 // TODO: poder seleccionar el tipo de factura predeterminado para cada país
                                                 return "A";
-                                } else {
+                                }
+                                else
+                                {
                                         return this.SituacionTributaria.ObtenerLetraPredeterminada();
                                 }
-                        } else {
+                        }
+                        else
+                        {
                                 return this.FacturaPreferida;
                         }
                 }
@@ -805,5 +827,5 @@ namespace Lbl.Personas
                         this.Connection.ExecuteNonQuery(ActCmd);
                         Lbl.Sys.Config.ActionLog(this.Connection, Lbl.Sys.Log.Acciones.Delete, this, activar ? "Activar" : "Desactivar");
                 }
-	}
+        }
 }

@@ -65,7 +65,7 @@ namespace Lui.Forms
                                 if (m_Connection == null && Lfx.Workspace.Master != null) {
                                         m_Connection = Lfx.Workspace.Master.GetNewConnection(this.Text) as Lfx.Data.Connection;
 
-                                        // Marco para deshechar la conexión que estoy creando
+                                        // Marco para desechar la conexión que estoy creando
                                         DisposeConnection = true;
                                 }
 
@@ -80,7 +80,7 @@ namespace Lui.Forms
 
                                         m_Connection = value;
 
-                                        // Marco para no deshechar conexiones que no fueron creadas por este formulario
+                                        // Marco para no desechar conexiones que no fueron creadas por este formulario
                                         DisposeConnection = false;
                                 }
                         }

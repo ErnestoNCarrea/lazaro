@@ -3,6 +3,7 @@ using Lazaro.Orm.Data;
 using Lazaro.Orm.Data.Drivers;
 using Lazaro.Orm.Mapping;
 using Lfx.Data;
+using Lfx.DependencyInjection;
 using log4net;
 using qGen;
 using System;
@@ -13,7 +14,7 @@ namespace Lfx
         /// <summary>
         /// Proporciona un espacio de trabajo que incluye acceso a los datos y a la configuración.
         /// </summary>
-        public class Workspace : System.MarshalByRefObject, IDisposable, IConnectionFactory
+        public class Workspace : System.MarshalByRefObject, IDisposable, IConnectionFactory, IContainer
         {
                 private static readonly ILog Log = LogManager.GetLogger(typeof(Workspace));
 

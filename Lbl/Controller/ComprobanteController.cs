@@ -231,7 +231,8 @@ namespace Lazaro.Base.Controller
 
                         Lfx.Environment.Folders.EnsurePathExists(Carpeta);
 
-                        Generador.GenerarYGuardar(System.IO.Path.Combine(Carpeta, comprobante.ToString() + ".pdf"));
+                        string NombreArchivo = System.IO.Path.Combine(Carpeta, comprobante.ToString().Replace("\"", "").Replace("\\", "").Replace("/", "").Replace(":", "").Replace("?", "").Replace("*", ""));
+                        Generador.GenerarYGuardar(NombreArchivo + ".pdf");
                 }
 
 

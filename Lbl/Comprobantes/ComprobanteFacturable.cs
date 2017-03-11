@@ -1,8 +1,12 @@
+using Lazaro.Orm.Attributes;
+
 namespace Lbl.Comprobantes
 {
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Comprobante Facturable")]
         [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprob")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "comprob", IdFieldName = "id_comprob")]
         public class ComprobanteFacturable : ComprobanteConArticulos
         {
                 //Heredar constructor

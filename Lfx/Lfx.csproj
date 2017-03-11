@@ -84,11 +84,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\dev\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
-    <DocumentationFile>bin\dev\Lfx.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
@@ -130,6 +131,7 @@
     <Compile Include="Data\IConnection.cs" />
     <Compile Include="Data\InputFieldTypes.cs" />
     <Compile Include="Data\Structure.cs" />
+    <Compile Include="DependencyInjection\IContainer.cs" />
     <Compile Include="RuntimeServices.cs" />
     <Compile Include="Types\DomainException.cs" />
     <Compile Include="Types\Exceptions\Exception.cs" />

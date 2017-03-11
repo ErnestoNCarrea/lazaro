@@ -88,9 +88,17 @@ namespace Lazaro.Orm.Mapping
                 public object GetColumnValue(object obj, ColumnMetadata col)
                 {
                         if (col.PropertyInfo != null) {
-                                return col.PropertyInfo.GetValue(obj, null);
+                                if (obj == null) {
+                                        return null;
+                                } else {
+                                        return col.PropertyInfo.GetValue(obj, null);
+                                }
                         } else if (col.FieldInfo != null) {
-                                return col.FieldInfo.GetValue(obj);
+                                if (obj == null) {
+                                        return null;
+                                } else {
+                                        return col.FieldInfo.GetValue(obj);
+                                }
                         } else {
                                 throw new ApplicationException("Column has no associated field or property.");
                         }

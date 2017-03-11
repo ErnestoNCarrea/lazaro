@@ -8,6 +8,8 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Recibo", Grupo = "Comprobantes")]
         [Lbl.Atributos.Datos(TablaDatos = "recibos", CampoId = "id_recibo", TablaImagenes = "recibos_imagenes")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "recibos", IdFieldName = "id_recibo")]
         public class Recibo : Comprobante
         {
                 private ColeccionComprobanteImporte m_Facturas = null;
@@ -81,6 +83,7 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+                [Column(Name = "concepto")]
                 public string ConceptoTexto
                 {
                         get

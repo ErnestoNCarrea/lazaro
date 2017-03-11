@@ -7,8 +7,10 @@ using System.Text;
 namespace Lbl.Comprobantes
 {
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Comprobante")]
-        [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprbo", TablaImagenes = "comprob_imagenes")]
+        [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprob", TablaImagenes = "comprob_imagenes")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Nunca)]
+
+        [Entity(TableName = "comprob", IdFieldName = "id_comprob")]
         public abstract class Comprobante : ElementoDeDatos, IElementoConImagen, ICamposBaseEstandar
 	{
                 private Personas.Persona m_Vendedor, m_Cliente;
@@ -81,6 +83,20 @@ namespace Lbl.Comprobantes
                 }
 
 
+                [Column(Name = "tipo_fac")]
+                public string TipoFac
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("tipo_fac");
+                        }
+                        set
+                        {
+                                this.Registro["tipo_fac"] = value;
+                        }
+                }
+
+
                 public virtual Tipo Tipo
 		{
 			get
@@ -123,6 +139,8 @@ namespace Lbl.Comprobantes
                         }
 		}
 
+
+                [Column(Name = "numero")]
                 public int Numero
                 {
                         get
@@ -135,6 +153,8 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                [Column(Name = "pv")]
                 public int PV
                 {
                         get
@@ -148,6 +168,7 @@ namespace Lbl.Comprobantes
                 }
 
 
+                [Column(Name = "fecha")]
                 public DateTime Fecha
                 {
                         get
@@ -176,6 +197,8 @@ namespace Lbl.Comprobantes
 		}
 
 
+                [Column(Name = "id_cliente")]
+                [ManyToOne]
                 public Lbl.Personas.Persona Cliente
                 {
                         get
@@ -191,6 +214,9 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                [Column(Name = "id_vendedor")]
+                [ManyToOne]
                 public Lbl.Personas.Persona Vendedor
                 {
                         get
@@ -206,6 +232,9 @@ namespace Lbl.Comprobantes
                         }
                 }
 
+
+                [Column(Name = "id_sucursal")]
+                [ManyToOne]
                 public Lbl.Entidades.Sucursal Sucursal
                 {
                         get
@@ -257,6 +286,8 @@ namespace Lbl.Comprobantes
                         return null;
                 }
 
+
+                [Column(Name = "impresa")]
                 public bool Impreso
                 {
                         get
@@ -413,6 +444,8 @@ namespace Lbl.Comprobantes
 		}
 
 
+                [Column(Name = "id_comprob_orig")]
+                [ManyToOne]
                 public Lbl.Comprobantes.ComprobanteConArticulos ComprobanteOriginal
                 {
                         get

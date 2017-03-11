@@ -26,6 +26,7 @@ namespace Lazaro.Orm.Data
                 public bool EnableRecover { get; set; } = false;
                 public bool RequiresTransaction { get; set; } = true;
                 public bool ReadOnly { get; set; } = false;
+                public bool Trace { get; set; } = false;
 
                 public int KeepAlive { get; set; } = 600;
                 protected System.Timers.Timer KeepAliveTimer;
@@ -424,7 +425,9 @@ namespace Lazaro.Orm.Data
                         if (this.IsOpen() == false)
                                 this.Open();
 
-                        Log.Debug(this.Handle.ToString() + ":  " + selectCommand);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + selectCommand);
+                        }
 
                         this.EsperarFinDeLectura();
                         var Adaptador = this.Factory.Driver.GetAdapter(selectCommand, this.DbConnection);
@@ -490,7 +493,9 @@ namespace Lazaro.Orm.Data
                         if (this.IsOpen() == false)
                                 this.Open();
 
-                        Log.Debug(this.Handle.ToString() + ":  " + command.CommandText);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + command.CommandText);
+                        }
 
                         int Intentos = 3;
                         while (true) {
@@ -516,7 +521,9 @@ namespace Lazaro.Orm.Data
                         if (this.ReadOnly)
                                 throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
 
-                        Log.Debug(this.Handle.ToString() + ":  " + sqlCommand);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + sqlCommand);
+                        }
 
                         if (this.RequiresTransaction && m_InTransaction == false)
                                 throw new InvalidOperationException("Comandos fuera de transacción: " + sqlCommand);

@@ -8,7 +8,25 @@ namespace Lazaro.Orm.Mapping
 
                 public ClassMetadata GetMetadataForClass(Type objType)
                 {
-                        return this.GetMetadataForClass(objType.FullName);
+                        return this.GetMetadataForClass(objType, false);
+                }
+
+                public ClassMetadata GetMetadataForClass(Type objType, bool recursive)
+                {
+                        var ThisType = objType;
+                        while (ThisType != null) {
+                                if (this.ClassMetadata.ContainsKey(ThisType.FullName)) {
+                                        return this.GetMetadataForClass(ThisType.FullName);
+                                } else {
+                                        if (recursive) {
+                                                // Search type hierarchy upwards
+                                                ThisType = ThisType.BaseType;
+                                        } else {
+                                                break;
+                                        }
+                                }
+                        }
+                        throw new ApplicationException("No metadata found for class " + objType.FullName);
                 }
 
                 public ClassMetadata GetMetadataForClass(string className)

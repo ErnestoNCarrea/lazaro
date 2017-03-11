@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,8 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Presupuesto")]
         [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprob", TablaImagenes = "comprob_imagenes")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Automatico)]
+
+        [Entity(TableName = "comprob", IdFieldName = "id_comprob")]
         public class Presupuesto : ComprobanteConArticulos
         {
                 //Heredar constructor

@@ -49,7 +49,11 @@ namespace Lazaro.Orm
                                         if (Col.AssociationMetada != null && Col.AssociationMetada.AssociationType != AssociationTypes.None) {
                                                 // Association column. Get value from property on the other side
                                                 object OtherEndEntity = ClassMetadata.ObjectInfo.GetColumnValue(entity, Col);
-                                                ColValue = Col.AssociationMetada.OtherEndClass.ObjectInfo.GetColumnValue(OtherEndEntity, Col.AssociationMetada.OtherEndColumn);
+                                                if (OtherEndEntity == null) {
+                                                        ColValue = null;
+                                                } else {
+                                                        ColValue = Col.AssociationMetada.OtherEndClass.ObjectInfo.GetColumnValue(OtherEndEntity, Col.AssociationMetada.OtherEndColumn);
+                                                }
                                         } else {
                                                 // Regular member-to-column value
                                                 ColValue = ClassMetadata.ObjectInfo.GetColumnValue(entity, Col);

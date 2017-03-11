@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,6 +11,8 @@ namespace Lazaro.WinMain
 {
         public class Aplicacion
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(Application));
+
                 public static Lui.Forms.ProgressForm FormularioProgreso;
                 public static IList<Lfx.Types.OperationProgress> Operaciones = new List<Lfx.Types.OperationProgress>();
                 public static bool Flotante;
@@ -770,6 +773,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                 /// <param name="mensajeDescriptivo">Una mejor descripción de la excepción que el mensaje orginal.</param>
                 public static void KnownExceptionHandler(Exception ex, string mensajeDescriptivo)
                 {
+                        Log.Error(mensajeDescriptivo, ex);
+
                         Errores.ExcepcionControlada FormularioError = new Errores.ExcepcionControlada();
                         if (mensajeDescriptivo == null)
                                 FormularioError.EtiquetaDescripcion.Text = ex.Message;
@@ -787,6 +792,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                 [EnvironmentPermissionAttribute(SecurityAction.LinkDemand, Unrestricted = true)]
                 private static void UnknownExceptionHandler(Exception ex)
                 {
+                        Log.Error(ex.Message, ex);
+
                         Errores.ExcepcionNoControlada FormularioError = new Errores.ExcepcionNoControlada();
                         FormularioError.Text = ex.Message;
                         FormularioError.Show();

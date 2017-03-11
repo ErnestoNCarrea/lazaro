@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,9 @@ namespace Lbl.Comprobantes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Comprobante con artículos")]
         [Lbl.Atributos.Datos(TablaDatos = "comprob", CampoId = "id_comprob", TablaImagenes = "comprob_imagenes")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Nunca)]
-	public class ComprobanteConArticulos : Comprobante
+
+        [Entity(TableName = "comprob", IdFieldName = "id_comprob")]
+        public class ComprobanteConArticulos : Comprobante
 	{
                 private ColeccionComprobanteImporte m_ComprobRelacionados = null;
                 private ColeccionDetalleArticulos m_Articulos = null, m_ArticulosOriginales = null;

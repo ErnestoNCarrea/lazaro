@@ -41,6 +41,8 @@ namespace Lazaro.Orm.Mapping
                                         this.ScanAssembly(Assembly);
                                 }
                         }
+
+                        this.FillAssociationInfo();
                 }
 
 
@@ -70,9 +72,6 @@ namespace Lazaro.Orm.Mapping
                                         this.ClassMetadata.Add(Cls.FullName, ClsMeta);
                                 }
                         }
-
-
-                        this.FillAssociationInfo();
                 }
                 
 

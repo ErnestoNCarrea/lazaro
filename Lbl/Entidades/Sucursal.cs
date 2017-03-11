@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +12,9 @@ namespace Lbl.Entidades
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Sucursal")]
         [Lbl.Atributos.Datos(TablaDatos = "sucursales", CampoId = "id_sucursal")]
         [Lbl.Atributos.Presentacion()]
-	public class Sucursal : ElementoDeDatos
+
+        [Entity(TableName = "sucursales", IdFieldName = "id_sucursal")]
+        public class Sucursal : ElementoDeDatos
 	{
                 private int m_Numero;
                 private Lbl.Entidades.Localidad m_Localidad = null;
@@ -31,6 +35,7 @@ namespace Lbl.Entidades
                 /// <summary>
                 /// Obtiene o establece el nombre del elemento.
                 /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
                 public string Nombre
                 {
                         get
@@ -115,6 +120,7 @@ namespace Lbl.Entidades
                 }
 
 
+                [Column(Name = "id_caja_diaria")]
                 public Cajas.Caja CajaDiaria
                 {
                         get
@@ -130,6 +136,8 @@ namespace Lbl.Entidades
                         }
                 }
 
+
+                [Column(Name = "id_caja_cheques")]
                 public Cajas.Caja CajaCheques
                 {
                         get
@@ -145,6 +153,8 @@ namespace Lbl.Entidades
                         }
                 }
 
+
+                [Column(Name = "situacionorigen")]
                 public Articulos.Situacion SituacionOrigen
                 {
                         get
@@ -160,6 +170,8 @@ namespace Lbl.Entidades
                         }
                 }
 
+
+                [Column(Name = "id_ciudad")]
                 public Lbl.Entidades.Localidad Localidad
                 {
                         get
@@ -176,6 +188,8 @@ namespace Lbl.Entidades
                         }
                 }
 
+
+                [Column(Name = "direccion")]
                 public string Direccion
                 {
                         get
@@ -188,6 +202,8 @@ namespace Lbl.Entidades
                         }
                 }
 
+
+                [Column(Name = "telefono")]
                 public string Telefono
                 {
                         get

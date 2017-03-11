@@ -50,7 +50,7 @@
     <RunWithWarnings>false</RunWithWarnings>
     <DocumentationFile>
     </DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <NoWarn>1591,3002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -59,7 +59,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>1591,0219</NoWarn>
+    <NoWarn>1591,0219,3002</NoWarn>
     <DebugSymbols>true</DebugSymbols>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -68,15 +68,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
-    <OutputPath>bin\dev\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <DebugType>full</DebugType>
     <WarningLevel>4</WarningLevel>
     <Optimize>false</Optimize>
     <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>bin\dev\Lbl.XML</DocumentationFile>
-    <NoWarn>1591</NoWarn>
+    <DocumentationFile>
+    </DocumentationFile>
+    <NoWarn>1591,3002</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -86,8 +87,20 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarcodeLib, Version=1.0.0.23, Culture=neutral, PublicKeyToken=5f09bda868cc39e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\BarcodeLib.1.0.0.23\lib\net20\BarcodeLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net, Version=2.0.7.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.7\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -132,6 +145,10 @@
     <Compile Include="Comprobantes\Lote.cs" />
     <Compile Include="Consultas\Consulta.cs" />
     <Compile Include="Consultas\Parametro.cs" />
+    <Compile Include="Controller\BaseController.cs" />
+    <Compile Include="Controller\ComprobanteController.cs" />
+    <Compile Include="Controller\IConElemento.cs" />
+    <Compile Include="Controller\IConImprimir.cs" />
     <Compile Include="CuentasCorrientes\Movimiento.cs" />
     <Compile Include="Entidades\ClaveUnica.cs" />
     <Compile Include="IEntidad.cs" />
@@ -240,6 +257,49 @@
     <Compile Include="Cajas\Concepto.cs" />
     <Compile Include="CuentasCorrientes\CuentaCorriente.cs" />
     <Compile Include="Cajas\Caja.cs" />
+    <Compile Include="Util\Comprobantes\ClienteAfipWsfe.cs" />
+    <Compile Include="Util\Comprobantes\Generador.cs" />
+    <Compile Include="Util\Comprobantes\GeneradorElectronico.cs" />
+    <Compile Include="Util\Comprobantes\GeneradorFiscal.cs" />
+    <Compile Include="Util\Comprobantes\GeneradorManual.cs" />
+    <Compile Include="Util\Comprobantes\GeneradorPdf.cs" />
+    <Compile Include="Util\Comprobantes\IGenerador.cs" />
+    <Compile Include="Util\Comprobantes\Impresion.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\Comando.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\Enums.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\EstadoAuxiliar.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\EstadoImpresora.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\Impresora.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\ImpresoraEventArgs.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\Fiscal\Respuesta.cs" />
+    <Compile Include="Util\Impresion\Comprobantes\ImpresorComprobante.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Comprobantes\ImpresorComprobanteConArticulos.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Comprobantes\ImpresorPlantilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Comprobantes\ImpresorPresupuesto.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Comprobantes\ImpresorRecibo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Impresor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\ImpresorElemento.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\ImpresorGenerico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\ImpresorListado.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util\Impresion\Instanciador.cs" />
     <Compile Include="Vencimientos\Frecuencias.cs" />
     <Compile Include="Vencimientos\Vencimiento.cs" />
     <Compile Include="ElementoDeDatos.cs" />
@@ -269,6 +329,10 @@
     <Compile Include="Servicios\Verificador.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Afip.Ws\Afip.Ws.csproj">
+      <Project>{1a57768a-7dc2-4832-90da-5b613c208816}</Project>
+      <Name>Afip.Ws</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lfx\Lfx.csproj">
       <Project>{BC643FE8-57FF-4E26-AAF2-19B229BE9B16}</Project>
       <Name>Lfx</Name>
@@ -317,6 +381,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Util\Impresion\Comprobantes\Afip\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
