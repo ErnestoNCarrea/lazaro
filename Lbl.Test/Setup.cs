@@ -9,7 +9,6 @@ namespace Lbl.Test
         public class Setup
         {
                 public static Lfx.Data.Connection Connection;
-                public static System.Data.IDbTransaction Trans;
 
                 public Setup() { }
 
@@ -28,19 +27,13 @@ namespace Lbl.Test
 
                         //Lbl.Componentes.Cargador.CargarComponentes();
 
-                        Connection = Lfx.Workspace.Master.GetNewConnection("Pruebas unitarias") as Lfx.Data.Connection;
-                        Trans = Connection.BeginTransaction();
-                        
+                        System.Console.WriteLine("Iniciando una conexión");
+                        Connection = Lfx.Workspace.Master.GetNewConnection("Pruebas unitarias " + this.GetType().FullName) as Lfx.Data.Connection;
                 }
 
                 [OneTimeTearDown]
                 public void OneTimeTearDown()
                 {
-                        if (Trans != null)
-                        {
-                                Trans.Rollback();
-                        }
-
                         if (Connection != null && Connection.IsOpen())
                         {
                                 Connection.Close();

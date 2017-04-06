@@ -8,6 +8,6 @@ namespace Lbl.Test
         [TestFixture]
         public class PruebaConDatos
         {
-               public PruebaConDatos() { }
+                public PruebaConDatos() { }
         }
 }
