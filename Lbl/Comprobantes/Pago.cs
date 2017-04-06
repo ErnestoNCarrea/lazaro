@@ -145,11 +145,10 @@ namespace Lbl.Comprobantes
                                                         return Valor.Obs;
                                                 break;
                                 }
-                                return this.Obs;
+                                return null;
                         }
                         set
                         {
-                                this.Obs = value;
                                 switch (FormaDePago.Tipo) {
                                         case Lbl.Pagos.TiposFormasDePago.ChequePropio:
                                         case Lbl.Pagos.TiposFormasDePago.ChequeTerceros:

@@ -1,23 +1,30 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Lbl.Entidades
 {
-
         /// <summary>
         /// Representa una Provincia, Departamento o Localidad.
         /// </summary>
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Localidad")]
         [Lbl.Atributos.Datos(TablaDatos = "ciudades", CampoId = "id_ciudad")]
         [Lbl.Atributos.Presentacion()]
-	public class Localidad : ElementoDeDatos
+
+        [Entity(TableName = "ciudades", IdFieldName = "id_ciudad")]
+        public class Localidad : ElementoDeDatos
 	{
                 private Localidad m_Parent = null;
                 private Pais m_Pais = null;
 
-		//Heredar constructor
-		public Localidad(Lfx.Data.IConnection dataBase)
+                //Heredar constructor
+                public Localidad()
+                        : base() { }
+
+                //Heredar constructor
+                public Localidad(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
 		public Localidad(Lfx.Data.IConnection dataBase, int itemId)
@@ -30,6 +37,7 @@ namespace Lbl.Entidades
                 /// <summary>
                 /// Obtiene o establece el nombre del elemento.
                 /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
                 public string Nombre
                 {
                         get
@@ -42,7 +50,7 @@ namespace Lbl.Entidades
                         }
                 }
 
-
+                [Column(Name = "cp")]
                 public string CodigoPostal
                 {
                         get
@@ -56,6 +64,8 @@ namespace Lbl.Entidades
                 }
 
 
+                [Column(Name = "id_provincia")]
+                [ManyToOne]
                 public Localidad Provincia
                 {
                         get
@@ -75,7 +85,8 @@ namespace Lbl.Entidades
                         }
                 }
 
-
+                [Column(Name = "id_pais")]
+                [ManyToOne]
                 public Pais Pais
                 {
                         get
@@ -106,6 +117,7 @@ namespace Lbl.Entidades
                                 return Impuestos.SituacionIva.Predeterminado;
                 }
 
+                [Column(Name = "iva")]
                 public Impuestos.SituacionIva Iva
                 {
                         get

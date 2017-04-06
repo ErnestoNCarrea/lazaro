@@ -67,7 +67,11 @@ namespace Lbl.Personas
                         }
                         set
                         {
-                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                if (value == null) {
+                                        this.Registro["obs"] = null;
+                                } else {
+                                        this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                }
                         }
                 }
 
@@ -194,18 +198,13 @@ namespace Lbl.Personas
                                 // Esta dado de baja y antes no lo estaba
                                 Comando.ColumnValues.AddWithValue("fechabaja", new qGen.SqlExpression("NOW()"));
                         Comando.ColumnValues.AddWithValue("limitecredito", this.LimiteCredito);
-                        if (this.Existe)
-                        {
-                                if ((decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito)
-                                {
+                        if (this.Existe) {
+                                if (this.RegistroOriginal == null && (decimal)this.RegistroOriginal["limitecredito"] != this.LimiteCredito) {
                                         //Guardo la fecha en la cual se modifico el limite de credito
                                         Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
-                        }
-                        else
-                        {
-                                if (this.LimiteCredito > 0)
-                                {
+                        } else {
+                                if (this.LimiteCredito > 0) {
                                         Comando.ColumnValues.AddWithValue("limitecreditofecha", new qGen.SqlExpression("NOW()"));
                                 }
                         }

@@ -58,7 +58,11 @@ namespace Lbl.Impresion
                         }
                         set
                         {
-                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                if (value == null) {
+                                        this.Registro["obs"] = null;
+                                } else {
+                                        this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                }
                         }
                 }
 

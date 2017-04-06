@@ -66,7 +66,11 @@ namespace Lbl.Componentes
                         }
                         set
                         {
-                                this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                if (value == null) {
+                                        this.Registro["obs"] = null;
+                                } else {
+                                        this.Registro["obs"] = value.Trim(new char[] { '\n', '\r', ' ' });
+                                }
                         }
                 }
 
@@ -213,6 +217,7 @@ namespace Lbl.Componentes
                         // Cargo el archivo CIF
                         using (System.IO.Stream CifXml = this.Assembly.GetManifestResourceStream(this.EspacioNombres + ".cif.xml")) {
                                 if (CifXml != null) {
+                                        Log.Info("Cargando " + this.EspacioNombres + ".cif.xml");
                                         // FIXME: puedo cargarlo con un lector de texto
                                         using (System.IO.StreamReader Lector = new System.IO.StreamReader(CifXml)) {
                                                 this.Cif = Lector.ReadToEnd();
@@ -301,6 +306,7 @@ namespace Lbl.Componentes
                                 // Cargo las estructuras de datos adicionales que el componente necesita
                                 using (System.IO.Stream DbStructXml = this.Assembly.GetManifestResourceStream(this.EspacioNombres + ".dbstruct.xml")) {
                                         if (DbStructXml != null) {
+                                                Log.Info("Cargando " + this.EspacioNombres + ".dbstruct.xml");
                                                 // FIXME: puedo cargarlo con un lector de texto
                                                 using (System.IO.StreamReader Lector = new System.IO.StreamReader(DbStructXml)) {
                                                         this.Estructura = Lector.ReadToEnd();
@@ -309,10 +315,15 @@ namespace Lbl.Componentes
                                         }
                                 }
 
-
+                                Log.Info("Instanciando " + this.EspacioNombres + ".Component");
                                 var Cmp = Assembly.CreateInstance(this.EspacioNombres + ".Component");
-                                this.ComponentInstance = Cmp as IComponent;
-                                this.ComponentInstance.Workspace = Lfx.Workspace.Master;
+                                if (Cmp is IComponent) {
+                                        this.ComponentInstance = Cmp as IComponent;
+                                        this.ComponentInstance.Workspace = Lfx.Workspace.Master;
+                                } else {
+                                        Log.Info(this.EspacioNombres + ".Component no es una instancia de IComponent (posiblemente un componente antiguo).");
+                                        return new Lfx.Types.FailureOperationResult("No se puede cargar el componente " + this.Nombre);
+                                }
 
                                 this.LoadCif();
 
@@ -322,10 +333,10 @@ namespace Lbl.Componentes
 
 
                 private static ColeccionGenerica<Componente> m_Todos = null;
-                public static ColeccionGenerica<Componente> Todos()
+                public static ColeccionGenerica<Componente> ObtenerActivos()
                 {
                         if (m_Todos == null) {
-                                System.Data.DataTable Comps = Lfx.Workspace.Master.MasterConnection.Select("SELECT * FROM sys_components");
+                                System.Data.DataTable Comps = Lfx.Workspace.Master.MasterConnection.Select("SELECT * FROM sys_components WHERE estado=1");
                                 m_Todos = new ColeccionGenerica<Componente>(Lfx.Workspace.Master.MasterConnection, Comps);
                         }
                         return m_Todos;

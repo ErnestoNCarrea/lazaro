@@ -31,7 +31,11 @@ namespace Lbl
                 [NonSerialized]
                 protected ColeccionGenerica<Etiqueta> m_Etiquetas = null, m_EtiquetasOriginal = null;
 
-		protected ElementoDeDatos(Lfx.Data.IConnection conn)
+                protected ElementoDeDatos()
+                {
+                }
+
+                protected ElementoDeDatos(Lfx.Data.IConnection conn)
 		{
 			this.Connection = conn;
 		}

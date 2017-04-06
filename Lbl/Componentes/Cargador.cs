@@ -21,7 +21,7 @@ namespace Lbl.Componentes
                         Lfx.Components.Manager.RegisterComponent(ComLfc);
 
                         if (Lfx.Workspace.Master.Tables.ContainsKey("sys_components")) {
-                                Lbl.ColeccionGenerica<Lbl.Componentes.Componente> Comps = Lbl.Componentes.Componente.Todos();
+                                Lbl.ColeccionGenerica<Lbl.Componentes.Componente> Comps = Lbl.Componentes.Componente.ObtenerActivos();
                                 // Inicializar todos los componentes
                                 foreach (Lbl.Componentes.Componente Comp in Comps) {
                                         // Registro el componente con el actualizador

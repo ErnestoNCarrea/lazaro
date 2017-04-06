@@ -1,3 +1,5 @@
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,10 +13,16 @@ namespace Lbl.Entidades
         [Lbl.Atributos.Nomenclatura(NombreSingular = "País")]
         [Lbl.Atributos.Datos(TablaDatos = "paises", CampoId = "id_pais")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "paises", IdFieldName = "id_pais")]
         public class Pais : ElementoDeDatos
         {
                 private ClaveUnica m_ClavePersonasFisicas = null, m_ClavePersonasJuridicas = null, m_ClaveBancaria = null;
                 private Moneda m_Moneda = null;
+
+                //Heredar constructor
+                public Pais()
+                        : base() { }
 
                 //Heredar constructor
                 public Pais(Lfx.Data.IConnection dataBase)
@@ -26,7 +34,23 @@ namespace Lbl.Entidades
                 public Pais(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
 
+                /// <summary>
+                /// Obtiene o establece el nombre del elemento.
+                /// </summary>
+                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>(CampoNombre);
+                        }
+                        set
+                        {
+                                this.Registro[CampoNombre] = value;
+                        }
+                }
 
+                [Column(Name = "iso")]
                 public string CodigoIso
                 {
                         get
@@ -100,6 +124,7 @@ namespace Lbl.Entidades
                 /// <summary>
                 /// La tasa de IVA normal.
                 /// </summary>
+                [Column(Name = "iva1")]
                 public decimal Iva1
                 {
                         get
@@ -116,6 +141,7 @@ namespace Lbl.Entidades
                 /// <summary>
                 /// La tasa de IVA reducida.
                 /// </summary>
+                [Column(Name = "iva2")]
                 public decimal Iva2
                 {
                         get
