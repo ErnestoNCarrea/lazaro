@@ -54,7 +54,7 @@ namespace Lazaro.Orm.Mapping
                                 var Attr = Cls.GetCustomAttributes(typeof(Attributes.Entity), false);
                                 if (Attr.Length > 0 && this.ClassMetadata.ContainsKey(Cls.FullName) == false) {
                                         var EntityAttr = Attr[0] as Attributes.Entity;
-                                        Log.Info("Entity found on " + Cls.FullName);
+                                        Log.Debug("Entity found on " + Cls.FullName);
 
                                         var ClsMeta = new Mapping.ClassMetadata()
                                         {

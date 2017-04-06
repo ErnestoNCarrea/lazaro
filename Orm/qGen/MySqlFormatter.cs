@@ -649,26 +649,26 @@ namespace qGen
                 }
 
 
-                public static System.Data.IDbCommand SetupDbCommand(BuilkInsert insertCommand, IConnection connection)
+                public static System.Data.IDbCommand SetupDbCommand(BuilkInsert bulkInsertCommand, IConnection connection)
                 {
-                        if (insertCommand.InsertCommands.Count == 0)
+                        if (bulkInsertCommand.InsertCommands.Count == 0)
                                 return null;
 
                         var CmdText = new System.Text.StringBuilder();
                         var DbCommand = connection.DbConnection.CreateCommand();
 
                         var FieldList = new System.Text.StringBuilder();
-                        foreach (var Fld in insertCommand.ColumnValues) {
+                        foreach (var Fld in bulkInsertCommand.ColumnValues) {
                                 if (FieldList.Length == 0)
-                                        FieldList.Append(@"""" + Fld.ColumnName + @"""");
+                                        FieldList.Append(@"""" + Fld + @"""");
                                 else
-                                        FieldList.Append(@", """ + Fld.ColumnName + @"""");
+                                        FieldList.Append(@", """ + Fld + @"""");
 
                         }
 
-                        CmdText.Append(@"INSERT INTO """ + string.Join<string>(",", insertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES ");
+                        CmdText.Append(@"INSERT INTO """ + string.Join<string>(",", bulkInsertCommand.Tables) + @""" (" + FieldList.ToString() + ") VALUES ");
                         var CmdNum = 1;
-                        foreach (Insert Cmd in insertCommand.InsertCommands) {
+                        foreach (Insert Cmd in bulkInsertCommand.InsertCommands) {
                                 var ParamList = new System.Text.StringBuilder();
                                 foreach (IColumnValue ThisField in Cmd.ColumnValues) {
                                         string FieldParam;

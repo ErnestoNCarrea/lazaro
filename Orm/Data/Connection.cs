@@ -476,7 +476,7 @@ namespace Lazaro.Orm.Data
 
                         if (statementOrQuery is qGen.Update || statementOrQuery is qGen.Insert || statementOrQuery is qGen.Delete) {
                                 if (this.RequiresTransaction && this.m_InTransaction == false)
-                                        throw new InvalidOperationException("Comando fuera una transacción: " + statementOrQuery);
+                                        throw new InvalidOperationException("Comando fuera una transacción.");
                         }
 
                         using (var Cmd = this.Factory.Formatter.SetupDbCommand(statementOrQuery, this)) {
