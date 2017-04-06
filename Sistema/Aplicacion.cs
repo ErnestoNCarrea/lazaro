@@ -279,8 +279,10 @@ namespace Lazaro.WinMain
                 {
                         IList<string> ArchivosNecesarios = new List<string>()
                         {
-                                "Interop.WIA.dll",
+                                "log4net.config",
+                                "log4net.dll",
                                 "MySql.Data.dll",
+                                "Interop.WIA.dll",
                                 "ICSharpCode.SharpZipLib.dll",
                                 "PdfSharp.dll",
                                 "BarcodeLib.dll",

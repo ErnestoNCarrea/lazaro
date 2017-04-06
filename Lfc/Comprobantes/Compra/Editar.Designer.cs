@@ -397,8 +397,8 @@ namespace Lfc.Comprobantes.Compra
                         // 
                         // Editar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.Controls.Add(this.Contenedor);
                         this.Name = "Editar";
                         this.Size = new System.Drawing.Size(640, 400);

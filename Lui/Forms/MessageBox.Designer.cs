@@ -101,8 +101,8 @@ namespace Lui.Forms
                         // 
                         // MessageBox
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(529, 281);
                         this.Controls.Add(this.MessageText);
                         this.Controls.Add(this.LowerPanel);

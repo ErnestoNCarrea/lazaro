@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label3.Text" xml:space="preserve">
-    <value>La versión del almacén de datos que está utilizando es antigua. Es recomendable que actualice su almacén de datos para aprovechar las ventajas de la versión nueva. La nueva versión 10 del almacén datos MariaDB es más segura y más veloz.</value>
+    <value>La versión del almacén de datos que está utilizando es antigua. Es recomendable que actualice su almacén de datos para aprovechar las ventajas de la versión nueva. La nueva versión 10.2 del almacén datos MariaDB es más segura y más veloz.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="PanelConsejo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

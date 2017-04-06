@@ -90,6 +90,7 @@ namespace Lcc.Edicion.Comprobantes
                         this.EntradaImporte.Prefijo = "$";
                         this.EntradaImporte.Size = new System.Drawing.Size(116, 24);
                         this.EntradaImporte.TabIndex = 1;
+                        this.EntradaImporte.Text = "0.00";
                         // 
                         // label1
                         // 
@@ -131,8 +132,8 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaEmisor
                         // 
-                        this.EntradaEmisor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaEmisor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaEmisor.ForceCase = Lui.Forms.TextCasing.Automatic;
                         this.EntradaEmisor.Location = new System.Drawing.Point(140, 0);
                         this.EntradaEmisor.Name = "EntradaEmisor";
@@ -158,31 +159,28 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaNumeroCheque
                         // 
-                        this.EntradaNumeroCheque.AutoSize = false;
                         this.EntradaNumeroCheque.DataType = Lui.Forms.DataTypes.Integer;
                         this.EntradaNumeroCheque.Location = new System.Drawing.Point(140, 64);
                         this.EntradaNumeroCheque.Name = "EntradaNumeroCheque";
+                        this.EntradaNumeroCheque.PlaceholderText = "Estado para esta chequera.";
                         this.EntradaNumeroCheque.Size = new System.Drawing.Size(184, 24);
                         this.EntradaNumeroCheque.TabIndex = 5;
                         this.EntradaNumeroCheque.Text = "0";
-                        this.EntradaNumeroCheque.PlaceholderText = "Estado para esta chequera.";
                         // 
                         // EntradaBanco
                         // 
-                        this.EntradaBanco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaBanco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaBanco.AutoTab = true;
                         this.EntradaBanco.CanCreate = true;
-                        this.EntradaBanco.Filter = "";
                         this.EntradaBanco.Location = new System.Drawing.Point(140, 32);
                         this.EntradaBanco.MaxLength = 200;
                         this.EntradaBanco.Name = "EntradaBanco";
+                        this.EntradaBanco.NombreTipo = "Lbl.Bancos.Banco";
                         this.EntradaBanco.Required = true;
                         this.EntradaBanco.Size = new System.Drawing.Size(320, 24);
                         this.EntradaBanco.TabIndex = 3;
-                        this.EntradaBanco.NombreTipo = "Lbl.Bancos.Banco";
-                        this.EntradaBanco.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaBanco.Text = "0";
-                        this.EntradaBanco.ValueInt = 0;
                         // 
                         // label2
                         // 
@@ -245,7 +243,6 @@ namespace Lcc.Edicion.Comprobantes
                         this.FrameTitulo.Name = "FrameTitulo";
                         this.FrameTitulo.Size = new System.Drawing.Size(460, 32);
                         this.FrameTitulo.TabIndex = 0;
-                        this.FrameTitulo.TabStop = false;
                         this.FrameTitulo.Text = "frame1";
                         // 
                         // PanelCaja
@@ -261,20 +258,19 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaCaja
                         // 
-                        this.EntradaCaja.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaCaja.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaCaja.AutoTab = true;
                         this.EntradaCaja.CanCreate = true;
                         this.EntradaCaja.Filter = "estado=1";
                         this.EntradaCaja.Location = new System.Drawing.Point(140, 20);
                         this.EntradaCaja.MaxLength = 200;
                         this.EntradaCaja.Name = "EntradaCaja";
+                        this.EntradaCaja.NombreTipo = "Lbl.Cajas.Caja";
                         this.EntradaCaja.Required = true;
                         this.EntradaCaja.Size = new System.Drawing.Size(320, 24);
                         this.EntradaCaja.TabIndex = 1;
-                        this.EntradaCaja.NombreTipo = "Lbl.Cajas.Caja";
-                        this.EntradaCaja.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaCaja.Text = "0";
-                        this.EntradaCaja.ValueInt = 0;
                         // 
                         // label9
                         // 
@@ -332,11 +328,11 @@ namespace Lcc.Edicion.Comprobantes
                         this.EntradaInteres.DataType = Lui.Forms.DataTypes.Float;
                         this.EntradaInteres.Location = new System.Drawing.Point(368, 28);
                         this.EntradaInteres.Name = "EntradaInteres";
-                        this.EntradaInteres.TemporaryReadOnly = true;
                         this.EntradaInteres.Size = new System.Drawing.Size(80, 24);
                         this.EntradaInteres.Sufijo = "%";
                         this.EntradaInteres.TabIndex = 7;
                         this.EntradaInteres.TabStop = false;
+                        this.EntradaInteres.Text = "0.0000";
                         // 
                         // Label14
                         // 
@@ -352,7 +348,6 @@ namespace Lcc.Edicion.Comprobantes
                         this.EntradaCuotas.DataType = Lui.Forms.DataTypes.Integer;
                         this.EntradaCuotas.Location = new System.Drawing.Point(228, 28);
                         this.EntradaCuotas.Name = "EntradaCuotas";
-                        this.EntradaCuotas.TemporaryReadOnly = true;
                         this.EntradaCuotas.Size = new System.Drawing.Size(60, 24);
                         this.EntradaCuotas.TabIndex = 5;
                         this.EntradaCuotas.TabStop = false;
@@ -369,20 +364,18 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaPlan
                         // 
-                        this.EntradaPlan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaPlan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaPlan.AutoTab = true;
                         this.EntradaPlan.CanCreate = false;
-                        this.EntradaPlan.Filter = "";
                         this.EntradaPlan.Location = new System.Drawing.Point(140, 0);
                         this.EntradaPlan.MaxLength = 200;
                         this.EntradaPlan.Name = "EntradaPlan";
+                        this.EntradaPlan.NombreTipo = "Lbl.Pagos.Plan";
                         this.EntradaPlan.Required = false;
                         this.EntradaPlan.Size = new System.Drawing.Size(320, 24);
                         this.EntradaPlan.TabIndex = 3;
-                        this.EntradaPlan.NombreTipo = "Lbl.Pagos.Plan";
-                        this.EntradaPlan.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaPlan.Text = "0";
-                        this.EntradaPlan.ValueInt = 0;
                         this.EntradaPlan.TextChanged += new System.EventHandler(this.EntradaPlan_TextChanged);
                         // 
                         // Label11
@@ -415,9 +408,9 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaObs
                         // 
-                        this.EntradaObs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                    | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaObs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaObs.ForceCase = Lui.Forms.TextCasing.Automatic;
                         this.EntradaObs.Location = new System.Drawing.Point(140, 0);
                         this.EntradaObs.MultiLine = true;
@@ -467,20 +460,19 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // EntradaFormaDePago
                         // 
-                        this.EntradaFormaDePago.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaFormaDePago.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaFormaDePago.AutoTab = true;
                         this.EntradaFormaDePago.CanCreate = true;
                         this.EntradaFormaDePago.Filter = "cobros=1";
                         this.EntradaFormaDePago.Location = new System.Drawing.Point(136, 0);
                         this.EntradaFormaDePago.MaxLength = 200;
                         this.EntradaFormaDePago.Name = "EntradaFormaDePago";
+                        this.EntradaFormaDePago.NombreTipo = "Lbl.Pagos.FormaDePago";
                         this.EntradaFormaDePago.Required = true;
                         this.EntradaFormaDePago.Size = new System.Drawing.Size(324, 24);
                         this.EntradaFormaDePago.TabIndex = 1;
-                        this.EntradaFormaDePago.NombreTipo = "Lbl.Pagos.FormaDePago";
-                        this.EntradaFormaDePago.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaFormaDePago.Text = "0";
-                        this.EntradaFormaDePago.ValueInt = 0;
                         this.EntradaFormaDePago.TextChanged += new System.EventHandler(this.EntradaFormaDePago_TextChanged);
                         // 
                         // AyudaFormaDePago
@@ -540,6 +532,7 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // Cobro
                         // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.PanelSeparadorInferior);
                         this.Controls.Add(this.PanelObs);
                         this.Controls.Add(this.PanelValor);

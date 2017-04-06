@@ -48,7 +48,8 @@ namespace Lui.Forms
                         // 
                         // YesNoDialog
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(594, 372);
                         this.Controls.Add(this.DialogText);
                         this.Controls.Add(this.DialogCaption);

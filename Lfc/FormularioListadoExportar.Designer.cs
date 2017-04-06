@@ -2,7 +2,6 @@ namespace Lfc
 {
 	partial class FormularioListadoExportar
 	{
-		#region Código generado por el Diseñador de Windows Forms
                 /// <summary> 
                 /// Limpiar los recursos que se estén utilizando.
                 /// </summary>
@@ -124,7 +123,8 @@ namespace Lfc
                         // 
                         // FormularioListadoExportar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.BotonCancelar;
                         this.ClientSize = new System.Drawing.Size(544, 441);
                         this.Controls.Add(this.pictureBox1);
@@ -143,8 +143,6 @@ namespace Lfc
                         this.ResumeLayout(false);
 
 		}
-
-        	#endregion
 
                 internal Lui.Forms.Label label1;
                 private System.ComponentModel.Container components = null;

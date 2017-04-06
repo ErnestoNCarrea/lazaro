@@ -32,13 +32,14 @@ namespace Lui.Forms
                         // 
                         this.CancelCommandButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.CancelCommandButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.CancelCommandButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.CancelCommandButton.Image = null;
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.CancelCommandButton.Location = new System.Drawing.Point(334, 12);
+                        this.CancelCommandButton.Location = new System.Drawing.Point(342, 12);
                         this.CancelCommandButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+                        this.CancelCommandButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.CancelCommandButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.CancelCommandButton.Name = "CancelCommandButton";
-                        this.CancelCommandButton.Size = new System.Drawing.Size(116, 40);
+                        this.CancelCommandButton.Size = new System.Drawing.Size(108, 40);
                         this.CancelCommandButton.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.CancelCommandButton.Subtext = "Esc";
                         this.CancelCommandButton.TabIndex = 1;
@@ -49,13 +50,14 @@ namespace Lui.Forms
                         // 
                         this.OkButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.OkButton.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.OkButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.OkButton.Image = null;
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.OkButton.Location = new System.Drawing.Point(212, 12);
+                        this.OkButton.Location = new System.Drawing.Point(228, 12);
                         this.OkButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+                        this.OkButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.OkButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.OkButton.Name = "OkButton";
-                        this.OkButton.Size = new System.Drawing.Size(116, 40);
+                        this.OkButton.Size = new System.Drawing.Size(108, 40);
                         this.OkButton.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.OkButton.Subtext = "F9";
                         this.OkButton.TabIndex = 0;
@@ -64,7 +66,8 @@ namespace Lui.Forms
                         // 
                         // ChildDialogForm
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.CancelCommandButton;
                         this.ClientSize = new System.Drawing.Size(474, 294);
                         this.Controls.Add(this.LowerPanel);

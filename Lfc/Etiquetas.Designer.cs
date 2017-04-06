@@ -31,23 +31,13 @@ namespace Lfc
                         this.EntradaComentarios = new Lcc.Edicion.Comentarios();
                         this.SuspendLayout();
                         // 
-                        // OkButton
-                        // 
-                        this.OkButton.Location = new System.Drawing.Point(384, 8);
-                        // 
-                        // CancelCommandButton
-                        // 
-                        this.CancelCommandButton.Location = new System.Drawing.Point(504, 8);
-                        // 
                         // EntradaEtiquetas
                         // 
                         this.EntradaEtiquetas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaEtiquetas.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaEtiquetas.Location = new System.Drawing.Point(453, 11);
                         this.EntradaEtiquetas.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
                         this.EntradaEtiquetas.Name = "EntradaEtiquetas";
-                        this.EntradaEtiquetas.ReadOnly = false;
                         this.EntradaEtiquetas.Size = new System.Drawing.Size(160, 287);
                         this.EntradaEtiquetas.TabIndex = 3;
                         this.EntradaEtiquetas.Text = "Etiquetas";
@@ -57,21 +47,20 @@ namespace Lfc
                         this.EntradaComentarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaComentarios.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaComentarios.Location = new System.Drawing.Point(13, 11);
                         this.EntradaComentarios.Name = "EntradaComentarios";
-                        this.EntradaComentarios.ReadOnly = false;
                         this.EntradaComentarios.Size = new System.Drawing.Size(434, 287);
                         this.EntradaComentarios.TabIndex = 1;
                         this.EntradaComentarios.Text = "Comentarios";
                         // 
                         // Etiquetas
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(624, 364);
                         this.Controls.Add(this.EntradaComentarios);
                         this.Controls.Add(this.EntradaEtiquetas);
+                        this.ForeColor = System.Drawing.Color.Black;
                         this.Name = "Etiquetas";
                         this.Text = "Etiquetas";
                         this.Controls.SetChildIndex(this.EntradaEtiquetas, 0);

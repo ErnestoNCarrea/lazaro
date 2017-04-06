@@ -65,6 +65,7 @@ namespace Lui.Forms
                         // 
                         // Button
                         // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.IconPicture);
                         this.Controls.Add(this.SubText);
                         this.Controls.Add(this.MainText);

@@ -143,7 +143,7 @@ namespace Lfc.Comprobantes.Compra
                         // 
                         // Crear
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(474, 426);
                         this.Controls.Add(this.BotonNotaDeCredito);
                         this.Controls.Add(this.BotonRequerimiento);

@@ -62,7 +62,7 @@ namespace Lfc.Comprobantes
                     // 
                     // FormComprobantesListado
                     // 
-                    this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                    this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                     this.ClientSize = new System.Drawing.Size(604, 421);
                     this.Controls.Add(this.EntradaAgrupar);
                     this.Controls.Add(this.ReportListView);

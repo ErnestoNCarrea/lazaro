@@ -78,15 +78,17 @@ namespace Lfc
                         this.BotonCrear.MaximumSize = new System.Drawing.Size(108, 40);
                         this.BotonCrear.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonCrear.Name = "BotonCrear";
-                        this.BotonCrear.Size = new System.Drawing.Size(108, 46);
+                        this.BotonCrear.Size = new System.Drawing.Size(108, 40);
                         this.BotonCrear.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonCrear.Subtext = "F6";
                         this.BotonCrear.TabIndex = 71;
                         this.BotonCrear.Text = "Crear";
-                        this.BotonCrear.Click += new System.EventHandler(this.BotonCrear_Click);                       
+                        this.BotonCrear.Click += new System.EventHandler(this.BotonCrear_Click);
                         // 
                         // FormularioListado
                         // 
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(864, 441);
                         this.Controls.Add(this.BotonCrear);
                         this.Controls.Add(this.EtiquetaListadoVacio);

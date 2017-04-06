@@ -64,6 +64,7 @@ namespace Lfc.Articulos
                         this.EntradaRendimiento.PlaceholderText = "Precio de costo o de compra.";
                         this.EntradaRendimiento.Size = new System.Drawing.Size(96, 24);
                         this.EntradaRendimiento.TabIndex = 3;
+                        this.EntradaRendimiento.Text = "0.00";
                         // 
                         // label2
                         // 
@@ -95,7 +96,7 @@ namespace Lfc.Articulos
         "Centímetros³|cm³",
         "Litros|l",
         "Kg|kg"};
-                        this.EntradaUnidad.Size = new System.Drawing.Size(137, 90);
+                        this.EntradaUnidad.Size = new System.Drawing.Size(137, 91);
                         this.EntradaUnidad.TabIndex = 1;
                         this.EntradaUnidad.TextKey = "u";
                         // 
@@ -120,7 +121,7 @@ namespace Lfc.Articulos
         "Centímetros³|cm³",
         "Litros|l",
         "Kg|kg"};
-                        this.EntradaUnidadRend.Size = new System.Drawing.Size(137, 90);
+                        this.EntradaUnidadRend.Size = new System.Drawing.Size(137, 91);
                         this.EntradaUnidadRend.TabIndex = 4;
                         this.EntradaUnidadRend.TextKey = "";
                         // 
@@ -129,7 +130,7 @@ namespace Lfc.Articulos
                         this.EtiquetaTitulo.AutoSize = true;
                         this.EtiquetaTitulo.Location = new System.Drawing.Point(24, 24);
                         this.EtiquetaTitulo.Name = "EtiquetaTitulo";
-                        this.EtiquetaTitulo.Size = new System.Drawing.Size(136, 30);
+                        this.EtiquetaTitulo.Size = new System.Drawing.Size(135, 30);
                         this.EtiquetaTitulo.TabIndex = 102;
                         this.EtiquetaTitulo.Text = "Rendimiento";
                         this.EtiquetaTitulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.MainHeader;
@@ -145,8 +146,8 @@ namespace Lfc.Articulos
                         // 
                         // Rendimiento
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(513, 417);
                         this.Controls.Add(this.label3);
                         this.Controls.Add(this.EtiquetaTitulo);

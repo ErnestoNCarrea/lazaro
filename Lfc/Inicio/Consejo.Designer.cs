@@ -32,11 +32,10 @@ namespace Lfc.Inicio
                         // 
                         // Consejo
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.BackColor = System.Drawing.Color.DarkOrchid;
                         this.Image = ((System.Drawing.Image)(resources.GetObject("$this.Image")));
-                        this.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+                        this.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
                         this.Name = "Consejo";
                         this.Text = "Consejo del día";
                         this.ResumeLayout(false);

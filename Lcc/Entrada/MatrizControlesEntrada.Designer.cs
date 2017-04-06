@@ -31,9 +31,9 @@ namespace Lcc.Entrada
                         // 
                         // PanelGrilla
                         // 
-                        this.PanelGrilla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                                    | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.PanelGrilla.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
                         this.PanelGrilla.AutoScroll = true;
                         this.PanelGrilla.AutoScrollMargin = new System.Drawing.Size(20, 0);
                         this.PanelGrilla.Location = new System.Drawing.Point(0, 0);
@@ -43,15 +43,12 @@ namespace Lcc.Entrada
                         // 
                         // MatrizControlesEntrada
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.AutoScrollMargin = new System.Drawing.Size(4, 4);
                         this.Controls.Add(this.PanelGrilla);
                         this.Name = "MatrizControlesEntrada";
                         this.Size = new System.Drawing.Size(536, 180);
-                        this.Controls.SetChildIndex(this.PanelGrilla, 0);
                         this.ResumeLayout(false);
-                        this.PerformLayout();
 
                 }
 

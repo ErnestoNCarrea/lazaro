@@ -81,7 +81,7 @@ namespace Lfc
                         // 
                         // FormularioFiltros
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.AutoSize = true;
                         this.ClientSize = new System.Drawing.Size(624, 473);
                         this.Controls.Add(this.PanelFiltros);

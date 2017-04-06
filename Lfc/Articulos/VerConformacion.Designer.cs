@@ -43,12 +43,14 @@ namespace Lfc.Articulos
                         this.ListaConformacion.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColSituacion,
             this.ColCantidad});
+                        this.ListaConformacion.FieldName = null;
                         this.ListaConformacion.FullRowSelect = true;
                         this.ListaConformacion.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.ListaConformacion.LabelWrap = false;
                         this.ListaConformacion.Location = new System.Drawing.Point(24, 104);
                         this.ListaConformacion.MultiSelect = false;
                         this.ListaConformacion.Name = "ListaConformacion";
+                        this.ListaConformacion.ReadOnly = false;
                         this.ListaConformacion.Size = new System.Drawing.Size(640, 280);
                         this.ListaConformacion.TabIndex = 0;
                         this.ListaConformacion.UseCompatibleStateImageBehavior = false;
@@ -88,8 +90,8 @@ namespace Lfc.Articulos
                         // 
                         // VerConformacion
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(689, 473);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Controls.Add(this.ListaConformacion);

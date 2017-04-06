@@ -216,7 +216,7 @@ namespace Lfc.Cajas
                         // 
                         // Movimiento
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(594, 457);
                         this.Controls.Add(this.label8);
                         this.Controls.Add(this.EtiquetaTitulo);

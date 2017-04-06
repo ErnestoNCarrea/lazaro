@@ -14,5 +14,17 @@ namespace Lcc.Entrada
                                 return this.Text.Length == 0;
                         }
                 }
+
+                private void InitializeComponent()
+                {
+                        this.SuspendLayout();
+                        // 
+                        // ControlEntrada
+                        // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+                        this.Name = "ControlEntrada";
+                        this.ResumeLayout(false);
+
+                }
         }
 }

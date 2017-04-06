@@ -124,8 +124,8 @@ namespace Lfc.Comprobantes
                         // 
                         // IniciarNumeracion
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(624, 362);
                         this.Controls.Add(this.formHeader1);
                         this.Controls.Add(this.LabelAyuda);

@@ -16,8 +16,6 @@ namespace Lfc.Articulos
                         base.Dispose(disposing);
                 }
 
-                #region Código generado por el Diseñador de Windows Forms
-
                 private System.ComponentModel.IContainer components = null;
 
                 private void InitializeComponent()
@@ -59,12 +57,14 @@ namespace Lfc.Articulos
             this.ColHacia,
             this.ColSaldo,
             this.ColObs});
+                        this.Listado.FieldName = null;
                         this.Listado.FullRowSelect = true;
                         this.Listado.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.Listado.HideSelection = false;
                         this.Listado.Location = new System.Drawing.Point(24, 88);
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
+                        this.Listado.ReadOnly = false;
                         this.Listado.Size = new System.Drawing.Size(576, 64);
                         this.Listado.TabIndex = 52;
                         this.Listado.UseCompatibleStateImageBehavior = false;
@@ -125,12 +125,14 @@ namespace Lfc.Articulos
             this.ColumnHeader6,
             this.ColumnHeader4,
             this.ColumnHeader5});
+                        this.ListadoPedidos.FieldName = null;
                         this.ListadoPedidos.FullRowSelect = true;
                         this.ListadoPedidos.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.ListadoPedidos.HideSelection = false;
                         this.ListadoPedidos.Location = new System.Drawing.Point(24, 200);
                         this.ListadoPedidos.MultiSelect = false;
                         this.ListadoPedidos.Name = "ListadoPedidos";
+                        this.ListadoPedidos.ReadOnly = false;
                         this.ListadoPedidos.Size = new System.Drawing.Size(576, 87);
                         this.ListadoPedidos.TabIndex = 53;
                         this.ListadoPedidos.UseCompatibleStateImageBehavior = false;
@@ -205,7 +207,8 @@ namespace Lfc.Articulos
                         // 
                         // VerMovimientos
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(624, 364);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Controls.Add(this.Label2);
@@ -224,9 +227,7 @@ namespace Lfc.Articulos
                         this.PerformLayout();
 
                 }
-
-                #endregion
-
+                
                 internal Lui.Forms.ListView Listado;
                 internal System.Windows.Forms.ColumnHeader ColId;
                 internal System.Windows.Forms.ColumnHeader ColFecha;

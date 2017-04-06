@@ -35,5 +35,17 @@ namespace Lcc.Entrada
                                 }
                         }
                 }
+
+                private void InitializeComponent()
+                {
+                        this.SuspendLayout();
+                        // 
+                        // MatrizTelefonos
+                        // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+                        this.Name = "MatrizTelefonos";
+                        this.ResumeLayout(false);
+
+                }
         }
 }

@@ -35,12 +35,12 @@ namespace Lcc.Edicion
                         // 
                         this.GroupLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.GroupLabel.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader2;
                         this.GroupLabel.Location = new System.Drawing.Point(0, 0);
                         this.GroupLabel.Name = "GroupLabel";
                         this.GroupLabel.Size = new System.Drawing.Size(460, 24);
                         this.GroupLabel.TabIndex = 1;
                         this.GroupLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.GroupLabel.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader2;
                         this.GroupLabel.UseMnemonic = false;
                         // 
                         // FieldContainer
@@ -55,8 +55,7 @@ namespace Lcc.Edicion
                         // 
                         // MatrizCampos
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.FieldContainer);
                         this.Controls.Add(this.GroupLabel);
                         this.Name = "MatrizCampos";

@@ -416,7 +416,7 @@ namespace Lfc.Comprobantes
                         // 
                         // Filtros
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(634, 454);
                         this.Controls.Add(this.tableLayoutPanel1);
                         this.Name = "Filtros";

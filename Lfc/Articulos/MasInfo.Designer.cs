@@ -85,6 +85,7 @@ namespace Lfc.Articulos
                         this.EntradaCostoUltimaCompra.ReadOnly = true;
                         this.EntradaCostoUltimaCompra.Size = new System.Drawing.Size(100, 24);
                         this.EntradaCostoUltimaCompra.TabIndex = 55;
+                        this.EntradaCostoUltimaCompra.Text = "0.00";
                         // 
                         // Label3
                         // 
@@ -106,6 +107,7 @@ namespace Lfc.Articulos
                         this.EntradaCostoUltimas5Compras.ReadOnly = true;
                         this.EntradaCostoUltimas5Compras.Size = new System.Drawing.Size(100, 24);
                         this.EntradaCostoUltimas5Compras.TabIndex = 57;
+                        this.EntradaCostoUltimas5Compras.Text = "0.00";
                         // 
                         // Label4
                         // 
@@ -128,12 +130,14 @@ namespace Lfc.Articulos
             this.costo,
             this.pvp,
             this.usuario});
+                        this.lvItems.FieldName = null;
                         this.lvItems.FullRowSelect = true;
                         this.lvItems.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.lvItems.LabelWrap = false;
                         this.lvItems.Location = new System.Drawing.Point(24, 152);
                         this.lvItems.MultiSelect = false;
                         this.lvItems.Name = "lvItems";
+                        this.lvItems.ReadOnly = false;
                         this.lvItems.Size = new System.Drawing.Size(608, 156);
                         this.lvItems.TabIndex = 59;
                         this.lvItems.TabStop = false;
@@ -184,7 +188,8 @@ namespace Lfc.Articulos
                         // 
                         // MasInfo
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(658, 466);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Controls.Add(this.Label5);

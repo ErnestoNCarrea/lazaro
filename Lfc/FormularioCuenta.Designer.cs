@@ -28,17 +28,20 @@ namespace Lfc
                         // 
                         // EtiquetaTitulo
                         // 
-                        this.EtiquetaTitulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         this.EtiquetaTitulo.Location = new System.Drawing.Point(8, 8);
                         this.EtiquetaTitulo.Name = "EtiquetaTitulo";
                         this.EtiquetaTitulo.Size = new System.Drawing.Size(208, 64);
                         this.EtiquetaTitulo.TabIndex = 68;
                         this.EtiquetaTitulo.Text = "Cuentas corrientes";
                         this.EtiquetaTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        this.EtiquetaTitulo.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.GroupHeader;
                         this.EtiquetaTitulo.UseMnemonic = false;
                         // 
                         // FormularioCuenta
                         // 
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+                        this.ClientSize = new System.Drawing.Size(864, 441);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Name = "FormularioCuenta";
                         this.Text = "Caja";

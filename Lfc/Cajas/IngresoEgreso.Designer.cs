@@ -223,7 +223,7 @@ namespace Lfc.Cajas
                         // 
                         // IngresoEgreso
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(634, 455);
                         this.Controls.Add(this.EntradaNuevoSaldo);
                         this.Controls.Add(this.label8);

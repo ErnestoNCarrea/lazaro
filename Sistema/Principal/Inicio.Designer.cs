@@ -28,10 +28,9 @@ namespace Lazaro.WinMain.Principal
                 /// </summary>
                 private void InitializeComponent()
                 {
-                        this.components = new System.ComponentModel.Container();
                         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
-                        this.TimerProgramador = new System.Windows.Forms.Timer(this.components);
-                        this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
+                        this.TimerProgramador = new System.Windows.Forms.Timer();
+                        this.MainMenu = new System.Windows.Forms.MainMenu();
                         this.BarraTareas = new System.Windows.Forms.ToolStrip();
                         this.BarraInferior = new Lazaro.WinMain.Principal.BarraInferior();
                         this.SuspendLayout();
@@ -66,8 +65,8 @@ namespace Lazaro.WinMain.Principal
                         // 
                         // Inicio
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(1024, 690);
                         this.Controls.Add(this.BarraTareas);
                         this.Controls.Add(this.BarraInferior);

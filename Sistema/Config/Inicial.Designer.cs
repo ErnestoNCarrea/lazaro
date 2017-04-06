@@ -29,18 +29,18 @@ namespace Lazaro.WinMain.Config
                 {
                         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicial));
                         this.PanelSeleccionarAlmacen = new Lui.Forms.Panel();
-                        this.pictureBox9 = new System.Windows.Forms.PictureBox();
-                        this.label8 = new Lui.Forms.Label();
+                        this.PictureBox9 = new System.Windows.Forms.PictureBox();
+                        this.Label8 = new Lui.Forms.Label();
                         this.CheckInstalarAhora = new System.Windows.Forms.RadioButton();
                         this.pictureBox5 = new System.Windows.Forms.PictureBox();
                         this.pictureBox4 = new System.Windows.Forms.PictureBox();
                         this.pictureBox3 = new System.Windows.Forms.PictureBox();
                         this.pictureBox1 = new System.Windows.Forms.PictureBox();
-                        this.label3 = new Lui.Forms.Label();
+                        this.Label3 = new Lui.Forms.Label();
                         this.CheckConfigAvanzada = new System.Windows.Forms.RadioButton();
-                        this.label2 = new Lui.Forms.Label();
+                        this.Label2 = new Lui.Forms.Label();
                         this.CheckOtroEquipo = new System.Windows.Forms.RadioButton();
-                        this.label1 = new Lui.Forms.Label();
+                        this.Label1 = new Lui.Forms.Label();
                         this.CheckEsteEquipo = new System.Windows.Forms.RadioButton();
                         this.EtiquetaAyuda = new Lui.Forms.Label();
                         this.LowerPanel = new Lui.Forms.ButtonPanel();
@@ -107,7 +107,7 @@ namespace Lazaro.WinMain.Config
                         this.pictureBox15 = new System.Windows.Forms.PictureBox();
                         this.label20 = new Lui.Forms.Label();
                         this.PanelSeleccionarAlmacen.SuspendLayout();
-                        ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+                        ((System.ComponentModel.ISupportInitialize)(this.PictureBox9)).BeginInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -139,18 +139,18 @@ namespace Lazaro.WinMain.Config
                         this.PanelSeleccionarAlmacen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.PanelSeleccionarAlmacen.Controls.Add(this.pictureBox9);
-                        this.PanelSeleccionarAlmacen.Controls.Add(this.label8);
+                        this.PanelSeleccionarAlmacen.Controls.Add(this.PictureBox9);
+                        this.PanelSeleccionarAlmacen.Controls.Add(this.Label8);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.CheckInstalarAhora);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.pictureBox5);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.pictureBox4);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.pictureBox3);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.pictureBox1);
-                        this.PanelSeleccionarAlmacen.Controls.Add(this.label3);
+                        this.PanelSeleccionarAlmacen.Controls.Add(this.Label3);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.CheckConfigAvanzada);
-                        this.PanelSeleccionarAlmacen.Controls.Add(this.label2);
+                        this.PanelSeleccionarAlmacen.Controls.Add(this.Label2);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.CheckOtroEquipo);
-                        this.PanelSeleccionarAlmacen.Controls.Add(this.label1);
+                        this.PanelSeleccionarAlmacen.Controls.Add(this.Label1);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.CheckEsteEquipo);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.EtiquetaAyuda);
                         this.PanelSeleccionarAlmacen.Location = new System.Drawing.Point(120, 48);
@@ -160,26 +160,26 @@ namespace Lazaro.WinMain.Config
                         // 
                         // pictureBox9
                         // 
-                        this.pictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-                        this.pictureBox9.Location = new System.Drawing.Point(48, 176);
-                        this.pictureBox9.Name = "pictureBox9";
-                        this.pictureBox9.Size = new System.Drawing.Size(32, 32);
-                        this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-                        this.pictureBox9.TabIndex = 70;
-                        this.pictureBox9.TabStop = false;
+                        this.PictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
+                        this.PictureBox9.Location = new System.Drawing.Point(48, 176);
+                        this.PictureBox9.Name = "pictureBox9";
+                        this.PictureBox9.Size = new System.Drawing.Size(32, 32);
+                        this.PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+                        this.PictureBox9.TabIndex = 70;
+                        this.PictureBox9.TabStop = false;
                         // 
                         // label8
                         // 
-                        this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+                        this.Label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label8.Location = new System.Drawing.Point(88, 200);
-                        this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.label8.Name = "label8";
-                        this.label8.Size = new System.Drawing.Size(404, 29);
-                        this.label8.TabIndex = 7;
-                        this.label8.Text = "Marque esta casilla si quiere instalar el servidor SQL en este equipo ahora y que" +
+                        this.Label8.Location = new System.Drawing.Point(88, 200);
+                        this.Label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.Label8.Name = "label8";
+                        this.Label8.Size = new System.Drawing.Size(404, 29);
+                        this.Label8.TabIndex = 7;
+                        this.Label8.Text = "Marque esta casilla si quiere instalar el servidor SQL en este equipo ahora y que" +
     " este sea el equipo principal.";
-                        this.label8.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
+                        this.Label8.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         // 
                         // CheckInstalarAhora
                         // 
@@ -233,16 +233,16 @@ namespace Lazaro.WinMain.Config
                         // 
                         // label3
                         // 
-                        this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+                        this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label3.Location = new System.Drawing.Point(88, 264);
-                        this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.label3.Name = "label3";
-                        this.label3.Size = new System.Drawing.Size(404, 32);
-                        this.label3.TabIndex = 0;
-                        this.label3.Text = "Utilice la configuración avanzada si necesita ingresar parámetros adicionales par" +
+                        this.Label3.Location = new System.Drawing.Point(88, 264);
+                        this.Label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.Label3.Name = "label3";
+                        this.Label3.Size = new System.Drawing.Size(404, 32);
+                        this.Label3.TabIndex = 0;
+                        this.Label3.Text = "Utilice la configuración avanzada si necesita ingresar parámetros adicionales par" +
     "a conectar al almacén de datos.";
-                        this.label3.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
+                        this.Label3.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         // 
                         // CheckConfigAvanzada
                         // 
@@ -256,16 +256,16 @@ namespace Lazaro.WinMain.Config
                         // 
                         // label2
                         // 
-                        this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+                        this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label2.Location = new System.Drawing.Point(88, 128);
-                        this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.label2.Name = "label2";
-                        this.label2.Size = new System.Drawing.Size(404, 45);
-                        this.label2.TabIndex = 5;
-                        this.label2.Text = "Marque esta casilla si ya instaló el servidor SQL en otro equipo y desea acceder " +
+                        this.Label2.Location = new System.Drawing.Point(88, 128);
+                        this.Label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.Label2.Name = "label2";
+                        this.Label2.Size = new System.Drawing.Size(404, 45);
+                        this.Label2.TabIndex = 5;
+                        this.Label2.Text = "Marque esta casilla si ya instaló el servidor SQL en otro equipo y desea acceder " +
     "al almacén de datos a través de una conexión de red o de Internet.";
-                        this.label2.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
+                        this.Label2.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         // 
                         // CheckOtroEquipo
                         // 
@@ -281,15 +281,15 @@ namespace Lazaro.WinMain.Config
                         // 
                         // label1
                         // 
-                        this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+                        this.Label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label1.Location = new System.Drawing.Point(88, 72);
-                        this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.label1.Name = "label1";
-                        this.label1.Size = new System.Drawing.Size(404, 20);
-                        this.label1.TabIndex = 3;
-                        this.label1.Text = "Marque esta casilla si instaló el servidor SQL en este equipo.";
-                        this.label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
+                        this.Label1.Location = new System.Drawing.Point(88, 72);
+                        this.Label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.Label1.Name = "label1";
+                        this.Label1.Size = new System.Drawing.Size(404, 20);
+                        this.Label1.TabIndex = 3;
+                        this.Label1.Text = "Marque esta casilla si instaló el servidor SQL en este equipo.";
+                        this.Label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         // 
                         // CheckEsteEquipo
                         // 
@@ -1085,8 +1085,8 @@ namespace Lazaro.WinMain.Config
                         // 
                         // Inicial
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.BotonSalir;
                         this.ClientSize = new System.Drawing.Size(634, 422);
                         this.ControlBox = false;
@@ -1110,7 +1110,7 @@ namespace Lazaro.WinMain.Config
                         this.Activated += new System.EventHandler(this.Inicial_Activated);
                         this.PanelSeleccionarAlmacen.ResumeLayout(false);
                         this.PanelSeleccionarAlmacen.PerformLayout();
-                        ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+                        ((System.ComponentModel.ISupportInitialize)(this.PictureBox9)).EndInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
                         ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
@@ -1154,11 +1154,11 @@ namespace Lazaro.WinMain.Config
                 private Lui.Forms.ButtonPanel LowerPanel;
                 private Lui.Forms.Button BotonSiguiente;
                 private Lui.Forms.Button BotonSalir;
-                private Lui.Forms.Label label3;
+                private Lui.Forms.Label Label3;
                 private System.Windows.Forms.RadioButton CheckConfigAvanzada;
-                private Lui.Forms.Label label2;
+                private Lui.Forms.Label Label2;
                 private System.Windows.Forms.RadioButton CheckOtroEquipo;
-                private Lui.Forms.Label label1;
+                private Lui.Forms.Label Label1;
                 private System.Windows.Forms.RadioButton CheckEsteEquipo;
                 private Lui.Forms.Panel PanelLogo;
                 private System.Windows.Forms.PictureBox pictureBox2;
@@ -1182,8 +1182,8 @@ namespace Lazaro.WinMain.Config
                 private System.Windows.Forms.PictureBox pictureBox7;
                 private Lui.Forms.Label label5;
                 private Lui.Forms.Label EtiquetaEncab;
-                private System.Windows.Forms.PictureBox pictureBox9;
-                private Lui.Forms.Label label8;
+                private System.Windows.Forms.PictureBox PictureBox9;
+                private Lui.Forms.Label Label8;
                 private System.Windows.Forms.RadioButton CheckInstalarAhora;
                 private Lui.Forms.Panel PanelDeteccion;
                 private Lui.Forms.Label EtiquetaBuscando;

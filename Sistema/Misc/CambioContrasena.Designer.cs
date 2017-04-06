@@ -197,7 +197,8 @@ namespace Lazaro.WinMain.Misc
                         // 
                         // CambioContrasena
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.CancelCommandButton;
                         this.ClientSize = new System.Drawing.Size(546, 312);
                         this.ControlBox = false;

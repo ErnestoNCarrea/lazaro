@@ -48,7 +48,6 @@ namespace Lui.Forms
                         // Calendar1
                         // 
                         this.Calendar1.DateFormat = "dd/MM/yyyy";
-                        this.Calendar1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Calendar1.Location = new System.Drawing.Point(280, 28);
                         this.Calendar1.MultiSelect = false;
                         this.Calendar1.Name = "Calendar1";
@@ -63,7 +62,6 @@ namespace Lui.Forms
                         // BotonAnioAnterior
                         // 
                         this.BotonAnioAnterior.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonAnioAnterior.ForeColor = System.Drawing.Color.Black;
                         this.BotonAnioAnterior.Image = null;
                         this.BotonAnioAnterior.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAnioAnterior.Location = new System.Drawing.Point(28, 152);
@@ -78,7 +76,6 @@ namespace Lui.Forms
                         // BotonAnioSiguiente
                         // 
                         this.BotonAnioSiguiente.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonAnioSiguiente.ForeColor = System.Drawing.Color.Black;
                         this.BotonAnioSiguiente.Image = null;
                         this.BotonAnioSiguiente.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAnioSiguiente.Location = new System.Drawing.Point(172, 152);
@@ -93,7 +90,6 @@ namespace Lui.Forms
                         // BotonMes1
                         // 
                         this.BotonMes1.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes1.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes1.Image = null;
                         this.BotonMes1.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes1.Location = new System.Drawing.Point(28, 28);
@@ -108,7 +104,6 @@ namespace Lui.Forms
                         // BotonMes2
                         // 
                         this.BotonMes2.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes2.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes2.Image = null;
                         this.BotonMes2.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes2.Location = new System.Drawing.Point(100, 28);
@@ -123,7 +118,6 @@ namespace Lui.Forms
                         // BotonMes4
                         // 
                         this.BotonMes4.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes4.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes4.Image = null;
                         this.BotonMes4.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes4.Location = new System.Drawing.Point(28, 56);
@@ -138,7 +132,6 @@ namespace Lui.Forms
                         // BotonMes3
                         // 
                         this.BotonMes3.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes3.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes3.Image = null;
                         this.BotonMes3.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes3.Location = new System.Drawing.Point(172, 28);
@@ -153,7 +146,6 @@ namespace Lui.Forms
                         // BotonMes8
                         // 
                         this.BotonMes8.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes8.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes8.Image = null;
                         this.BotonMes8.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes8.Location = new System.Drawing.Point(100, 84);
@@ -168,7 +160,6 @@ namespace Lui.Forms
                         // BotonMes7
                         // 
                         this.BotonMes7.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes7.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes7.Image = null;
                         this.BotonMes7.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes7.Location = new System.Drawing.Point(28, 84);
@@ -183,7 +174,6 @@ namespace Lui.Forms
                         // BotonMes6
                         // 
                         this.BotonMes6.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes6.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes6.Image = null;
                         this.BotonMes6.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes6.Location = new System.Drawing.Point(172, 56);
@@ -198,7 +188,6 @@ namespace Lui.Forms
                         // BotonMes5
                         // 
                         this.BotonMes5.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes5.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes5.Image = null;
                         this.BotonMes5.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes5.Location = new System.Drawing.Point(100, 56);
@@ -213,7 +202,6 @@ namespace Lui.Forms
                         // BotonMes12
                         // 
                         this.BotonMes12.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes12.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes12.Image = null;
                         this.BotonMes12.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes12.Location = new System.Drawing.Point(172, 112);
@@ -228,7 +216,6 @@ namespace Lui.Forms
                         // BotonMes11
                         // 
                         this.BotonMes11.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes11.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes11.Image = null;
                         this.BotonMes11.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes11.Location = new System.Drawing.Point(100, 112);
@@ -243,7 +230,6 @@ namespace Lui.Forms
                         // BotonMes10
                         // 
                         this.BotonMes10.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes10.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes10.Image = null;
                         this.BotonMes10.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes10.Location = new System.Drawing.Point(28, 112);
@@ -258,7 +244,6 @@ namespace Lui.Forms
                         // BotonMes9
                         // 
                         this.BotonMes9.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonMes9.ForeColor = System.Drawing.Color.Black;
                         this.BotonMes9.Image = null;
                         this.BotonMes9.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonMes9.Location = new System.Drawing.Point(172, 84);
@@ -273,7 +258,6 @@ namespace Lui.Forms
                         // BotonHoy
                         // 
                         this.BotonHoy.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonHoy.ForeColor = System.Drawing.Color.Black;
                         this.BotonHoy.Image = null;
                         this.BotonHoy.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonHoy.Location = new System.Drawing.Point(100, 192);
@@ -287,7 +271,8 @@ namespace Lui.Forms
                         // 
                         // CalendarPopUp
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(543, 308);
                         this.Controls.Add(this.BotonHoy);
                         this.Controls.Add(this.BotonMes12);
@@ -305,6 +290,7 @@ namespace Lui.Forms
                         this.Controls.Add(this.BotonAnioSiguiente);
                         this.Controls.Add(this.BotonAnioAnterior);
                         this.Controls.Add(this.Calendar1);
+                        this.ForeColor = System.Drawing.Color.Black;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
                         this.Name = "CalendarPopUp";
                         this.ShowInTaskbar = false;

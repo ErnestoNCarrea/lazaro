@@ -154,6 +154,7 @@ namespace Lui.Forms
                         // 
                         // TextBox
                         // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.EtiquetaPrefijo);
                         this.Controls.Add(this.EtiquetaSufijo);
                         this.Name = "TextBox";

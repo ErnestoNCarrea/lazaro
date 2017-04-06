@@ -27,7 +27,7 @@ namespace Lfc.Bancos.Cheques
                 private void InitializeComponent()
                 {
                         this.EntradaImpuestos = new Lui.Forms.TextBox();
-                        this.label4 = new Lui.Forms.Label();
+                        this.Label4 = new Lui.Forms.Label();
                         this.EntradaSubTotal = new Lui.Forms.TextBox();
                         this.Label1 = new Lui.Forms.Label();
                         this.EntradaCantidad = new Lui.Forms.TextBox();
@@ -36,7 +36,7 @@ namespace Lfc.Bancos.Cheques
                         this.Label3 = new Lui.Forms.Label();
                         this.EntradaTotal = new Lui.Forms.TextBox();
                         this.Label8 = new Lui.Forms.Label();
-                        this.label2 = new Lui.Forms.Label();
+                        this.Label5 = new Lui.Forms.Label();
                         this.EtiquetaTitulo = new Lui.Forms.Label();
                         this.SuspendLayout();
                         // 
@@ -52,12 +52,12 @@ namespace Lfc.Bancos.Cheques
                         // 
                         // label4
                         // 
-                        this.label4.Location = new System.Drawing.Point(296, 136);
-                        this.label4.Name = "label4";
-                        this.label4.Size = new System.Drawing.Size(120, 24);
-                        this.label4.TabIndex = 7;
-                        this.label4.Text = "+ Otros gastos";
-                        this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+                        this.Label4.Location = new System.Drawing.Point(296, 136);
+                        this.Label4.Name = "label4";
+                        this.Label4.Size = new System.Drawing.Size(120, 24);
+                        this.Label4.TabIndex = 7;
+                        this.Label4.Text = "+ Otros gastos";
+                        this.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
                         // EntradaSubTotal
                         // 
@@ -146,13 +146,13 @@ namespace Lfc.Bancos.Cheques
                         // 
                         // label2
                         // 
-                        this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+                        this.Label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label2.Location = new System.Drawing.Point(24, 56);
-                        this.label2.Name = "label2";
-                        this.label2.Size = new System.Drawing.Size(584, 24);
-                        this.label2.TabIndex = 54;
-                        this.label2.Text = "Asentará el pago de un cheque emitido.";
+                        this.Label5.Location = new System.Drawing.Point(24, 56);
+                        this.Label5.Name = "label2";
+                        this.Label5.Size = new System.Drawing.Size(584, 24);
+                        this.Label5.TabIndex = 54;
+                        this.Label5.Text = "Asentará el pago de un cheque emitido.";
                         // 
                         // EtiquetaTitulo
                         // 
@@ -166,9 +166,9 @@ namespace Lfc.Bancos.Cheques
                         // 
                         // Pagar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(634, 338);
-                        this.Controls.Add(this.label2);
+                        this.Controls.Add(this.Label5);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Controls.Add(this.EntradaCajaOrigen);
                         this.Controls.Add(this.Label3);
@@ -178,13 +178,13 @@ namespace Lfc.Bancos.Cheques
                         this.Controls.Add(this.EntradaSubTotal);
                         this.Controls.Add(this.EntradaCantidad);
                         this.Controls.Add(this.Label2);
-                        this.Controls.Add(this.label4);
+                        this.Controls.Add(this.Label4);
                         this.Controls.Add(this.Label1);
                         this.ForeColor = System.Drawing.Color.Black;
                         this.Name = "Pagar";
                         this.Text = "Pagar un cheque";
                         this.Controls.SetChildIndex(this.Label1, 0);
-                        this.Controls.SetChildIndex(this.label4, 0);
+                        this.Controls.SetChildIndex(this.Label4, 0);
                         this.Controls.SetChildIndex(this.Label2, 0);
                         this.Controls.SetChildIndex(this.EntradaCantidad, 0);
                         this.Controls.SetChildIndex(this.EntradaSubTotal, 0);
@@ -194,7 +194,7 @@ namespace Lfc.Bancos.Cheques
                         this.Controls.SetChildIndex(this.Label3, 0);
                         this.Controls.SetChildIndex(this.EntradaCajaOrigen, 0);
                         this.Controls.SetChildIndex(this.EtiquetaTitulo, 0);
-                        this.Controls.SetChildIndex(this.label2, 0);
+                        this.Controls.SetChildIndex(this.Label5, 0);
                         this.ResumeLayout(false);
                         this.PerformLayout();
 
@@ -203,7 +203,7 @@ namespace Lfc.Bancos.Cheques
 
 
                 internal Lui.Forms.TextBox EntradaImpuestos;
-                internal Lui.Forms.Label label4;
+                internal Lui.Forms.Label Label4;
                 internal Lui.Forms.TextBox EntradaSubTotal;
                 internal Lui.Forms.Label Label1;
                 internal Lui.Forms.TextBox EntradaCantidad;
@@ -212,7 +212,7 @@ namespace Lfc.Bancos.Cheques
                 internal Lui.Forms.TextBox EntradaTotal;
                 internal Lui.Forms.Label Label8;
                 public Lcc.Entrada.CodigoDetalle EntradaCajaOrigen;
-                private Lui.Forms.Label label2;
+                private Lui.Forms.Label Label5;
                 private Lui.Forms.Label EtiquetaTitulo;
                 private System.ComponentModel.IContainer components = null;
         }

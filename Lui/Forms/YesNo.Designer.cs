@@ -40,7 +40,7 @@ namespace Lui.Forms
                         this.EtiquetaSi.ForeColor = System.Drawing.SystemColors.HighlightText;
                         this.EtiquetaSi.Location = new System.Drawing.Point(2, 2);
                         this.EtiquetaSi.Name = "EtiquetaSi";
-                        this.EtiquetaSi.Size = new System.Drawing.Size(19, 20);
+                        this.EtiquetaSi.Size = new System.Drawing.Size(32, 23);
                         this.EtiquetaSi.TabIndex = 0;
                         this.EtiquetaSi.Text = "Sí";
                         this.EtiquetaSi.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -51,9 +51,9 @@ namespace Lui.Forms
                         this.EtiquetaNo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
                         this.EtiquetaNo.AutoEllipsis = true;
-                        this.EtiquetaNo.Location = new System.Drawing.Point(24, 2);
+                        this.EtiquetaNo.Location = new System.Drawing.Point(37, 2);
                         this.EtiquetaNo.Name = "EtiquetaNo";
-                        this.EtiquetaNo.Size = new System.Drawing.Size(25, 20);
+                        this.EtiquetaNo.Size = new System.Drawing.Size(32, 23);
                         this.EtiquetaNo.TabIndex = 1;
                         this.EtiquetaNo.Text = "No";
                         this.EtiquetaNo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -61,16 +61,13 @@ namespace Lui.Forms
                         // 
                         // YesNo
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.Controls.Add(this.EtiquetaNo);
                         this.Controls.Add(this.EtiquetaSi);
                         this.Name = "YesNo";
-                        this.Size = new System.Drawing.Size(55, 24);
-                        this.Controls.SetChildIndex(this.EtiquetaSi, 0);
-                        this.Controls.SetChildIndex(this.EtiquetaNo, 0);
+                        this.Size = new System.Drawing.Size(74, 27);
                         this.ResumeLayout(false);
-                        this.PerformLayout();
 
                 }
 

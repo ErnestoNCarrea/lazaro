@@ -179,7 +179,7 @@ namespace Lcc.Entrada
                         // 
                         // CodigoDetalle
                         // 
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.BotonBuscar);
                         this.Controls.Add(this.EntradaCodigo);
                         this.Controls.Add(this.EntradaFreeText);

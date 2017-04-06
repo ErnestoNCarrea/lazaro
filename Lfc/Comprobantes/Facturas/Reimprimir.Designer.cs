@@ -259,7 +259,7 @@ namespace Lfc.Comprobantes.Facturas
                         // 
                         // Reimprimir
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(962, 521);
                         this.Controls.Add(this.EtiquetaAviso);
                         this.Controls.Add(this.label5);

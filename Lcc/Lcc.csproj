@@ -283,11 +283,23 @@
     <EmbeddedResource Include="Entrada\AuxForms\BusquedaRapida.resx">
       <DependentUpon>BusquedaRapida.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Entrada\CampoTexto.resx">
+      <DependentUpon>CampoTexto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Entrada\ControlEntrada.resx">
+      <DependentUpon>ControlEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Entrada\ControlSeleccionElemento.resx">
+      <DependentUpon>ControlSeleccionElemento.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Entrada\Filtros.resx">
       <DependentUpon>Filtros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Entrada\MatrizControlesEntrada.resx">
       <DependentUpon>MatrizControlesEntrada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Entrada\MatrizTelefonos.resx">
+      <DependentUpon>MatrizTelefonos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Entrada\RangoFechas.resx">
       <DependentUpon>RangoFechas.cs</DependentUpon>

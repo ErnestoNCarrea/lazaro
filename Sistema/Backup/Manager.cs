@@ -77,7 +77,7 @@ namespace Lazaro.WinMain.Backup
                                 string FechaYHora = Listado.SelectedItems[0].SubItems[2].Text;
 
                                 WinMain.Backup.Restore Pregunta = new WinMain.Backup.Restore();
-                                Pregunta.lblFecha.Text = FechaYHora;
+                                Pregunta.LabelFecha.Text = FechaYHora;
                                 if (Pregunta.ShowDialog() == DialogResult.OK) {
                                         this.BackupManager.Restore(NombreCarpeta);
                                         Lfx.Workspace.Master.RunTime.Execute("REBOOT");

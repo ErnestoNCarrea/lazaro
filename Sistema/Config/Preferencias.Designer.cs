@@ -1176,7 +1176,8 @@ namespace Lazaro.WinMain.Config
                         // 
                         // Preferencias
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(784, 521);
                         this.Controls.Add(this.LabelTab4);
                         this.Controls.Add(this.LabelTab3);

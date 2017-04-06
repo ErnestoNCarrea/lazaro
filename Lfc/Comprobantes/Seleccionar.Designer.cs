@@ -245,7 +245,7 @@ namespace Lfc.Comprobantes
                         // 
                         // Seleccionar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(698, 475);
                         this.Controls.Add(this.pictureBox1);
                         this.Controls.Add(this.EntradaTipo);

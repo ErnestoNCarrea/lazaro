@@ -63,7 +63,8 @@ namespace Lui.Forms
                         // 
                         // WorkstationSelectorForm
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(634, 371);
                         this.Controls.Add(this.Listado);
                         this.ForeColor = System.Drawing.Color.Black;

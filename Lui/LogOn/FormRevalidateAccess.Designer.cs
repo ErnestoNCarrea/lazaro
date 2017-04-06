@@ -109,8 +109,8 @@ namespace Lui.LogOn
                         // 
                         // FormRevalidateAccess
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(474, 292);
                         this.Controls.Add(this.LabelExplain);
                         this.Controls.Add(this.EntradaUsuario);

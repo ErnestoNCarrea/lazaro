@@ -12,5 +12,22 @@ namespace Lcc.Entrada
                         }
                 }
 
+                private void InitializeComponent()
+                {
+                        this.SuspendLayout();
+                        // 
+                        // TextBox1
+                        // 
+                        this.TextBox1.ForeColor = System.Drawing.Color.Black;
+                        this.TextBox1.Location = new System.Drawing.Point(5, 3);
+                        // 
+                        // CampoTexto
+                        // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+                        this.Name = "CampoTexto";
+                        this.ResumeLayout(false);
+                        this.PerformLayout();
+
+                }
         }
 }

@@ -14,8 +14,6 @@ namespace Lfc
                         base.Dispose(disposing);
                 }
 
-                #region Código generado por el Diseñador de Windows Forms
-
                 private void InitializeComponent()
                 {
                         this.PanelAccionesPrimariasYSecundarias = new Lui.Forms.ActionsPanel();
@@ -56,7 +54,6 @@ namespace Lfc
                         // EntradaImagen
                         // 
                         this.EntradaImagen.Dock = System.Windows.Forms.DockStyle.Top;
-                        this.EntradaImagen.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaImagen.Location = new System.Drawing.Point(12, 12);
                         this.EntradaImagen.Margin = new System.Windows.Forms.Padding(0, 0, 0, 8);
                         this.EntradaImagen.MinimumSize = new System.Drawing.Size(240, 160);
@@ -70,7 +67,6 @@ namespace Lfc
                         this.EntradaTags.AutoScrollMargin = new System.Drawing.Size(0, 12);
                         this.EntradaTags.AutoSize = true;
                         this.EntradaTags.Dock = System.Windows.Forms.DockStyle.Top;
-                        this.EntradaTags.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaTags.Location = new System.Drawing.Point(12, 372);
                         this.EntradaTags.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
                         this.EntradaTags.MinimumSize = new System.Drawing.Size(240, 160);
@@ -82,7 +78,6 @@ namespace Lfc
                         // EntradaComentarios
                         // 
                         this.EntradaComentarios.Dock = System.Windows.Forms.DockStyle.Top;
-                        this.EntradaComentarios.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.EntradaComentarios.Location = new System.Drawing.Point(12, 196);
                         this.EntradaComentarios.Margin = new System.Windows.Forms.Padding(0, 12, 0, 0);
                         this.EntradaComentarios.MinimumSize = new System.Drawing.Size(240, 152);
@@ -145,14 +140,14 @@ namespace Lfc
                         // 
                         // FormularioEdicion
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(792, 473);
                         this.Controls.Add(this.PanelEdicion);
                         this.Controls.Add(this.PanelExtendido);
                         this.Controls.Add(this.PanelAccionesTerciarias);
                         this.Controls.Add(this.PanelAccionesPrimariasYSecundarias);
                         this.Controls.Add(this.Encabezado);
-                        this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.Name = "FormularioEdicion";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
                         this.Text = "Editar";
@@ -161,8 +156,6 @@ namespace Lfc
                         this.ResumeLayout(false);
 
                 }
-
-                #endregion
 
                 private Lui.Forms.ActionsPanel PanelAccionesPrimariasYSecundarias;
                 private Lui.Forms.Panel PanelEdicion;

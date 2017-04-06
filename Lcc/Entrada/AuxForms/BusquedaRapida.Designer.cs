@@ -203,7 +203,7 @@ namespace Lcc.Entrada.AuxForms
                         // 
                         // BusquedaRapida
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(714, 496);
                         this.Controls.Add(this.pictureBox1);
                         this.Controls.Add(this.EtiquetaSeleccionar);

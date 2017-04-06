@@ -43,7 +43,7 @@ namespace Lui.Forms
                         // 
                         // TextBoxBase
                         // 
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.TextBox1);
                         this.Name = "TextBoxBase";
                         this.Size = new System.Drawing.Size(460, 24);

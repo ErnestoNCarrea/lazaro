@@ -35,25 +35,26 @@ namespace Lfc.Articulos
                         this.MatrizArticulos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+                        this.MatrizArticulos.AplicaIva = true;
                         this.MatrizArticulos.AutoScroll = true;
                         this.MatrizArticulos.AutoScrollMargin = new System.Drawing.Size(4, 4);
                         this.MatrizArticulos.BloquearAtriculo = false;
                         this.MatrizArticulos.BloquearCantidad = false;
                         this.MatrizArticulos.BloquearDescuento = true;
                         this.MatrizArticulos.BloquearPrecio = true;
-                        this.MatrizArticulos.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+                        this.MatrizArticulos.DiscriminarIva = false;
                         this.MatrizArticulos.FreeTextCode = "*";
                         this.MatrizArticulos.Location = new System.Drawing.Point(24, 24);
+                        this.MatrizArticulos.MostrarExistencias = false;
                         this.MatrizArticulos.Name = "MatrizArticulos";
                         this.MatrizArticulos.Precio = Lcc.Entrada.Articulos.Precios.Costo;
-                        this.MatrizArticulos.MostrarExistencias = false;
                         this.MatrizArticulos.Size = new System.Drawing.Size(584, 272);
                         this.MatrizArticulos.TabIndex = 0;
                         // 
                         // Receta
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(634, 372);
                         this.Controls.Add(this.MatrizArticulos);
                         this.ForeColor = System.Drawing.Color.Black;

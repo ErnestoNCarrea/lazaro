@@ -423,7 +423,7 @@ namespace Lfc.Comprobantes.Plantillas
                         // 
                         // EditarCampo
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(688, 487);
                         this.Controls.Add(this.panel1);
                         this.Controls.Add(this.EntradaPreimpreso);

@@ -116,7 +116,7 @@ namespace Lfc.Articulos
         "Entrada|e",
         "Salida|s",
         "Otro|o"};
-                        this.EntradaMovimiento.Size = new System.Drawing.Size(192, 56);
+                        this.EntradaMovimiento.Size = new System.Drawing.Size(192, 57);
                         this.EntradaMovimiento.TabIndex = 1;
                         this.EntradaMovimiento.TextKey = "e";
                         this.EntradaMovimiento.TextChanged += new System.EventHandler(this.EntradaMovimiento_TextChanged);
@@ -183,15 +183,14 @@ namespace Lfc.Articulos
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaDesdeSituacion.AutoTab = true;
                         this.EntradaDesdeSituacion.CanCreate = false;
-                        this.EntradaDesdeSituacion.Filter = "";
                         this.EntradaDesdeSituacion.Location = new System.Drawing.Point(136, 256);
                         this.EntradaDesdeSituacion.MaximumSize = new System.Drawing.Size(480, 32);
                         this.EntradaDesdeSituacion.MaxLength = 200;
                         this.EntradaDesdeSituacion.Name = "EntradaDesdeSituacion";
+                        this.EntradaDesdeSituacion.NombreTipo = "Lbl.Articulos.Situacion";
                         this.EntradaDesdeSituacion.Required = true;
                         this.EntradaDesdeSituacion.Size = new System.Drawing.Size(440, 24);
                         this.EntradaDesdeSituacion.TabIndex = 7;
-                        this.EntradaDesdeSituacion.NombreTipo = "Lbl.Articulos.Situacion";
                         this.EntradaDesdeSituacion.Text = "0";
                         this.EntradaDesdeSituacion.TextChanged += new System.EventHandler(this.EntradaDesdeHaciaSituacion_TextChanged);
                         // 
@@ -210,15 +209,14 @@ namespace Lfc.Articulos
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaHaciaSituacion.AutoTab = true;
                         this.EntradaHaciaSituacion.CanCreate = false;
-                        this.EntradaHaciaSituacion.Filter = "";
                         this.EntradaHaciaSituacion.Location = new System.Drawing.Point(136, 288);
                         this.EntradaHaciaSituacion.MaximumSize = new System.Drawing.Size(480, 32);
                         this.EntradaHaciaSituacion.MaxLength = 200;
                         this.EntradaHaciaSituacion.Name = "EntradaHaciaSituacion";
+                        this.EntradaHaciaSituacion.NombreTipo = "Lbl.Articulos.Situacion";
                         this.EntradaHaciaSituacion.Required = true;
                         this.EntradaHaciaSituacion.Size = new System.Drawing.Size(440, 24);
                         this.EntradaHaciaSituacion.TabIndex = 9;
-                        this.EntradaHaciaSituacion.NombreTipo = "Lbl.Articulos.Situacion";
                         this.EntradaHaciaSituacion.Text = "0";
                         this.EntradaHaciaSituacion.TextChanged += new System.EventHandler(this.EntradaDesdeHaciaSituacion_TextChanged);
                         // 
@@ -287,22 +285,27 @@ namespace Lfc.Articulos
                         // 
                         this.EntradaArticulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaArticulo.AplicarIva = true;
+                        this.EntradaArticulo.BloquearAtriculo = false;
                         this.EntradaArticulo.BloquearCantidad = false;
+                        this.EntradaArticulo.BloquearDescuento = false;
+                        this.EntradaArticulo.BloquearPrecio = false;
                         this.EntradaArticulo.ControlStock = Lcc.Entrada.Articulos.ControlesSock.Ambos;
+                        this.EntradaArticulo.DiscriminarIva = false;
+                        this.EntradaArticulo.FreeTextCode = "*";
                         this.EntradaArticulo.Location = new System.Drawing.Point(136, 176);
                         this.EntradaArticulo.MaximumSize = new System.Drawing.Size(480, 64);
-                        this.EntradaArticulo.MuestraPrecio = false;
                         this.EntradaArticulo.MostrarExistencias = false;
+                        this.EntradaArticulo.MuestraPrecio = false;
                         this.EntradaArticulo.Name = "EntradaArticulo";
+                        this.EntradaArticulo.NombreTipo = "Lbl.Articulos.Articulo";
                         this.EntradaArticulo.PermiteCrear = false;
-                        this.EntradaArticulo.UsarPrecio = Lcc.Entrada.Articulos.Precios.Pvp;
-                        this.EntradaArticulo.BloquearPrecio = false;
-                        this.EntradaArticulo.BloquearAtriculo = false;
                         this.EntradaArticulo.Required = true;
                         this.EntradaArticulo.Size = new System.Drawing.Size(440, 24);
                         this.EntradaArticulo.TabIndex = 3;
-                        this.EntradaArticulo.NombreTipo = "Lbl.Articulos.Articulo";
                         this.EntradaArticulo.Text = "0";
+                        this.EntradaArticulo.TextDetail = "";
+                        this.EntradaArticulo.UsarPrecio = Lcc.Entrada.Articulos.Precios.Pvp;
                         this.EntradaArticulo.ImportesChanged += new System.EventHandler(this.EntradaArticulo_PrecioCantidadChanged);
                         this.EntradaArticulo.ObtenerDatosSeguimiento += new System.EventHandler(this.EntradaArticulo_ObtenerDatosSeguimiento);
                         // 
@@ -329,7 +332,8 @@ namespace Lfc.Articulos
                         // 
                         // Movimiento
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(599, 528);
                         this.Controls.Add(this.label10);
                         this.Controls.Add(this.EtiquetaTitulo);

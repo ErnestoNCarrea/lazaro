@@ -16,8 +16,9 @@ namespace Lfc.Inicio
                         this.StockImage = "inicio";
 
                         if (string.Compare(Lfx.Workspace.Master.ConnectionParameters.ServerName, "localhost", true) == 0 || string.Compare(Lfx.Workspace.Master.ConnectionParameters.ServerName, "127.0.0.1") == 0) {
-                                if (Lfx.Workspace.Master.MasterConnection.ServerVersion.Contains("MariaDB") == false || Lfx.Workspace.Master.MasterConnection.ServerVersion.StartsWith("5.")) {
-                                        // Si estoy usando MySQL o MariaDB 5, le sugiero actualizar a MariaDB 10
+                                if (Lfx.Workspace.Master.MasterConnection.ServerVersion.Contains("MariaDB") == false || Lfx.Workspace.Master.MasterConnection.ServerVersion.StartsWith("5.")
+                                        || Lfx.Workspace.Master.MasterConnection.ServerVersion.StartsWith("10.0") || Lfx.Workspace.Master.MasterConnection.ServerVersion.StartsWith("10.1")) {
+                                        // Si estoy usando MySQL o MariaDB < 10.2, le sugiero actualizar a MariaDB 10.2
                                         PanelActualizarAlmacen.Visible = true;
                                 }
                         }
@@ -60,7 +61,7 @@ namespace Lfc.Inicio
 
                 private void BotonWebAyudaWeb_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.http://lazarogestion.com/soporte");
+                        Help.ShowHelp(this, "http://www.lazarogestion.com/soporte");
                 }
 
                 private void BotonWebComoFactura_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -104,7 +105,7 @@ namespace Lfc.Inicio
 
                 private void BotonActualizarAlmacen_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/servidor/");
+                        Help.ShowHelp(this, BotonActualizarAlmacen.Text);
                         PanelActualizarAlmacen.Visible = false;
                 }
 

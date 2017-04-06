@@ -286,8 +286,8 @@ namespace Lfc.Cajas.Vencimientos
                         // 
                         // Editar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.Controls.Add(this.EntradaObs);
                         this.Controls.Add(this.EntradaEstado);
                         this.Controls.Add(this.frame2);

@@ -13,15 +13,13 @@ namespace Lui.Forms
                         base.Dispose(disposing);
                 }
 
-                #region Código generado por el Diseñador de componentes
-
                 private void InitializeComponent()
                 {
                         this.SuspendLayout();
                         // 
                         // Control
                         // 
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Name = "Control";
                         this.Size = new System.Drawing.Size(460, 84);
                         this.TabStopChanged += new System.EventHandler(this.Control_TabStopChanged);
@@ -31,7 +29,5 @@ namespace Lui.Forms
                         this.ResumeLayout(false);
 
                 }
-                #endregion
-
         }
 }

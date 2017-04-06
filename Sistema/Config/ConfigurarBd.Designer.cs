@@ -229,7 +229,8 @@ namespace Lazaro.WinMain.Config
                         // 
                         // ConfigurarBd
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(594, 446);
                         this.Controls.Add(this.EntradaBD);
                         this.Controls.Add(this.EntradaServidor);

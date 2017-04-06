@@ -238,6 +238,10 @@ namespace Lfx
                         GC.SuppressFinalize(this);
                 }
 
+                public EntityManager GetEntityManager()
+                {
+                        return this.GetEntityManager(null);
+                }
 
                 public EntityManager GetEntityManager(string ownerName)
                 {

@@ -94,6 +94,7 @@ namespace Lcc.Edicion.Comprobantes
                         this.EntradaImporte.Prefijo = "$";
                         this.EntradaImporte.Size = new System.Drawing.Size(116, 24);
                         this.EntradaImporte.TabIndex = 1;
+                        this.EntradaImporte.Text = "0.00";
                         // 
                         // label1
                         // 
@@ -201,7 +202,6 @@ namespace Lcc.Edicion.Comprobantes
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaBanco.AutoTab = true;
                         this.EntradaBanco.CanCreate = true;
-                        this.EntradaBanco.Filter = "";
                         this.EntradaBanco.Location = new System.Drawing.Point(140, 0);
                         this.EntradaBanco.MaxLength = 200;
                         this.EntradaBanco.Name = "EntradaBanco";
@@ -361,7 +361,6 @@ namespace Lcc.Edicion.Comprobantes
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaPlan.AutoTab = true;
                         this.EntradaPlan.CanCreate = false;
-                        this.EntradaPlan.Filter = "";
                         this.EntradaPlan.Location = new System.Drawing.Point(140, 0);
                         this.EntradaPlan.MaxLength = 200;
                         this.EntradaPlan.Name = "EntradaPlan";
@@ -578,6 +577,7 @@ namespace Lcc.Edicion.Comprobantes
                         // 
                         // Pago
                         // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.PanelSeparadorInferior);
                         this.Controls.Add(this.PanelObs);
                         this.Controls.Add(this.PanelValor);

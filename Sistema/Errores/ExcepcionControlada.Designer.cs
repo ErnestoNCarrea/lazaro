@@ -34,9 +34,14 @@ namespace Lazaro.WinMain.Errores
                         // BotonCerrar
                         // 
                         this.BotonCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+                        this.BotonCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
+                        this.BotonCerrar.Image = null;
+                        this.BotonCerrar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCerrar.Location = new System.Drawing.Point(455, 112);
                         this.BotonCerrar.Name = "BotonCerrar";
                         this.BotonCerrar.Size = new System.Drawing.Size(108, 32);
+                        this.BotonCerrar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
+                        this.BotonCerrar.Subtext = "Tecla";
                         this.BotonCerrar.TabIndex = 7;
                         this.BotonCerrar.Text = "Continuar";
                         this.BotonCerrar.Click += new System.EventHandler(this.BotonCerrar_Click);
@@ -91,27 +96,32 @@ namespace Lazaro.WinMain.Errores
                         // BotonAmpliar
                         // 
                         this.BotonAmpliar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+                        this.BotonAmpliar.DialogResult = System.Windows.Forms.DialogResult.None;
+                        this.BotonAmpliar.Image = null;
+                        this.BotonAmpliar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAmpliar.Location = new System.Drawing.Point(96, 112);
                         this.BotonAmpliar.Name = "BotonAmpliar";
                         this.BotonAmpliar.Size = new System.Drawing.Size(132, 32);
+                        this.BotonAmpliar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
+                        this.BotonAmpliar.Subtext = "Tecla";
                         this.BotonAmpliar.TabIndex = 11;
                         this.BotonAmpliar.Text = "Más información";
                         this.BotonAmpliar.Visible = false;
                         this.BotonAmpliar.Click += new System.EventHandler(this.BotonAmpliar_Click);
                         // 
-                        // pictureBox1
+                        // PicDiablito
                         // 
-                        this.PicDiablito.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+                        this.PicDiablito.Image = ((System.Drawing.Image)(resources.GetObject("PicDiablito.Image")));
                         this.PicDiablito.Location = new System.Drawing.Point(36, 32);
-                        this.PicDiablito.Name = "pictureBox1";
+                        this.PicDiablito.Name = "PicDiablito";
                         this.PicDiablito.Size = new System.Drawing.Size(44, 40);
                         this.PicDiablito.TabIndex = 12;
                         this.PicDiablito.TabStop = false;
                         // 
                         // ExcepcionControlada
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(594, 172);
                         this.ControlBox = false;
                         this.Controls.Add(this.PicDiablito);

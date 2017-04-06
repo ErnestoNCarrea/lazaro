@@ -39,10 +39,10 @@ namespace Lfc.Inicio
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EtiquetaTexto.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.EtiquetaTexto.ForeColor = System.Drawing.Color.White;
-                        this.EtiquetaTexto.Location = new System.Drawing.Point(36, 4);
-                        this.EtiquetaTexto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaTexto.Location = new System.Drawing.Point(45, 5);
+                        this.EtiquetaTexto.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaTexto.Name = "EtiquetaTexto";
-                        this.EtiquetaTexto.Size = new System.Drawing.Size(200, 32);
+                        this.EtiquetaTexto.Size = new System.Drawing.Size(250, 40);
                         this.EtiquetaTexto.TabIndex = 0;
                         this.EtiquetaTexto.Text = "label1";
                         this.EtiquetaTexto.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -51,23 +51,24 @@ namespace Lfc.Inicio
                         // 
                         // ImagenIcono
                         // 
-                        this.ImagenIcono.Location = new System.Drawing.Point(4, 4);
+                        this.ImagenIcono.Location = new System.Drawing.Point(5, 5);
+                        this.ImagenIcono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.ImagenIcono.Name = "ImagenIcono";
-                        this.ImagenIcono.Size = new System.Drawing.Size(32, 32);
+                        this.ImagenIcono.Size = new System.Drawing.Size(40, 40);
                         this.ImagenIcono.TabIndex = 1;
                         this.ImagenIcono.TabStop = false;
                         this.ImagenIcono.Click += new System.EventHandler(this.ImagenIcono_Click);
                         // 
                         // Boton
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.ImagenIcono);
                         this.Controls.Add(this.EtiquetaTexto);
                         this.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.Name = "Boton";
-                        this.Size = new System.Drawing.Size(240, 40);
+                        this.Size = new System.Drawing.Size(300, 50);
                         ((System.ComponentModel.ISupportInitialize)(this.ImagenIcono)).EndInit();
                         this.ResumeLayout(false);
 

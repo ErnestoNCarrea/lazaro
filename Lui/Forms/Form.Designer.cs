@@ -13,8 +13,8 @@ namespace Lui.Forms
                         // 
                         // Form
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(792, 473);
                         this.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

@@ -769,7 +769,7 @@ namespace Lfc.Reportes
                         // 
                         // IngresosEgresos
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(692, 535);
                         this.Controls.Add(this.BotonGestionCobro);
                         this.Controls.Add(this.label12);

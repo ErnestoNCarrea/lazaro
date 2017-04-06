@@ -165,7 +165,7 @@ namespace Lfc.Comprobantes
                         // 
                         // PagoVuelto
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(418, 355);
                         this.Controls.Add(this.lblDesdeSituacion);
                         this.Controls.Add(this.EtiquetaTitulo);

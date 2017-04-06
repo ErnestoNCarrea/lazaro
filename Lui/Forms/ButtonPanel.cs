@@ -54,7 +54,7 @@ namespace Lui.Forms
                         if (control.Created == false)
                                 return;
 
-                        control.MaximumSize = new System.Drawing.Size(108, 40);
+                        control.MaximumSize = new System.Drawing.Size(160, 64);
                         control.MinimumSize = new Size(96, 32);
 
                         switch (this.FlowDirection) {

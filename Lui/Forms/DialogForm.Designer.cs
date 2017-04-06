@@ -42,7 +42,6 @@ namespace Lui.Forms
                         // 
                         this.CancelCommandButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.CancelCommandButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-                        this.CancelCommandButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.CancelCommandButton.Image = null;
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(502, 12);
@@ -62,7 +61,6 @@ namespace Lui.Forms
                         // 
                         this.OkButton.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.OkButton.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.OkButton.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.OkButton.Image = null;
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(388, 12);
@@ -80,7 +78,8 @@ namespace Lui.Forms
                         // 
                         // DialogForm
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.CancelCommandButton;
                         this.ClientSize = new System.Drawing.Size(634, 372);
                         this.ControlBox = false;

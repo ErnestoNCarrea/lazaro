@@ -146,7 +146,7 @@ namespace Lfc.Tareas
                         // 
                         // Articulos
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(675, 441);
                         this.Controls.Add(this.EntradaDescuento);
                         this.Controls.Add(this.Label6);

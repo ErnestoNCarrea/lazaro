@@ -168,7 +168,7 @@ namespace Lfc.CuentasCorrientes
                         // 
                         // Ajuste
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(634, 386);
                         this.Controls.Add(this.label6);
                         this.Controls.Add(this.EtiquetaTitulo);

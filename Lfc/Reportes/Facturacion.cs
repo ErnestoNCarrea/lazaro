@@ -394,7 +394,7 @@ namespace Lfc.Reportes
                         // 
                         // Facturacion
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(768, 480);
                         this.Controls.Add(this.label5);
                         this.Controls.Add(this.pictureBox5);

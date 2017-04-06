@@ -79,7 +79,8 @@ namespace Lui.Forms
                         // 
                         // InputBox
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(474, 274);
                         this.ControlBox = false;
                         this.Controls.Add(this.CancelBtn);

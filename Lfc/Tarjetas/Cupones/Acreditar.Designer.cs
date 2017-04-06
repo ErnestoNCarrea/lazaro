@@ -288,7 +288,7 @@ namespace Lfc.Tarjetas.Cupones
                         // 
                         // Acreditar
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(650, 413);
                         this.Controls.Add(this.EntradaTotal);
                         this.Controls.Add(this.Label8);

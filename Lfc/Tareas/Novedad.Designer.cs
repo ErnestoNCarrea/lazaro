@@ -157,7 +157,7 @@ namespace Lfc.Tareas
                         // 
                         // Novedad
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.ClientSize = new System.Drawing.Size(634, 374);
                         this.Controls.Add(this.EntradaMinutos);
                         this.Controls.Add(this.EntradaTicket);

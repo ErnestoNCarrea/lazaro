@@ -502,7 +502,7 @@ namespace Lazaro.WinMain.Principal
                         // 
                         // BarraInferior
                         // 
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.PanelProgreso);
                         this.Controls.Add(this.PanelReloj);
                         this.Controls.Add(this.PanelArticulo);

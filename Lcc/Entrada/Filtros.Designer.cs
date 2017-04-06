@@ -70,7 +70,6 @@ namespace Lcc.Entrada
                         this.BotonAplicar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonAplicar.Location = new System.Drawing.Point(261, 3);
                         this.BotonAplicar.Name = "BotonAplicar";
-                        this.BotonAplicar.ReadOnly = false;
                         this.BotonAplicar.Size = new System.Drawing.Size(72, 22);
                         this.BotonAplicar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonAplicar.Subtext = "Tecla";
@@ -80,8 +79,7 @@ namespace Lcc.Entrada
                         // 
                         // Filtros
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.AutoScroll = true;
                         this.AutoSize = true;
                         this.Controls.Add(this.TablaFiltros);

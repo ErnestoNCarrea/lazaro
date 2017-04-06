@@ -78,8 +78,8 @@ namespace Lcc.Edicion
                         // 
                         // Etiquetas
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.Controls.Add(this.GroupLabel);
                         this.Controls.Add(this.Lista);
                         this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);

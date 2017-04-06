@@ -35,16 +35,9 @@ namespace Lfc.Bancos.Chequeras
                         this.EntradaBanco = new Lcc.Entrada.CodigoDetalle();
                         this.SuspendLayout();
                         // 
-                        // OkButton
-                        // 
-                        this.OkButton.Location = new System.Drawing.Point(220, 8);
-                        // 
-                        // CancelCommandButton
-                        // 
-                        this.CancelCommandButton.Location = new System.Drawing.Point(328, 8);
-                        // 
                         // EntradaEstado
                         // 
+                        this.EntradaEstado.AlwaysExpanded = false;
                         this.EntradaEstado.Location = new System.Drawing.Point(140, 20);
                         this.EntradaEstado.Name = "EntradaEstado";
                         this.EntradaEstado.SetData = new string[] {
@@ -53,7 +46,6 @@ namespace Lfc.Bancos.Chequeras
         "Fuera de uso|0"};
                         this.EntradaEstado.Size = new System.Drawing.Size(172, 24);
                         this.EntradaEstado.TabIndex = 1;
-                        this.EntradaEstado.Text = "Todos";
                         this.EntradaEstado.TextKey = "-1";
                         // 
                         // Label7
@@ -76,18 +68,18 @@ namespace Lfc.Bancos.Chequeras
                         // 
                         // EntradaCaja
                         // 
-                        this.EntradaCaja.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaCaja.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaCaja.AutoTab = true;
                         this.EntradaCaja.CanCreate = true;
                         this.EntradaCaja.Filter = "estado=1";
                         this.EntradaCaja.Location = new System.Drawing.Point(140, 84);
                         this.EntradaCaja.MaxLength = 200;
                         this.EntradaCaja.Name = "EntradaCaja";
+                        this.EntradaCaja.NombreTipo = "Lbl.Cajas.Caja";
                         this.EntradaCaja.Required = false;
                         this.EntradaCaja.Size = new System.Drawing.Size(280, 24);
                         this.EntradaCaja.TabIndex = 5;
-                        this.EntradaCaja.NombreTipo = "Lbl.Cajas.Caja";
-                        this.EntradaCaja.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaCaja.Text = "0";
                         // 
                         // Label1
@@ -101,22 +93,23 @@ namespace Lfc.Bancos.Chequeras
                         // 
                         // EntradaBanco
                         // 
-                        this.EntradaBanco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaBanco.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaBanco.AutoTab = true;
                         this.EntradaBanco.CanCreate = true;
                         this.EntradaBanco.Location = new System.Drawing.Point(140, 52);
                         this.EntradaBanco.MaxLength = 200;
                         this.EntradaBanco.Name = "EntradaBanco";
+                        this.EntradaBanco.NombreTipo = "Lbl.Bancos.Banco";
                         this.EntradaBanco.Required = true;
                         this.EntradaBanco.Size = new System.Drawing.Size(280, 24);
                         this.EntradaBanco.TabIndex = 3;
-                        this.EntradaBanco.NombreTipo = "Lbl.Bancos.Banco";
-                        this.EntradaBanco.TeclaDespuesDeEnter = "{tab}";
                         this.EntradaBanco.Text = "0";
                         // 
                         // Filtros
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(436, 331);
                         this.Controls.Add(this.LabelCaja);
                         this.Controls.Add(this.EntradaCaja);
@@ -124,8 +117,15 @@ namespace Lfc.Bancos.Chequeras
                         this.Controls.Add(this.EntradaBanco);
                         this.Controls.Add(this.EntradaEstado);
                         this.Controls.Add(this.Label7);
+                        this.ForeColor = System.Drawing.Color.Black;
                         this.Name = "Filtros";
                         this.Text = "Filtros";
+                        this.Controls.SetChildIndex(this.Label7, 0);
+                        this.Controls.SetChildIndex(this.EntradaEstado, 0);
+                        this.Controls.SetChildIndex(this.EntradaBanco, 0);
+                        this.Controls.SetChildIndex(this.Label1, 0);
+                        this.Controls.SetChildIndex(this.EntradaCaja, 0);
+                        this.Controls.SetChildIndex(this.LabelCaja, 0);
                         this.ResumeLayout(false);
 
                 }

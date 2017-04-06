@@ -2,8 +2,6 @@ namespace Lfc.Articulos
 {
         public partial class Editar
         {
-                #region Código generado por el Diseñador de Windows Forms
-
                 private void InitializeComponent()
                 {
                         this.Frame2 = new Lui.Forms.Frame();
@@ -795,6 +793,7 @@ namespace Lfc.Articulos
                         // 
                         // Editar
                         // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.label14);
                         this.Controls.Add(this.EntradaProveedor);
                         this.Controls.Add(this.Frame2);
@@ -844,8 +843,6 @@ namespace Lfc.Articulos
                         this.PerformLayout();
 
                 }
-
-                #endregion
 
                 internal Lui.Forms.ComboBox EntradaUnidad;
                 internal Lui.Forms.Label label19;

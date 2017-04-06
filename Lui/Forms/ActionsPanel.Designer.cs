@@ -52,13 +52,13 @@ namespace Lui.Forms
                         // 
                         // ActionsPanel
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.Controls.Add(this.PanelPrimario);
                         this.Controls.Add(this.PanelSecundario);
                         this.Name = "ActionsPanel";
                         this.Size = new System.Drawing.Size(602, 130);
                         this.ResumeLayout(false);
+
                 }
 
                 #endregion

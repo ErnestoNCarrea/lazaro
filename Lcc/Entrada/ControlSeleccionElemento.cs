@@ -164,5 +164,17 @@ namespace Lcc.Entrada
                                 this.Relation.DetailColumn = value;
                         }
                 }
+
+                private void InitializeComponent()
+                {
+                        this.SuspendLayout();
+                        // 
+                        // ControlSeleccionElemento
+                        // 
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+                        this.Name = "ControlSeleccionElemento";
+                        this.ResumeLayout(false);
+
+                }
         }
 }

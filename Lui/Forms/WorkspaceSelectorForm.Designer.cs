@@ -34,7 +34,7 @@ namespace Lui.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.label1.Location = new System.Drawing.Point(124, 24);
                         this.label1.Name = "label1";
-                        this.label1.Size = new System.Drawing.Size(400, 32);
+                        this.label1.Size = new System.Drawing.Size(400, 33);
                         this.label1.TabIndex = 0;
                         this.label1.Text = "Seleccione el espacio de trabajo";
                         this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -48,9 +48,9 @@ namespace Lui.Forms
                         this.Espacios.BorderStyle = System.Windows.Forms.BorderStyle.None;
                         this.Espacios.IntegralHeight = false;
                         this.Espacios.ItemHeight = 15;
-                        this.Espacios.Location = new System.Drawing.Point(124, 56);
+                        this.Espacios.Location = new System.Drawing.Point(124, 57);
                         this.Espacios.Name = "Espacios";
-                        this.Espacios.Size = new System.Drawing.Size(400, 160);
+                        this.Espacios.Size = new System.Drawing.Size(400, 158);
                         this.Espacios.Sorted = true;
                         this.Espacios.TabIndex = 1;
                         this.Espacios.SelectedValueChanged += new System.EventHandler(this.Espacios_SelectedValueChanged);
@@ -63,13 +63,13 @@ namespace Lui.Forms
                         this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Left;
                         this.PanelLogo.Location = new System.Drawing.Point(0, 0);
                         this.PanelLogo.Name = "PanelLogo";
-                        this.PanelLogo.Size = new System.Drawing.Size(100, 248);
+                        this.PanelLogo.Size = new System.Drawing.Size(100, 252);
                         this.PanelLogo.TabIndex = 52;
                         // 
                         // PictureBox1
                         // 
                         this.PictureBox1.Image = global::Lui.Properties.Resources.lazaro_120_v;
-                        this.PictureBox1.Location = new System.Drawing.Point(20, 112);
+                        this.PictureBox1.Location = new System.Drawing.Point(20, 114);
                         this.PictureBox1.Name = "PictureBox1";
                         this.PictureBox1.Size = new System.Drawing.Size(35, 120);
                         this.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -78,14 +78,16 @@ namespace Lui.Forms
                         // 
                         // WorkspaceSelectorForm
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.BackColor = System.Drawing.Color.White;
-                        this.ClientSize = new System.Drawing.Size(546, 312);
+                        this.ClientSize = new System.Drawing.Size(546, 316);
                         this.Controls.Add(this.Espacios);
                         this.Controls.Add(this.label1);
                         this.Controls.Add(this.PanelLogo);
                         this.ForeColor = System.Drawing.Color.Black;
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+                        this.Margin = new System.Windows.Forms.Padding(4);
                         this.Name = "WorkspaceSelectorForm";
                         this.Text = "Espacio de trabajo";
                         this.Controls.SetChildIndex(this.PanelLogo, 0);

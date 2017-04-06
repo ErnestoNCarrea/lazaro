@@ -44,7 +44,6 @@ namespace Lfc.Articulos
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.VariacionesCantidades.AutoScrollMargin = new System.Drawing.Size(4, 4);
                         this.VariacionesCantidades.EsNumeroDeSerie = false;
-                        this.VariacionesCantidades.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
                         this.VariacionesCantidades.Location = new System.Drawing.Point(24, 104);
                         this.VariacionesCantidades.Name = "VariacionesCantidades";
                         this.VariacionesCantidades.Size = new System.Drawing.Size(584, 168);
@@ -60,12 +59,14 @@ namespace Lfc.Articulos
             this.Variacion,
             this.VariacionCantidad,
             this.VariacionStock});
+                        this.ListaDatosSeguimiento.FieldName = null;
                         this.ListaDatosSeguimiento.FullRowSelect = true;
                         this.ListaDatosSeguimiento.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
                         this.ListaDatosSeguimiento.HideSelection = false;
                         this.ListaDatosSeguimiento.Location = new System.Drawing.Point(24, 104);
                         this.ListaDatosSeguimiento.MultiSelect = false;
                         this.ListaDatosSeguimiento.Name = "ListaDatosSeguimiento";
+                        this.ListaDatosSeguimiento.ReadOnly = false;
                         this.ListaDatosSeguimiento.Size = new System.Drawing.Size(584, 172);
                         this.ListaDatosSeguimiento.TabIndex = 1;
                         this.ListaDatosSeguimiento.UseCompatibleStateImageBehavior = false;
@@ -128,8 +129,8 @@ namespace Lfc.Articulos
                         // 
                         // EditarSeguimiento
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(634, 372);
                         this.Controls.Add(this.EtiquetaArticulo);
                         this.Controls.Add(this.label2);

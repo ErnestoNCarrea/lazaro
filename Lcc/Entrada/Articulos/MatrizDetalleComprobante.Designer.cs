@@ -107,7 +107,7 @@ namespace Lcc.Entrada.Articulos
                         // 
                         // MatrizDetalleComprobante
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.Controls.Add(this.EtiquetaHeaderIva);
                         this.Controls.Add(this.EtiquetaHeaderDescuento);
                         this.Controls.Add(this.EtiquetaHeaderImporte);

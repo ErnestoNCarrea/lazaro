@@ -56,11 +56,13 @@ namespace Lfc
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.Listado.BorderStyle = System.Windows.Forms.BorderStyle.None;
+                        this.Listado.FieldName = null;
                         this.Listado.FullRowSelect = true;
                         this.Listado.HideSelection = false;
                         this.Listado.Location = new System.Drawing.Point(224, 0);
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
+                        this.Listado.ReadOnly = false;
                         this.Listado.Size = new System.Drawing.Size(640, 441);
                         this.Listado.TabIndex = 3;
                         this.Listado.UseCompatibleStateImageBehavior = false;
@@ -131,13 +133,14 @@ namespace Lfc
                         // 
                         this.BotonImprimir.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.BotonImprimir.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonImprimir.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonImprimir.Image = null;
                         this.BotonImprimir.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonImprimir.Location = new System.Drawing.Point(44, 91);
                         this.BotonImprimir.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+                        this.BotonImprimir.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonImprimir.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonImprimir.Name = "BotonImprimir";
-                        this.BotonImprimir.Size = new System.Drawing.Size(136, 40);
+                        this.BotonImprimir.Size = new System.Drawing.Size(108, 40);
                         this.BotonImprimir.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonImprimir.Subtext = "F8";
                         this.BotonImprimir.TabIndex = 65;
@@ -148,13 +151,14 @@ namespace Lfc
                         // 
                         this.BotonFiltrar.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.BotonFiltrar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonFiltrar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonFiltrar.Image = null;
                         this.BotonFiltrar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonFiltrar.Location = new System.Drawing.Point(44, 45);
                         this.BotonFiltrar.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+                        this.BotonFiltrar.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonFiltrar.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonFiltrar.Name = "BotonFiltrar";
-                        this.BotonFiltrar.Size = new System.Drawing.Size(136, 40);
+                        this.BotonFiltrar.Size = new System.Drawing.Size(108, 40);
                         this.BotonFiltrar.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonFiltrar.Subtext = "F2";
                         this.BotonFiltrar.TabIndex = 64;
@@ -166,13 +170,14 @@ namespace Lfc
                         // 
                         this.BotonCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
                         this.BotonCancelar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCancelar.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.BotonCancelar.Image = null;
                         this.BotonCancelar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCancelar.Location = new System.Drawing.Point(44, 137);
                         this.BotonCancelar.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
+                        this.BotonCancelar.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonCancelar.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonCancelar.Name = "BotonCancelar";
-                        this.BotonCancelar.Size = new System.Drawing.Size(136, 40);
+                        this.BotonCancelar.Size = new System.Drawing.Size(108, 40);
                         this.BotonCancelar.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonCancelar.Subtext = "Esc";
                         this.BotonCancelar.TabIndex = 66;
@@ -272,14 +277,14 @@ namespace Lfc
                         // 
                         // FormularioListadoBase
                         // 
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.ClientSize = new System.Drawing.Size(864, 441);
                         this.Controls.Add(this.PanelAcciones);
                         this.Controls.Add(this.PicEsperar);
                         this.Controls.Add(this.PanelContadores);
                         this.Controls.Add(this.Listado);
                         this.Controls.Add(this.EtiquetaCantidad);
-                        this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.MinimumSize = new System.Drawing.Size(640, 400);
                         this.Name = "FormularioListadoBase";
                         this.Text = "FormularioListadoBase";

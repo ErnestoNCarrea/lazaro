@@ -38,10 +38,10 @@ namespace Lfc.Inicio
                         this.EtiquetaTitulo.AutoSize = true;
                         this.EtiquetaTitulo.Font = new System.Drawing.Font("Segoe UI Semibold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.EtiquetaTitulo.ForeColor = System.Drawing.Color.White;
-                        this.EtiquetaTitulo.Location = new System.Drawing.Point(60, 16);
-                        this.EtiquetaTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaTitulo.Location = new System.Drawing.Point(75, 20);
+                        this.EtiquetaTitulo.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaTitulo.Name = "EtiquetaTitulo";
-                        this.EtiquetaTitulo.Size = new System.Drawing.Size(112, 32);
+                        this.EtiquetaTitulo.Size = new System.Drawing.Size(140, 41);
                         this.EtiquetaTitulo.TabIndex = 0;
                         this.EtiquetaTitulo.Text = "Personas";
                         this.EtiquetaTitulo.UseMnemonic = false;
@@ -49,9 +49,10 @@ namespace Lfc.Inicio
                         // ImagenIcono
                         // 
                         this.ImagenIcono.InitialImage = null;
-                        this.ImagenIcono.Location = new System.Drawing.Point(16, 16);
+                        this.ImagenIcono.Location = new System.Drawing.Point(20, 20);
+                        this.ImagenIcono.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.ImagenIcono.Name = "ImagenIcono";
-                        this.ImagenIcono.Size = new System.Drawing.Size(36, 32);
+                        this.ImagenIcono.Size = new System.Drawing.Size(45, 40);
                         this.ImagenIcono.TabIndex = 1;
                         this.ImagenIcono.TabStop = false;
                         // 
@@ -62,23 +63,24 @@ namespace Lfc.Inicio
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EtiquetaDescripcion.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.EtiquetaDescripcion.ForeColor = System.Drawing.Color.WhiteSmoke;
-                        this.EtiquetaDescripcion.Location = new System.Drawing.Point(64, 48);
+                        this.EtiquetaDescripcion.Location = new System.Drawing.Point(80, 60);
+                        this.EtiquetaDescripcion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.EtiquetaDescripcion.Name = "EtiquetaDescripcion";
-                        this.EtiquetaDescripcion.Size = new System.Drawing.Size(396, 112);
+                        this.EtiquetaDescripcion.Size = new System.Drawing.Size(495, 140);
                         this.EtiquetaDescripcion.TabIndex = 4;
                         this.EtiquetaDescripcion.Text = "Descripción del elemento.";
                         // 
                         // ControlTablero
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+                        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
                         this.BackColor = System.Drawing.Color.MediumSeaGreen;
                         this.Controls.Add(this.ImagenIcono);
                         this.Controls.Add(this.EtiquetaDescripcion);
                         this.Controls.Add(this.EtiquetaTitulo);
                         this.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.Name = "ControlTablero";
-                        this.Size = new System.Drawing.Size(480, 160);
+                        this.Size = new System.Drawing.Size(600, 200);
                         ((System.ComponentModel.ISupportInitialize)(this.ImagenIcono)).EndInit();
                         this.ResumeLayout(false);
                         this.PerformLayout();
