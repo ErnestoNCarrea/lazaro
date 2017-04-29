@@ -54,6 +54,16 @@ namespace Lazaro.Orm
                         return this.HydrateEntity<T>(ClassMetadata, DataTable.Rows[0]);
                 }
 
+                /// <summary>
+                /// Gets a generic entity repository for a given type.
+                /// </summary>
+                /// <typeparam name="T">The entity type.</typeparam>
+                /// <returns>An EntityRepository.</returns>
+                public EntityRepository<T> GerRepository<T>() where T : new()
+                {
+                        return new EntityRepository<T>(this);
+                }
+
 
                 /// <summary>
                 /// Finds all entities of a given type.
@@ -61,7 +71,7 @@ namespace Lazaro.Orm
                 /// <typeparam name="T">The entity type.</typeparam>
                 /// <param name="orderBy">The order of the resulting set.</param>
                 /// <returns>An EntityRepository with zero or more entities.</returns>
-                public EntityRepository<T> FindAll<T>(string orderBy) where T : new()
+                public List<T> FindAll<T>(string orderBy) where T : new()
                 {
                         // Call FindBy with a null where
                         return this.FindBy<T>(null, orderBy);
@@ -75,7 +85,7 @@ namespace Lazaro.Orm
                 /// <param name="where">The search crtieria.</param>
                 /// <param name="orderBy">The order of the resulting set.</param>
                 /// <returns>An EntityRepository with zero or more entities.</returns>
-                public EntityRepository<T> FindBy<T>(qGen.Where where, string orderBy) where T : new()
+                public List<T> FindBy<T>(qGen.Where where, string orderBy) where T : new()
                 {
                         // Get class metadata
                         var EntityType = typeof(T);
@@ -90,7 +100,7 @@ namespace Lazaro.Orm
 
                         // Execute query
                         var DataTable = this.Connection.Select(Select);
-                        var Res = new EntityRepository<T>();
+                        var Res = new List<T>();
 
                         // Fill the list
                         if (DataTable.Rows.Count > 0) {
@@ -118,7 +128,7 @@ namespace Lazaro.Orm
                                 object ColValue = row[Col.Name];
 
                                 if (Col.AssociationMetada != null && Col.AssociationMetada.AssociationType != AssociationTypes.None) {
-                                        // Association column. 
+                                        // Association column
                                         // TODO: lazy loading
 
                                         // Use reflection to get the generic Find<Col.MemberType>

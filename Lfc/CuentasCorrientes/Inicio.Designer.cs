@@ -67,10 +67,10 @@ namespace Lfc.CuentasCorrientes
                         // Inicio
                         // 
                         this.ClientSize = new System.Drawing.Size(864, 441);
-                        this.Controls.Add(this.BotonAjuste);
+                        this.PanelAcciones.Controls.Add(this.BotonAjuste);
                         this.Name = "Inicio";
                         this.Text = "Cuenta corriente";
-                        this.Controls.SetChildIndex(this.BotonAjuste, 0);
+                        this.PanelAcciones.Controls.SetChildIndex(this.BotonAjuste, 0);
                         this.Controls.SetChildIndex(this.PanelContadores, 0);
                         this.Controls.SetChildIndex(this.PicEsperar, 0);
                         this.Controls.SetChildIndex(this.EtiquetaCantidad, 0);

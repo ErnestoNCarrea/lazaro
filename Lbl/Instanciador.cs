@@ -276,6 +276,11 @@ namespace Lbl
                                 case "Lbl.Tareas.Tipo":
                                         Res = typeof(Lbl.Tareas.Tipo);
                                         break;
+                                case "tickets_estados":
+                                case "Lbl.Tareas.Estado":
+                                case "Lbl.Tareas.EstadoTarea":
+                                        Res = typeof(Lbl.Tareas.EstadoTarea);
+                                        break;
                                 case "tipo_doc":
                                 case "Lbl.Entidades.ClaveUnica":
                                         Res = typeof(Lbl.Entidades.ClaveUnica);

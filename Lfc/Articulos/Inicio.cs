@@ -11,11 +11,12 @@ namespace Lfc.Articulos
                 protected internal Lbl.Articulos.Categoria m_Categoria = null;
                 protected internal Lbl.Articulos.Rubro m_Rubro = null;
                 protected internal Lbl.Articulos.Situacion m_Situacion = null;
-                protected Lui.Forms.Button BotonCambioMasivoPrecios;
                 private string m_Stock = "*";
 
                 public Inicio()
                 {
+                        this.InitializeComponent();
+
                         this.Definicion = new Lazaro.Pres.Listings.Listing()
                         {
                                 ElementoTipo = typeof(Lbl.Articulos.Articulo),
@@ -68,8 +69,6 @@ namespace Lfc.Articulos
                         this.Definicion.Columns["articulos.stock_actual"].TotalFunction = Lazaro.Pres.Spreadsheet.QuickFunctions.Sum;
 
                         this.HabilitarFiltrar = true;
-
-                        this.InitializeComponent();
                 }
 
 
@@ -216,54 +215,6 @@ namespace Lfc.Articulos
                         this.Contadores[1].Total = this.Connection.FieldDecimal(SelectValorizacion);
 
                         base.OnEndRefreshList();
-                }
-
-                private void InitializeComponent()
-                {
-                        this.BotonCambioMasivoPrecios = new Lui.Forms.Button();
-                        this.PanelContadores.SuspendLayout();
-                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).BeginInit();
-                        this.SuspendLayout();
-                        // 
-                        // PanelContadores
-                        // 
-                        this.PanelContadores.Controls.Add(this.BotonCambioMasivoPrecios);
-                        this.PanelContadores.Controls.SetChildIndex(this.EtiquetaContador2, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EtiquetaContador1, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EntradaContador2, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EntradaContador1, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EtiquetaContador3, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EntradaContador3, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EtiquetaContador4, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.EntradaContador4, 0);
-                        this.PanelContadores.Controls.SetChildIndex(this.BotonCambioMasivoPrecios, 0);
-                        // 
-                        // BotonCambioMasivoPrecios
-                        // 
-                        this.BotonCambioMasivoPrecios.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-                        this.BotonCambioMasivoPrecios.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCambioMasivoPrecios.Image = null;
-                        this.BotonCambioMasivoPrecios.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonCambioMasivoPrecios.Location = new System.Drawing.Point(35, 118);
-                        this.BotonCambioMasivoPrecios.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
-                        this.BotonCambioMasivoPrecios.MaximumSize = new System.Drawing.Size(108, 40);
-                        this.BotonCambioMasivoPrecios.MinimumSize = new System.Drawing.Size(96, 32);
-                        this.BotonCambioMasivoPrecios.Name = "BotonCambioMasivoPrecios";
-                        this.BotonCambioMasivoPrecios.Size = new System.Drawing.Size(108, 40);
-                        this.BotonCambioMasivoPrecios.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
-                        this.BotonCambioMasivoPrecios.Subtext = "F7";
-                        this.BotonCambioMasivoPrecios.TabIndex = 49;
-                        this.BotonCambioMasivoPrecios.Text = "Precios";
-                        this.BotonCambioMasivoPrecios.Click += new System.EventHandler(this.BotonCambioMasivoPrecios_Click);
-                        // 
-                        // Inicio
-                        // 
-                        this.ClientSize = new System.Drawing.Size(864, 441);
-                        this.Name = "Inicio";
-                        this.PanelContadores.ResumeLayout(false);
-                        ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
-                        this.ResumeLayout(false);
-
                 }
 
                 private void BotonCambioMasivoPrecios_Click(object sender, System.EventArgs e)

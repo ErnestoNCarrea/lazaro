@@ -1,5 +1,6 @@
 using Lazaro.Orm;
 using Lazaro.Orm.Attributes;
+using Lbl.Impuestos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -72,13 +73,12 @@ namespace Lbl.Articulos
 
                 [Column(Name = "id_alicuota")]
                 [ManyToOne]
-                public Lbl.Impuestos.Alicuota Alicuota
+                public Alicuota Alicuota
                 {
                         get
                         {
-                                if (m_Alicuota == null && this.GetFieldValue<int>("id_alicuota") != 0)
-                                        m_Alicuota = this.GetFieldValue<Impuestos.Alicuota>("id_alicuota");
-                                return m_Alicuota;
+                                var Em = new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory);
+                                return this.LazyLoad<Alicuota>(Em, ref m_Alicuota, this.GetFieldValue<int>("id_alicuota"));
                         }
                         set
                         {

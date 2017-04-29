@@ -17,6 +17,9 @@ namespace Lbl.Impuestos
         [Entity(TableName = "alicuotas", IdFieldName = "id_alicuota")]
         public class Alicuota : ElementoDeDatos, IEntity<Alicuota>, IEntidad
         {
+                public Alicuota()
+                        : base() { }
+
                 public Alicuota(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 

@@ -50,7 +50,7 @@ namespace Lui.Forms
                         {
                                 IconPicture.Image = value;
                                 IconPicture.Visible = (value != null);
-                                this.ReubicarTodo();
+                                this.Invalidate();
                         }
                 }
 
@@ -64,7 +64,7 @@ namespace Lui.Forms
                         set
                         {
                                 m_ImagePos = value;
-                                this.ReubicarTodo();
+                                this.Invalidate();
                         }
                 }
 
@@ -90,7 +90,7 @@ namespace Lui.Forms
                         set
                         {
                                 m_SubLabelPos = value;
-                                this.ReubicarTodo();
+                                this.Invalidate();
                         }
                 }
 
@@ -352,6 +352,11 @@ namespace Lui.Forms
                 public override string ToString()
                 {
                         return this.Text;
+                }
+
+                private void Button_Layout(object sender, LayoutEventArgs e)
+                {
+                        this.ReubicarTodo();
                 }
         }
 }

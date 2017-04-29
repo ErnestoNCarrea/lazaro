@@ -317,7 +317,7 @@
     <Compile Include="Sys\Configuracion\Moneda.cs" />
     <Compile Include="Sys\Configuracion\SeccionConfiguracion.cs" />
     <Compile Include="Sys\Log\Entrada.cs" />
-    <Compile Include="Tareas\Estado.cs" />
+    <Compile Include="Tareas\EstadoTarea.cs" />
     <Compile Include="Tareas\Novedad.cs" />
     <Compile Include="Tareas\Tarea.cs" />
     <Compile Include="Tareas\Tipo.cs" />

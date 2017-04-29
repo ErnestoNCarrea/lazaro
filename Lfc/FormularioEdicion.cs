@@ -31,13 +31,18 @@ namespace Lfc
                                 new Lazaro.Pres.Forms.FormAction("Más datos", null, "panelextendido", 10, Lazaro.Pres.Forms.FormActionVisibility.Hidden)
                         };
                         this.ActualizarFormActions();
-                        if(Screen.PrimaryScreen.Bounds.Width <= 1024) {
+                        if (Screen.PrimaryScreen.Bounds.Width <= 1024) {
                                 // Más ajustado en pantallas más pequeñas
                                 this.PanelEdicion.Padding = new System.Windows.Forms.Padding(12, 12, 8, 8);
                                 this.PanelExtendido.Width = 320;
-                        } else {
+                        } else if (Screen.PrimaryScreen.Bounds.Width <= 1600) {
+                                // Pantallas medianas
                                 this.PanelEdicion.Padding = new System.Windows.Forms.Padding(24, 24, 16, 16);
                                 this.PanelExtendido.Width = 360;
+                        } else {
+                                // Pantallas Full HD
+                                this.PanelEdicion.Padding = new System.Windows.Forms.Padding(24, 24, 16, 16);
+                                this.PanelExtendido.Width = 400;
                         }
                 }
 
@@ -70,6 +75,7 @@ namespace Lfc
                                         this.Controls.Remove(m_ControlUnico);
 
                                 m_ControlUnico = value;
+                                m_ControlUnico.AutoScaleMode = AutoScaleMode.Inherit;
                                 this.ElementoTipo = m_ControlUnico.ElementoTipo;
 
                                 this.SuspendLayout();

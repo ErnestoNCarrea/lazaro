@@ -44,10 +44,10 @@ namespace Lazaro.WinMain.Misc
                         // 
                         this.EntradaContrasena.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaContrasena.Location = new System.Drawing.Point(232, 192);
+                        this.EntradaContrasena.Location = new System.Drawing.Point(248, 192);
                         this.EntradaContrasena.Name = "EntradaContrasena";
                         this.EntradaContrasena.PasswordChar = '*';
-                        this.EntradaContrasena.Size = new System.Drawing.Size(169, 24);
+                        this.EntradaContrasena.Size = new System.Drawing.Size(153, 24);
                         this.EntradaContrasena.TabIndex = 5;
                         this.EntradaContrasena.TextChanged += new System.EventHandler(this.CambioDatos);
                         // 
@@ -56,7 +56,7 @@ namespace Lazaro.WinMain.Misc
                         this.Label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.Label1.Location = new System.Drawing.Point(136, 160);
                         this.Label1.Name = "Label1";
-                        this.Label1.Size = new System.Drawing.Size(96, 24);
+                        this.Label1.Size = new System.Drawing.Size(109, 24);
                         this.Label1.TabIndex = 2;
                         this.Label1.Text = "Usuario";
                         this.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -66,7 +66,7 @@ namespace Lazaro.WinMain.Misc
                         this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.Label2.Location = new System.Drawing.Point(136, 192);
                         this.Label2.Name = "Label2";
-                        this.Label2.Size = new System.Drawing.Size(96, 24);
+                        this.Label2.Size = new System.Drawing.Size(109, 24);
                         this.Label2.TabIndex = 4;
                         this.Label2.Text = "Contraseña";
                         this.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -91,7 +91,7 @@ namespace Lazaro.WinMain.Misc
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(419, 12);
                         this.CancelCommandButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.CancelCommandButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.CancelCommandButton.MaximumSize = new System.Drawing.Size(160, 64);
                         this.CancelCommandButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.CancelCommandButton.Name = "CancelCommandButton";
                         this.CancelCommandButton.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
@@ -111,7 +111,7 @@ namespace Lazaro.WinMain.Misc
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(309, 12);
                         this.OkButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.OkButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.OkButton.MaximumSize = new System.Drawing.Size(160, 64);
                         this.OkButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.OkButton.Name = "OkButton";
                         this.OkButton.Padding = new System.Windows.Forms.Padding(6, 0, 0, 0);
@@ -129,13 +129,13 @@ namespace Lazaro.WinMain.Misc
                         this.EntradaUsuario.AutoTab = true;
                         this.EntradaUsuario.CanCreate = false;
                         this.EntradaUsuario.Filter = "(tipo&4)=4 AND contrasena<>\'\' AND estado=1";
-                        this.EntradaUsuario.Location = new System.Drawing.Point(232, 160);
+                        this.EntradaUsuario.Location = new System.Drawing.Point(248, 160);
                         this.EntradaUsuario.Margin = new System.Windows.Forms.Padding(0);
                         this.EntradaUsuario.MaxLength = 200;
                         this.EntradaUsuario.Name = "EntradaUsuario";
                         this.EntradaUsuario.NombreTipo = "Lbl.Personas.Usuario";
                         this.EntradaUsuario.Required = true;
-                        this.EntradaUsuario.Size = new System.Drawing.Size(281, 24);
+                        this.EntradaUsuario.Size = new System.Drawing.Size(265, 24);
                         this.EntradaUsuario.TabIndex = 3;
                         this.EntradaUsuario.Text = "0";
                         this.EntradaUsuario.TextChanged += new System.EventHandler(this.CambioDatos);
@@ -148,7 +148,7 @@ namespace Lazaro.WinMain.Misc
                         this.LowerPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
                         this.LowerPanel.Location = new System.Drawing.Point(0, 248);
                         this.LowerPanel.Name = "LowerPanel";
-                        this.LowerPanel.Padding = new System.Windows.Forms.Padding(12);
+                        this.LowerPanel.Padding = new System.Windows.Forms.Padding(12, 12, 12, 12);
                         this.LowerPanel.Size = new System.Drawing.Size(547, 64);
                         this.LowerPanel.TabIndex = 6;
                         // 
@@ -217,6 +217,7 @@ namespace Lazaro.WinMain.Misc
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+                        this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.Name = "Ingreso";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Ingreso al Sistema";

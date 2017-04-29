@@ -153,29 +153,31 @@ namespace Lazaro.WinMain.Config
                         this.PanelSeleccionarAlmacen.Controls.Add(this.Label1);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.CheckEsteEquipo);
                         this.PanelSeleccionarAlmacen.Controls.Add(this.EtiquetaAyuda);
-                        this.PanelSeleccionarAlmacen.Location = new System.Drawing.Point(120, 48);
+                        this.PanelSeleccionarAlmacen.Location = new System.Drawing.Point(150, 60);
+                        this.PanelSeleccionarAlmacen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelSeleccionarAlmacen.Name = "PanelSeleccionarAlmacen";
-                        this.PanelSeleccionarAlmacen.Size = new System.Drawing.Size(496, 304);
+                        this.PanelSeleccionarAlmacen.Size = new System.Drawing.Size(620, 380);
                         this.PanelSeleccionarAlmacen.TabIndex = 4;
                         // 
-                        // pictureBox9
+                        // PictureBox9
                         // 
-                        this.PictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox9.Image")));
-                        this.PictureBox9.Location = new System.Drawing.Point(48, 176);
-                        this.PictureBox9.Name = "pictureBox9";
+                        this.PictureBox9.Image = ((System.Drawing.Image)(resources.GetObject("PictureBox9.Image")));
+                        this.PictureBox9.Location = new System.Drawing.Point(60, 220);
+                        this.PictureBox9.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+                        this.PictureBox9.Name = "PictureBox9";
                         this.PictureBox9.Size = new System.Drawing.Size(32, 32);
                         this.PictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.PictureBox9.TabIndex = 70;
                         this.PictureBox9.TabStop = false;
                         // 
-                        // label8
+                        // Label8
                         // 
                         this.Label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label8.Location = new System.Drawing.Point(88, 200);
-                        this.Label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.Label8.Name = "label8";
-                        this.Label8.Size = new System.Drawing.Size(404, 29);
+                        this.Label8.Location = new System.Drawing.Point(110, 250);
+                        this.Label8.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+                        this.Label8.Name = "Label8";
+                        this.Label8.Size = new System.Drawing.Size(505, 36);
                         this.Label8.TabIndex = 7;
                         this.Label8.Text = "Marque esta casilla si quiere instalar el servidor SQL en este equipo ahora y que" +
     " este sea el equipo principal.";
@@ -184,9 +186,10 @@ namespace Lazaro.WinMain.Config
                         // CheckInstalarAhora
                         // 
                         this.CheckInstalarAhora.AutoSize = true;
-                        this.CheckInstalarAhora.Location = new System.Drawing.Point(88, 176);
+                        this.CheckInstalarAhora.Location = new System.Drawing.Point(110, 220);
+                        this.CheckInstalarAhora.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.CheckInstalarAhora.Name = "CheckInstalarAhora";
-                        this.CheckInstalarAhora.Size = new System.Drawing.Size(170, 19);
+                        this.CheckInstalarAhora.Size = new System.Drawing.Size(222, 24);
                         this.CheckInstalarAhora.TabIndex = 6;
                         this.CheckInstalarAhora.Text = "Quiero instalarlo ahora";
                         this.CheckInstalarAhora.UseVisualStyleBackColor = true;
@@ -195,6 +198,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox5.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox5.Image")));
                         this.pictureBox5.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox5.Name = "pictureBox5";
                         this.pictureBox5.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -204,7 +208,8 @@ namespace Lazaro.WinMain.Config
                         // pictureBox4
                         // 
                         this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
-                        this.pictureBox4.Location = new System.Drawing.Point(49, 240);
+                        this.pictureBox4.Location = new System.Drawing.Point(61, 300);
+                        this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox4.Name = "pictureBox4";
                         this.pictureBox4.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -214,7 +219,8 @@ namespace Lazaro.WinMain.Config
                         // pictureBox3
                         // 
                         this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-                        this.pictureBox3.Location = new System.Drawing.Point(48, 104);
+                        this.pictureBox3.Location = new System.Drawing.Point(60, 130);
+                        this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox3.Name = "pictureBox3";
                         this.pictureBox3.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -224,21 +230,22 @@ namespace Lazaro.WinMain.Config
                         // pictureBox1
                         // 
                         this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-                        this.pictureBox1.Location = new System.Drawing.Point(48, 48);
+                        this.pictureBox1.Location = new System.Drawing.Point(60, 60);
+                        this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox1.Name = "pictureBox1";
                         this.pictureBox1.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
                         this.pictureBox1.TabIndex = 64;
                         this.pictureBox1.TabStop = false;
                         // 
-                        // label3
+                        // Label3
                         // 
                         this.Label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label3.Location = new System.Drawing.Point(88, 264);
-                        this.Label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.Label3.Name = "label3";
-                        this.Label3.Size = new System.Drawing.Size(404, 32);
+                        this.Label3.Location = new System.Drawing.Point(110, 330);
+                        this.Label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+                        this.Label3.Name = "Label3";
+                        this.Label3.Size = new System.Drawing.Size(505, 40);
                         this.Label3.TabIndex = 0;
                         this.Label3.Text = "Utilice la configuración avanzada si necesita ingresar parámetros adicionales par" +
     "a conectar al almacén de datos.";
@@ -247,21 +254,22 @@ namespace Lazaro.WinMain.Config
                         // CheckConfigAvanzada
                         // 
                         this.CheckConfigAvanzada.AutoSize = true;
-                        this.CheckConfigAvanzada.Location = new System.Drawing.Point(88, 240);
+                        this.CheckConfigAvanzada.Location = new System.Drawing.Point(110, 300);
+                        this.CheckConfigAvanzada.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.CheckConfigAvanzada.Name = "CheckConfigAvanzada";
-                        this.CheckConfigAvanzada.Size = new System.Drawing.Size(225, 19);
+                        this.CheckConfigAvanzada.Size = new System.Drawing.Size(289, 24);
                         this.CheckConfigAvanzada.TabIndex = 8;
                         this.CheckConfigAvanzada.Text = "Usar la configuración avanzada";
                         this.CheckConfigAvanzada.UseVisualStyleBackColor = true;
                         // 
-                        // label2
+                        // Label2
                         // 
                         this.Label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label2.Location = new System.Drawing.Point(88, 128);
-                        this.Label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.Label2.Name = "label2";
-                        this.Label2.Size = new System.Drawing.Size(404, 45);
+                        this.Label2.Location = new System.Drawing.Point(110, 160);
+                        this.Label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+                        this.Label2.Name = "Label2";
+                        this.Label2.Size = new System.Drawing.Size(505, 56);
                         this.Label2.TabIndex = 5;
                         this.Label2.Text = "Marque esta casilla si ya instaló el servidor SQL en otro equipo y desea acceder " +
     "al almacén de datos a través de una conexión de red o de Internet.";
@@ -271,22 +279,23 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.CheckOtroEquipo.AutoSize = true;
                         this.CheckOtroEquipo.Checked = true;
-                        this.CheckOtroEquipo.Location = new System.Drawing.Point(88, 104);
+                        this.CheckOtroEquipo.Location = new System.Drawing.Point(110, 130);
+                        this.CheckOtroEquipo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.CheckOtroEquipo.Name = "CheckOtroEquipo";
-                        this.CheckOtroEquipo.Size = new System.Drawing.Size(212, 19);
+                        this.CheckOtroEquipo.Size = new System.Drawing.Size(273, 24);
                         this.CheckOtroEquipo.TabIndex = 4;
                         this.CheckOtroEquipo.TabStop = true;
                         this.CheckOtroEquipo.Text = "Está instalado en otro equipo";
                         this.CheckOtroEquipo.UseVisualStyleBackColor = true;
                         // 
-                        // label1
+                        // Label1
                         // 
                         this.Label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label1.Location = new System.Drawing.Point(88, 72);
-                        this.Label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-                        this.Label1.Name = "label1";
-                        this.Label1.Size = new System.Drawing.Size(404, 20);
+                        this.Label1.Location = new System.Drawing.Point(110, 90);
+                        this.Label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+                        this.Label1.Name = "Label1";
+                        this.Label1.Size = new System.Drawing.Size(505, 25);
                         this.Label1.TabIndex = 3;
                         this.Label1.Text = "Marque esta casilla si instaló el servidor SQL en este equipo.";
                         this.Label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
@@ -294,9 +303,10 @@ namespace Lazaro.WinMain.Config
                         // CheckEsteEquipo
                         // 
                         this.CheckEsteEquipo.AutoSize = true;
-                        this.CheckEsteEquipo.Location = new System.Drawing.Point(88, 48);
+                        this.CheckEsteEquipo.Location = new System.Drawing.Point(110, 60);
+                        this.CheckEsteEquipo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.CheckEsteEquipo.Name = "CheckEsteEquipo";
-                        this.CheckEsteEquipo.Size = new System.Drawing.Size(214, 19);
+                        this.CheckEsteEquipo.Size = new System.Drawing.Size(274, 24);
                         this.CheckEsteEquipo.TabIndex = 2;
                         this.CheckEsteEquipo.Text = "Está instalado en este equipo";
                         this.CheckEsteEquipo.UseVisualStyleBackColor = true;
@@ -305,10 +315,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaAyuda.Location = new System.Drawing.Point(40, 0);
-                        this.EtiquetaAyuda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaAyuda.Location = new System.Drawing.Point(50, 0);
+                        this.EtiquetaAyuda.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaAyuda.Name = "EtiquetaAyuda";
-                        this.EtiquetaAyuda.Size = new System.Drawing.Size(456, 42);
+                        this.EtiquetaAyuda.Size = new System.Drawing.Size(570, 52);
                         this.EtiquetaAyuda.TabIndex = 0;
                         this.EtiquetaAyuda.Text = "Este asistente le ayudará a configurar Lázaro. Por favor indique la ubicación del" +
     " almacén de datos.";
@@ -320,10 +330,11 @@ namespace Lazaro.WinMain.Config
                         this.LowerPanel.Controls.Add(this.BotonAnterior);
                         this.LowerPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
                         this.LowerPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-                        this.LowerPanel.Location = new System.Drawing.Point(0, 358);
+                        this.LowerPanel.Location = new System.Drawing.Point(0, 448);
+                        this.LowerPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.LowerPanel.Name = "LowerPanel";
-                        this.LowerPanel.Padding = new System.Windows.Forms.Padding(12);
-                        this.LowerPanel.Size = new System.Drawing.Size(634, 64);
+                        this.LowerPanel.Padding = new System.Windows.Forms.Padding(15, 15, 15, 15);
+                        this.LowerPanel.Size = new System.Drawing.Size(792, 80);
                         this.LowerPanel.TabIndex = 50;
                         // 
                         // BotonSalir
@@ -331,13 +342,13 @@ namespace Lazaro.WinMain.Config
                         this.BotonSalir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
                         this.BotonSalir.Image = null;
                         this.BotonSalir.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonSalir.Location = new System.Drawing.Point(502, 12);
-                        this.BotonSalir.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.BotonSalir.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonSalir.Location = new System.Drawing.Point(627, 15);
+                        this.BotonSalir.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+                        this.BotonSalir.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonSalir.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonSalir.Name = "BotonSalir";
-                        this.BotonSalir.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-                        this.BotonSalir.Size = new System.Drawing.Size(108, 40);
+                        this.BotonSalir.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+                        this.BotonSalir.Size = new System.Drawing.Size(135, 50);
                         this.BotonSalir.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonSalir.Subtext = "F8";
                         this.BotonSalir.TabIndex = 2;
@@ -350,13 +361,13 @@ namespace Lazaro.WinMain.Config
                         this.BotonSiguiente.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonSiguiente.Image = null;
                         this.BotonSiguiente.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonSiguiente.Location = new System.Drawing.Point(388, 12);
-                        this.BotonSiguiente.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.BotonSiguiente.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonSiguiente.Location = new System.Drawing.Point(485, 15);
+                        this.BotonSiguiente.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+                        this.BotonSiguiente.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonSiguiente.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonSiguiente.Name = "BotonSiguiente";
-                        this.BotonSiguiente.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-                        this.BotonSiguiente.Size = new System.Drawing.Size(108, 40);
+                        this.BotonSiguiente.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+                        this.BotonSiguiente.Size = new System.Drawing.Size(135, 50);
                         this.BotonSiguiente.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonSiguiente.Subtext = "F8";
                         this.BotonSiguiente.TabIndex = 0;
@@ -369,13 +380,13 @@ namespace Lazaro.WinMain.Config
                         this.BotonAnterior.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonAnterior.Image = null;
                         this.BotonAnterior.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonAnterior.Location = new System.Drawing.Point(274, 12);
-                        this.BotonAnterior.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.BotonAnterior.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonAnterior.Location = new System.Drawing.Point(343, 15);
+                        this.BotonAnterior.Margin = new System.Windows.Forms.Padding(7, 0, 0, 0);
+                        this.BotonAnterior.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonAnterior.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonAnterior.Name = "BotonAnterior";
-                        this.BotonAnterior.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-                        this.BotonAnterior.Size = new System.Drawing.Size(108, 40);
+                        this.BotonAnterior.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+                        this.BotonAnterior.Size = new System.Drawing.Size(135, 50);
                         this.BotonAnterior.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonAnterior.Subtext = "F8";
                         this.BotonAnterior.TabIndex = 1;
@@ -388,15 +399,17 @@ namespace Lazaro.WinMain.Config
                         this.PanelLogo.Controls.Add(this.pictureBox2);
                         this.PanelLogo.Dock = System.Windows.Forms.DockStyle.Left;
                         this.PanelLogo.Location = new System.Drawing.Point(0, 0);
+                        this.PanelLogo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelLogo.Name = "PanelLogo";
-                        this.PanelLogo.Size = new System.Drawing.Size(100, 358);
+                        this.PanelLogo.Size = new System.Drawing.Size(125, 448);
                         this.PanelLogo.TabIndex = 58;
                         // 
                         // pictureBox2
                         // 
                         this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.pictureBox2.Image = global::Lazaro.Properties.Resources.lazaro_120_v;
-                        this.pictureBox2.Location = new System.Drawing.Point(20, 218);
+                        this.pictureBox2.Location = new System.Drawing.Point(25, 272);
+                        this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox2.Name = "pictureBox2";
                         this.pictureBox2.Size = new System.Drawing.Size(35, 120);
                         this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -412,9 +425,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelNombreServidor.Controls.Add(this.label6);
                         this.PanelNombreServidor.Controls.Add(this.EntradaServidor);
                         this.PanelNombreServidor.Controls.Add(this.label4);
-                        this.PanelNombreServidor.Location = new System.Drawing.Point(120, 48);
+                        this.PanelNombreServidor.Location = new System.Drawing.Point(150, 60);
+                        this.PanelNombreServidor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelNombreServidor.Name = "PanelNombreServidor";
-                        this.PanelNombreServidor.Size = new System.Drawing.Size(496, 304);
+                        this.PanelNombreServidor.Size = new System.Drawing.Size(620, 380);
                         this.PanelNombreServidor.TabIndex = 0;
                         this.PanelNombreServidor.Visible = false;
                         // 
@@ -424,11 +438,11 @@ namespace Lazaro.WinMain.Config
                         this.BotonDetectar.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonDetectar.Image = null;
                         this.BotonDetectar.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonDetectar.Location = new System.Drawing.Point(352, 96);
-                        this.BotonDetectar.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
+                        this.BotonDetectar.Location = new System.Drawing.Point(440, 120);
+                        this.BotonDetectar.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
                         this.BotonDetectar.Name = "BotonDetectar";
-                        this.BotonDetectar.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-                        this.BotonDetectar.Size = new System.Drawing.Size(88, 24);
+                        this.BotonDetectar.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+                        this.BotonDetectar.Size = new System.Drawing.Size(110, 30);
                         this.BotonDetectar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonDetectar.Subtext = "F8";
                         this.BotonDetectar.TabIndex = 4;
@@ -439,10 +453,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label18.Location = new System.Drawing.Point(40, 0);
-                        this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label18.Location = new System.Drawing.Point(50, 0);
+                        this.label18.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label18.Name = "label18";
-                        this.label18.Size = new System.Drawing.Size(456, 32);
+                        this.label18.Size = new System.Drawing.Size(570, 40);
                         this.label18.TabIndex = 0;
                         this.label18.Text = "Almacén de datos remoto";
                         this.label18.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -451,6 +465,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox6.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox6.Image")));
                         this.pictureBox6.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox6.Name = "pictureBox6";
                         this.pictureBox6.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -461,10 +476,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label7.Location = new System.Drawing.Point(40, 136);
-                        this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label7.Location = new System.Drawing.Point(50, 170);
+                        this.label7.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label7.Name = "label7";
-                        this.label7.Size = new System.Drawing.Size(456, 100);
+                        this.label7.Size = new System.Drawing.Size(570, 125);
                         this.label7.TabIndex = 5;
                         this.label7.Text = resources.GetString("label7.Text");
                         // 
@@ -472,10 +487,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label6.Location = new System.Drawing.Point(40, 96);
-                        this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label6.Location = new System.Drawing.Point(50, 120);
+                        this.label6.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label6.Name = "label6";
-                        this.label6.Size = new System.Drawing.Size(96, 24);
+                        this.label6.Size = new System.Drawing.Size(120, 30);
                         this.label6.TabIndex = 2;
                         this.label6.Text = "Servidor";
                         this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -483,19 +498,19 @@ namespace Lazaro.WinMain.Config
                         // EntradaServidor
                         // 
                         this.EntradaServidor.ForceCase = Lui.Forms.TextCasing.LowerCase;
-                        this.EntradaServidor.Location = new System.Drawing.Point(136, 96);
+                        this.EntradaServidor.Location = new System.Drawing.Point(170, 120);
                         this.EntradaServidor.Name = "EntradaServidor";
-                        this.EntradaServidor.Size = new System.Drawing.Size(208, 24);
+                        this.EntradaServidor.Size = new System.Drawing.Size(260, 30);
                         this.EntradaServidor.TabIndex = 3;
                         // 
                         // label4
                         // 
                         this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label4.Location = new System.Drawing.Point(40, 40);
-                        this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label4.Location = new System.Drawing.Point(50, 50);
+                        this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label4.Name = "label4";
-                        this.label4.Size = new System.Drawing.Size(456, 42);
+                        this.label4.Size = new System.Drawing.Size(570, 52);
                         this.label4.TabIndex = 1;
                         this.label4.Text = "Escriba a continuación el nombre o la dirección IP del equipo en el cual está ins" +
     "talado el servidor SQL.";
@@ -508,9 +523,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelFinal.Controls.Add(this.label5);
                         this.PanelFinal.Controls.Add(this.pictureBox8);
                         this.PanelFinal.Controls.Add(this.label11);
-                        this.PanelFinal.Location = new System.Drawing.Point(120, 48);
+                        this.PanelFinal.Location = new System.Drawing.Point(150, 60);
+                        this.PanelFinal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelFinal.Name = "PanelFinal";
-                        this.PanelFinal.Size = new System.Drawing.Size(496, 304);
+                        this.PanelFinal.Size = new System.Drawing.Size(620, 380);
                         this.PanelFinal.TabIndex = 59;
                         this.PanelFinal.Visible = false;
                         // 
@@ -518,10 +534,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label5.Location = new System.Drawing.Point(40, 0);
-                        this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label5.Location = new System.Drawing.Point(50, 0);
+                        this.label5.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label5.Name = "label5";
-                        this.label5.Size = new System.Drawing.Size(456, 63);
+                        this.label5.Size = new System.Drawing.Size(570, 79);
                         this.label5.TabIndex = 69;
                         this.label5.Text = "¡Felicitaciones!";
                         this.label5.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -530,6 +546,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox8.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox8.Image")));
                         this.pictureBox8.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox8.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox8.Name = "pictureBox8";
                         this.pictureBox8.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -540,10 +557,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label11.Location = new System.Drawing.Point(40, 72);
-                        this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label11.Location = new System.Drawing.Point(50, 90);
+                        this.label11.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label11.Name = "label11";
-                        this.label11.Size = new System.Drawing.Size(456, 63);
+                        this.label11.Size = new System.Drawing.Size(570, 79);
                         this.label11.TabIndex = 0;
                         this.label11.Text = "Ya tenemos toda la información que necesitamos por el momento. Haga clic en el bo" +
     "tón \'Finalizar\' para terminar este asistente y comenzar a utilizar Lázaro.";
@@ -557,9 +574,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelPruebaServidor.Controls.Add(this.pictureBox7);
                         this.PanelPruebaServidor.Controls.Add(this.EtiquetaPruebaError);
                         this.PanelPruebaServidor.Controls.Add(this.EtiquetaPruebaResultado);
-                        this.PanelPruebaServidor.Location = new System.Drawing.Point(120, 48);
+                        this.PanelPruebaServidor.Location = new System.Drawing.Point(150, 60);
+                        this.PanelPruebaServidor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelPruebaServidor.Name = "PanelPruebaServidor";
-                        this.PanelPruebaServidor.Size = new System.Drawing.Size(496, 304);
+                        this.PanelPruebaServidor.Size = new System.Drawing.Size(620, 380);
                         this.PanelPruebaServidor.TabIndex = 0;
                         this.PanelPruebaServidor.Visible = false;
                         this.PanelPruebaServidor.VisibleChanged += new System.EventHandler(this.PanelPruebaServidor_VisibleChanged);
@@ -568,10 +586,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label12.Location = new System.Drawing.Point(40, 0);
-                        this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label12.Location = new System.Drawing.Point(50, 0);
+                        this.label12.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label12.Name = "label12";
-                        this.label12.Size = new System.Drawing.Size(456, 32);
+                        this.label12.Size = new System.Drawing.Size(570, 40);
                         this.label12.TabIndex = 70;
                         this.label12.Text = "Probar conexión con el almacén de datos";
                         this.label12.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -580,6 +598,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox7.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox7.Image")));
                         this.pictureBox7.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox7.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox7.Name = "pictureBox7";
                         this.pictureBox7.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -590,20 +609,20 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaPruebaError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaPruebaError.Location = new System.Drawing.Point(0, 120);
-                        this.EtiquetaPruebaError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaPruebaError.Location = new System.Drawing.Point(0, 150);
+                        this.EtiquetaPruebaError.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaPruebaError.Name = "EtiquetaPruebaError";
-                        this.EtiquetaPruebaError.Size = new System.Drawing.Size(496, 80);
+                        this.EtiquetaPruebaError.Size = new System.Drawing.Size(620, 100);
                         this.EtiquetaPruebaError.TabIndex = 60;
                         // 
                         // EtiquetaPruebaResultado
                         // 
                         this.EtiquetaPruebaResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaPruebaResultado.Location = new System.Drawing.Point(40, 48);
-                        this.EtiquetaPruebaResultado.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaPruebaResultado.Location = new System.Drawing.Point(50, 60);
+                        this.EtiquetaPruebaResultado.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaPruebaResultado.Name = "EtiquetaPruebaResultado";
-                        this.EtiquetaPruebaResultado.Size = new System.Drawing.Size(456, 57);
+                        this.EtiquetaPruebaResultado.Size = new System.Drawing.Size(570, 71);
                         this.EtiquetaPruebaResultado.TabIndex = 58;
                         this.EtiquetaPruebaResultado.Text = "Probando la conexión...";
                         // 
@@ -611,9 +630,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaEncab.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaEncab.Location = new System.Drawing.Point(120, 8);
+                        this.EtiquetaEncab.Location = new System.Drawing.Point(150, 10);
+                        this.EtiquetaEncab.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.EtiquetaEncab.Name = "EtiquetaEncab";
-                        this.EtiquetaEncab.Size = new System.Drawing.Size(496, 40);
+                        this.EtiquetaEncab.Size = new System.Drawing.Size(620, 50);
                         this.EtiquetaEncab.TabIndex = 0;
                         this.EtiquetaEncab.Text = "Asistente de configuración";
                         this.EtiquetaEncab.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -629,18 +649,20 @@ namespace Lazaro.WinMain.Config
                         this.PanelDeteccion.Controls.Add(this.pictureBox10);
                         this.PanelDeteccion.Controls.Add(this.label9);
                         this.PanelDeteccion.Controls.Add(this.label10);
-                        this.PanelDeteccion.Location = new System.Drawing.Point(120, 48);
+                        this.PanelDeteccion.Location = new System.Drawing.Point(150, 60);
+                        this.PanelDeteccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelDeteccion.Name = "PanelDeteccion";
-                        this.PanelDeteccion.Size = new System.Drawing.Size(496, 304);
+                        this.PanelDeteccion.Size = new System.Drawing.Size(620, 380);
                         this.PanelDeteccion.TabIndex = 61;
                         this.PanelDeteccion.Visible = false;
                         this.PanelDeteccion.VisibleChanged += new System.EventHandler(this.PanelDeteccion_VisibleChanged);
                         // 
                         // PicEsperar
                         // 
-                        this.PicEsperar.Location = new System.Drawing.Point(20, 116);
+                        this.PicEsperar.Location = new System.Drawing.Point(25, 145);
+                        this.PicEsperar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PicEsperar.Name = "PicEsperar";
-                        this.PicEsperar.Size = new System.Drawing.Size(16, 16);
+                        this.PicEsperar.Size = new System.Drawing.Size(20, 20);
                         this.PicEsperar.TabIndex = 77;
                         this.PicEsperar.TabStop = false;
                         // 
@@ -648,19 +670,20 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaBuscarEspere.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaBuscarEspere.Location = new System.Drawing.Point(40, 40);
-                        this.EtiquetaBuscarEspere.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaBuscarEspere.Location = new System.Drawing.Point(50, 50);
+                        this.EtiquetaBuscarEspere.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaBuscarEspere.Name = "EtiquetaBuscarEspere";
-                        this.EtiquetaBuscarEspere.Size = new System.Drawing.Size(456, 48);
+                        this.EtiquetaBuscarEspere.Size = new System.Drawing.Size(570, 60);
                         this.EtiquetaBuscarEspere.TabIndex = 76;
                         this.EtiquetaBuscarEspere.Text = "Por favor aguarde mientras el asistente busca un servidor SQL en su red. Puede de" +
     "morar varios minutos.";
                         // 
                         // ProgresoBuscar
                         // 
-                        this.ProgresoBuscar.Location = new System.Drawing.Point(40, 160);
+                        this.ProgresoBuscar.Location = new System.Drawing.Point(50, 200);
+                        this.ProgresoBuscar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.ProgresoBuscar.Name = "ProgresoBuscar";
-                        this.ProgresoBuscar.Size = new System.Drawing.Size(456, 20);
+                        this.ProgresoBuscar.Size = new System.Drawing.Size(570, 25);
                         this.ProgresoBuscar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
                         this.ProgresoBuscar.TabIndex = 75;
                         // 
@@ -671,9 +694,10 @@ namespace Lazaro.WinMain.Config
                         this.BotonConfiguracionAvanzada.AutoSize = true;
                         this.BotonConfiguracionAvanzada.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonConfiguracionAvanzada.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonConfiguracionAvanzada.Location = new System.Drawing.Point(40, 280);
+                        this.BotonConfiguracionAvanzada.Location = new System.Drawing.Point(50, 350);
+                        this.BotonConfiguracionAvanzada.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.BotonConfiguracionAvanzada.Name = "BotonConfiguracionAvanzada";
-                        this.BotonConfiguracionAvanzada.Size = new System.Drawing.Size(148, 17);
+                        this.BotonConfiguracionAvanzada.Size = new System.Drawing.Size(194, 23);
                         this.BotonConfiguracionAvanzada.TabIndex = 73;
                         this.BotonConfiguracionAvanzada.TabStop = true;
                         this.BotonConfiguracionAvanzada.Text = "Configuración avanzada";
@@ -684,10 +708,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaBuscando.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaBuscando.Location = new System.Drawing.Point(40, 112);
-                        this.EtiquetaBuscando.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaBuscando.Location = new System.Drawing.Point(50, 140);
+                        this.EtiquetaBuscando.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaBuscando.Name = "EtiquetaBuscando";
-                        this.EtiquetaBuscando.Size = new System.Drawing.Size(456, 48);
+                        this.EtiquetaBuscando.Size = new System.Drawing.Size(570, 60);
                         this.EtiquetaBuscando.TabIndex = 72;
                         this.EtiquetaBuscando.Text = "Buscando...";
                         // 
@@ -695,6 +719,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
                         this.pictureBox10.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox10.Name = "pictureBox10";
                         this.pictureBox10.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -705,10 +730,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label9.Location = new System.Drawing.Point(40, 0);
-                        this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label9.Location = new System.Drawing.Point(50, 0);
+                        this.label9.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label9.Name = "label9";
-                        this.label9.Size = new System.Drawing.Size(456, 40);
+                        this.label9.Size = new System.Drawing.Size(570, 50);
                         this.label9.TabIndex = 69;
                         this.label9.Text = "Buscar un almacén de datos en la red";
                         this.label9.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -717,10 +742,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label10.Location = new System.Drawing.Point(40, 192);
-                        this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label10.Location = new System.Drawing.Point(50, 240);
+                        this.label10.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label10.Name = "label10";
-                        this.label10.Size = new System.Drawing.Size(456, 80);
+                        this.label10.Size = new System.Drawing.Size(570, 100);
                         this.label10.TabIndex = 74;
                         this.label10.Text = resources.GetString("label10.Text");
                         this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -735,9 +760,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelInstalacion.Controls.Add(this.label13);
                         this.PanelInstalacion.Controls.Add(this.pictureBox11);
                         this.PanelInstalacion.Controls.Add(this.label14);
-                        this.PanelInstalacion.Location = new System.Drawing.Point(120, 48);
+                        this.PanelInstalacion.Location = new System.Drawing.Point(150, 60);
+                        this.PanelInstalacion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelInstalacion.Name = "PanelInstalacion";
-                        this.PanelInstalacion.Size = new System.Drawing.Size(496, 304);
+                        this.PanelInstalacion.Size = new System.Drawing.Size(620, 380);
                         this.PanelInstalacion.TabIndex = 62;
                         this.PanelInstalacion.Visible = false;
                         this.PanelInstalacion.VisibleChanged += new System.EventHandler(this.PanelInstalarAhora_VisibleChanged);
@@ -747,10 +773,11 @@ namespace Lazaro.WinMain.Config
                         this.BotonInstalar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
                         this.BotonInstalar.Image = null;
                         this.BotonInstalar.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonInstalar.Location = new System.Drawing.Point(40, 136);
+                        this.BotonInstalar.Location = new System.Drawing.Point(50, 170);
+                        this.BotonInstalar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.BotonInstalar.Name = "BotonInstalar";
-                        this.BotonInstalar.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-                        this.BotonInstalar.Size = new System.Drawing.Size(116, 40);
+                        this.BotonInstalar.Padding = new System.Windows.Forms.Padding(4, 2, 4, 2);
+                        this.BotonInstalar.Size = new System.Drawing.Size(145, 50);
                         this.BotonInstalar.SubLabelPos = Lui.Forms.SubLabelPositions.None;
                         this.BotonInstalar.Subtext = "F8";
                         this.BotonInstalar.TabIndex = 78;
@@ -759,9 +786,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         // ProgresoDescargando
                         // 
-                        this.ProgresoDescargando.Location = new System.Drawing.Point(40, 232);
+                        this.ProgresoDescargando.Location = new System.Drawing.Point(50, 290);
+                        this.ProgresoDescargando.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.ProgresoDescargando.Name = "ProgresoDescargando";
-                        this.ProgresoDescargando.Size = new System.Drawing.Size(456, 20);
+                        this.ProgresoDescargando.Size = new System.Drawing.Size(570, 25);
                         this.ProgresoDescargando.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
                         this.ProgresoDescargando.TabIndex = 76;
                         this.ProgresoDescargando.Visible = false;
@@ -770,10 +798,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.EtiquetaDescargando.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaDescargando.Location = new System.Drawing.Point(40, 192);
-                        this.EtiquetaDescargando.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaDescargando.Location = new System.Drawing.Point(50, 240);
+                        this.EtiquetaDescargando.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.EtiquetaDescargando.Name = "EtiquetaDescargando";
-                        this.EtiquetaDescargando.Size = new System.Drawing.Size(456, 40);
+                        this.EtiquetaDescargando.Size = new System.Drawing.Size(570, 50);
                         this.EtiquetaDescargando.TabIndex = 74;
                         this.EtiquetaDescargando.Text = "Descargando...";
                         this.EtiquetaDescargando.Visible = false;
@@ -782,10 +810,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label13.Location = new System.Drawing.Point(40, 32);
-                        this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label13.Location = new System.Drawing.Point(50, 40);
+                        this.label13.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label13.Name = "label13";
-                        this.label13.Size = new System.Drawing.Size(456, 88);
+                        this.label13.Size = new System.Drawing.Size(570, 110);
                         this.label13.TabIndex = 72;
                         this.label13.Text = resources.GetString("label13.Text");
                         // 
@@ -793,6 +821,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox11.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox11.Image")));
                         this.pictureBox11.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox11.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox11.Name = "pictureBox11";
                         this.pictureBox11.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox11.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -803,10 +832,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label14.Location = new System.Drawing.Point(40, 0);
-                        this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label14.Location = new System.Drawing.Point(50, 0);
+                        this.label14.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label14.Name = "label14";
-                        this.label14.Size = new System.Drawing.Size(456, 32);
+                        this.label14.Size = new System.Drawing.Size(570, 40);
                         this.label14.TabIndex = 69;
                         this.label14.Text = "Instalar un servidor SQL ahora";
                         this.label14.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -822,9 +851,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelInicio.Controls.Add(this.label16);
                         this.PanelInicio.Controls.Add(this.RadioInicioInstalacionLocal);
                         this.PanelInicio.Controls.Add(this.label17);
-                        this.PanelInicio.Location = new System.Drawing.Point(120, 48);
+                        this.PanelInicio.Location = new System.Drawing.Point(150, 60);
+                        this.PanelInicio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelInicio.Name = "PanelInicio";
-                        this.PanelInicio.Size = new System.Drawing.Size(496, 304);
+                        this.PanelInicio.Size = new System.Drawing.Size(620, 380);
                         this.PanelInicio.TabIndex = 0;
                         // 
                         // BotonInicioMasOpciones
@@ -834,9 +864,10 @@ namespace Lazaro.WinMain.Config
                         this.BotonInicioMasOpciones.AutoSize = true;
                         this.BotonInicioMasOpciones.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonInicioMasOpciones.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonInicioMasOpciones.Location = new System.Drawing.Point(104, 280);
+                        this.BotonInicioMasOpciones.Location = new System.Drawing.Point(130, 350);
+                        this.BotonInicioMasOpciones.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.BotonInicioMasOpciones.Name = "BotonInicioMasOpciones";
-                        this.BotonInicioMasOpciones.Size = new System.Drawing.Size(90, 17);
+                        this.BotonInicioMasOpciones.Size = new System.Drawing.Size(114, 23);
                         this.BotonInicioMasOpciones.TabIndex = 76;
                         this.BotonInicioMasOpciones.TabStop = true;
                         this.BotonInicioMasOpciones.Text = "Más opciones";
@@ -847,6 +878,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
                         this.pictureBox12.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox12.Name = "pictureBox12";
                         this.pictureBox12.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox12.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -856,7 +888,8 @@ namespace Lazaro.WinMain.Config
                         // pictureBox13
                         // 
                         this.pictureBox13.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox13.Image")));
-                        this.pictureBox13.Location = new System.Drawing.Point(48, 152);
+                        this.pictureBox13.Location = new System.Drawing.Point(60, 190);
+                        this.pictureBox13.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox13.Name = "pictureBox13";
                         this.pictureBox13.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox13.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -866,7 +899,8 @@ namespace Lazaro.WinMain.Config
                         // pictureBox14
                         // 
                         this.pictureBox14.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox14.Image")));
-                        this.pictureBox14.Location = new System.Drawing.Point(48, 56);
+                        this.pictureBox14.Location = new System.Drawing.Point(60, 70);
+                        this.pictureBox14.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox14.Name = "pictureBox14";
                         this.pictureBox14.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox14.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -877,10 +911,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label15.Location = new System.Drawing.Point(104, 176);
-                        this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label15.Location = new System.Drawing.Point(130, 220);
+                        this.label15.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label15.Name = "label15";
-                        this.label15.Size = new System.Drawing.Size(388, 56);
+                        this.label15.Size = new System.Drawing.Size(485, 70);
                         this.label15.TabIndex = 72;
                         this.label15.Text = "Marque esta casilla si ya instaló Lázaro en otro equipo y quiere acceder a los da" +
     "tos a través de la red.";
@@ -888,9 +922,10 @@ namespace Lazaro.WinMain.Config
                         // RadioInicioConexionRemota
                         // 
                         this.RadioInicioConexionRemota.AutoSize = true;
-                        this.RadioInicioConexionRemota.Location = new System.Drawing.Point(88, 152);
+                        this.RadioInicioConexionRemota.Location = new System.Drawing.Point(110, 190);
+                        this.RadioInicioConexionRemota.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.RadioInicioConexionRemota.Name = "RadioInicioConexionRemota";
-                        this.RadioInicioConexionRemota.Size = new System.Drawing.Size(132, 19);
+                        this.RadioInicioConexionRemota.Size = new System.Drawing.Size(168, 24);
                         this.RadioInicioConexionRemota.TabIndex = 71;
                         this.RadioInicioConexionRemota.Text = "Almacén remoto";
                         this.RadioInicioConexionRemota.UseVisualStyleBackColor = true;
@@ -899,10 +934,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label16.Location = new System.Drawing.Point(104, 80);
-                        this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label16.Location = new System.Drawing.Point(130, 100);
+                        this.label16.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label16.Name = "label16";
-                        this.label16.Size = new System.Drawing.Size(388, 56);
+                        this.label16.Size = new System.Drawing.Size(485, 70);
                         this.label16.TabIndex = 70;
                         this.label16.Text = "Marque esta casilla si está instalando Lázaro por primera vez o si utiliza Lázaro" +
     " sólamente en este equipo.";
@@ -911,9 +946,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.RadioInicioInstalacionLocal.AutoSize = true;
                         this.RadioInicioInstalacionLocal.Checked = true;
-                        this.RadioInicioInstalacionLocal.Location = new System.Drawing.Point(88, 56);
+                        this.RadioInicioInstalacionLocal.Location = new System.Drawing.Point(110, 70);
+                        this.RadioInicioInstalacionLocal.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.RadioInicioInstalacionLocal.Name = "RadioInicioInstalacionLocal";
-                        this.RadioInicioInstalacionLocal.Size = new System.Drawing.Size(114, 19);
+                        this.RadioInicioInstalacionLocal.Size = new System.Drawing.Size(145, 24);
                         this.RadioInicioInstalacionLocal.TabIndex = 69;
                         this.RadioInicioInstalacionLocal.TabStop = true;
                         this.RadioInicioInstalacionLocal.Text = "Almacén local";
@@ -923,10 +959,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label17.Location = new System.Drawing.Point(40, 0);
-                        this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label17.Location = new System.Drawing.Point(50, 0);
+                        this.label17.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label17.Name = "label17";
-                        this.label17.Size = new System.Drawing.Size(456, 42);
+                        this.label17.Size = new System.Drawing.Size(570, 52);
                         this.label17.TabIndex = 68;
                         this.label17.Text = "Vamos a configurar el almacén de datos de Lázaro. Este proceso se realiza por úni" +
     "ca vez en este equipo.";
@@ -948,9 +984,10 @@ namespace Lazaro.WinMain.Config
                         this.PanelDatosEmpresa.Controls.Add(this.label19);
                         this.PanelDatosEmpresa.Controls.Add(this.pictureBox15);
                         this.PanelDatosEmpresa.Controls.Add(this.label20);
-                        this.PanelDatosEmpresa.Location = new System.Drawing.Point(120, 48);
+                        this.PanelDatosEmpresa.Location = new System.Drawing.Point(150, 60);
+                        this.PanelDatosEmpresa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.PanelDatosEmpresa.Name = "PanelDatosEmpresa";
-                        this.PanelDatosEmpresa.Size = new System.Drawing.Size(496, 304);
+                        this.PanelDatosEmpresa.Size = new System.Drawing.Size(620, 380);
                         this.PanelDatosEmpresa.TabIndex = 0;
                         this.PanelDatosEmpresa.Visible = false;
                         this.PanelDatosEmpresa.VisibleChanged += new System.EventHandler(this.PanelDatosEmpresa_VisibleChanged);
@@ -959,37 +996,39 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label22.Location = new System.Drawing.Point(88, 152);
-                        this.label22.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label22.Location = new System.Drawing.Point(110, 190);
+                        this.label22.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label22.Name = "label22";
-                        this.label22.Size = new System.Drawing.Size(408, 40);
+                        this.label22.Size = new System.Drawing.Size(510, 50);
                         this.label22.TabIndex = 6;
                         this.label22.Text = "Lázaro ajustará automáticamente algunas opciones de acuerdo al país que seleccion" +
     "e.";
                         // 
                         // EntradaEmpresaClaveTributaria
                         // 
-                        this.EntradaEmpresaClaveTributaria.Location = new System.Drawing.Point(208, 232);
+                        this.EntradaEmpresaClaveTributaria.Location = new System.Drawing.Point(260, 290);
                         this.EntradaEmpresaClaveTributaria.MaxLength = 50;
                         this.EntradaEmpresaClaveTributaria.Name = "EntradaEmpresaClaveTributaria";
                         this.EntradaEmpresaClaveTributaria.PlaceholderText = "Identificación tributaria";
-                        this.EntradaEmpresaClaveTributaria.Size = new System.Drawing.Size(188, 24);
+                        this.EntradaEmpresaClaveTributaria.Size = new System.Drawing.Size(235, 30);
                         this.EntradaEmpresaClaveTributaria.TabIndex = 10;
                         // 
                         // EtiquetaClaveTributaria
                         // 
-                        this.EtiquetaClaveTributaria.Location = new System.Drawing.Point(40, 232);
+                        this.EtiquetaClaveTributaria.Location = new System.Drawing.Point(50, 290);
+                        this.EtiquetaClaveTributaria.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.EtiquetaClaveTributaria.Name = "EtiquetaClaveTributaria";
-                        this.EtiquetaClaveTributaria.Size = new System.Drawing.Size(168, 24);
+                        this.EtiquetaClaveTributaria.Size = new System.Drawing.Size(210, 30);
                         this.EtiquetaClaveTributaria.TabIndex = 9;
                         this.EtiquetaClaveTributaria.Text = "Clave tributaria";
                         this.EtiquetaClaveTributaria.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
                         // 
                         // label33
                         // 
-                        this.label33.Location = new System.Drawing.Point(40, 120);
+                        this.label33.Location = new System.Drawing.Point(50, 150);
+                        this.label33.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label33.Name = "label33";
-                        this.label33.Size = new System.Drawing.Size(168, 24);
+                        this.label33.Size = new System.Drawing.Size(210, 30);
                         this.label33.TabIndex = 4;
                         this.label33.Text = "País";
                         this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1000,22 +1039,24 @@ namespace Lazaro.WinMain.Config
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaPais.AutoTab = true;
                         this.EntradaPais.CanCreate = false;
-                        this.EntradaPais.Location = new System.Drawing.Point(208, 120);
+                        this.EntradaPais.Location = new System.Drawing.Point(260, 150);
+                        this.EntradaPais.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.EntradaPais.MaxLength = 200;
                         this.EntradaPais.Name = "EntradaPais";
                         this.EntradaPais.NombreTipo = "Lbl.Entidades.Pais";
                         this.EntradaPais.PlaceholderText = "Seleccione un país de la lista";
                         this.EntradaPais.Required = true;
-                        this.EntradaPais.Size = new System.Drawing.Size(256, 24);
+                        this.EntradaPais.Size = new System.Drawing.Size(320, 30);
                         this.EntradaPais.TabIndex = 5;
                         this.EntradaPais.Text = "0";
                         this.EntradaPais.TextChanged += new System.EventHandler(this.EntradaPais_TextChanged);
                         // 
                         // label21
                         // 
-                        this.label21.Location = new System.Drawing.Point(40, 88);
+                        this.label21.Location = new System.Drawing.Point(50, 110);
+                        this.label21.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label21.Name = "label21";
-                        this.label21.Size = new System.Drawing.Size(168, 24);
+                        this.label21.Size = new System.Drawing.Size(210, 30);
                         this.label21.TabIndex = 2;
                         this.label21.Text = "Nombre";
                         this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1023,28 +1064,29 @@ namespace Lazaro.WinMain.Config
                         // EntradaEmpresaNombre
                         // 
                         this.EntradaEmpresaNombre.ForceCase = Lui.Forms.TextCasing.Automatic;
-                        this.EntradaEmpresaNombre.Location = new System.Drawing.Point(208, 88);
+                        this.EntradaEmpresaNombre.Location = new System.Drawing.Point(260, 110);
                         this.EntradaEmpresaNombre.MaxLength = 200;
                         this.EntradaEmpresaNombre.Name = "EntradaEmpresaNombre";
                         this.EntradaEmpresaNombre.PlaceholderText = "Escriba el nombre de su empresa";
-                        this.EntradaEmpresaNombre.Size = new System.Drawing.Size(288, 24);
+                        this.EntradaEmpresaNombre.Size = new System.Drawing.Size(360, 30);
                         this.EntradaEmpresaNombre.TabIndex = 3;
                         // 
                         // EntradaEmpresaEmail
                         // 
                         this.EntradaEmpresaEmail.ForceCase = Lui.Forms.TextCasing.LowerCase;
-                        this.EntradaEmpresaEmail.Location = new System.Drawing.Point(208, 200);
+                        this.EntradaEmpresaEmail.Location = new System.Drawing.Point(260, 250);
                         this.EntradaEmpresaEmail.MaxLength = 200;
                         this.EntradaEmpresaEmail.Name = "EntradaEmpresaEmail";
                         this.EntradaEmpresaEmail.PlaceholderText = "Dirección de correo principal";
-                        this.EntradaEmpresaEmail.Size = new System.Drawing.Size(288, 24);
+                        this.EntradaEmpresaEmail.Size = new System.Drawing.Size(360, 30);
                         this.EntradaEmpresaEmail.TabIndex = 8;
                         // 
                         // label28
                         // 
-                        this.label28.Location = new System.Drawing.Point(40, 200);
+                        this.label28.Location = new System.Drawing.Point(50, 250);
+                        this.label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label28.Name = "label28";
-                        this.label28.Size = new System.Drawing.Size(168, 24);
+                        this.label28.Size = new System.Drawing.Size(210, 30);
                         this.label28.TabIndex = 7;
                         this.label28.Text = "Correo electrónico";
                         this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1053,10 +1095,10 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label19.Location = new System.Drawing.Point(40, 0);
-                        this.label19.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label19.Location = new System.Drawing.Point(50, 0);
+                        this.label19.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label19.Name = "label19";
-                        this.label19.Size = new System.Drawing.Size(456, 32);
+                        this.label19.Size = new System.Drawing.Size(570, 40);
                         this.label19.TabIndex = 0;
                         this.label19.Text = "Información de su empresa";
                         this.label19.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Bigger;
@@ -1065,6 +1107,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.pictureBox15.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox15.Image")));
                         this.pictureBox15.Location = new System.Drawing.Point(0, 0);
+                        this.pictureBox15.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.pictureBox15.Name = "pictureBox15";
                         this.pictureBox15.Size = new System.Drawing.Size(32, 32);
                         this.pictureBox15.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -1075,35 +1118,36 @@ namespace Lazaro.WinMain.Config
                         // 
                         this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label20.Location = new System.Drawing.Point(40, 40);
-                        this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label20.Location = new System.Drawing.Point(50, 50);
+                        this.label20.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
                         this.label20.Name = "label20";
-                        this.label20.Size = new System.Drawing.Size(456, 40);
+                        this.label20.Size = new System.Drawing.Size(570, 50);
                         this.label20.TabIndex = 1;
                         this.label20.Text = "Por favor escriba los datos de su empresa. Estos datos pueden aparecer en las fac" +
     "turas o listados que imprima.";
                         // 
                         // Inicial
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.CancelButton = this.BotonSalir;
-                        this.ClientSize = new System.Drawing.Size(634, 422);
+                        this.ClientSize = new System.Drawing.Size(792, 528);
                         this.ControlBox = false;
                         this.Controls.Add(this.PanelLogo);
                         this.Controls.Add(this.LowerPanel);
                         this.Controls.Add(this.EtiquetaEncab);
+                        this.Controls.Add(this.PanelInstalacion);
+                        this.Controls.Add(this.PanelNombreServidor);
+                        this.Controls.Add(this.PanelPruebaServidor);
                         this.Controls.Add(this.PanelInicio);
                         this.Controls.Add(this.PanelSeleccionarAlmacen);
                         this.Controls.Add(this.PanelFinal);
                         this.Controls.Add(this.PanelDatosEmpresa);
                         this.Controls.Add(this.PanelDeteccion);
-                        this.Controls.Add(this.PanelInstalacion);
-                        this.Controls.Add(this.PanelNombreServidor);
-                        this.Controls.Add(this.PanelPruebaServidor);
                         this.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+                        this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
                         this.Name = "Inicial";
                         this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
                         this.Text = "Asistente de configuración";

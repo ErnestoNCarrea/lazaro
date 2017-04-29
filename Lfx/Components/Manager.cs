@@ -28,8 +28,6 @@ namespace Lfx.Components
                                 // Primero ejecuto la función Try, para decidir si cargo el componenten o no
                                 var TryRes = componentInfo.ComponentInstance.Try();
                                 if(TryRes.Success) {
-                                        ComponentesCargados.Add(componentInfo.EspacioNombres, componentInfo);
-
                                         var RegTypes = componentInfo.ComponentInstance.GetRegisteredTypes();
                                         if (RegTypes != null) {
                                                 foreach (var Tt in RegTypes) {
@@ -37,6 +35,11 @@ namespace Lfx.Components
                                                         RegisteredTypes.Add(Tt);
                                                 }
                                         }
+
+                                        componentInfo.ComponentInstance.Register();
+
+                                        // Agrego a la lista de componentes cargados
+                                        ComponentesCargados.Add(componentInfo.EspacioNombres, componentInfo);
                                 }
                         }
 

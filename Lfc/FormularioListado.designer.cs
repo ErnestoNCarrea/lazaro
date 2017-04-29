@@ -2,7 +2,10 @@ namespace Lfc
 {
         partial class FormularioListado
         {
-                #region Código generado por el Diseñador de Windows Forms
+                protected Lui.Forms.TextBox EntradaBuscar;
+                protected System.Windows.Forms.Timer TimerBuscar;
+                protected Lui.Forms.Label EtiquetaListadoVacio;
+                protected Lui.Forms.Button BotonCrear;
 
                 // Requerido por el Diseñador de Windows Forms
                 private System.ComponentModel.IContainer components = null;
@@ -33,6 +36,11 @@ namespace Lfc
                         // Listado
                         // 
                         this.Listado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Listado_KeyDown);
+                        // 
+                        // EtiquetaCantidad
+                        // 
+                        this.EtiquetaCantidad.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+                        this.EtiquetaCantidad.Size = new System.Drawing.Size(184, 26);
                         // 
                         // EntradaBuscar
                         // 
@@ -73,12 +81,12 @@ namespace Lfc
                         this.BotonCrear.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonCrear.Image = null;
                         this.BotonCrear.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonCrear.Location = new System.Drawing.Point(43, 239);
+                        this.BotonCrear.Location = new System.Drawing.Point(180, 137);
                         this.BotonCrear.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
-                        this.BotonCrear.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.BotonCrear.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonCrear.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonCrear.Name = "BotonCrear";
-                        this.BotonCrear.Size = new System.Drawing.Size(108, 40);
+                        this.BotonCrear.Size = new System.Drawing.Size(136, 40);
                         this.BotonCrear.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonCrear.Subtext = "F6";
                         this.BotonCrear.TabIndex = 71;
@@ -89,10 +97,12 @@ namespace Lfc
                         // 
                         this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-                        this.ClientSize = new System.Drawing.Size(864, 441);
-                        this.Controls.Add(this.BotonCrear);
+                        this.ClientSize = new System.Drawing.Size(864, 447);
                         this.Controls.Add(this.EtiquetaListadoVacio);
                         this.Controls.Add(this.EntradaBuscar);
+                        this.PanelAcciones.Controls.Add(BotonCrear);
+                        this.Margin = new System.Windows.Forms.Padding(6);
+                        this.MinimumSize = new System.Drawing.Size(795, 486);
                         this.Name = "FormularioListado";
                         this.Text = "Listado";
                         this.Controls.SetChildIndex(this.PanelContadores, 0);
@@ -101,18 +111,10 @@ namespace Lfc
                         this.Controls.SetChildIndex(this.EtiquetaCantidad, 0);
                         this.Controls.SetChildIndex(this.Listado, 0);
                         this.Controls.SetChildIndex(this.EtiquetaListadoVacio, 0);
-                        this.Controls.SetChildIndex(this.BotonCrear, 0);
                         this.PanelContadores.ResumeLayout(false);
                         ((System.ComponentModel.ISupportInitialize)(this.PicEsperar)).EndInit();
                         this.ResumeLayout(false);
 
                 }
-
-                #endregion
-
-                protected Lui.Forms.TextBox EntradaBuscar;                
-                protected System.Windows.Forms.Timer TimerBuscar;
-                protected Lui.Forms.Label EtiquetaListadoVacio;
-                protected Lui.Forms.Button BotonCrear;
         }
 }

@@ -96,34 +96,39 @@ namespace Lfc.Tareas
 
                 private void CargarHistorial()
                 {
-                        ListaHistorial.BeginUpdate();
-                        ListaHistorial.Items.Clear();
+                        ListaHistorialCliente.BeginUpdate();
+                        ListaHistorialCliente.Items.Clear();
+                        ListaHistorialTarea.BeginUpdate();
+                        ListaHistorialTarea.Items.Clear();
 
                         string TextoSql = "SELECT tickets_eventos.id_ticket, tickets_eventos.fecha, tickets_eventos.descripcion, personas.nombre FROM tickets_eventos, personas WHERE tickets_eventos.id_tecnico=personas.id_persona AND tickets_eventos.id_ticket IN (SELECT id_ticket FROM tickets WHERE id_persona=" + EntradaCliente.ValueInt.ToString() + ") ORDER BY tickets_eventos.id_evento DESC";
                         System.Data.DataTable Eventos = this.Connection.Select(TextoSql);
                         if (Eventos.Rows.Count > 0) {
                                 foreach (System.Data.DataRow Evento in Eventos.Rows) {
-                                        ListViewItem itm = ListaHistorial.Items.Add(System.Convert.ToString(Evento["id_ticket"]));
-                                        itm.SubItems.Add(new ListViewItem.ListViewSubItem(itm, Evento["nombre"].ToString()));
-                                        itm.SubItems.Add(new ListViewItem.ListViewSubItem(itm, Lfx.Types.Formatting.FormatDate(Evento["fecha"])));
-                                        itm.SubItems.Add(new ListViewItem.ListViewSubItem(itm, System.Convert.ToString(Evento["descripcion"]).Replace(System.Convert.ToString(Lfx.Types.ControlChars.Cr), " ").Replace(System.Convert.ToString(Lfx.Types.ControlChars.Lf), "")));
+                                        ListViewItem Itm;
+                                        if (System.Convert.ToInt32(Evento["id_ticket"]) == this.Elemento.Id) {
+                                                Itm = ListaHistorialTarea.Items.Add(System.Convert.ToString(Evento["id_ticket"]));
+                                        } else {
+                                                Itm = ListaHistorialCliente.Items.Add(System.Convert.ToString(Evento["id_ticket"]));
+                                                Itm.SubItems.Add(new ListViewItem.ListViewSubItem(Itm, Evento["nombre"].ToString()));
+                                        }
+                                        Itm.SubItems.Add(new ListViewItem.ListViewSubItem(Itm, Lfx.Types.Formatting.FormatDate(Evento["fecha"])));
+                                        Itm.SubItems.Add(new ListViewItem.ListViewSubItem(Itm, System.Convert.ToString(Evento["descripcion"]).Replace(System.Convert.ToString(Lfx.Types.ControlChars.Cr), " ").Replace(System.Convert.ToString(Lfx.Types.ControlChars.Lf), "")));
                                         if (System.Convert.ToInt32(Evento["id_ticket"]) != this.Elemento.Id)
-                                                itm.ForeColor = System.Drawing.Color.Gray;
-                                }
-
-                                if (ListaHistorial.Items.Count > 0) {
-                                        ListaHistorial.Items[0].Focused = true;
-                                        ListaHistorial.Items[0].Selected = true;
+                                                Itm.ForeColor = System.Drawing.Color.Gray;
                                 }
                         }
 
-                        ListaHistorial.EndUpdate();
+                        ListaHistorialCliente.EndUpdate();
+                        ListaHistorialTarea.EndUpdate();
 
                         // Ancho automático para las columnas
-                        foreach (System.Windows.Forms.ColumnHeader lvHeader in ListaHistorial.Columns) {
+                        foreach (System.Windows.Forms.ColumnHeader lvHeader in ListaHistorialCliente.Columns) {
                                 lvHeader.Width = -2;
                         }
-
+                        foreach (System.Windows.Forms.ColumnHeader lvHeader in ListaHistorialTarea.Columns) {
+                                lvHeader.Width = -2;
+                        }
                 }
 
 
@@ -261,9 +266,9 @@ namespace Lfc.Tareas
                 {
                         switch (e.KeyCode) {
                                 case Keys.Enter:
-                                        if (ListaHistorial.SelectedItems.Count > 0) {
+                                        if (ListaHistorialCliente.SelectedItems.Count > 0) {
                                                 e.Handled = true;
-                                                Lui.Forms.MessageBox.Show(ListaHistorial.SelectedItems[0].SubItems[3].Text, ListaHistorial.SelectedItems[0].SubItems[1].Text);
+                                                Lui.Forms.MessageBox.Show(ListaHistorialCliente.SelectedItems[0].SubItems[3].Text, ListaHistorialCliente.SelectedItems[0].SubItems[1].Text);
                                         }
                                         break;
                         }
@@ -294,8 +299,8 @@ namespace Lfc.Tareas
 
                 private void ListaHistorial_SelectedIndexChanged(object sender, System.EventArgs e)
                 {
-                        if (ListaHistorial.SelectedItems.Count > 0)
-                                ListaHistorial.SelectedItems[0].EnsureVisible();
+                        if (ListaHistorialCliente.SelectedItems.Count > 0)
+                                ListaHistorialCliente.SelectedItems[0].EnsureVisible();
                 }
 
 

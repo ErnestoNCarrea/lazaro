@@ -10,9 +10,13 @@ namespace Lui.Forms
         {
                 public ButtonPanel()
                 {
-                        this.AdoctrinarHijos();
+                        this.Layout += new System.Windows.Forms.LayoutEventHandler(this.ButtonPanel_OnLayout);
                 }
 
+                private void ButtonPanel_OnLayout(object sender, LayoutEventArgs e)
+                {
+                        this.AdoctrinarHijos();
+                }
 
                 [EditorBrowsable(EditorBrowsableState.Never),
                         System.ComponentModel.Browsable(false),
@@ -34,7 +38,8 @@ namespace Lui.Forms
                 protected override void OnControlAdded(ControlEventArgs e)
                 {
                         base.OnControlAdded(e);
-                        this.AdoctrinarControl(e.Control);
+                        //this.AdoctrinarControl(e.Control);
+                        this.Invalidate();
                 }
 
 
@@ -85,7 +90,7 @@ namespace Lui.Forms
                 }
 
 
-                protected override void OnPaddingChanged(EventArgs e)
+                /*protected override void OnPaddingChanged(EventArgs e)
                 {
                         base.OnPaddingChanged(e);
                         AdoctrinarHijos();
@@ -102,7 +107,7 @@ namespace Lui.Forms
                 {
                         base.OnLayout(levent);
                         this.AdoctrinarHijos();
-                }
+                }*/
 
 
                 [EditorBrowsable(EditorBrowsableState.Never),

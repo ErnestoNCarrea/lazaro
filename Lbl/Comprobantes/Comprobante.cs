@@ -262,28 +262,35 @@ namespace Lbl.Comprobantes
 
                         // Intento obtener una impresora para esta susursal, para esta estación
                         foreach (Lbl.Impresion.TipoImpresora Impr in Tipo.Impresoras) {
-                                if (Impr.Estacion != null && Impr.Estacion.Equals(System.Environment.MachineName, StringComparison.InvariantCultureIgnoreCase)
-                                        && Impr.Sucursal != null && Impr.Sucursal.Id == Lbl.Sys.Config.Empresa.SucursalActual.Id)
+                                if ((Impr.PuntoDeVenta == null || Impr.PuntoDeVenta.Numero == this.PV) && (Impr.Estacion != null && Impr.Estacion.Equals(System.Environment.MachineName, StringComparison.InvariantCultureIgnoreCase)
+                                        && Impr.Sucursal != null && Impr.Sucursal.Id == Lbl.Sys.Config.Empresa.SucursalActual.Id))
                                         return Impr.Impresora;
                         }
 
                         // Intento obtener una impresora para esta estación, cualquier sucursal
                         foreach (Lbl.Impresion.TipoImpresora Impr in Tipo.Impresoras) {
-                                if (Impr.Estacion != null && Impr.Estacion.Equals(System.Environment.MachineName, StringComparison.InvariantCultureIgnoreCase)
-                                        && Impr.Sucursal == null)
+                                if ((Impr.PuntoDeVenta == null || Impr.PuntoDeVenta.Numero == this.PV) && (Impr.Estacion != null && Impr.Estacion.Equals(System.Environment.MachineName, StringComparison.InvariantCultureIgnoreCase)
+                                        && Impr.Sucursal == null))
+                                        return Impr.Impresora;
+                        }
+
+                        // Intento obtener una impresora para esta sucursal, cualquier estacion, para este PV
+                        foreach (Lbl.Impresion.TipoImpresora Impr in Tipo.Impresoras) {
+                                if ((Impr.PuntoDeVenta == null || Impr.PuntoDeVenta.Numero == this.PV) && (Impr.Estacion == null
+                                        && Impr.Sucursal != null && Impr.Sucursal.Id == Lbl.Sys.Config.Empresa.SucursalActual.Id))
                                         return Impr.Impresora;
                         }
 
                         // Intento obtener una impresora para esta sucursal, cualquier estacion
                         foreach (Lbl.Impresion.TipoImpresora Impr in Tipo.Impresoras) {
-                                if (Impr.Estacion == null
-                                        && Impr.Sucursal != null && Impr.Sucursal.Id == Lbl.Sys.Config.Empresa.SucursalActual.Id)
+                                if ((Impr.PuntoDeVenta == null || Impr.PuntoDeVenta.Numero == this.PV) && (Impr.Estacion == null
+                                        && Impr.Sucursal != null && Impr.Sucursal.Id == Lbl.Sys.Config.Empresa.SucursalActual.Id))
                                         return Impr.Impresora;
                         }
 
-                        // Intento obtener una impresora para cual sucursal, cualquier estacion
+                        // Intento obtener una impresora para cualquier sucursal, cualquier estacion
                         foreach (Lbl.Impresion.TipoImpresora Impr in Tipo.Impresoras) {
-                                if (Impr.Estacion == null && Impr.Sucursal == null)
+                                if ((Impr.PuntoDeVenta == null || Impr.PuntoDeVenta.Numero == this.PV) && (Impr.Estacion == null && Impr.Sucursal == null))
                                         return Impr.Impresora;
                         }
 

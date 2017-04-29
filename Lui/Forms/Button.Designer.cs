@@ -30,9 +30,12 @@ namespace Lui.Forms
                         // 
                         // MainText
                         // 
+                        this.MainText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
                         this.MainText.Location = new System.Drawing.Point(2, 2);
                         this.MainText.Name = "MainText";
-                        this.MainText.Size = new System.Drawing.Size(316, 64);
+                        this.MainText.Size = new System.Drawing.Size(316, 54);
                         this.MainText.TabIndex = 1;
                         this.MainText.Text = "Command asdasd";
                         this.MainText.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -42,9 +45,11 @@ namespace Lui.Forms
                         // 
                         // SubText
                         // 
-                        this.SubText.Location = new System.Drawing.Point(2, 78);
+                        this.SubText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.SubText.Location = new System.Drawing.Point(2, 59);
                         this.SubText.Name = "SubText";
-                        this.SubText.Size = new System.Drawing.Size(312, 8);
+                        this.SubText.Size = new System.Drawing.Size(312, 16);
                         this.SubText.TabIndex = 2;
                         this.SubText.Text = "Tecla";
                         this.SubText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -72,6 +77,7 @@ namespace Lui.Forms
                         this.Name = "Button";
                         this.Size = new System.Drawing.Size(320, 80);
                         this.SizeChanged += new System.EventHandler(this.Button_SizeChanged);
+                        this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Button_Layout);
                         ((System.ComponentModel.ISupportInitialize)(this.IconPicture)).EndInit();
                         this.ResumeLayout(false);
                         this.PerformLayout();

@@ -3,8 +3,28 @@ using System.Collections.Generic;
 
 namespace Lazaro.Orm
 {
-        public class EntityRepository<T> : List<T>, IEnumerable<T> where T : new()
+        public class EntityRepository<T> : IEntityRepository<T> where T : new()
         {
+                public IEntityManager EntityManager { get; }
 
+                public EntityRepository(IEntityManager em)
+                {
+                        this.EntityManager = em;
+                }
+
+                public T Find(object primaryKeyId)
+                {
+                        return this.EntityManager.Find<T>(primaryKeyId);
+                }
+
+                public List<T> FindAll(string orderBy)
+                {
+                        return this.EntityManager.FindAll<T>(orderBy);
+                }
+
+                public List<T> FindBy(qGen.Where where, string orderBy)
+                {
+                        return this.EntityManager.FindBy<T>(where, orderBy);
+                }
         }
 }

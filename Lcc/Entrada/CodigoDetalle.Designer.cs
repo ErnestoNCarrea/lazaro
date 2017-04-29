@@ -53,8 +53,9 @@ namespace Lcc.Entrada
                         this.EntradaCodigo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
                         this.EntradaCodigo.Location = new System.Drawing.Point(4, 4);
                         this.EntradaCodigo.MaxLength = 32;
+                        this.EntradaCodigo.Multiline = true;
                         this.EntradaCodigo.Name = "EntradaCodigo";
-                        this.EntradaCodigo.Size = new System.Drawing.Size(52, 18);
+                        this.EntradaCodigo.Size = new System.Drawing.Size(52, 22);
                         this.EntradaCodigo.TabIndex = 0;
                         this.EntradaCodigo.TextChanged += new System.EventHandler(this.EntradaCodigo_TextChanged);
                         this.EntradaCodigo.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
@@ -132,7 +133,7 @@ namespace Lcc.Entrada
                         this.Label1.Location = new System.Drawing.Point(60, 4);
                         this.Label1.Margin = new System.Windows.Forms.Padding(3);
                         this.Label1.Name = "Label1";
-                        this.Label1.Size = new System.Drawing.Size(466, 16);
+                        this.Label1.Size = new System.Drawing.Size(466, 22);
                         this.Label1.TabIndex = 50;
                         this.Label1.UseMnemonic = false;
                         this.Label1.Click += new System.EventHandler(this.Label1_Click);
@@ -147,8 +148,9 @@ namespace Lcc.Entrada
                         this.EntradaFreeText.ContextMenu = this.MiContextMenu;
                         this.EntradaFreeText.Location = new System.Drawing.Point(60, 4);
                         this.EntradaFreeText.MaxLength = 200;
+                        this.EntradaFreeText.Multiline = true;
                         this.EntradaFreeText.Name = "EntradaFreeText";
-                        this.EntradaFreeText.Size = new System.Drawing.Size(466, 18);
+                        this.EntradaFreeText.Size = new System.Drawing.Size(466, 22);
                         this.EntradaFreeText.TabIndex = 1;
                         this.EntradaFreeText.Visible = false;
                         this.EntradaFreeText.WordWrap = false;
@@ -185,7 +187,7 @@ namespace Lcc.Entrada
                         this.Controls.Add(this.EntradaFreeText);
                         this.Controls.Add(this.Label1);
                         this.Name = "CodigoDetalle";
-                        this.Size = new System.Drawing.Size(530, 24);
+                        this.Size = new System.Drawing.Size(530, 30);
                         this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DetailBox_KeyPress);
                         ((System.ComponentModel.ISupportInitialize)(this.BotonBuscar)).EndInit();
                         this.ResumeLayout(false);
