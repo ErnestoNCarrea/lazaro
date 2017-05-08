@@ -3,7 +3,7 @@ using System;
 namespace qGen
 {
         /// <summary>
-        /// Representa una expresión SQL literal.
+        /// Represents a literal SQL expression.
         /// </summary>
         [Serializable]
         public class SqlExpression

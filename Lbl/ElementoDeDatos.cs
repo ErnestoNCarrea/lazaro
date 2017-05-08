@@ -460,17 +460,17 @@ namespace Lbl
                         try {
                                 // Genero una lista de cambios
                                 foreach (Lazaro.Orm.Data.ColumnValue Fl in this.m_Registro.Fields) {
-                                        object ValorOriginal = null, ValorNuevo = this.m_Registro[Fl.ColumnName];
+                                        object ValorOriginal = null, ValorNuevo = this.m_Registro[Fl.ColumnIdentifier];
                                         if (this.m_RegistroOriginal != null && this.m_RegistroOriginal.Fields != null)
-                                                ValorOriginal = this.m_RegistroOriginal[Fl.ColumnName];
+                                                ValorOriginal = this.m_RegistroOriginal[Fl.ColumnIdentifier];
 
-                                        if (Lfx.Types.Object.CompareByValue(ValorOriginal, ValorNuevo) != 0 && Fl.ColumnName != "contrasena") {
+                                        if (Lfx.Types.Object.CompareByValue(ValorOriginal, ValorNuevo) != 0 && Fl.ColumnIdentifier.EqualsByName("contrasena") == false) {
                                                 if (Extra1 == null)
                                                         Extra1 = new StringBuilder();
                                                 else
                                                         Extra1.Append("; ");
 
-                                                Extra1.Append(Fl.ColumnName + "=");
+                                                Extra1.Append(Fl.ColumnIdentifier + "=");
                                                 if (ValorOriginal != null)
                                                         Extra1.Append("\'" + this.Connection.EscapeString(ValorOriginal.ToString()) + "\'->");
                                                 else
@@ -719,7 +719,7 @@ namespace Lbl
                 public ColeccionCodigoDetalle ObtenerTodos(qGen.Where filter)
                 {
                         qGen.Select Sel = new qGen.Select(this.TablaDatos);
-                        Sel.Columns = new List<string> { this.CampoId, this.CampoNombre };
+                        Sel.Columns = new qGen.SqlIdentifierCollection() { this.CampoId, this.CampoNombre };
                         if (filter != null)
                                 Sel.WhereClause = filter;
                         System.Data.DataTable Tabla = this.Connection.Select(Sel);

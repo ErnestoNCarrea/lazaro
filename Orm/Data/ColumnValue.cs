@@ -1,13 +1,14 @@
 using System;
 using Lazaro.Orm;
 using System.Diagnostics;
+using qGen;
 
 namespace Lazaro.Orm.Data
 {
         [DebuggerDisplay("Name = {ColumnName}, Value = {Value}")]
         public class ColumnValue : IColumnValue
 	{
-                public string ColumnName { get; set; }
+                public SqlIdentifier ColumnIdentifier { get; set; }
 		public object Value { get; set; }
 		public ColumnTypes DataType { get; set; } = ColumnTypes.VarChar;
 
@@ -15,10 +16,15 @@ namespace Lazaro.Orm.Data
 
                 public ColumnValue(string columnName)
 		{
-			this.ColumnName = columnName;
+			this.ColumnIdentifier = new SqlIdentifier(columnName);
 		}
 
-                public ColumnValue(string columnName, object value)
+                public ColumnValue(SqlIdentifier columnName)
+                {
+                        this.ColumnIdentifier = columnName;
+                }
+
+                public ColumnValue(SqlIdentifier columnName, object value)
                         : this(columnName)
                 {
                         this.Value = value;
@@ -34,18 +40,28 @@ namespace Lazaro.Orm.Data
                                 this.DataType = ColumnTypes.Blob;
                 }
 
-                public ColumnValue(string columnName, ColumnTypes fieldType, object fieldValue)
+                public ColumnValue(string columnName, object value)
+                        : this(new SqlIdentifier(columnName), value)
+                {
+                }
+
+                public ColumnValue(SqlIdentifier columnName, ColumnTypes fieldType, object fieldValue)
                         : this(columnName, fieldValue)
                 {
                         this.DataType = fieldType;
                 }
 
-		public string Label
+                public ColumnValue(string columnName, ColumnTypes fieldType, object fieldValue)
+                        : this(new SqlIdentifier(columnName), fieldType, fieldValue)
+                {
+                }
+
+                public string Label
 		{
 			get
 			{
 				if(m_Label == null)
-					return ColumnName;
+					return ColumnIdentifier.Name;
 				else
 					return Label;
 			}
@@ -57,8 +73,8 @@ namespace Lazaro.Orm.Data
 
                 public virtual ColumnValue Clone()
                 {
-                        var Res = new ColumnValue(this.ColumnName);
-                        Res.m_Label = this.m_Label;
+                        var Res = new ColumnValue(this.ColumnIdentifier, this.DataType, this.Value);
+                        Res.Label = this.m_Label;
                         Res.Value = this.Value;
                         Res.DataType = this.DataType;
                         return Res;
@@ -107,6 +123,14 @@ namespace Lazaro.Orm.Data
                         }
                 }
 
+                public bool ValueCanBeParameter
+                {
+                        get
+                        {
+                                return !(this.Value is qGen.SqlFunctions ||
+                                        this.Value is qGen.SqlExpression);
+                        }
+                }
 
                 /// <summary>
                 /// Devuelve de una expresión SQL el nombre del alias o el campo.

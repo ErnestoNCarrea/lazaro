@@ -68,7 +68,7 @@ HAVING SUM(ctacte.importe)<>(SELECT saldo FROM ctacte WHERE ctacte.id_cliente=pe
                                 // Busco problemas de integridad referencial
                                 if (Cons.TableName != Cons.ReferenceTable) {
                                         qGen.Select RefValidas = new qGen.Select(Cons.ReferenceTable);
-                                        RefValidas.Columns = new List<string> { Cons.ReferenceColumn };
+                                        RefValidas.Columns = new qGen.SqlIdentifierCollection() { Cons.ReferenceColumn };
 
                                         qGen.Update ElimRefInvalidas = new qGen.Update(table.Name);
                                         switch(Cons.ReferenceTable) {

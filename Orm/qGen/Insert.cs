@@ -15,11 +15,16 @@ namespace qGen
                 { }
 
                 public Insert(string singleTable)
-                        : this(new List<string> { singleTable })
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                 }
 
-                public Insert(IList<string> tables)
+                public Insert(SqlIdentifier singleTable)
+                        : this(new SqlIdentifierCollection() { singleTable })
+                {
+                }
+
+                public Insert(SqlIdentifierCollection tables)
                         : this()
                 {
                         this.Tables = tables;

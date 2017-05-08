@@ -1070,6 +1070,7 @@
     <Index table="sys_log" name="PRIMARY" columns="id_log" unique="1" primary="1" />
     <Index table="sys_log" name="sys_log_usuario" columns="usuario" unique="0" primary="0" />
     <Index table="sys_log" name="sys_log_item_id_tabla_comando" columns="item_id,tabla,comando" unique="0" primary="0" />
+    <Index table="sys_log" name="sys_log_item_id_tabla_comando_item_id" columns="item_id,tabla,comando,item_id" unique="0" primary="0" />
   </Table>
   <Constraint name="fk_sys_log_usuario" table="sys_log" column="usuario" reference_table="personas" reference_column="id_persona" />
 

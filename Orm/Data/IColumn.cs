@@ -1,10 +1,11 @@
-﻿using System;
+﻿using qGen;
+using System;
 
 namespace Lazaro.Orm.Data
 {
         public interface IColumn
         {
-                string ColumnName { get; set; }
+                SqlIdentifier ColumnIdentifier { get; set; }
                 ColumnTypes DataType { get; set; }
         }
 }

@@ -259,7 +259,7 @@ namespace Lfx
                                 case AccessModes.MySql:
                                         if (this.Driver == null) {
                                                 this.Driver = new Lazaro.Orm.Data.Drivers.MySqlDriver();
-                                                this.Formatter = new qGen.MySqlFormatter();
+                                                this.Formatter = new qGen.SqlFormatter();
                                                 Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver = null;
                                                 Lfx.Data.DatabaseCache.DefaultCache.Mars = false;
                                                 Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;

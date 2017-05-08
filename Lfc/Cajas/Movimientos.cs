@@ -110,7 +110,7 @@ namespace Lfc.Cajas
                                         foreach (string FechaAProbar in FechasAProbar) {
                                                 Lfx.Types.DateRange Rango = new Lfx.Types.DateRange(FechaAProbar);
                                                 qGen.Select SelMovs = new qGen.Select("cajas_movim");
-                                                SelMovs.Columns = new List<string> { "COUNT(id_movim)" };
+                                                SelMovs.Columns = new qGen.SqlIdentifierCollection() { "COUNT(id_movim)" };
                                                 SelMovs.WhereClause = new qGen.Where("id_caja", this.Caja.Id);
                                                 SelMovs.WhereClause.AddWithValue("fecha", Rango.From, Rango.To);
                                                 int Movs = this.Connection.FieldInt(SelMovs);

@@ -23,23 +23,33 @@ namespace qGen
                 }
 
                 public Select(string singleTable)
-                        : this(new List<string> { singleTable })
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                 }
 
-                public Select(IList<string> tables)
+                public Select(SqlIdentifier singleTable)
+                        : this(new SqlIdentifierCollection() { singleTable })
+                {
+                }
+
+                public Select(SqlIdentifierCollection tables)
                        : base(tables)
                 {
                 }
 
-                public Select(IList<string> tables, bool forUpdate)
+                public Select(SqlIdentifierCollection tables, bool forUpdate)
                         : base(tables)
                 {
                         this.ForUpdate = forUpdate;
                 }
 
                 public Select(string singleTable, bool forUpdate)
-                        : this(new List<string> { singleTable })
+                        : this(new SqlIdentifierCollection() { singleTable }, forUpdate)
+                {
+                }
+
+                public Select(SqlIdentifier singleTable, bool forUpdate)
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                         this.ForUpdate = forUpdate;
                 }

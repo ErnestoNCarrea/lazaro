@@ -827,10 +827,6 @@ LEFT JOIN pg_attribute
                                 throw ex;
                         }
                 }
-                
-
-
-
 
                 public string FieldString(qGen.Select selectCommand)
                 {

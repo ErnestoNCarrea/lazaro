@@ -1,3 +1,4 @@
+using qGen;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -521,7 +522,7 @@ namespace Lfc
                                         case Keys.Return:
                                                 if (Listado.SelectedItems.Count > 0) {
                                                         e.Handled = true;
-                                                        Lfx.Types.OperationResult Res = this.OnItemClick(Listado.SelectedItems[0]);
+                                                        Lfx.Types.OperationResult Res = this.OnItemClick(Listado.SelectedItems[0], Listado.SelectedItems[0].Tag as Lfx.Data.Row);
                                                         if (Res.Success == false && Res.Message != null)
                                                                 Lui.Forms.MessageBox.Show(Res.Message, "Error");
                                                 }
@@ -611,7 +612,7 @@ namespace Lfc
                 }
 
 
-                protected virtual Lfx.Types.OperationResult OnItemClick(ListViewItem itm)
+                protected virtual Lfx.Types.OperationResult OnItemClick(ListViewItem itm, Lfx.Data.Row row)
                 {
                         int SelectedId = Lfx.Types.Parsing.ParseInt(Listado.SelectedItems[0].Text);
                         if (SelectedId > 0) {
@@ -627,7 +628,7 @@ namespace Lfc
                 {
                         if (Listado.FocusedItem != null) {
                                 Listado.FocusedItem.Checked = !Listado.FocusedItem.Checked;
-                                this.OnItemClick(Listado.FocusedItem);
+                                this.OnItemClick(Listado.FocusedItem, Listado.FocusedItem.Tag as Lfx.Data.Row);
                         }
                 }
 
@@ -824,8 +825,7 @@ namespace Lfc
                                 qGen.Select ComandoSelect = new qGen.Select();
 
                                 // Genero la lista de tablas, con JOIN y todo
-                                string ListaTablas = null;
-                                ListaTablas = this.Definicion.TableName;
+                                ComandoSelect.Tables = new SqlIdentifierCollection() { this.Definicion.TableName };
 
                                 if (this.Definicion.Joins != null && this.Definicion.Joins.Count > 0)
                                         ComandoSelect.Joins = this.Definicion.Joins;
@@ -838,17 +838,19 @@ namespace Lfc
                                         }
                                 }
 
-                                string ListaCampos;
+                                ComandoSelect.Columns = new SqlIdentifierCollection();
                                 if (agrFunction != null) {
-                                        if (onField == null)
+                                        if (onField == null) {
                                                 onField = this.Definicion.KeyColumn.Name;
+                                        }
                                         string Alias = agrFunction + "_" + onField.Replace(".", "_");
-                                        ListaCampos = agrFunction + "(" + onField + ") AS " + Alias;
+                                        ComandoSelect.Columns.Add(new SqlIdentifier(agrFunction + "(" + onField + ")", Alias));
                                 } else {
                                         // Genero la lista de campos
-                                        ListaCampos = this.Definicion.KeyColumn.Name;
-                                        foreach (Lazaro.Pres.Field CurField in this.Definicion.Columns)
-                                                ListaCampos += "," + CurField.Name;
+                                        ComandoSelect.Columns.Add(this.Definicion.KeyColumn.Name);
+                                        foreach (Lazaro.Pres.Field CurField in this.Definicion.Columns) {
+                                                ComandoSelect.Columns.Add(CurField.Name);
+                                        }
                                 }
 
                                 // Genero las condiciones del WHERE
@@ -954,8 +956,6 @@ namespace Lfc
                                 if (additionalFilters != null && additionalFilters.Count > 0)
                                         WhereCompleto.AddWithValue(additionalFilters);
 
-                                ComandoSelect.Tables = new List<string> { ListaTablas };
-                                ComandoSelect.Columns = new List<string> { ListaCampos };
                                 ComandoSelect.WhereClause = WhereCompleto;
 
                                 if (this.Definicion.GroupBy != null && agrFunction == null)
@@ -974,7 +974,7 @@ namespace Lfc
                 }
 
 
-                private bool CancelFill = false;
+                protected bool CancelFill = false;
                 protected void Fill(qGen.Select command)
                 {
                         if (this.Listado.Columns.Count == 0)

@@ -11,8 +11,9 @@ namespace qGen
                         get
                         {
                                 foreach (Join Jn in this) {
-                                        if (Jn.Table == tableName)
+                                        if (Jn.Table.EqualsByName(tableName)) {
                                                 return Jn;
+                                        }
                                 }
 
                                 return null;
@@ -22,8 +23,9 @@ namespace qGen
                 new public bool Contains(Join join)
                 {
                         foreach(Join Jn in this) {
-                                if (Jn.TableAndAlias == join.TableAndAlias && Jn.On == join.On)
+                                if (Jn.Table.Definition == join.Table.Definition && Jn.On == join.On) {
                                         return true;
+                                }
                         }
                         return false;
                 }

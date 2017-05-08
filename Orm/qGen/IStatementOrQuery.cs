@@ -5,7 +5,7 @@ namespace qGen
 {
         public interface IStatementOrQuery
         {
-                IList<string> Tables { get; set; }
+                SqlIdentifierCollection Tables { get; set; }
                 Where WhereClause { get; set; }
         }
 }

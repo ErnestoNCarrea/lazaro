@@ -48,7 +48,7 @@ namespace Lbl.Notificaciones
                 {
                         try {
                                 qGen.Select SelUltimoId = new qGen.Select("sys_mensajeria");
-                                SelUltimoId.Columns = new List<string> { "MAX(id_ultimomensaje)" };
+                                SelUltimoId.Columns = new qGen.SqlIdentifierCollection() { "MAX(id_ultimomensaje)" };
                                 SelUltimoId.WhereClause = new qGen.Where();
                                 SelUltimoId.WhereClause.AddWithValue("id_usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
 

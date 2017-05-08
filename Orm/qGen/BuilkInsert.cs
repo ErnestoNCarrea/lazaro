@@ -8,7 +8,7 @@ namespace qGen
         [Serializable]
         public class BuilkInsert : IStatement, IConvertibleToDbCommand
         {
-                public IList<string> Tables { get; set; }
+                public SqlIdentifierCollection Tables { get; set; }
                 public Where WhereClause { get; set; }
 
                 public IList<Insert> InsertCommands { get; set; } = new List<Insert>();
@@ -22,10 +22,11 @@ namespace qGen
                 {
                         if (this.InsertCommands.Count > 0) {
                                 if (this.Tables.Count != insertCommand.Tables.Count) {
-                                        throw new ArgumentException("qGen: BulkInsert requiere que todas las inserciones sean en la misma tabla y con los mismos campos");
+                                        throw new ArgumentException("qGen: BulkInsert requires all Insert to be on the same tables");
                                 }
-                                if (this.Tables[0] != insertCommand.Tables[0]) {
-                                        throw new ArgumentException("qGen: BulkInsert requiere que todas las inserciones sean en la misma tabla y con los mismos campos");
+                                if (this.Tables[0].PrefixAndName != insertCommand.Tables[0].PrefixAndName) {
+                                        // TODO: check all tables
+                                        throw new ArgumentException("qGen: BulkInsert requires all Insert to be on the same table");
                                 }
                         } else {
                                 this.Tables = insertCommand.Tables;
@@ -39,26 +40,22 @@ namespace qGen
                 {
                         get
                         {
-                                throw new InvalidOperationException("No se puede establecer ColumnValues en BulkInsert");
+                                throw new InvalidOperationException("Can not get ColumnValues for BulkInsert; use Bulkinsert.InsertCommands[n].ColumnValues");
                         }
                         set
                         {
-                                throw new InvalidOperationException("No se puede establecer ColumnValues en BulkInsert");
+                                throw new InvalidOperationException("Can not set ColumnValues for BulkInsert; use Bulkinsert.InsertCommands[n].ColumnValues");
                         }
                 }
 
-                public List<string> ColumnNames
+                public SqlIdentifierCollection ColumnNames
                 {
                         get
                         {
                                 if(this.InsertCommands == null || this.InsertCommands.Count == 0) {
                                         return null;
                                 } else {
-                                        var Res = new List<string>();
-                                        foreach(var Col in this.InsertCommands[0].ColumnValues) {
-                                                Res.Add(Col.ColumnName);
-                                        }
-                                        return Res;
+                                        return this.InsertCommands[0].ColumnValues.ColumnNames;
                                 }
                         }
                 }

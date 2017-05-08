@@ -13,22 +13,32 @@ namespace qGen
                         : base() { }
 
                 public Delete(string singleTable)
-                        : this(new List<string> { singleTable })
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                 }
 
-                public Delete(IList<string> tables)
+                public Delete(SqlIdentifier singleTable)
+                        : this(new SqlIdentifierCollection() { singleTable })
+                {
+                }
+
+                public Delete(SqlIdentifierCollection tables)
                         : this()
                 {
                         this.Tables = tables;
                 }
 
                 public Delete(string singleTable, Where whereClause)
-                        : this(new List<string> { singleTable }, whereClause)
+                        : this(new SqlIdentifierCollection() { singleTable }, whereClause)
                 {
                 }
 
-                public Delete(IList<string> tables, Where whereClause)
+                public Delete(SqlIdentifier singleTable, Where whereClause)
+                        : this(new SqlIdentifierCollection() { singleTable }, whereClause)
+                {
+                }
+
+                public Delete(SqlIdentifierCollection tables, Where whereClause)
                         : this(tables)
                 {
                         this.WhereClause = whereClause;

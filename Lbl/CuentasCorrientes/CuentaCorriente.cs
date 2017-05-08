@@ -51,7 +51,7 @@ namespace Lbl.CuentasCorrientes
                 public decimal ObtenerSaldo(bool forUpdate)
                 {
                         qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, forUpdate);
-                        SelSaldo.Columns = new List<string> { "saldo" };
+                        SelSaldo.Columns = new qGen.SqlIdentifierCollection() { "saldo" };
                         SelSaldo.WhereClause = new qGen.Where("id_cliente", this.Persona.Id);
                         SelSaldo.Order = this.CampoId + " DESC";
                         SelSaldo.Window = new qGen.Window(1);
@@ -63,7 +63,7 @@ namespace Lbl.CuentasCorrientes
                 public decimal ObtenerSaldoAFecha(DateTime date)
                 {
                         qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, false);
-                        SelSaldo.Columns = new List<string> { "saldo" };
+                        SelSaldo.Columns = new qGen.SqlIdentifierCollection() { "saldo" };
                         SelSaldo.WhereClause = new qGen.Where("id_cliente", this.Persona.Id);
                         SelSaldo.WhereClause.AddWithValue("fecha", qGen.ComparisonOperators.LessOrEqual, date);
                         SelSaldo.Order = this.CampoId + " DESC";
@@ -287,7 +287,7 @@ namespace Lbl.CuentasCorrientes
                         }
 
                         qGen.Select SelFacturasConSaldo = new qGen.Select("comprob", true);
-                        SelFacturasConSaldo.Columns = new List<string> { "id_comprob", "total", "cancelado" };
+                        SelFacturasConSaldo.Columns = new qGen.SqlIdentifierCollection() { "id_comprob", "total", "cancelado" };
                         SelFacturasConSaldo.WhereClause = WhereConSaldo;
                         SelFacturasConSaldo.Order = "id_comprob";
                         System.Data.DataTable FacturasConSaldo = this.Connection.Select(SelFacturasConSaldo);

@@ -107,10 +107,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="qGen\BeginTransactionCommand.cs" />
     <Compile Include="qGen\BuilkInsert.cs" />
+    <Compile Include="qGen\ColumnValueFormatStyles.cs" />
     <Compile Include="qGen\CommitCommand.cs" />
     <Compile Include="qGen\Condition.cs" />
     <Compile Include="qGen\Delete.cs" />
     <Compile Include="qGen\Enums.cs" />
+    <Compile Include="qGen\FormatterParameters.cs" />
     <Compile Include="qGen\SqlExpression.cs" />
     <Compile Include="qGen\IConvertibleToDbCommand.cs" />
     <Compile Include="qGen\IFormatter.cs" />
@@ -122,11 +124,13 @@
     <Compile Include="qGen\IWithColumnList.cs" />
     <Compile Include="qGen\Join.cs" />
     <Compile Include="qGen\JoinCollection.cs" />
-    <Compile Include="qGen\MySqlFormatter.cs" />
+    <Compile Include="qGen\SqlFormatter.cs" />
     <Compile Include="qGen\Query.cs" />
     <Compile Include="qGen\RollBackCommand.cs" />
     <Compile Include="qGen\Select.cs" />
     <Compile Include="qGen\SetCommand.cs" />
+    <Compile Include="qGen\SqlIdentifier.cs" />
+    <Compile Include="qGen\SqlIdentifierCollection.cs" />
     <Compile Include="qGen\Statement.cs" />
     <Compile Include="qGen\TextCommand.cs" />
     <Compile Include="qGen\Update.cs" />

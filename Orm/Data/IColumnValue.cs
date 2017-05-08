@@ -7,5 +7,6 @@ namespace Lazaro.Orm.Data
 {
         public interface IColumnValue : IColumn, IDbValue
         {
+                bool ValueCanBeParameter { get; }
         }
 }

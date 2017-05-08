@@ -95,7 +95,7 @@ namespace Lbl.Cajas
                 public virtual decimal ObtenerSaldo(bool forUpdate)
 		{
                         qGen.Select SelSaldo = new qGen.Select("cajas_movim", forUpdate);
-                        SelSaldo.Columns = new List<string> { "saldo" };
+                        SelSaldo.Columns = new qGen.SqlIdentifierCollection() { "saldo" };
                         SelSaldo.WhereClause = new qGen.Where("id_caja", this.Id);
                         SelSaldo.Order = "id_movim DESC";
                         SelSaldo.Window = new qGen.Window(1);

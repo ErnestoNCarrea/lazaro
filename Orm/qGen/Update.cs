@@ -13,22 +13,32 @@ namespace qGen
                 }
 
                 public Update(string singleTable)
-                        : this(new List<string> { singleTable })
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                 }
 
-                public Update(IList<string> tables)
+                public Update(SqlIdentifier singleTable)
+                        : this(new SqlIdentifierCollection() { singleTable })
+                {
+                }
+
+                public Update(SqlIdentifierCollection tables)
                         : this()
                 {
                         this.Tables = tables;
                 }
 
                 public Update(string singleTable, Where whereClause)
-                        : this(new List<string> { singleTable }, whereClause)
+                        : this(new SqlIdentifierCollection() { singleTable }, whereClause)
                 {
                 }
 
-                public Update(IList<string> tables, Where whereClause)
+                public Update(SqlIdentifier singleTable, Where whereClause)
+                        : this(new SqlIdentifierCollection() { singleTable }, whereClause)
+                {
+                }
+
+                public Update(SqlIdentifierCollection tables, Where whereClause)
                         : this(tables)
                 {
                         this.WhereClause = whereClause;

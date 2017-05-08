@@ -6,6 +6,6 @@ namespace qGen
 {
         public interface IWithColumnList
         {
-                IList<string> Columns { get; set; }
+                SqlIdentifierCollection Columns { get; set; }
         }
 }

@@ -308,8 +308,8 @@ namespace Lbl.Servicios.Importar
                         foreach (Lazaro.Orm.Data.ColumnValue Fld in row.Fields) {
                                 foreach (Reemplazo Rmp in this.Reemplazos) {
                                         if (Fld.DataType == Rmp.Tipo 
-                                                && (Rmp.NombreCampo == null || Rmp.NombreCampo == Fld.ColumnName
-                                                        || Rmp.NombreCampo == mapa.TablaExterna + ":" + Fld.ColumnName))
+                                                && (Rmp.NombreCampo == null || Fld.ColumnIdentifier.EqualsByName(Rmp.NombreCampo)
+                                                        || Rmp.NombreCampo == mapa.TablaExterna + ":" + Fld.ColumnIdentifier))
                                                 Fld.Value = Rmp.Reemplazar(Fld.Value);
                                 }
                         }

@@ -109,7 +109,7 @@ namespace Lfc.Comprobantes.Facturas
 
                         if (ProximosNumeros.ContainsKey(PV) == false) {
                                 qGen.Select SelProxNum = new qGen.Select("comprob");
-                                SelProxNum.Columns = new List<string> { "MAX(numero)" };
+                                SelProxNum.Columns = new qGen.SqlIdentifierCollection() { "MAX(numero)" };
                                 SelProxNum.WhereClause = WhereAnular;
                                 ProximosNumeros[PV] = this.Connection.FieldInt(SelProxNum) + 1;
                         }
@@ -135,7 +135,7 @@ namespace Lfc.Comprobantes.Facturas
 
                         if (Cantidad == 1) {
                                 qGen.Select SelDesde = new qGen.Select("comprob");
-                                SelDesde.Columns = new List<string> { "id_comprob" };
+                                SelDesde.Columns = new qGen.SqlIdentifierCollection() { "id_comprob" };
                                 SelDesde.WhereClause = WhereAnular.Clone();
                                 SelDesde.WhereClause.AddWithValue("numero", Desde);
                                 SelDesde.Order = "anulada";
@@ -185,7 +185,7 @@ namespace Lfc.Comprobantes.Facturas
                                 EntradaAnularPagos.TextKey = "1";
 
                                 qGen.Select SelComprobs = new qGen.Select("comprob");
-                                SelComprobs.Columns = new List<string> { "*" };
+                                SelComprobs.Columns = qGen.SqlIdentifierCollection.Asterisk;
                                 SelComprobs.WhereClause = WhereAnular.Clone();
                                 SelComprobs.WhereClause.AddWithValue("numero", Desde, Hasta);
 

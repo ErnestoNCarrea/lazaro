@@ -1,4 +1,5 @@
 using Lazaro.Orm.Data;
+using qGen;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,27 +52,48 @@ namespace Lfx.Data
 		}
 
 		public object this[string fieldName]
-		{
-			get
-			{
+                {
+                        get
+                        {
                                 if (Fields == null)
                                         return null;
                                 else if (Fields[fieldName].Value is DBNull)
                                         return null;
                                 else
-					return Fields[fieldName].Value;
-			}
-			set
-			{
-				if(Fields == null)
-					Fields = new ColumnValueCollection();
+                                        return Fields[fieldName].Value;
+                        }
+                        set
+                        {
+                                if (Fields == null)
+                                        Fields = new ColumnValueCollection();
                                 if (Fields[fieldName].Value != value && this.IsModified == false)
                                         this.IsModified = true;
-				Fields[fieldName].Value = value;
-			}
-		}
+                                Fields[fieldName].Value = value;
+                        }
+                }
 
-		public object this[int index]
+                public object this[SqlIdentifier fieldName]
+                {
+                        get
+                        {
+                                if (Fields == null)
+                                        return null;
+                                else if (Fields[fieldName].Value is DBNull)
+                                        return null;
+                                else
+                                        return Fields[fieldName].Value;
+                        }
+                        set
+                        {
+                                if (Fields == null)
+                                        Fields = new ColumnValueCollection();
+                                if (Fields[fieldName].Value != value && this.IsModified == false)
+                                        this.IsModified = true;
+                                Fields[fieldName].Value = value;
+                        }
+                }
+
+                public object this[int index]
 		{
 			get
 			{

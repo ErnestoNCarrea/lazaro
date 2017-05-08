@@ -208,7 +208,7 @@ namespace Lfx.Config
                                 SysConfigCache = new Dictionary<string, string>();
 
                                 qGen.Select SelectConfig = new qGen.Select("sys_config");
-                                SelectConfig.Columns = new List<string> { "nombre", "valor", "estacion", "id_sucursal" };
+                                SelectConfig.Columns = new qGen.SqlIdentifierCollection() { "nombre", "valor", "estacion", "id_sucursal" };
                                 System.Data.DataTable TablaSysConfig = null;
                                 int Intentos = 3;
                                 while (true) {

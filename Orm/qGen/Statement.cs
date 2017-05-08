@@ -9,19 +9,19 @@ namespace qGen
         public abstract class Statement : IStatement
         {
                 public ColumnValueCollection ColumnValues { get; set; } = new ColumnValueCollection();
-                public IList<string> Tables { get; set; }
+                public SqlIdentifierCollection Tables { get; set; }
                 public Where WhereClause { get; set; }
 
                 public Statement()
                 {
                 }
 
-                public Statement(string singleTable)
-                        : this(new List<string> { singleTable })
+                public Statement(SqlIdentifier singleTable)
+                        : this(new SqlIdentifierCollection() { singleTable })
                 {
                 }
 
-                public Statement(IList<string> tables)
+                public Statement(SqlIdentifierCollection tables)
                         : this()
                 {
                         this.Tables = tables;
@@ -29,7 +29,7 @@ namespace qGen
 
                 public override string ToString()
                 {
-                        throw new InvalidOperationException("Not allowed");
+                        return SqlFormatter.DefaultFormatter.SqlText(this);
                 }
         }
 }
