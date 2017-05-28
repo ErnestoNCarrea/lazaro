@@ -17,5 +17,6 @@ namespace Lazaro.Orm.Mapping
                 public ObjectInfo ObjectInfo { get; set; }
 
                 public ColumnMetadataCollection Columns { get; set; }
+                public EventMetadataCollection Events { get; set; }
         }
 }

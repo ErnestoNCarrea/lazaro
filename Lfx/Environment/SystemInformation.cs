@@ -78,6 +78,22 @@ namespace Lfx.Environment
                 }
 
 
+                private static string m_UserAndMachineName = null;
+                /// <summary>
+                /// Devuelve el nombre de la sesión (combinación de equipo y usuario).
+                /// </summary>
+                public static string UserAndMachineName
+                {
+                        get
+                        {
+                                if (m_UserAndMachineName == null) {
+                                        m_UserAndMachineName = System.Environment.UserName + "@" + System.Environment.MachineName;
+                                }
+                                return m_UserAndMachineName;
+                        }
+                }
+
+
                 public static string RuntimeName
                 {
                         get

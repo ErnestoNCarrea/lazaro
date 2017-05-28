@@ -24,7 +24,7 @@ namespace Lbl.Sys
                         if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
                                 if(this.Id > 0) {
-                                        Comando.WhereClause = new qGen.Where(this.CampoId, this.Id);
+                                        Comando.ColumnValues.AddWithValue(this.CampoId, this.Id);
                                 }
                                 Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         } else {

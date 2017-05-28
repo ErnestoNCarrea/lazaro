@@ -13,7 +13,6 @@ namespace qGen
                 System.Data.IDbCommand SetupDbCommand(IStatementOrQuery command, IConnection connection);
 
                 string SqlText(Insert insertCommand);
-                string SqlText(Insert insertCommand, bool valuesOnly);
 
                 string SqlText(Update updateCommand);
 

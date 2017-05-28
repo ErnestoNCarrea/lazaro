@@ -449,7 +449,7 @@ namespace Lazaro.WinMain.Config
                                 Lfx.Environment.Folders.EnsurePathExists(CarpetaDescarga);
                                 using (WebClient Cliente = new WebClient()) {
                                         try {
-                                                Cliente.DownloadFile("http://www.lazarogestion.com/aslnlwc/" + InstaladorMariaDb, CarpetaDescarga + InstaladorMariaDb);
+                                                Cliente.DownloadFile("http://www.lazarogestion.com/act/" + InstaladorMariaDb, CarpetaDescarga + InstaladorMariaDb);
                                         } catch (Exception ex) {
                                                 progreso.ChangeStatus("Error al descargar: " + ex.Message);
                                         }

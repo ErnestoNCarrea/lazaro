@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Lazaro.Orm.Data
 {
-        /* public class ConnectionFactory : IConnectionFactory
+        public class ConnectionFactory : IConnectionFactory
         {
                 private static int LastHandle;
 
@@ -15,7 +15,14 @@ namespace Lazaro.Orm.Data
 
                 public IConnection GetNewConnection(string ownerName)
                 {
-                        return new Connection(this, LastHandle++, ownerName);
+                        var Res = new Connection(this, LastHandle++, ownerName);
+                        Res.DbConnection = Driver.GetConnection();
+                        return Res;
                 }
-        } */
+
+                public EntityManager GetEntityManager(string ownerName)
+                {
+                        return null;
+                }
+        }
 }

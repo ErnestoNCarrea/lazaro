@@ -53,7 +53,7 @@ namespace Lfc.Inicio
                         // BotonListado
                         // 
                         this.BotonListado.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonListado.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonListado.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonListado.Image = ((System.Drawing.Image)(resources.GetObject("BotonListado.Image")));
                         this.BotonListado.Location = new System.Drawing.Point(481, 5);
                         this.BotonListado.Margin = new System.Windows.Forms.Padding(5);
@@ -66,7 +66,7 @@ namespace Lfc.Inicio
                         // BotonCrearCliente
                         // 
                         this.BotonCrearCliente.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearCliente.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearCliente.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearCliente.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearCliente.Image")));
                         this.BotonCrearCliente.Location = new System.Drawing.Point(262, 5);
                         this.BotonCrearCliente.Margin = new System.Windows.Forms.Padding(5);
@@ -79,7 +79,7 @@ namespace Lfc.Inicio
                         // BotonCrearProveedor
                         // 
                         this.BotonCrearProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearProveedor.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearProveedor.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearProveedor.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearProveedor.Image")));
                         this.BotonCrearProveedor.Location = new System.Drawing.Point(14, 5);
                         this.BotonCrearProveedor.Margin = new System.Windows.Forms.Padding(5);

@@ -184,7 +184,7 @@ namespace Lfc.Comprobantes.Recibos
                         this.EntradaFechas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaFechas.AutoSize = true;
-                        this.EntradaFechas.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.EntradaFechas.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.EntradaFechas.Location = new System.Drawing.Point(133, 87);
                         this.EntradaFechas.MuestraFuturos = false;
                         this.EntradaFechas.Name = "EntradaFechas";

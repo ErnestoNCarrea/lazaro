@@ -49,4 +49,6 @@ UPDATE sys_plantillas SET defxml=REPLACE(defxml, '{Importes}', '{Articulos.Impor
 UPDATE sys_plantillas SET defxml=REPLACE(defxml, '{Detalles}', '{Articulos.Detalles}');
 UPDATE sys_plantillas SET defxml=REPLACE(defxml, '{Cantidades}', '{Articulos.Cantidades}');
 
+UPDATE sys_config SET valor=REPLACE(valor, '/aslnlwc/{0}/', '/act/{0}/');
+
 SET FOREIGN_KEY_CHECKS=1;

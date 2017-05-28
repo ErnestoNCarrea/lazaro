@@ -72,10 +72,10 @@ namespace Lazaro.Pres.DisplayStyles
                                 DefaultFontName = "Trebuchet MS";
                                 DefaultCaptionFontName = "Trebuchet MS";
                         } else {
-                                DefaultFontName = "Bitstream Vera Sans";
+                                DefaultFontName = "Segoe UI";
                                 DefaultCaptionFontName = DefaultFontName;
                         }
-                        DefaultPrintFontName = "Bitstream Vera Sans";
+                        DefaultPrintFontName = "Segoe UI";
                         DefaultMonoFontName = "Bitstream Vera Sans Mono";
                         
                         DefaultFont = new System.Drawing.Font(DefaultFontName, 9.75F);

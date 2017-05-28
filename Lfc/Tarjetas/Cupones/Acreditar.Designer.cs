@@ -163,7 +163,7 @@ namespace Lfc.Tarjetas.Cupones
                         this.Frame1.Controls.Add(this.Label5);
                         this.Frame1.Controls.Add(this.Label6);
                         this.Frame1.Controls.Add(this.Label7);
-                        this.Frame1.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.Frame1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Frame1.Location = new System.Drawing.Point(24, 72);
                         this.Frame1.Name = "Frame1";
                         this.Frame1.Size = new System.Drawing.Size(600, 136);

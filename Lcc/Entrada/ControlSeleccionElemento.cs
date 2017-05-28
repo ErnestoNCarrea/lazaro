@@ -47,6 +47,9 @@ namespace Lcc.Entrada
                                 } else {
                                         this.CurrentRow = m_Elemento.Registro;
                                         m_ItemId = m_Elemento.Id;
+                                        if (this.m_Connection == null) {
+                                                this.m_Connection = base.Elemento.Connection;
+                                        }
                                         this.ValueInt = base.Elemento.Id;
                                 }
                         }

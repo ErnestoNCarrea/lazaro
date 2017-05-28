@@ -252,7 +252,7 @@ namespace Lfc.Inicio
                         this.PanelConsejo.Descripcion = "...puede hacer cuentas al escribir números en Lázaro? Al ingresar datos en cualqu" +
     "ier campo numérico puede hacer cálculos como 2+2 o 7*5 y Lázaro calculará automá" +
     "ticamente el resultado.";
-                        this.PanelConsejo.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.PanelConsejo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelConsejo.Image = ((System.Drawing.Image)(resources.GetObject("PanelConsejo.Image")));
                         this.PanelConsejo.Location = new System.Drawing.Point(680, 60);
                         this.PanelConsejo.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
@@ -268,7 +268,7 @@ namespace Lfc.Inicio
                         this.PanelComprobantes.BackColor = System.Drawing.Color.OrangeRed;
                         this.PanelComprobantes.Descripcion = "Administre diferentes tipos de comprobantes, como ser facturas y tickets, recibos" +
     ", remitos y presupuestos.";
-                        this.PanelComprobantes.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.PanelComprobantes.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelComprobantes.ForeColor = System.Drawing.Color.White;
                         this.PanelComprobantes.Image = ((System.Drawing.Image)(resources.GetObject("PanelComprobantes.Image")));
                         this.PanelComprobantes.Location = new System.Drawing.Point(680, 280);
@@ -285,7 +285,7 @@ namespace Lfc.Inicio
                         this.PanelPersonas.BackColor = System.Drawing.Color.SeaGreen;
                         this.PanelPersonas.Descripcion = "Administre los clientes, proveedores y usuarios del sistema. Puede dar de alta nu" +
     "evos clientes o proveedores si lo necesita.";
-                        this.PanelPersonas.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.PanelPersonas.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelPersonas.ForeColor = System.Drawing.Color.White;
                         this.PanelPersonas.Image = ((System.Drawing.Image)(resources.GetObject("PanelPersonas.Image")));
                         this.PanelPersonas.Location = new System.Drawing.Point(60, 340);
@@ -300,7 +300,7 @@ namespace Lfc.Inicio
                         this.PanelArticulos.Anchor = System.Windows.Forms.AnchorStyles.Top;
                         this.PanelArticulos.BackColor = System.Drawing.Color.SteelBlue;
                         this.PanelArticulos.Descripcion = "Administre los productos o servicios que vende en su empresa.";
-                        this.PanelArticulos.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.PanelArticulos.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelArticulos.ForeColor = System.Drawing.Color.White;
                         this.PanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("PanelArticulos.Image")));
                         this.PanelArticulos.Location = new System.Drawing.Point(60, 60);

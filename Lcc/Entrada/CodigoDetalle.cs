@@ -843,5 +843,10 @@ namespace Lcc.Entrada
                 {
                         MostrarBuscador("");
                 }
+
+                private void EntradaCodigo_SizeChanged(object sender, EventArgs e)
+                {
+                        this.Height = EntradaCodigo.Height + (EntradaCodigo.Top * 2);
+                }
         }
 }

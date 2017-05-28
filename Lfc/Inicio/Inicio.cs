@@ -36,11 +36,6 @@ namespace Lfc.Inicio
                         Help.ShowHelp(this, "http://foro.lazarogestion.com/");
                 }
 
-                private void BotonWebContacto_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-                {
-                        Help.ShowHelp(this, "http://www.lazarogestion.com/?q=contact");
-                }
-
                 private void BotonWebInicio_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
                 {
                         Help.ShowHelp(this, "http://www.lazarogestion.com");

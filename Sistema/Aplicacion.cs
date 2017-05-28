@@ -312,7 +312,7 @@ namespace Lazaro.WinMain
                                                         ArchDestino = Lfx.Environment.Folders.UpdatesFolder + Arch + ".new";
 
                                                 try {
-                                                        Cliente.DownloadFile(@"http://www.lazarogestion.com/aslnlwc/" + Arch, ArchDestino);
+                                                        Cliente.DownloadFile(@"http://www.lazarogestion.com/act/" + Arch, ArchDestino);
                                                 } catch {
                                                         // Nada
                                                 }
@@ -610,7 +610,6 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                 string FechaWhatsnew = Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<string>("Usuario." + Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString() + ".Whatsnew.Ultimo", "firsttime");
                                 if (FechaWhatsnew == "firsttime") {
                                         // Primera vez que entra. No muestro qué hay de nuevo (TODO: pero podría darle una bienvenida)
-                                        Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Usuario." + Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString() + ".Whatsnew.Ultimo", System.DateTime.Now.ToString("yyyy-MM-dd"));
                                 } else {
                                         // Veo si hay novedades para mostrar
                                         // string FechaWhatsnewOriginal = FechaWhatsnew;
@@ -623,12 +622,9 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                                         string FechaLinea = Linea.Substring(4, Linea.Length - 4);
                                                         if (string.Compare(FechaLinea, FechaWhatsnew) > 0) {
                                                                 FechaWhatsnew = FechaLinea;
-                                                                Linea = Lfx.Types.Parsing.ParseDate(FechaLinea).Value.ToString(Lfx.Types.Formatting.DateTime.LongDatePattern) + ":";
                                                                 Mostrando = true;
                                                         }
-                                                }
-
-                                                if (Mostrando) {
+                                                } else if (Mostrando) {
                                                         if (Mostrar == null) {
                                                                 Mostrar = new System.Text.StringBuilder();
                                                                 Mostrar.AppendLine("Por favor tómese un momento para leer sobre las novedades incorporadas recientemente en Lázaro:");
@@ -640,8 +636,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                         Whatsnew.BaseStream.Close();
                                         Whatsnew.Close();
                                         if (Mostrar != null && Mostrar.Length > 0) {
+                                                Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Usuario." + Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString() + ".Whatsnew.Ultimo", FechaWhatsnew);
                                                 Lfx.Workspace.Master.RunTime.Toast(Mostrar.ToString(), "Novedades");
-                                                Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Usuario." + Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString(), "Whatsnew.Ultimo", FechaWhatsnew);
                                         }
                                 }
 
@@ -811,7 +807,7 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                         } catch {
                                 // Nada
                         }
-                        Texto.AppendLine("Equipo  : " + Lfx.Environment.SystemInformation.MachineName);
+                        Texto.AppendLine("Usuario : " + Lfx.Environment.SystemInformation.UserAndMachineName);
                         Texto.AppendLine("Plataf. : " + Lfx.Environment.SystemInformation.PlatformName);
                         Texto.AppendLine("Runtime : " + Lfx.Environment.SystemInformation.RuntimeName);
                         Texto.AppendLine("Servidor: " + Lfx.Workspace.Master.ServerVersion);

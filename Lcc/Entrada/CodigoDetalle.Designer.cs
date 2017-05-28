@@ -53,10 +53,10 @@ namespace Lcc.Entrada
                         this.EntradaCodigo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
                         this.EntradaCodigo.Location = new System.Drawing.Point(4, 4);
                         this.EntradaCodigo.MaxLength = 32;
-                        this.EntradaCodigo.Multiline = true;
                         this.EntradaCodigo.Name = "EntradaCodigo";
-                        this.EntradaCodigo.Size = new System.Drawing.Size(52, 22);
+                        this.EntradaCodigo.Size = new System.Drawing.Size(52, 18);
                         this.EntradaCodigo.TabIndex = 0;
+                        this.EntradaCodigo.SizeChanged += new System.EventHandler(this.EntradaCodigo_SizeChanged);
                         this.EntradaCodigo.TextChanged += new System.EventHandler(this.EntradaCodigo_TextChanged);
                         this.EntradaCodigo.DoubleClick += new System.EventHandler(this.TextBox1_DoubleClick);
                         this.EntradaCodigo.GotFocus += new System.EventHandler(this.TextBox1_GotFocus);
@@ -146,11 +146,11 @@ namespace Lcc.Entrada
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EntradaFreeText.BorderStyle = System.Windows.Forms.BorderStyle.None;
                         this.EntradaFreeText.ContextMenu = this.MiContextMenu;
+                        this.EntradaFreeText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.EntradaFreeText.Location = new System.Drawing.Point(60, 4);
                         this.EntradaFreeText.MaxLength = 200;
-                        this.EntradaFreeText.Multiline = true;
                         this.EntradaFreeText.Name = "EntradaFreeText";
-                        this.EntradaFreeText.Size = new System.Drawing.Size(466, 22);
+                        this.EntradaFreeText.Size = new System.Drawing.Size(466, 18);
                         this.EntradaFreeText.TabIndex = 1;
                         this.EntradaFreeText.Visible = false;
                         this.EntradaFreeText.WordWrap = false;

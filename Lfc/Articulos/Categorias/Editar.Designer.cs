@@ -231,7 +231,7 @@ namespace Lfc.Articulos.Categorias
                         this.Frame2.Controls.Add(this.Label6);
                         this.Frame2.Controls.Add(this.Label3);
                         this.Frame2.Controls.Add(this.Label4);
-                        this.Frame2.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.Frame2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Frame2.Location = new System.Drawing.Point(344, 232);
                         this.Frame2.Name = "Frame2";
                         this.Frame2.Size = new System.Drawing.Size(296, 168);

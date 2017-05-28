@@ -77,7 +77,7 @@ namespace Lfc.Inicio
                         this.Controls.Add(this.ImagenIcono);
                         this.Controls.Add(this.EtiquetaDescripcion);
                         this.Controls.Add(this.EtiquetaTitulo);
-                        this.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
                         this.Name = "ControlTablero";
                         this.Size = new System.Drawing.Size(600, 200);

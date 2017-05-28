@@ -308,7 +308,7 @@ namespace Lfc.Personas
                         this.PanelI1.Controls.Add(this.Label2);
                         this.PanelI1.Controls.Add(this.Label5);
                         this.PanelI1.Controls.Add(this.label18);
-                        this.PanelI1.Font = new System.Drawing.Font("Bitstream Vera Sans", 10F);
+                        this.PanelI1.Font = new System.Drawing.Font("Segoe UI", 10F);
                         this.PanelI1.Location = new System.Drawing.Point(0, 0);
                         this.PanelI1.Margin = new System.Windows.Forms.Padding(6);
                         this.PanelI1.Name = "PanelI1";
@@ -370,7 +370,7 @@ namespace Lfc.Personas
                         this.PanelD1.Controls.Add(this.EtiquetaClaveTributaria);
                         this.PanelD1.Controls.Add(this.Label12);
                         this.PanelD1.Controls.Add(this.Label15);
-                        this.PanelD1.Font = new System.Drawing.Font("Bitstream Vera Sans", 10F);
+                        this.PanelD1.Font = new System.Drawing.Font("Segoe UI", 10F);
                         this.PanelD1.Location = new System.Drawing.Point(360, 0);
                         this.PanelD1.Margin = new System.Windows.Forms.Padding(6);
                         this.PanelD1.Name = "PanelD1";
@@ -486,7 +486,7 @@ namespace Lfc.Personas
                         this.PanelI2.Controls.Add(this.Label11);
                         this.PanelI2.Controls.Add(this.Label10);
                         this.PanelI2.Controls.Add(this.Label9);
-                        this.PanelI2.Font = new System.Drawing.Font("Bitstream Vera Sans", 10F);
+                        this.PanelI2.Font = new System.Drawing.Font("Segoe UI", 10F);
                         this.PanelI2.Location = new System.Drawing.Point(0, 271);
                         this.PanelI2.Margin = new System.Windows.Forms.Padding(6);
                         this.PanelI2.Name = "PanelI2";
@@ -567,7 +567,7 @@ namespace Lfc.Personas
                         this.PanelAbajo.Controls.Add(this.label24);
                         this.PanelAbajo.Controls.Add(this.label25);
                         this.PanelAbajo.Controls.Add(this.label26);
-                        this.PanelAbajo.Font = new System.Drawing.Font("Bitstream Vera Sans", 10F);
+                        this.PanelAbajo.Font = new System.Drawing.Font("Segoe UI", 10F);
                         this.PanelAbajo.Location = new System.Drawing.Point(0, 611);
                         this.PanelAbajo.Margin = new System.Windows.Forms.Padding(6);
                         this.PanelAbajo.Name = "PanelAbajo";
@@ -839,7 +839,7 @@ namespace Lfc.Personas
                         this.PanelD2.Controls.Add(this.Label16);
                         this.PanelD2.Controls.Add(this.Label14);
                         this.PanelD2.Controls.Add(this.label13);
-                        this.PanelD2.Font = new System.Drawing.Font("Bitstream Vera Sans", 10F);
+                        this.PanelD2.Font = new System.Drawing.Font("Segoe UI", 10F);
                         this.PanelD2.Location = new System.Drawing.Point(360, 271);
                         this.PanelD2.Margin = new System.Windows.Forms.Padding(6);
                         this.PanelD2.Name = "PanelD2";

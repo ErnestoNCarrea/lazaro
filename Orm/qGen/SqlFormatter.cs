@@ -91,7 +91,7 @@ namespace qGen
                                 @"INSERT INTO "
                                 + this.SqlText(insertCommand.Tables)
                                 + " "
-                                + this.SqlText(insertCommand.ColumnValues, ColumnValueFormatStyles.InsertStyle, true);
+                                + this.SqlText(insertCommand.ColumnValues, ColumnValueFormatStyles.InsertStyle, true, 0);
 
                         if (insertCommand.WhereClause != null) {
                                 DbCommand.CommandText += " WHERE " + this.SqlText(insertCommand.WhereClause);
@@ -111,50 +111,40 @@ namespace qGen
                                 DbCommand.CommandText += UpdateClause.ToString();
                         }
 
-                        this.PopulateParameters(connection, DbCommand.Parameters, insertCommand.ColumnValues);
+                        this.PopulateParameters(connection, DbCommand.Parameters, insertCommand.ColumnValues, 0);
 
                         return DbCommand;
                 }
 
 
-                public string SqlText(Insert insert)
+                public string SqlText(Insert insertCommand)
                 {
-                        return this.SqlText(insert, false);
-                }
+                        var Res = new StringBuilder();
 
+                        Res.Append("INSERT INTO ");
+                        Res.Append(this.SqlText(insertCommand.Tables));
+                        Res.Append(" ");
+                        Res.Append(this.SqlText(insertCommand.ColumnValues, ColumnValueFormatStyles.InsertStyle, false, 0));
+                        ;
 
-                public string SqlText(Insert insertCommand, bool valuesOnly)
-                {
-                        if (valuesOnly) {
-                                return this.SqlText(insertCommand.ColumnValues, ColumnValueFormatStyles.InsertStyleValuesOnly, false);
-                        } else {
-                                var Res = new StringBuilder();
-
-                                Res.Append("INSERT INTO ");
-                                Res.Append(this.SqlText(insertCommand.Tables));
-                                Res.Append(" ");
-                                Res.Append(this.SqlText(insertCommand.ColumnValues, ColumnValueFormatStyles.InsertStyle, false));
-                                ;
-
-                                if (insertCommand.WhereClause != null) {
-                                        Res.Append(" WHERE " + this.SqlText(insertCommand.WhereClause));
-                                }
-
-                                if (insertCommand.OnDuplicateKeyUpdate) {
-                                        var First = true;
-                                        foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
-                                                if (First) {
-                                                        First = false;
-                                                        Res.Append(@" ON DUPLICATE KEY UPDATE ");
-                                                } else {
-                                                        Res.Append(@", ");
-                                                }
-                                                Res.Append(this.SqlText(ThisField.ColumnIdentifier) + @"=VALUES(" + this.SqlText(ThisField.ColumnIdentifier) + @")");
-                                        }
-                                }
-
-                                return Res.ToString();
+                        if (insertCommand.WhereClause != null) {
+                                Res.Append(" WHERE " + this.SqlText(insertCommand.WhereClause));
                         }
+
+                        if (insertCommand.OnDuplicateKeyUpdate) {
+                                var First = true;
+                                foreach (IColumnValue ThisField in insertCommand.ColumnValues) {
+                                        if (First) {
+                                                First = false;
+                                                Res.Append(@" ON DUPLICATE KEY UPDATE ");
+                                        } else {
+                                                Res.Append(@", ");
+                                        }
+                                        Res.Append(this.SqlText(ThisField.ColumnIdentifier) + @"=VALUES(" + this.SqlText(ThisField.ColumnIdentifier) + @")");
+                                }
+                        }
+
+                        return Res.ToString();
                 }
 
 
@@ -279,20 +269,20 @@ namespace qGen
                                 @"UPDATE "
                                 + this.SqlText(updateCommand.Tables)
                                 + @" SET "
-                                + this.SqlText(updateCommand.ColumnValues, ColumnValueFormatStyles.UpdateStyle, true)
+                                + this.SqlText(updateCommand.ColumnValues, ColumnValueFormatStyles.UpdateStyle, true, 0)
                                 + " WHERE " + this.SqlText(updateCommand.WhereClause);
 
-                        this.PopulateParameters(connection, DbCommand.Parameters, updateCommand.ColumnValues);
+                        this.PopulateParameters(connection, DbCommand.Parameters, updateCommand.ColumnValues, 0);
 
                         return DbCommand;
                 }
 
-                public void PopulateParameters(IConnection connection, IDataParameterCollection parameters, ColumnValueCollection columnValues)
+                public void PopulateParameters(IConnection connection, IDataParameterCollection parameters, ColumnValueCollection columnValues, int parameterNameSuffix)
                 {
                         foreach (IColumnValue Fld in columnValues) {
                                 if (Fld.ValueCanBeParameter) {
                                         var Param = connection.Factory.Driver.GetParameter();
-                                        Param.ParameterName = "@" + this.GetParameterName(Fld.ColumnIdentifier);
+                                        Param.ParameterName = "@" + this.GetParameterName(Fld.ColumnIdentifier, parameterNameSuffix);
                                         if (Fld.Value is DbDateTime && Fld.Value != null) {
                                                 Param.Value = ((DbDateTime)(Fld.Value)).Value;
                                         } else if (Fld.Value != null && Fld.Value.GetType().IsEnum) {
@@ -317,7 +307,7 @@ namespace qGen
                 {
                         return @"UPDATE " + this.SqlText(updateCommand.Tables) 
                                 + @" SET " 
-                                + this.SqlText(updateCommand.ColumnValues, ColumnValueFormatStyles.UpdateStyle, false) 
+                                + this.SqlText(updateCommand.ColumnValues, ColumnValueFormatStyles.UpdateStyle, false, 0) 
                                 + " WHERE " + this.SqlText(updateCommand.WhereClause);
                 }
 
@@ -330,7 +320,7 @@ namespace qGen
                 /// <param name="style">Update or Insert style.</param>
                 /// <param name="useParameters">Use parameter names instead of actual values.</param>
                 /// <returns>A string containing the SQL portion.</returns>
-                private string SqlText(ColumnValueCollection columnValues, ColumnValueFormatStyles style, bool useParameters)
+                private string SqlText(ColumnValueCollection columnValues, ColumnValueFormatStyles style, bool useParameters, int parameterNameSuffix)
                 {
                         switch (style) {
                                 case ColumnValueFormatStyles.UpdateStyle:
@@ -343,7 +333,7 @@ namespace qGen
                                                 ResUpd.Append(this.SqlText(Col.ColumnIdentifier));
                                                 ResUpd.Append("=");
                                                 if (useParameters && Col.ValueCanBeParameter) {
-                                                        ResUpd.Append("@" + this.GetParameterName(Col.ColumnIdentifier));
+                                                        ResUpd.Append("@" + this.GetParameterName(Col.ColumnIdentifier, parameterNameSuffix));
                                                 } else {
                                                         ResUpd.Append(this.FormatValue(Col.Value));
                                                 }
@@ -362,7 +352,7 @@ namespace qGen
                                                 }
                                                 ResInsCols.Append(this.SqlText(Col.ColumnIdentifier));
                                                 if (useParameters && Col.ValueCanBeParameter) {
-                                                        ResInsVals.Append("@" + this.GetParameterName(Col.ColumnIdentifier));
+                                                        ResInsVals.Append("@" + this.GetParameterName(Col.ColumnIdentifier, parameterNameSuffix));
                                                 } else {
                                                         ResInsVals.Append(this.FormatValue(Col.Value));
                                                 }
@@ -378,7 +368,7 @@ namespace qGen
                                                         ResInsValsOnly.Append(", ");
                                                 }
                                                 if (useParameters && Col.ValueCanBeParameter) {
-                                                        ResInsValsOnly.Append("@" + this.GetParameterName(Col.ColumnIdentifier));
+                                                        ResInsValsOnly.Append("@" + this.GetParameterName(Col.ColumnIdentifier, parameterNameSuffix));
                                                 } else {
                                                         ResInsValsOnly.Append(this.FormatValue(Col.Value));
                                                 }
@@ -395,9 +385,14 @@ namespace qGen
                 /// </summary>
                 /// <param name="columnIdentifier">The identifier definition.</param>
                 /// <returns>A string containing the generated name.</returns>
-                public string GetParameterName(SqlIdentifier columnIdentifier)
+                public string GetParameterName(SqlIdentifier columnIdentifier, int parameterNameSuffix)
                 {
-                        return "param_" + columnIdentifier.Definition.Trim().Replace('.', '_').Replace(' ', '_');
+                        if(parameterNameSuffix == 0) {
+                                return "param_" + columnIdentifier.Definition.Trim().Replace('.', '_').Replace(' ', '_');
+                        } else {
+                                return "param_" + columnIdentifier.Definition.Trim().Replace('.', '_').Replace(' ', '_') + "_" + parameterNameSuffix.ToString();
+                        }
+                        
                 }
 
                 public string SqlText(Where whereClause)
@@ -676,24 +671,26 @@ namespace qGen
                 {
                         var DbCommand = connection.DbConnection.CreateCommand();
 
-                        var CmdText = new StringBuilder();
-                        CmdText.Append("INSERT INTO ");
-                        CmdText.Append(this.SqlText(bulkInsertCommand.Tables));
-                        CmdText.Append(" ");
-                        CmdText.Append(this.SqlText(bulkInsertCommand.InsertCommands[0].ColumnValues, ColumnValueFormatStyles.InsertStyle, true));
+                        StringBuilder CmdText = new StringBuilder();
 
-                        this.PopulateParameters(connection, DbCommand.Parameters, bulkInsertCommand.InsertCommands[0].ColumnValues);
+                        this.PopulateParameters(connection, DbCommand.Parameters, bulkInsertCommand.InsertCommands[0].ColumnValues, 0);
 
-                        if(bulkInsertCommand.InsertCommands.Count > 1) {
-                                var Skip = true;
-                                foreach(var Ic in bulkInsertCommand.InsertCommands) {
-                                        if(Skip) {
+                        if (bulkInsertCommand.InsertCommands.Count > 1) {
+                                var Line = 0;
+                                foreach (var Ic in bulkInsertCommand.InsertCommands) {
+                                        if(Line == 0) {
                                                 // Skip first INSERT, which is already included above
-                                                Skip = false;
+                                                CmdText.Append("INSERT INTO ");
+                                                CmdText.Append(this.SqlText(bulkInsertCommand.Tables));
+                                                CmdText.Append(" ");
+                                                CmdText.Append(this.SqlText(bulkInsertCommand.InsertCommands[0].ColumnValues, ColumnValueFormatStyles.InsertStyle, true, 0));
+
                                         } else {
-                                                CmdText.Append(this.SqlText(Ic, true));
-                                                this.PopulateParameters(connection, DbCommand.Parameters, Ic.ColumnValues);
+                                                CmdText.AppendLine(", ");
+                                                CmdText.Append(this.SqlText(Ic.ColumnValues, ColumnValueFormatStyles.InsertStyleValuesOnly, true, Line));
+                                                this.PopulateParameters(connection, DbCommand.Parameters, Ic.ColumnValues, Line);
                                         }
+                                        ++Line;
                                 }
                         }
 
@@ -711,14 +708,16 @@ namespace qGen
                 {
                         System.Text.StringBuilder Res = null;
 
+                        int Line = 0;
                         foreach (Insert Cmd in bulkInsertCommand.InsertCommands) {
-                                if (Res == null) {
+                                if (Line == 0) {
                                         Res = new System.Text.StringBuilder();
-                                        Res.AppendLine(this.SqlText(Cmd));
+                                        Res.Append(this.SqlText(Cmd));
                                 } else {
-                                        Res.Append(", ");
-                                        Res.AppendLine(this.SqlText(Cmd, true));
+                                        Res.AppendLine(", ");
+                                        Res.Append(this.SqlText(Cmd.ColumnValues, ColumnValueFormatStyles.InsertStyleValuesOnly, false, Line));
                                 }
+                                ++Line;
                         }
 
                         if (bulkInsertCommand.WhereClause != null) {

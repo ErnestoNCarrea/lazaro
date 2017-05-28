@@ -56,7 +56,7 @@ namespace Lfc.Inicio
                         this.BotonListado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonListado.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonListado.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonListado.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonListado.Image = ((System.Drawing.Image)(resources.GetObject("BotonListado.Image")));
                         this.BotonListado.Location = new System.Drawing.Point(500, 5);
                         this.BotonListado.Margin = new System.Windows.Forms.Padding(5);
@@ -69,7 +69,7 @@ namespace Lfc.Inicio
                         // BotonCrearArticulo
                         // 
                         this.BotonCrearArticulo.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearArticulo.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearArticulo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearArticulo.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearArticulo.Image")));
                         this.BotonCrearArticulo.Location = new System.Drawing.Point(269, 5);
                         this.BotonCrearArticulo.Margin = new System.Windows.Forms.Padding(5);
@@ -82,7 +82,7 @@ namespace Lfc.Inicio
                         // BotonCrearCategoria
                         // 
                         this.BotonCrearCategoria.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearCategoria.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearCategoria.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearCategoria.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearCategoria.Image")));
                         this.BotonCrearCategoria.Location = new System.Drawing.Point(19, 5);
                         this.BotonCrearCategoria.Margin = new System.Windows.Forms.Padding(5);
@@ -97,7 +97,7 @@ namespace Lfc.Inicio
                         this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label1.Font = new System.Drawing.Font("Bitstream Vera Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.label1.Location = new System.Drawing.Point(80, 165);
                         this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label1.Name = "label1";

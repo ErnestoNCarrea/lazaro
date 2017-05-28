@@ -1,6 +1,7 @@
 using System;
-using System.Drawing;
+using System.Xml;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lfx.Config
 {
@@ -85,6 +86,8 @@ namespace Lfx.Config
 
                 public void WriteLocalSetting(string sectionName, string settingName, string settingValue)
                 {
+                        string sectionNameValid = RemoveInvalidXmlChars(sectionName);
+                        string settingNameValid = RemoveInvalidXmlChars(settingName);
                         if (ConfigDocument == null) {
                                 ConfigDocument = new System.Xml.XmlDocument();
                                 if (System.IO.File.Exists(ConfigFileName))
@@ -99,21 +102,21 @@ namespace Lfx.Config
                                 }
 
                                 System.Xml.XmlAttribute Attribute;
-                                System.Xml.XmlNode SectionNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionName + "']");
+                                System.Xml.XmlNode SectionNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionNameValid + "']");
                                 if (SectionNode == null) {
                                         //Crear la sección
                                         SectionNode = ConfigDocument.CreateElement("Section");
                                         Attribute = ConfigDocument.CreateAttribute("name");
-                                        Attribute.Value = sectionName;
+                                        Attribute.Value = sectionNameValid;
                                         SectionNode.Attributes.Append(Attribute);
                                         ConfigDocument.DocumentElement.AppendChild(SectionNode);
                                 }
-                                System.Xml.XmlNode SettingNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionName + "']/Setting[@name='" + settingName + "']");
+                                System.Xml.XmlNode SettingNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionNameValid + "']/Setting[@name='" + settingNameValid + "']");
                                 if (SettingNode == null) {
                                         //Agregar el nodo
                                         SettingNode = ConfigDocument.CreateElement("Setting");
                                         Attribute = ConfigDocument.CreateAttribute("name");
-                                        Attribute.Value = settingName;
+                                        Attribute.Value = settingNameValid;
                                         SettingNode.Attributes.Append(Attribute);
                                         Attribute = ConfigDocument.CreateAttribute("value");
                                         Attribute.Value = settingValue;
@@ -137,6 +140,9 @@ namespace Lfx.Config
 
                 public string ReadLocalSettingString(string sectionName, string settingName, string defaultValue)
                 {
+                        string sectionNameValid = RemoveInvalidXmlChars(sectionName);
+                        string settingNameValid = RemoveInvalidXmlChars(settingName);
+
                         string Result = defaultValue;
                         if (System.IO.File.Exists(ConfigFileName)) {
                                 //Intento obtener el valor del archivo de configuración Xml
@@ -151,7 +157,7 @@ namespace Lfx.Config
                                         }
                                 }
 
-                                System.Xml.XmlNode SettingNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionName + "']/Setting[@name='" + settingName + "']");
+                                System.Xml.XmlNode SettingNode = ConfigDocument.SelectSingleNode("/LocalConfig/Section[@name='" + sectionNameValid + "']/Setting[@name='" + settingNameValid + "']");
                                 if (SettingNode != null) {
                                         System.Xml.XmlAttribute SettingAttribute = SettingNode.Attributes["value"];
                                         if (SettingAttribute != null)
@@ -398,5 +404,10 @@ namespace Lfx.Config
                         SysConfigCache = null;
                 }
 
+                static string RemoveInvalidXmlChars(string text)
+                {
+                        var validXmlChars = text.Where(ch => XmlConvert.IsXmlChar(ch)).ToArray();
+                        return new string(validXmlChars);
+                }
         }
 }

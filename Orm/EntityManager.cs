@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Lazaro.Orm.Data;
 using Lazaro.Orm.Mapping;
 using System.Reflection;
 using System.Data;
+using log4net;
 
 namespace Lazaro.Orm
 {
         public class EntityManager : IEntityManager
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(EntityManager));
+
                 public IConnection Connection { get; set; }
                 public IMetadataFactory MetadataFactory { get; set; }
 
@@ -158,9 +159,17 @@ namespace Lazaro.Orm
                         var EntityType = entity.GetType();
                         var ClassName = EntityType.FullName;
 
+                        Log.Debug("Persist " + ClassName);
+
                         qGen.IStatement InsertOrUpdate;
 
                         var ClassMetadata = this.MetadataFactory.GetMetadataForClass(EntityType);
+
+                        var PrePersistEvt = ClassMetadata.Events.GetByType(EventTypes.PrePersist);
+                        if(PrePersistEvt != null) {
+                                PrePersistEvt.MethodInfo.Invoke(entity, null);
+                        }
+
                         if (ClassMetadata.ObjectInfo.IdentifierHasValue(entity)) {
                                 InsertOrUpdate = new qGen.Update(ClassMetadata.TableName);
                                 InsertOrUpdate.WhereClause = new qGen.Where();
@@ -192,16 +201,25 @@ namespace Lazaro.Orm
                                 }
                         }
 
+                        Log.Debug(InsertOrUpdate.ToString());
                         this.Connection.ExecuteNonQuery(InsertOrUpdate);
 
                         if (InsertOrUpdate is qGen.Insert) {
                                 foreach (var Col in ClassMetadata.Columns) {
                                         if (Col.GeneratedValueStategy == GeneratedValueStategies.DbGenerated) {
-                                                ClassMetadata.ObjectInfo.SetColumnValue(entity, Col, this.Connection.GetLastInsertId());
+                                                var Id = this.Connection.GetLastInsertId();
+                                                ClassMetadata.ObjectInfo.SetColumnValue(entity, Col, Id);
+                                                Log.Debug("Last insert id: " + Id.ToString());
                                                 break;
                                         }
                                 }
                         }
+
+                        var PostPersistEvt = ClassMetadata.Events.GetByType(EventTypes.PostPersist);
+                        if (PostPersistEvt != null) {
+                                PostPersistEvt.MethodInfo.Invoke(entity, null);
+                        }
+
                 }
         }
 }

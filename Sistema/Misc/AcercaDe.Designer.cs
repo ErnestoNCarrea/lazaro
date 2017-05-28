@@ -142,7 +142,7 @@ namespace Lazaro.WinMain.Misc
                         this.ListaComponentes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
                         this.ListaComponentes.BackColor = System.Drawing.SystemColors.Window;
                         this.ListaComponentes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-                        this.ListaComponentes.Font = new System.Drawing.Font("Bitstream Vera Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.ListaComponentes.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.ListaComponentes.ForeColor = System.Drawing.SystemColors.ControlText;
                         this.ListaComponentes.FormattingEnabled = true;
                         this.ListaComponentes.IntegralHeight = false;

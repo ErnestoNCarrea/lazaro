@@ -279,7 +279,7 @@ namespace Lfc.Tareas
                         // 
                         this.FrameHistorialCliente.Controls.Add(this.ListaHistorialCliente);
                         this.FrameHistorialCliente.Dock = System.Windows.Forms.DockStyle.Fill;
-                        this.FrameHistorialCliente.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.FrameHistorialCliente.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.FrameHistorialCliente.Location = new System.Drawing.Point(0, 0);
                         this.FrameHistorialCliente.Name = "FrameHistorialCliente";
                         this.FrameHistorialCliente.Size = new System.Drawing.Size(356, 203);
@@ -444,7 +444,7 @@ namespace Lfc.Tareas
                         // 
                         this.FrameHistorialTarea.Controls.Add(this.ListaHistorialTarea);
                         this.FrameHistorialTarea.Dock = System.Windows.Forms.DockStyle.Fill;
-                        this.FrameHistorialTarea.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.FrameHistorialTarea.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.FrameHistorialTarea.Location = new System.Drawing.Point(0, 0);
                         this.FrameHistorialTarea.Name = "FrameHistorialTarea";
                         this.FrameHistorialTarea.Size = new System.Drawing.Size(406, 203);

@@ -118,7 +118,15 @@ namespace Lazaro.Orm.Tests.qGen
                         Bi.Add(Insert2);
                         Bi.Add(Insert3);
 
-                        Assert.AreEqual("INSERT INTO \"bitable\" (\"col1\", \"col2\") VALUES (1, 'abc')\r\n, (2, 'def')\r\n, (3, 'ghi')\r\n", Fmt.SqlText(Bi));
+                        Assert.AreEqual("INSERT INTO \"bitable\" (\"col1\", \"col2\") VALUES (1, 'abc'), \r\n(2, 'def'), \r\n(3, 'ghi')", Fmt.SqlText(Bi));
+
+                        var Fact = new Lazaro.Orm.Data.ConnectionFactory();
+                        Fact.Driver = new Data.Drivers.MySqlDriver();
+                        var Conn = Fact.GetNewConnection("BulkInsert test");
+                        var Cmd = Fmt.SetupDbCommand(Bi, Conn);
+                        Assert.AreEqual("INSERT INTO \"bitable\" (\"col1\", \"col2\") VALUES (@param_col1, @param_col2), \r\n(@param_col1_1, @param_col2_1), \r\n(@param_col1_2, @param_col2_2)", Cmd.CommandText);
+
+                        // TODO: test parameters
                 }
 
 

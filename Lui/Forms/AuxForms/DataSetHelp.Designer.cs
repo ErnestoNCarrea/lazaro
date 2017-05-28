@@ -41,7 +41,7 @@ namespace Lui.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.Listado.BorderStyle = System.Windows.Forms.BorderStyle.None;
-                        this.Listado.Font = new System.Drawing.Font("Bitstream Vera Sans", 8F);
+                        this.Listado.Font = new System.Drawing.Font("Segoe UI", 8F);
                         this.Listado.ForeColor = System.Drawing.SystemColors.InfoText;
                         this.Listado.IntegralHeight = false;
                         this.Listado.Location = new System.Drawing.Point(4, 4);
@@ -75,7 +75,7 @@ namespace Lui.Forms
                         this.ControlBox = false;
                         this.Controls.Add(this.Listado);
                         this.Controls.Add(this.Panel1);
-                        this.Font = new System.Drawing.Font("Bitstream Vera Sans", 8F);
+                        this.Font = new System.Drawing.Font("Segoe UI", 8F);
                         this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.MaximizeBox = false;

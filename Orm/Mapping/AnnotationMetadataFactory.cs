@@ -60,7 +60,8 @@ namespace Lazaro.Orm.Mapping
                                         {
                                                 Name = Cls.Name,
                                                 TableName = EntityAttr.TableName,
-                                                Columns = this.ScanClass(Cls)
+                                                Columns = this.ScanClassForColumns(Cls),
+                                                Events = this.ScanClassForEvents(Cls)
                                         };
                                         ClsMeta.ObjectInfo = new Mapping.ObjectInfo(Cls, ClsMeta);
 
@@ -75,7 +76,7 @@ namespace Lazaro.Orm.Mapping
                 }
                 
 
-                private ColumnMetadataCollection ScanClass(Type clsType)
+                private ColumnMetadataCollection ScanClassForColumns(Type clsType)
                 {
                         var Res = new ColumnMetadataCollection();
 
@@ -98,6 +99,26 @@ namespace Lazaro.Orm.Mapping
                                         Res.Add(NewCol);
                                 }
 
+                        }
+
+                        return Res;
+                }
+
+
+                private EventMetadataCollection ScanClassForEvents(Type clsType)
+                {
+                        var Res = new EventMetadataCollection();
+
+                        var Methods = clsType.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                        foreach (var Mtd in Methods) {
+                                var MtdAttrs = Mtd.GetCustomAttributes(typeof(Attributes.Event), true);
+                                if (MtdAttrs.Length == 1) {
+                                        foreach (var MtdAttr in MtdAttrs) {
+                                                var NewEvt = EventMetadataFromEventAttribute(Mtd, MtdAttr as Attributes.Event);
+
+                                                Res.Add(NewEvt);
+                                        }
+                                }
                         }
 
                         return Res;
@@ -158,6 +179,19 @@ namespace Lazaro.Orm.Mapping
                                         throw new ApplicationException("Unable to infer column type from " + Res.MemberType.ToString() + " for member " + Res.MemberName);
                                 }
                         }
+
+                        return Res;
+                }
+
+
+                protected EventMetadata EventMetadataFromEventAttribute(MethodInfo mtdInfo, Attributes.Event mtdAttr)
+                {
+                        var Res = new EventMetadata()
+                        {
+                                MethodName = mtdInfo.Name,
+                                Type = mtdAttr.Type,
+                                MethodInfo = mtdInfo
+                        };
 
                         return Res;
                 }

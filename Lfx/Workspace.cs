@@ -176,7 +176,7 @@ namespace Lfx
                 {
                         if (Lfx.Updates.Updater.Master == null && this.WebAppMode == false && this.DebugMode == false) {
                                 var Nivel = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Nivel", "stable");
-                                var Url = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Url", @"http://www.lazarogestion.com/aslnlwc/{0}/");
+                                var Url = this.CurrentConfig.ReadGlobalSetting<string>("Sistema.Actualizaciones.Url", @"http://www.lazarogestion.com/act/{0}/");
                                 Lfx.Updates.Updater.Master = new Updates.Updater(Nivel);
                                 Lfx.Updates.Updater.Master.Path = Lfx.Environment.Folders.ApplicationFolder;
                                 Lfx.Updates.Updater.Master.TempPath = Lfx.Environment.Folders.UpdatesFolder;

@@ -113,7 +113,7 @@ namespace Lfc.Cajas.Vencimientos
                         this.frame1.Controls.Add(this.Label11);
                         this.frame1.Controls.Add(this.EntradaFechaFin);
                         this.frame1.Controls.Add(this.EntradaRepetir);
-                        this.frame1.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.frame1.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.frame1.Location = new System.Drawing.Point(0, 280);
                         this.frame1.Name = "frame1";
                         this.frame1.Size = new System.Drawing.Size(560, 160);
@@ -216,7 +216,7 @@ namespace Lfc.Cajas.Vencimientos
                         this.frame2.Controls.Add(this.EntradaConcepto);
                         this.frame2.Controls.Add(this.label6);
                         this.frame2.Controls.Add(this.EntradaImporte);
-                        this.frame2.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.frame2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.frame2.Location = new System.Drawing.Point(0, 160);
                         this.frame2.Name = "frame2";
                         this.frame2.Size = new System.Drawing.Size(560, 96);

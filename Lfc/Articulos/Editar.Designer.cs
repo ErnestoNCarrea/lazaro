@@ -86,7 +86,7 @@ namespace Lfc.Articulos
                         this.Frame2.Controls.Add(this.EtiquetaAlicuota);
                         this.Frame2.Controls.Add(this.Label10);
                         this.Frame2.Controls.Add(this.label17);
-                        this.Frame2.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.Frame2.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Frame2.Location = new System.Drawing.Point(0, 352);
                         this.Frame2.Margin = new System.Windows.Forms.Padding(0);
                         this.Frame2.Name = "Frame2";
@@ -674,7 +674,7 @@ namespace Lfc.Articulos
                         this.Frame3.Controls.Add(this.EntradaTipoDeArticulo);
                         this.Frame3.Controls.Add(this.PanelProducto);
                         this.Frame3.Controls.Add(this.PanelServicio);
-                        this.Frame3.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.Frame3.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Frame3.Location = new System.Drawing.Point(402, 352);
                         this.Frame3.Margin = new System.Windows.Forms.Padding(0);
                         this.Frame3.Name = "Frame3";

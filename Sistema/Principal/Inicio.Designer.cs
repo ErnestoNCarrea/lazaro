@@ -70,7 +70,7 @@ namespace Lazaro.WinMain.Principal
                         this.ClientSize = new System.Drawing.Size(1024, 690);
                         this.Controls.Add(this.BarraTareas);
                         this.Controls.Add(this.BarraInferior);
-                        this.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F);
+                        this.Font = new System.Drawing.Font("Segoe UI", 9.75F);
                         this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
                         this.IsMdiContainer = true;
                         this.KeyPreview = true;

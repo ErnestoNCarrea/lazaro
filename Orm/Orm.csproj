@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\Association.cs" />
+    <Compile Include="Attributes\Event.cs" />
     <Compile Include="Attributes\Id.cs" />
     <Compile Include="Attributes\ManyToOne.cs" />
     <Compile Include="Attributes\OneToOne.cs" />
@@ -93,10 +94,13 @@
     <Compile Include="Mapping\AssociationMetadata.cs" />
     <Compile Include="Mapping\AssociationTypes.cs" />
     <Compile Include="Mapping\ClassMetadata.cs" />
+    <Compile Include="Mapping\EventMetadata.cs" />
+    <Compile Include="Mapping\EventMetadataCollection.cs" />
     <Compile Include="Mapping\ClassMetadataCollection.cs" />
     <Compile Include="Mapping\ColumnMetadata.cs" />
     <Compile Include="Mapping\ColumnMetadataCollection.cs" />
     <Compile Include="Mapping\BaseEntity.cs" />
+    <Compile Include="Mapping\EventTypes.cs" />
     <Compile Include="Mapping\IEntity.cs" />
     <Compile Include="Mapping\IMetadataFactory.cs" />
     <Compile Include="Mapping\INamingStrategy.cs" />

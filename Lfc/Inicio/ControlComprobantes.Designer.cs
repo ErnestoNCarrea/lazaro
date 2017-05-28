@@ -58,7 +58,7 @@ namespace Lfc.Inicio
                         // BotonListadoFacturas
                         // 
                         this.BotonListadoFacturas.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonListadoFacturas.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonListadoFacturas.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonListadoFacturas.Image = ((System.Drawing.Image)(resources.GetObject("BotonListadoFacturas.Image")));
                         this.BotonListadoFacturas.Location = new System.Drawing.Point(447, 5);
                         this.BotonListadoFacturas.Margin = new System.Windows.Forms.Padding(5);
@@ -71,7 +71,7 @@ namespace Lfc.Inicio
                         // BotonListadoRecibos
                         // 
                         this.BotonListadoRecibos.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonListadoRecibos.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonListadoRecibos.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonListadoRecibos.Image = ((System.Drawing.Image)(resources.GetObject("BotonListadoRecibos.Image")));
                         this.BotonListadoRecibos.Location = new System.Drawing.Point(253, 5);
                         this.BotonListadoRecibos.Margin = new System.Windows.Forms.Padding(5);
@@ -84,7 +84,7 @@ namespace Lfc.Inicio
                         // BotonCrearFactura
                         // 
                         this.BotonCrearFactura.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearFactura.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearFactura.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearFactura.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearFactura.Image")));
                         this.BotonCrearFactura.Location = new System.Drawing.Point(14, 5);
                         this.BotonCrearFactura.Margin = new System.Windows.Forms.Padding(5);
@@ -97,7 +97,7 @@ namespace Lfc.Inicio
                         // BotonCrearRecibo
                         // 
                         this.BotonCrearRecibo.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonCrearRecibo.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.BotonCrearRecibo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.BotonCrearRecibo.Image = ((System.Drawing.Image)(resources.GetObject("BotonCrearRecibo.Image")));
                         this.BotonCrearRecibo.Location = new System.Drawing.Point(450, 66);
                         this.BotonCrearRecibo.Margin = new System.Windows.Forms.Padding(5);
@@ -111,7 +111,7 @@ namespace Lfc.Inicio
                         // 
                         this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.label1.Font = new System.Drawing.Font("Bitstream Vera Sans", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.label1.Location = new System.Drawing.Point(10, 240);
                         this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label1.Name = "label1";
@@ -125,7 +125,7 @@ namespace Lfc.Inicio
                         // label2
                         // 
                         this.label2.AutoSize = true;
-                        this.label2.Font = new System.Drawing.Font("Bitstream Vera Sans", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.label2.Location = new System.Drawing.Point(80, 190);
                         this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.label2.Name = "label2";
