@@ -92,6 +92,11 @@ namespace Lbl.Cajas
                 }
 
 
+                /// <summary>
+                /// Obtiene el saldo actual de la caja.
+                /// </summary>
+                /// <param name="forUpdate">Indica si es una consulta con fines de actualizar el saldo.</param>
+                /// <returns>El saldo en la moneda de la caja.</returns>
                 public virtual decimal ObtenerSaldo(bool forUpdate)
 		{
                         qGen.Select SelSaldo = new qGen.Select("cajas_movim", forUpdate);
@@ -102,6 +107,23 @@ namespace Lbl.Cajas
 
                         return this.Connection.FieldDecimal(SelSaldo);
 		}
+
+
+                /// <summary>
+                /// Obtiene el último movimiento de la caja.
+                /// </summary>
+                /// <returns>El último movimiento registrado en la caja.</returns>
+                public Movimiento ObtenerUltimoMovimiento()
+                {
+                        qGen.Select SelUltimoMovim = new qGen.Select("cajas_movim");
+                        SelUltimoMovim.Columns = new qGen.SqlIdentifierCollection() { "*" };
+                        SelUltimoMovim.WhereClause = new qGen.Where("id_caja", this.Id);
+                        SelUltimoMovim.Order = "id_movim DESC";
+                        SelUltimoMovim.Window = new qGen.Window(1);
+
+                        return new Movimiento(this.Connection, this.Connection.FirstRowFromSelect(SelUltimoMovim));
+                }
+
 
                 public Bancos.Banco Banco
                 {

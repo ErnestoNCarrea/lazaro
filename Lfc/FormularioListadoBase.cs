@@ -1188,10 +1188,10 @@ namespace Lfc
 
                 protected virtual Lazaro.Pres.Spreadsheet.Row FormatRow(int itemId, Lfx.Data.Row row, Lazaro.Pres.Spreadsheet.Sheet sheet, Lazaro.Pres.FieldCollection useFields)
                 {
-                        Lazaro.Pres.Spreadsheet.Row Reng = new Lazaro.Pres.Spreadsheet.Row(sheet);
+                        var Reng = new Lazaro.Pres.Spreadsheet.Row(sheet);
 
                         if (this.Definicion.KeyColumn != null && this.Definicion.KeyColumn.Printable) {
-                                Lazaro.Pres.Spreadsheet.Cell KeyCell = Reng.Cells.Add();
+                                var KeyCell = Reng.Cells.Add();
                                 KeyCell.Content = itemId;
                         }
 
@@ -1202,6 +1202,8 @@ namespace Lfc
 
                                         if (FieldNum >= 0) {
                                                 Lazaro.Pres.Spreadsheet.Cell NewCell = Reng.Cells.Add();
+
+                                                System.Console.WriteLine(useFields[FieldNum].DataType.ToString());
 
                                                 switch (useFields[FieldNum].DataType) {
                                                         case Lfx.Data.InputFieldTypes.Integer:

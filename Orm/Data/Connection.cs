@@ -415,7 +415,12 @@ namespace Lazaro.Orm.Data
                                 EnableRecover = true;
                                 return false;
                         } else {
-                                return true;
+                                if (ex.Message.IndexOf("There is already an open DataReader associated with this Connection which must be closed first", StringComparison.InvariantCulture) >= 0) {
+                                        System.Threading.Thread.Sleep(1000);
+                                        return false;
+                                } else {
+                                        return true;
+                                }
                         }
                 }
 

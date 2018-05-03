@@ -475,6 +475,8 @@ namespace qGen
                                 return "'" + (((DbDateTime)(value)).Value).ToString(SqlDateTimeFormat) + "'";
                         } else if (value is DateTime) {
                                 return "'" + ((DateTime)value).ToString(SqlDateTimeFormat) + "'";
+                        } else if (value is Enum) {
+                                return ((int)value).ToString();
                         } else if (value is int || value is long) {
                                 return value.ToString();
                         } else if (value is SqlExpression) {
@@ -673,23 +675,19 @@ namespace qGen
 
                         StringBuilder CmdText = new StringBuilder();
 
-                        this.PopulateParameters(connection, DbCommand.Parameters, bulkInsertCommand.InsertCommands[0].ColumnValues, 0);
-
-                        if (bulkInsertCommand.InsertCommands.Count > 1) {
+                        if (bulkInsertCommand.InsertCommands.Count >= 1) {
                                 var Line = 0;
                                 foreach (var Ic in bulkInsertCommand.InsertCommands) {
                                         if(Line == 0) {
-                                                // Skip first INSERT, which is already included above
                                                 CmdText.Append("INSERT INTO ");
                                                 CmdText.Append(this.SqlText(bulkInsertCommand.Tables));
                                                 CmdText.Append(" ");
-                                                CmdText.Append(this.SqlText(bulkInsertCommand.InsertCommands[0].ColumnValues, ColumnValueFormatStyles.InsertStyle, true, 0));
-
+                                                CmdText.Append(this.SqlText(Ic.ColumnValues, ColumnValueFormatStyles.InsertStyle, true, Line));
                                         } else {
                                                 CmdText.AppendLine(", ");
                                                 CmdText.Append(this.SqlText(Ic.ColumnValues, ColumnValueFormatStyles.InsertStyleValuesOnly, true, Line));
-                                                this.PopulateParameters(connection, DbCommand.Parameters, Ic.ColumnValues, Line);
                                         }
+                                        this.PopulateParameters(connection, DbCommand.Parameters, Ic.ColumnValues, Line);
                                         ++Line;
                                 }
                         }

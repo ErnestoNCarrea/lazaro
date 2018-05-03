@@ -144,7 +144,7 @@ namespace Lfc.Comprobantes.Facturas
                         }
 
                         if (Res.Cliente != null) {
-                                this.AplicaIva = Res.Cliente.PagaIva != Lbl.Impuestos.SituacionIva.Exento;
+                                this.AplicaIva = Res.Cliente.ObtenerSituacionIva() != Lbl.Impuestos.SituacionIva.Exento;
                         }
 
                         if (Res.IdRemito == 0)
@@ -402,7 +402,7 @@ Un cliente " + Comprob.Cliente.SituacionTributaria.ToString() + @" debería llev
                                                                         // Si la nueva forma de pago es cta. cte., asiento el saldo
                                                                         // Y uso saldo a favor, si lo hay
                                                                         decimal Saldo = Factura.Cliente.CuentaCorriente.ObtenerSaldo(true);
-                                                                        Factura.Cliente.CuentaCorriente.Movimiento(true,
+                                                                        Factura.Cliente.CuentaCorriente.AsentarMovimiento(true,
                                                                                 Lbl.Cajas.Concepto.IngresosPorFacturacion,
                                                                                 "Saldo a Cta. Cte. s/" + Factura.ToString(),
                                                                                 Factura.ImporteImpago,

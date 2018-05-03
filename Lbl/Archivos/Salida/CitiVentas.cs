@@ -52,7 +52,7 @@ namespace Lbl.Archivos.Salida
                         Renglon += "PES";  // Codigo de moneda 
                         Renglon += "000100";  // Tipo de cambio 
                         Renglon += ComprobanteFacturable.AlicuotasUsadas().Count.ToString().PadLeft(5, '0');   // Cantidad de alicuotas de IVA 
-                        if (ComprobanteFacturable.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
+                        if (ComprobanteFacturable.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento) {
                                 Renglon += "N";
                         } else {
                                 Renglon += "0";        // Codigo de operacion

@@ -235,7 +235,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                if(this.IvaDiscriminado()) {
+                                if(this.ComprobanteDiscriminaIva()) {
                                         return this.ImporteUnitario * this.FactorDescuentoRecargo;
                                 } else {
                                         return (this.ImporteUnitario - this.ImporteIvaUnitario) * this.FactorDescuentoRecargo;
@@ -252,8 +252,8 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                if (this.IvaDiscriminado()) {
-                                        return this.ImporteUnitario + this.ImporteIvaUnitario * this.FactorDescuentoRecargo;
+                                if (this.ComprobanteDiscriminaIva()) {
+                                        return (this.ImporteUnitario + this.ImporteIvaUnitario) * this.FactorDescuentoRecargo;
                                 } else {
                                         return this.ImporteUnitario * this.FactorDescuentoRecargo;
                                 }
@@ -263,16 +263,14 @@ namespace Lbl.Comprobantes
 
 
                 /// <summary>
-                /// Devuelve Verdadero si este detalle tiene el IVA discriminado.
+                /// Devuelve el importe total, siempre con IVA incluído, aplicando descuentos o recargos.
                 /// </summary>
-                /// <returns></returns>
-                public bool IvaDiscriminado()
+                public decimal ImporteTotalConIvaFinal
                 {
-                        var Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                        if(Comprob == null) {
-                                return false;
-                        } else {
-                                return Comprob.DiscriminaIva;
+                        get
+                        {
+                                return this.ImporteUnitarioConIvaFinal * this.Cantidad;
+
                         }
                 }
 
@@ -296,8 +294,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                if(Comprob != null && Comprob.Tipo.DiscriminaIva) {
+                                if (this.ComprobanteDiscriminaIva()) {
                                         return this.ImporteUnitario;
                                 } else {
                                         return this.ImporteUnitario;
@@ -309,7 +306,7 @@ namespace Lbl.Comprobantes
                 /// <summary>
                 /// Devuelve el precio unitario a facturar, según la discriminación de IVA del comprobante.
                 /// </summary>
-                public decimal ImporteUnitarioConIvaDiscriminado
+                public decimal ImporteUnitarioConIva
                 {
                         get
                         {
@@ -325,8 +322,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
+                                if (this.ComprobanteDiscriminaIva()) {
                                         return this.ImporteIvaUnitario;
                                 } else {
                                         return 0m;
@@ -342,8 +338,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
-                                if (Comprob != null && Comprob.Tipo.DiscriminaIva) {
+                                if (this.ComprobanteDiscriminaIva()) {
                                         return this.ImporteIvaUnitario * this.Cantidad * this.FactorDescuentoRecargo;
                                 } else {
                                         return 0m;
@@ -360,7 +355,7 @@ namespace Lbl.Comprobantes
                         Lbl.Impuestos.Alicuota Alic = this.ObtenerAlicuota();
 
                         if (Alic != null && Alic.Id == idAlicuota) {
-                                if (this.IvaDiscriminado()) {
+                                if (this.ComprobanteDiscriminaIva()) {
                                         return (this.ImporteUnitario + this.ImporteIvaUnitario) * this.Cantidad * this.FactorDescuentoRecargo;
                                 } else {
                                         return this.ImporteUnitario * this.Cantidad * this.FactorDescuentoRecargo;
@@ -595,7 +590,9 @@ namespace Lbl.Comprobantes
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
-                        qGen.IStatement Comando = new qGen.Insert(this.TablaDatos);
+                        throw new InvalidOperationException("Se debe llamar a ComprobanteConArticulos.Guardar()");
+
+                        /* qGen.IStatement Comando = new qGen.Insert(this.TablaDatos);
                         Comando.ColumnValues.AddWithValue("id_comprob", this.IdComprobante);
                         Comando.ColumnValues.AddWithValue("orden", this.Orden);
 
@@ -623,8 +620,8 @@ namespace Lbl.Comprobantes
                                 Comando.ColumnValues.AddWithValue("costo", this.Articulo.Costo);
                         else
                                 Comando.ColumnValues.AddWithValue("costo", this.Costo);
-                        Comando.ColumnValues.AddWithValue("importe", this.ImporteUnitarioAImprimir);
                         Comando.ColumnValues.AddWithValue("importe", this.ImporteAImprimir);
+                        Comando.ColumnValues.AddWithValue("total", this.ImporteTotalConIvaFinal);
                         Comando.ColumnValues.AddWithValue("series", this.DatosSeguimiento);
                         Comando.ColumnValues.AddWithValue("obs", this.Obs);
 
@@ -632,7 +629,17 @@ namespace Lbl.Comprobantes
 
                         this.Connection.ExecuteNonQuery(Comando);
 
-                        return base.Guardar();
+                        return base.Guardar(); */
+                }
+
+
+                /// <summary>
+                /// Devuelve Verdadero si este detalle tiene el IVA discriminado.
+                /// </summary>
+                public bool ComprobanteDiscriminaIva()
+                {
+                        Lbl.Comprobantes.ComprobanteConArticulos Comprob = this.ElementoPadre as Lbl.Comprobantes.ComprobanteConArticulos;
+                        return Comprob != null && Comprob.Tipo.DiscriminaIva;
                 }
 
 

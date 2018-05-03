@@ -106,7 +106,7 @@ namespace Lcc.Edicion.Comprobantes
                                                 if (IdChequera == 0)
                                                         return new Lfx.Types.FailureOperationResult("El Número de cheque no corresponde a ninguna Chequera del banco seleccionado.");
 
-                                                int IdChequePrevio = this.Connection.FieldInt("SELECT id_cheque FROM bancos_cheques WHERE estado<>90 AND numero=" + Lfx.Types.Parsing.ParseInt(EntradaNumeroCheque.Text).ToString() + " AND (id_sucursal=" + Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual.ToString() + " OR id_sucursal IS NULL)");
+                                                int IdChequePrevio = this.Connection.FieldInt("SELECT id_cheque FROM bancos_cheques WHERE estado<>90 AND numero=" + Lfx.Types.Parsing.ParseInt(EntradaNumeroCheque.Text).ToString() + " AND id_banco="+ Lfx.Types.Parsing.ParseInt(EntradaBanco.Text).ToString() + " AND (id_sucursal=" + Lfx.Workspace.Master.CurrentConfig.Empresa.SucursalActual.ToString() + " OR id_sucursal IS NULL)");
                                                 if (IdChequePrevio != 0)
                                                         return new Lfx.Types.FailureOperationResult("El Número corresponde a un cheque que ya fue emitido.");
 

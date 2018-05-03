@@ -318,7 +318,11 @@ namespace Lbl
                         NuevoCom.ColumnValues.AddWithValue("tabla", this.TablaDatos);
                         NuevoCom.ColumnValues.AddWithValue("comando", "Comment");
                         NuevoCom.ColumnValues.AddWithValue("item_id", this.Id);
-                        NuevoCom.ColumnValues.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                        if(Lbl.Sys.Config.Actual.UsuarioConectado == null || Lbl.Sys.Config.Actual.UsuarioConectado.Id == 0) {
+                                NuevoCom.ColumnValues.AddWithValue("usuario", null);
+                        } else {
+                                NuevoCom.ColumnValues.AddWithValue("usuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                        }
                         NuevoCom.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
                         NuevoCom.ColumnValues.AddWithValue("extra1", texto);
 
@@ -547,7 +551,7 @@ namespace Lbl
 		{
                         get
                         {
-                                return !Registro.IsNew;
+                                return this.Id > 0;
                         }
 		}
 

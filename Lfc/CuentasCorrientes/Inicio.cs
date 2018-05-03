@@ -280,7 +280,7 @@ namespace Lfc.CuentasCorrientes
                                                 if (ClienteId > 0) {
                                                         Lbl.CuentasCorrientes.CuentaCorriente CtaCte = new Lbl.CuentasCorrientes.CuentaCorriente(new Lbl.Personas.Persona(this.Connection, ClienteId));
                                                         using (IDbTransaction Trans = CtaCte.Connection.BeginTransaction()) {
-                                                                CtaCte.Movimiento(false,
+                                                                CtaCte.AsentarMovimiento(false,
                                                                         FormAjuste.EntradaConcepto.Elemento as Lbl.Cajas.Concepto,
                                                                         FormAjuste.EntradaConcepto.TextDetail,
                                                                         Importe,

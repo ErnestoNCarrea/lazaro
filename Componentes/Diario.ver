@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VersionInfo>
+  <Package name="Diario">
+    <File name="Diario.dll" version="2011-10-18 15:28:04" size="77824" compression="bz2" compsize="23758" />
+    <File name="Diario.pdb" version="2011-10-18 15:28:04" size="95744" compression="bz2" compsize="22802" />
+  </Package>
+</VersionInfo>

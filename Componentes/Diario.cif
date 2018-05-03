@@ -1,0 +1,11 @@
+﻿<Component Disabled="0">
+
+  <MenuItem name="Listado" position="Expedientes" function="ExpedientesInicio" />
+  <MenuItem name="Facturación por lote" position="Expedientes" function="ExpedientesFacturarLote" />
+  <MenuItem name="Listado de publicación" position="Expedientes" function="ExpedientesPublicacion" />
+
+  <Function name="ExpedientesInicio" />
+  <Function name="ExpedientesPublicacion" />
+  <Function name="ExpedientesFacturarLote" />
+
+</Component>

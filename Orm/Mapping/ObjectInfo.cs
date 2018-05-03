@@ -107,10 +107,22 @@ namespace Lazaro.Orm.Mapping
 
                 public void SetColumnValue(object obj, ColumnMetadata col, object newValue)
                 {
+                        object ValueToSet;
+
+                        if(newValue is DBNull) {
+                                ValueToSet = newValue is DBNull ? null : newValue;
+                        } else if(newValue is SByte) {
+                                ValueToSet = Convert.ToBoolean(newValue);
+                        } else {
+                                // TODO: convert other types using Convert.ToXXX?
+                                ValueToSet = newValue;
+                        }
+
+
                         if (col.PropertyInfo != null) {
-                                col.PropertyInfo.SetValue(obj, newValue, null);
+                                col.PropertyInfo.SetValue(obj, ValueToSet, null);
                         } else if (col.FieldInfo != null) {
-                                col.FieldInfo.SetValue(obj, newValue);
+                                col.FieldInfo.SetValue(obj, ValueToSet);
                         } else {
                                 throw new ApplicationException("Column has no associated field or property.");
                         }

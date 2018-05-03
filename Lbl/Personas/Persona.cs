@@ -347,17 +347,14 @@ namespace Lbl.Personas
                         }
                 }
 
-                public Impuestos.SituacionIva PagaIva
+                public Impuestos.SituacionIva ObtenerSituacionIva()
                 {
-                        get
-                        {
-                                if (this.SituacionTributaria != null && this.SituacionTributaria.Id == 5)
-                                        return Impuestos.SituacionIva.Exento;
-                                else if (this.Localidad == null)
-                                        return Impuestos.SituacionIva.Predeterminado;
-                                else
-                                        return this.Localidad.ObtenerIva();
-                        }
+                        if (this.SituacionTributaria != null && this.SituacionTributaria.Id == 5)
+                                return Impuestos.SituacionIva.Exento;
+                        else if (this.Localidad == null)
+                                return Impuestos.SituacionIva.Predeterminado;
+                        else
+                                return this.Localidad.ObtenerIva();
                 }
 
 

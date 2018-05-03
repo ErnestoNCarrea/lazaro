@@ -8,10 +8,18 @@ namespace Lbl.CuentasCorrientes
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Movimiento de cuenta corriente", Grupo = "Cuentas")]
         [Lbl.Atributos.Datos(TablaDatos = "ctacte", CampoId = "id_movim", CampoNombre = "concepto")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Nunca)]
+
+        [Entity(TableName = "ctacte", IdFieldName = "id_movim")]
         public class Movimiento : ElementoDeDatos
         {
+                Lbl.Personas.Persona m_Persona = null;
+                Lbl.Cajas.Concepto m_Concepto = null;
+
+                public Movimiento()
+                        : base() { }
+
                 //Heredar constructor
-		public Movimiento(Lfx.Data.IConnection dataBase)
+                public Movimiento(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
 
 		public Movimiento(Lfx.Data.IConnection dataBase, int itemId)
@@ -24,7 +32,7 @@ namespace Lbl.CuentasCorrientes
                 /// <summary>
                 /// Obtiene o establece el nombre del elemento.
                 /// </summary>
-                [Column(Name = "nombre", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
+                [Column(Name = "concepto", Type = ColumnTypes.VarChar, Length = 200, Nullable = false)]
                 public string Nombre
                 {
                         get
@@ -69,6 +77,10 @@ namespace Lbl.CuentasCorrientes
                         {
                                 return this.GetFieldValue<DateTime>("fecha");
                         }
+                        set
+                        {
+                                this.SetFieldValue("fecha", value);
+                        }
                 }
 
 
@@ -104,6 +116,7 @@ namespace Lbl.CuentasCorrientes
                 }
 
 
+                [Column(Name = "id_cliente")]
                 protected internal int IdCliente
                 {
                         get
@@ -117,6 +130,7 @@ namespace Lbl.CuentasCorrientes
                 }
 
 
+                [Column(Name = "id_concepto")]
                 protected internal int IdConcepto
                 {
                         get
@@ -130,6 +144,7 @@ namespace Lbl.CuentasCorrientes
                 }
 
 
+                [Column(Name = "importe")]
                 public decimal Importe
                 {
                         get
@@ -143,6 +158,21 @@ namespace Lbl.CuentasCorrientes
                 }
 
 
+                [Column(Name = "saldo")]
+                public decimal Saldo
+                {
+                        get
+                        {
+                                return this.GetFieldValue<decimal>("saldo");
+                        }
+                        set
+                        {
+                                this.Registro["saldo"] = value;
+                        }
+                }
+
+
+                [Column(Name = "comprob")]
                 public string Comprobantes
                 {
                         get
@@ -155,6 +185,8 @@ namespace Lbl.CuentasCorrientes
                         }
                 }
 
+
+                [Column(Name = "auto")]
                 public bool Auto
                 {
                         get
@@ -164,6 +196,37 @@ namespace Lbl.CuentasCorrientes
                         set
                         {
                                 this.Registro["auto"] = value ? 1 : 0;
+                        }
+                }
+
+                public Lbl.Personas.Persona Persona
+                {
+                        get
+                        {
+                                if (IdCliente > 0)
+                                        m_Persona = new Personas.Persona(this.Connection, IdCliente);
+                                return m_Persona;
+                        }
+                        set
+                        {
+                                m_Persona = value;
+                                IdCliente = m_Persona.Id;
+                        }
+                }
+
+                public Cajas.Concepto Concepto
+                {
+                        get
+                        {
+                                if (m_Concepto == null && IdConcepto > 0)
+                                        m_Concepto = new Cajas.Concepto(this.Connection,IdConcepto);
+
+                                return m_Concepto;
+                        }
+                        set
+                        {
+                                m_Concepto = value;
+                                IdConcepto= m_Concepto.Id;
                         }
                 }
 

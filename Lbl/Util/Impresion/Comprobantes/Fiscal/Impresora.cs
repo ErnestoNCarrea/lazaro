@@ -747,7 +747,7 @@ namespace Lazaro.Base.Util.Impresion.Comprobantes.Fiscal
                                 decimal Cantidad = Detalle.Cantidad;
                                 decimal Unitario = Detalle.ImporteUnitarioFinalAImprimir;
                                 decimal PctIva = 0;
-                                if (Comprob.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
+                                if (Comprob.Cliente.ObtenerSituacionIva() == Lbl.Impuestos.SituacionIva.Exento) {
                                         PctIva = 0;
                                 } else {
                                         var Alicuota = Detalle.Alicuota;

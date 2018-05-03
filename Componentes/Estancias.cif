@@ -1,0 +1,10 @@
+﻿<Component Disabled="0">
+
+  <MenuItem name="Factura" position="Estancias" function="Factura" />
+  <MenuItem name="-" position="Estancias" />
+  <MenuItem name="Reportes" position="Estancias" function="Reportes" />
+
+  <Function name="Factura" />
+  <Function name="Reportes" />
+
+</Component>

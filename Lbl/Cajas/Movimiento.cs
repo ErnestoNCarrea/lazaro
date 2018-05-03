@@ -17,5 +17,37 @@ namespace Lbl.Cajas
 
                 public Movimiento(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
                         : base(dataBase, row) { }
+
+
+                /// <summary>
+                /// El importe del movimiento.
+                /// </summary>
+                public decimal Importe
+                {
+                        get
+                        {
+                                return this.GetFieldValue<decimal>("importe");
+                        }
+                        set
+                        {
+                                this.Registro["importe"] = value;
+                        }
+                }
+
+
+                /// <summary>
+                /// El saldo después de hacer este movimiento.
+                /// </summary>
+                public decimal Saldo
+                {
+                        get
+                        {
+                                return this.GetFieldValue<decimal>("saldo");
+                        }
+                        set
+                        {
+                                this.Registro["saldo"] = value;
+                        }
+                }
         }
 }

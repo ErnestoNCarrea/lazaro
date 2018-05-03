@@ -400,7 +400,7 @@ namespace Lbl.Comprobantes
                         }
 
                         CancelarImpagos(this.Cliente, this.Facturas, this, this.DePago ? -this.Total : this.Total);
-                        this.Cliente.CuentaCorriente.Movimiento(true, this.Concepto, this.ConceptoTexto, this.DePago ? this.Total : -this.Total, this.Obs, null, this, this.ToString());
+                        this.Cliente.CuentaCorriente.AsentarMovimiento(true, this.Concepto, this.ConceptoTexto, this.DePago ? this.Total : -this.Total, this.Obs, null, this, this.ToString());
 
                         base.Guardar();
 
@@ -609,7 +609,7 @@ namespace Lbl.Comprobantes
                                 }
 
                                 DescancelarImpagos(this.Cliente, this.Facturas, this, this.DePago ? -this.Total : this.Total);
-                                this.Cliente.CuentaCorriente.Movimiento(true, this.Concepto, "Anulación de " + this.ToString(), this.DePago ? -this.Total : this.Total, this.Obs, null, this, null);
+                                this.Cliente.CuentaCorriente.AsentarMovimiento(true, this.Concepto, "Anulación de " + this.ToString(), this.DePago ? -this.Total : this.Total, this.Obs, null, this, null);
                         }
                 }
         }

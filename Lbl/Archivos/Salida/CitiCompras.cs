@@ -46,7 +46,7 @@ namespace Lbl.Archivos.Salida
                         } else {
                                 Renglon += "".PadLeft(5, '0'); // Cantidad de alicuotas de IVA 234-238
                         }
-                        if (ComprobanteFacturable.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
+                        if (ComprobanteFacturable.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento) {
                                 Renglon += "N";
                         } else {
 

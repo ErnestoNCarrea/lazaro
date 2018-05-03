@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VersionInfo>
+  <Package name="Estancias">
+    <File name="Estancias.dll" version="2011-10-18 15:28:04" size="56320" compression="bz2" compsize="18772" />
+    <File name="Estancias.pdb" version="2011-10-18 15:28:04" size="69120" compression="bz2" compsize="16304" />
+  </Package>
+</VersionInfo>

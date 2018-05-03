@@ -24,7 +24,7 @@ namespace Lbl.Archivos.Salida
                 {
                         var Res = new List<string>();
                         var Alicuotas = ComprobanteFacturable.AlicuotasUsadas();
-                        if (ComprobanteFacturable.Cliente.PagaIva == Impuestos.SituacionIva.Exento) {
+                        if (ComprobanteFacturable.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento) {
                                 decimal ImporteIva = 0m;
                                 decimal ImporteGravado = ComprobanteFacturable.Total - ImporteIva;
                                 string Renglon = ((int)(CitiTablas.ComprobantesTiposPorLetra[ComprobanteFacturable.Tipo.Nomenclatura])).ToString().PadLeft(3, '0');  // Tipo de comprobante 1-3

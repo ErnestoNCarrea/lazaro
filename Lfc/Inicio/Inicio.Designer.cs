@@ -57,10 +57,9 @@ namespace Lfc.Inicio
                         this.BotonWebInicio.AutoSize = true;
                         this.BotonWebInicio.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonWebInicio.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonWebInicio.Location = new System.Drawing.Point(990, 770);
-                        this.BotonWebInicio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonWebInicio.Location = new System.Drawing.Point(792, 616);
                         this.BotonWebInicio.Name = "BotonWebInicio";
-                        this.BotonWebInicio.Size = new System.Drawing.Size(189, 23);
+                        this.BotonWebInicio.Size = new System.Drawing.Size(145, 17);
                         this.BotonWebInicio.TabIndex = 3;
                         this.BotonWebInicio.TabStop = true;
                         this.BotonWebInicio.Text = "www.lazarogestion.com";
@@ -73,10 +72,9 @@ namespace Lfc.Inicio
                         this.BotonForoWeb.AutoSize = true;
                         this.BotonForoWeb.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonForoWeb.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonForoWeb.Location = new System.Drawing.Point(300, 90);
-                        this.BotonForoWeb.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonForoWeb.Location = new System.Drawing.Point(240, 72);
                         this.BotonForoWeb.Name = "BotonForoWeb";
-                        this.BotonForoWeb.Size = new System.Drawing.Size(131, 23);
+                        this.BotonForoWeb.Size = new System.Drawing.Size(104, 17);
                         this.BotonForoWeb.TabIndex = 5;
                         this.BotonForoWeb.TabStop = true;
                         this.BotonForoWeb.Text = "Foro de soporte";
@@ -86,10 +84,9 @@ namespace Lfc.Inicio
                         // label1
                         // 
                         this.label1.AutoSize = true;
-                        this.label1.Location = new System.Drawing.Point(20, 15);
-                        this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label1.Location = new System.Drawing.Point(16, 12);
                         this.label1.Name = "label1";
-                        this.label1.Size = new System.Drawing.Size(212, 37);
+                        this.label1.Size = new System.Drawing.Size(173, 30);
                         this.label1.TabIndex = 0;
                         this.label1.Text = "Ayuda en la web";
                         this.label1.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.MainHeader;
@@ -100,10 +97,9 @@ namespace Lfc.Inicio
                         this.BotonWebPrimerosPasos.AutoSize = true;
                         this.BotonWebPrimerosPasos.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonWebPrimerosPasos.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonWebPrimerosPasos.Location = new System.Drawing.Point(60, 60);
-                        this.BotonWebPrimerosPasos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonWebPrimerosPasos.Location = new System.Drawing.Point(48, 48);
                         this.BotonWebPrimerosPasos.Name = "BotonWebPrimerosPasos";
-                        this.BotonWebPrimerosPasos.Size = new System.Drawing.Size(125, 23);
+                        this.BotonWebPrimerosPasos.Size = new System.Drawing.Size(99, 17);
                         this.BotonWebPrimerosPasos.TabIndex = 6;
                         this.BotonWebPrimerosPasos.TabStop = true;
                         this.BotonWebPrimerosPasos.Text = "Primeros pasos";
@@ -116,10 +112,9 @@ namespace Lfc.Inicio
                         this.BotonAyudaWeb.AutoSize = true;
                         this.BotonAyudaWeb.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonAyudaWeb.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonAyudaWeb.Location = new System.Drawing.Point(60, 90);
-                        this.BotonAyudaWeb.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonAyudaWeb.Location = new System.Drawing.Point(48, 72);
                         this.BotonAyudaWeb.Name = "BotonAyudaWeb";
-                        this.BotonAyudaWeb.Size = new System.Drawing.Size(136, 23);
+                        this.BotonAyudaWeb.Size = new System.Drawing.Size(104, 17);
                         this.BotonAyudaWeb.TabIndex = 7;
                         this.BotonAyudaWeb.TabStop = true;
                         this.BotonAyudaWeb.Text = "Ayuda en la web";
@@ -132,10 +127,9 @@ namespace Lfc.Inicio
                         this.BotonWebComoFactura.AutoSize = true;
                         this.BotonWebComoFactura.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonWebComoFactura.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonWebComoFactura.Location = new System.Drawing.Point(300, 60);
-                        this.BotonWebComoFactura.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonWebComoFactura.Location = new System.Drawing.Point(240, 48);
                         this.BotonWebComoFactura.Name = "BotonWebComoFactura";
-                        this.BotonWebComoFactura.Size = new System.Drawing.Size(167, 23);
+                        this.BotonWebComoFactura.Size = new System.Drawing.Size(126, 17);
                         this.BotonWebComoFactura.TabIndex = 8;
                         this.BotonWebComoFactura.TabStop = true;
                         this.BotonWebComoFactura.Text = "Imprimir una factura";
@@ -151,10 +145,9 @@ namespace Lfc.Inicio
                         this.PanelWeb.Controls.Add(this.BotonForoWeb);
                         this.PanelWeb.Controls.Add(this.BotonAyudaWeb);
                         this.PanelWeb.Controls.Add(this.BotonWebPrimerosPasos);
-                        this.PanelWeb.Location = new System.Drawing.Point(60, 560);
-                        this.PanelWeb.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+                        this.PanelWeb.Location = new System.Drawing.Point(48, 448);
                         this.PanelWeb.Name = "PanelWeb";
-                        this.PanelWeb.Size = new System.Drawing.Size(600, 130);
+                        this.PanelWeb.Size = new System.Drawing.Size(480, 104);
                         this.PanelWeb.TabIndex = 9;
                         // 
                         // PanelActualizarAlmacen
@@ -167,19 +160,17 @@ namespace Lfc.Inicio
                         this.PanelActualizarAlmacen.Controls.Add(this.BotonActualizarAlmacen);
                         this.PanelActualizarAlmacen.Controls.Add(this.label3);
                         this.PanelActualizarAlmacen.Controls.Add(this.label2);
-                        this.PanelActualizarAlmacen.Location = new System.Drawing.Point(60, 60);
-                        this.PanelActualizarAlmacen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+                        this.PanelActualizarAlmacen.Location = new System.Drawing.Point(48, 48);
                         this.PanelActualizarAlmacen.Name = "PanelActualizarAlmacen";
-                        this.PanelActualizarAlmacen.Size = new System.Drawing.Size(1140, 691);
+                        this.PanelActualizarAlmacen.Size = new System.Drawing.Size(912, 553);
                         this.PanelActualizarAlmacen.TabIndex = 11;
                         this.PanelActualizarAlmacen.Visible = false;
                         // 
                         // label5
                         // 
-                        this.label5.Location = new System.Drawing.Point(22, 230);
-                        this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label5.Location = new System.Drawing.Point(18, 184);
                         this.label5.Name = "label5";
-                        this.label5.Size = new System.Drawing.Size(1089, 34);
+                        this.label5.Size = new System.Drawing.Size(871, 27);
                         this.label5.TabIndex = 7;
                         this.label5.Text = "Si no desea actualizar el almacén de datos ahora, haga clic en el enlace:";
                         // 
@@ -189,10 +180,9 @@ namespace Lfc.Inicio
                         this.BotonNoActualizarAlmacen.AutoSize = true;
                         this.BotonNoActualizarAlmacen.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonNoActualizarAlmacen.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonNoActualizarAlmacen.Location = new System.Drawing.Point(22, 264);
-                        this.BotonNoActualizarAlmacen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonNoActualizarAlmacen.Location = new System.Drawing.Point(18, 211);
                         this.BotonNoActualizarAlmacen.Name = "BotonNoActualizarAlmacen";
-                        this.BotonNoActualizarAlmacen.Size = new System.Drawing.Size(299, 23);
+                        this.BotonNoActualizarAlmacen.Size = new System.Drawing.Size(231, 17);
                         this.BotonNoActualizarAlmacen.TabIndex = 6;
                         this.BotonNoActualizarAlmacen.TabStop = true;
                         this.BotonNoActualizarAlmacen.Text = "No, gracias. Tal vez en otro momento.";
@@ -201,10 +191,9 @@ namespace Lfc.Inicio
                         // 
                         // label4
                         // 
-                        this.label4.Location = new System.Drawing.Point(22, 145);
-                        this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label4.Location = new System.Drawing.Point(18, 116);
                         this.label4.Name = "label4";
-                        this.label4.Size = new System.Drawing.Size(1089, 34);
+                        this.label4.Size = new System.Drawing.Size(871, 27);
                         this.label4.TabIndex = 5;
                         this.label4.Text = "Para descargar la versión nueva del almacén de datos, visite la siguiente página:" +
     "";
@@ -215,10 +204,9 @@ namespace Lfc.Inicio
                         this.BotonActualizarAlmacen.AutoSize = true;
                         this.BotonActualizarAlmacen.Cursor = System.Windows.Forms.Cursors.Hand;
                         this.BotonActualizarAlmacen.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonActualizarAlmacen.Location = new System.Drawing.Point(22, 179);
-                        this.BotonActualizarAlmacen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.BotonActualizarAlmacen.Location = new System.Drawing.Point(18, 143);
                         this.BotonActualizarAlmacen.Name = "BotonActualizarAlmacen";
-                        this.BotonActualizarAlmacen.Size = new System.Drawing.Size(347, 23);
+                        this.BotonActualizarAlmacen.Size = new System.Drawing.Size(268, 17);
                         this.BotonActualizarAlmacen.TabIndex = 4;
                         this.BotonActualizarAlmacen.TabStop = true;
                         this.BotonActualizarAlmacen.Text = "http://lazarogestion.com/descargar/servidor";
@@ -227,20 +215,18 @@ namespace Lfc.Inicio
                         // 
                         // label3
                         // 
-                        this.label3.Location = new System.Drawing.Point(22, 81);
-                        this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label3.Location = new System.Drawing.Point(18, 65);
                         this.label3.Name = "label3";
-                        this.label3.Size = new System.Drawing.Size(1089, 55);
+                        this.label3.Size = new System.Drawing.Size(871, 44);
                         this.label3.TabIndex = 2;
                         this.label3.Text = resources.GetString("label3.Text");
                         // 
                         // label2
                         // 
                         this.label2.AutoSize = true;
-                        this.label2.Location = new System.Drawing.Point(20, 26);
-                        this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.label2.Location = new System.Drawing.Point(16, 21);
                         this.label2.Name = "label2";
-                        this.label2.Size = new System.Drawing.Size(349, 37);
+                        this.label2.Size = new System.Drawing.Size(282, 30);
                         this.label2.TabIndex = 1;
                         this.label2.Text = "Actualizar almacén de datos";
                         this.label2.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.MainHeader;
@@ -254,10 +240,10 @@ namespace Lfc.Inicio
     "ticamente el resultado.";
                         this.PanelConsejo.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelConsejo.Image = ((System.Drawing.Image)(resources.GetObject("PanelConsejo.Image")));
-                        this.PanelConsejo.Location = new System.Drawing.Point(680, 60);
-                        this.PanelConsejo.Margin = new System.Windows.Forms.Padding(6, 4, 6, 4);
+                        this.PanelConsejo.Location = new System.Drawing.Point(544, 48);
+                        this.PanelConsejo.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
                         this.PanelConsejo.Name = "PanelConsejo";
-                        this.PanelConsejo.Size = new System.Drawing.Size(520, 200);
+                        this.PanelConsejo.Size = new System.Drawing.Size(416, 160);
                         this.PanelConsejo.TabIndex = 10;
                         this.PanelConsejo.Text = "Consejo del día";
                         this.PanelConsejo.DoubleClick += new System.EventHandler(this.PanelConsejo_DoubleClick);
@@ -271,11 +257,11 @@ namespace Lfc.Inicio
                         this.PanelComprobantes.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelComprobantes.ForeColor = System.Drawing.Color.White;
                         this.PanelComprobantes.Image = ((System.Drawing.Image)(resources.GetObject("PanelComprobantes.Image")));
-                        this.PanelComprobantes.Location = new System.Drawing.Point(680, 280);
-                        this.PanelComprobantes.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-                        this.PanelComprobantes.MinimumSize = new System.Drawing.Size(520, 375);
+                        this.PanelComprobantes.Location = new System.Drawing.Point(544, 224);
+                        this.PanelComprobantes.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+                        this.PanelComprobantes.MinimumSize = new System.Drawing.Size(416, 300);
                         this.PanelComprobantes.Name = "PanelComprobantes";
-                        this.PanelComprobantes.Size = new System.Drawing.Size(520, 471);
+                        this.PanelComprobantes.Size = new System.Drawing.Size(416, 377);
                         this.PanelComprobantes.TabIndex = 2;
                         this.PanelComprobantes.Text = "Comprobantes";
                         // 
@@ -288,10 +274,10 @@ namespace Lfc.Inicio
                         this.PanelPersonas.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelPersonas.ForeColor = System.Drawing.Color.White;
                         this.PanelPersonas.Image = ((System.Drawing.Image)(resources.GetObject("PanelPersonas.Image")));
-                        this.PanelPersonas.Location = new System.Drawing.Point(60, 340);
-                        this.PanelPersonas.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+                        this.PanelPersonas.Location = new System.Drawing.Point(48, 272);
+                        this.PanelPersonas.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
                         this.PanelPersonas.Name = "PanelPersonas";
-                        this.PanelPersonas.Size = new System.Drawing.Size(600, 200);
+                        this.PanelPersonas.Size = new System.Drawing.Size(480, 160);
                         this.PanelPersonas.TabIndex = 1;
                         this.PanelPersonas.Text = "Personas";
                         // 
@@ -303,29 +289,29 @@ namespace Lfc.Inicio
                         this.PanelArticulos.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                         this.PanelArticulos.ForeColor = System.Drawing.Color.White;
                         this.PanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("PanelArticulos.Image")));
-                        this.PanelArticulos.Location = new System.Drawing.Point(60, 60);
-                        this.PanelArticulos.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+                        this.PanelArticulos.Location = new System.Drawing.Point(48, 48);
+                        this.PanelArticulos.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
                         this.PanelArticulos.Name = "PanelArticulos";
-                        this.PanelArticulos.Size = new System.Drawing.Size(600, 260);
+                        this.PanelArticulos.Size = new System.Drawing.Size(480, 208);
                         this.PanelArticulos.TabIndex = 0;
                         this.PanelArticulos.Text = "Artículos";
                         // 
                         // Inicio
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.BackColor = System.Drawing.Color.White;
-                        this.ClientSize = new System.Drawing.Size(1230, 802);
+                        this.ClientSize = new System.Drawing.Size(984, 586);
+                        this.Controls.Add(this.PanelActualizarAlmacen);
                         this.Controls.Add(this.PanelConsejo);
                         this.Controls.Add(this.PanelWeb);
                         this.Controls.Add(this.PanelComprobantes);
                         this.Controls.Add(this.PanelPersonas);
                         this.Controls.Add(this.PanelArticulos);
                         this.Controls.Add(this.BotonWebInicio);
-                        this.Controls.Add(this.PanelActualizarAlmacen);
-                        this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+                        this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
                         this.Name = "Inicio";
-                        this.Padding = new System.Windows.Forms.Padding(40, 40, 40, 40);
+                        this.Padding = new System.Windows.Forms.Padding(32, 32, 32, 32);
                         this.Text = "Inicio";
                         this.PanelWeb.ResumeLayout(false);
                         this.PanelWeb.PerformLayout();

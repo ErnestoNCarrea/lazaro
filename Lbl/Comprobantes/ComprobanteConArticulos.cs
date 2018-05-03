@@ -44,7 +44,9 @@ namespace Lbl.Comprobantes
                         base.Crear();
 
                         this.ComprobRelacionados = new ColeccionComprobanteImporte();
-                        this.Vendedor = new Lbl.Personas.Persona(this.Connection, Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                        if (this.Vendedor == null && Lbl.Sys.Config.Actual.UsuarioConectado != null && Lbl.Sys.Config.Actual.UsuarioConectado.Id > 0) {
+                                this.Vendedor = new Lbl.Personas.Persona(this.Connection, Lbl.Sys.Config.Actual.UsuarioConectado.Id);
+                        }
                 }
 
 
@@ -139,9 +141,9 @@ namespace Lbl.Comprobantes
                         get
                         {
                                 if (Lbl.Sys.Config.Moneda.UnidadMonetariaMinima > 0)
-                                        return Math.Floor((Subtotal * this.Descuento / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
+                                        return Math.Floor((this.Subtotal * this.Descuento / 100m) / Lbl.Sys.Config.Moneda.UnidadMonetariaMinima) * Lbl.Sys.Config.Moneda.UnidadMonetariaMinima;
                                 else
-                                        return Math.Round(Subtotal * this.Descuento / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
+                                        return Math.Round(this.Subtotal * this.Descuento / 100m, Lbl.Sys.Config.Moneda.DecimalesFinal);
                         }
                 }
 
@@ -421,14 +423,14 @@ namespace Lbl.Comprobantes
 
 
                 /// <summary>
-                /// Devuelve el importe de IVA orignal (antes del descuento) para esta factura.
+                /// Devuelve el importe de IVA original (antes del descuento) para esta factura.
                 /// </summary>
                 public decimal ImporteIva
                 {
                         get
                         {
                                 if (this.Cliente != null) {
-                                        if (this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
+                                        if (this.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento)
                                                 // El cliente está exento de IVA
                                                 return 0m;
                                         else if (this.Cliente.Localidad != null && this.Cliente.Localidad.ObtenerIva() == Impuestos.SituacionIva.Exento)
@@ -535,7 +537,7 @@ namespace Lbl.Comprobantes
                 {
                         get
                         {
-                                if (this.Cliente != null && this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
+                                if (this.Cliente != null && this.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento)
                                         return 0m;
 
                                 if(this.Tipo != null && this.Tipo.DiscriminaIva == false) {
@@ -603,7 +605,7 @@ namespace Lbl.Comprobantes
                 /// </summary>
                 public decimal TotalSinIvaAlicuota(int idAlicuota)
                 {
-                        if (this.Cliente != null && this.Cliente.PagaIva == Impuestos.SituacionIva.Exento)
+                        if (this.Cliente != null && this.Cliente.ObtenerSituacionIva() == Impuestos.SituacionIva.Exento)
                                 return 0;
 
                         decimal Res = 0;
@@ -726,7 +728,7 @@ namespace Lbl.Comprobantes
                                                 }
                                                 break;
                                         case Lbl.Pagos.TiposFormasDePago.CuentaCorriente:
-                                                this.Cliente.CuentaCorriente.Movimiento(true,
+                                                this.Cliente.CuentaCorriente.AsentarMovimiento(true,
                                                         Lbl.Cajas.Concepto.IngresosPorFacturacion,
                                                         this.ToString(),
                                                         ImporteMovim,
@@ -796,7 +798,7 @@ namespace Lbl.Comprobantes
 
                                         case Lbl.Pagos.TiposFormasDePago.CuentaCorriente:
                                                 // Quito el saldo pagado de la cuenta corriente
-                                                this.Cliente.CuentaCorriente.Movimiento(true, Lbl.Cajas.Concepto.IngresosPorFacturacion, "Anulación " + this.ToString(), ImporteMovim, null, this, null, null);
+                                                this.Cliente.CuentaCorriente.AsentarMovimiento(true, Lbl.Cajas.Concepto.IngresosPorFacturacion, "Anulación " + this.ToString(), ImporteMovim, null, this, null, null);
                                                 if (this.Tipo.EsNotaCredito)
                                                         Lbl.Comprobantes.Recibo.DescancelarImpagos(this.Cliente, this.ComprobRelacionados, this, this.Compra ? -this.Total : this.Total);
                                                         //this.Cliente.CuentaCorriente.CancelarComprobantesConSaldo(ImporteMovimCtaCte, false);
@@ -1128,7 +1130,7 @@ namespace Lbl.Comprobantes
                                                 else
                                                         Comando.ColumnValues.AddWithValue("costo", Art.Costo);
                                                 Comando.ColumnValues.AddWithValue("importe", Art.ImporteAImprimir);
-                                                Comando.ColumnValues.AddWithValue("total", Art.ImporteAImprimir);
+                                                Comando.ColumnValues.AddWithValue("total", Art.ImporteTotalConIvaFinal);
                                                 Comando.ColumnValues.AddWithValue("series", Art.DatosSeguimiento);
                                                 Comando.ColumnValues.AddWithValue("obs", Art.Obs);
 

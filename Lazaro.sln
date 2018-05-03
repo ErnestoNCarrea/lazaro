@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinMain", "Sistema\WinMain.csproj", "{06B1A167-AAC4-468A-A763-9C99E52B2CB3}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -32,8 +32,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pres", "Pres\Pres.csproj", "{ADB0CDC0-F816-40AC-A3D9-7951254F6FB4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mensajeria", "Mensajeria\Mensajeria.csproj", "{FFBD7D38-FE52-4DF9-BCB1-19F004878B0B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base", "Base\Base.csproj", "{C47FCC4E-7D7E-4B81-ACF8-AF83B0997566}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Afip.ControladorFiscal", "Afip.ControladorFiscal\Afip.ControladorFiscal.csproj", "{5CFDDEDF-F940-4D07-9558-FA73EB98125A}"
 EndProject
@@ -89,10 +87,6 @@ Global
 		{FFBD7D38-FE52-4DF9-BCB1-19F004878B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFBD7D38-FE52-4DF9-BCB1-19F004878B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFBD7D38-FE52-4DF9-BCB1-19F004878B0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C47FCC4E-7D7E-4B81-ACF8-AF83B0997566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C47FCC4E-7D7E-4B81-ACF8-AF83B0997566}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C47FCC4E-7D7E-4B81-ACF8-AF83B0997566}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C47FCC4E-7D7E-4B81-ACF8-AF83B0997566}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CFDDEDF-F940-4D07-9558-FA73EB98125A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CFDDEDF-F940-4D07-9558-FA73EB98125A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CFDDEDF-F940-4D07-9558-FA73EB98125A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -112,6 +106,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B740440-537A-4A3B-98A5-A7EA7E3CD304}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Sistema\Lazaro.csproj

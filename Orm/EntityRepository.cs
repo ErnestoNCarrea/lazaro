@@ -17,12 +17,12 @@ namespace Lazaro.Orm
                         return this.EntityManager.Find<T>(primaryKeyId);
                 }
 
-                public List<T> FindAll(string orderBy)
+                public EntityCollection<T> FindAll(string orderBy)
                 {
                         return this.EntityManager.FindAll<T>(orderBy);
                 }
 
-                public List<T> FindBy(qGen.Where where, string orderBy)
+                public EntityCollection<T> FindBy(qGen.Where where, string orderBy)
                 {
                         return this.EntityManager.FindBy<T>(where, orderBy);
                 }

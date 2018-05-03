@@ -72,7 +72,7 @@ namespace Lazaro.Orm
                 /// <typeparam name="T">The entity type.</typeparam>
                 /// <param name="orderBy">The order of the resulting set.</param>
                 /// <returns>An EntityRepository with zero or more entities.</returns>
-                public List<T> FindAll<T>(string orderBy) where T : new()
+                public EntityCollection<T> FindAll<T>(string orderBy) where T : new()
                 {
                         // Call FindBy with a null where
                         return this.FindBy<T>(null, orderBy);
@@ -86,7 +86,7 @@ namespace Lazaro.Orm
                 /// <param name="where">The search crtieria.</param>
                 /// <param name="orderBy">The order of the resulting set.</param>
                 /// <returns>An EntityRepository with zero or more entities.</returns>
-                public List<T> FindBy<T>(qGen.Where where, string orderBy) where T : new()
+                public EntityCollection<T> FindBy<T>(qGen.Where where, string orderBy = null, qGen.Window window = null) where T : new()
                 {
                         // Get class metadata
                         var EntityType = typeof(T);
@@ -97,11 +97,17 @@ namespace Lazaro.Orm
                         var IdCols = ClassMetadata.Columns.GetIdColumns();
                         var Select = new qGen.Select(ClassMetadata.TableName);
                         Select.WhereClause = where;
-                        Select.Order = orderBy;
+
+                        if (orderBy != null) {
+                                Select.Order = orderBy;
+                        }
+                        if(window != null) {
+                                Select.Window = window;
+                        }
 
                         // Execute query
                         var DataTable = this.Connection.Select(Select);
-                        var Res = new List<T>();
+                        var Res = new EntityCollection<T>();
 
                         // Fill the list
                         if (DataTable.Rows.Count > 0) {
@@ -111,6 +117,45 @@ namespace Lazaro.Orm
                         }
 
                         return Res;
+                }
+
+
+                /// <summary>
+                /// Finds the first entity using a search crtieria.
+                /// </summary>
+                /// <typeparam name="T">The entity type.</typeparam>
+                /// <param name="where">The search crtieria.</param>
+                /// <param name="orderBy">The order of the resulting set.</param>
+                /// <returns>An entity or null.</returns>
+                public T FindOneBy<T>(qGen.Where where, string orderBy = null, qGen.Window window = null) where T : new()
+                {
+                        // Get class metadata
+                        var EntityType = typeof(T);
+                        var ClassName = EntityType.FullName;
+                        var ClassMetadata = this.MetadataFactory.GetMetadataForClass(EntityType);
+
+                        // Construct select
+                        var IdCols = ClassMetadata.Columns.GetIdColumns();
+                        var Select = new qGen.Select(ClassMetadata.TableName);
+                        Select.WhereClause = where;
+
+                        if (orderBy != null) {
+                                Select.Order = orderBy;
+                        }
+                        if (window != null) {
+                                Select.Window = window;
+                        }
+
+                        // Execute query
+                        var DataTable = this.Connection.Select(Select);
+                        var Res = new EntityCollection<T>();
+
+                        // Fill the list
+                        if (DataTable.Rows.Count > 0) {
+                                return this.HydrateEntity<T>(ClassMetadata, DataTable.Rows[0]);
+                        } else {
+                                return default(T);
+                        }
                 }
 
 

@@ -96,7 +96,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         if(comprobante.Tipo.Letra == "C") {
                                 // El comprobante C lleva características especiales
                                 ComprobanteAsociado.ImporteNetoGravado = comprobante.Total;
-                        } else if(comprobante.Cliente.PagaIva == Lbl.Impuestos.SituacionIva.Exento) {
+                        } else if(comprobante.Cliente.ObtenerSituacionIva() == Lbl.Impuestos.SituacionIva.Exento) {
                                 // Cliente exento... una sóla alícuota al 0% por el total
                                 ComprobanteAsociado.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
                                 {

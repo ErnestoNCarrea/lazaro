@@ -63,6 +63,7 @@ namespace Lfx.Data
                                                 ConnectionString.Append("Compress=true;");
                                                 ConnectionString.Append("Use Compression=true;");
                                         }
+                                        ConnectionString.Append("SslMode=none;");
                                         break;
                                 case AccessModes.Odbc:
                                         throw new NotImplementedException("Soporte ODBC no implementado");
@@ -1144,6 +1145,7 @@ LEFT JOIN pg_attribute
                                 this.Open();
 
                         System.Data.IDbCommand Cmd = this.GetCommand(selectCommand);
+                        int Intentos = 5;
                         while (true) {
                                 try {
                                         Cmd.Connection = this.DbConnection;
@@ -1151,7 +1153,16 @@ LEFT JOIN pg_attribute
                                         System.Data.IDataReader Rdr = Cmd.ExecuteReader(System.Data.CommandBehavior.SingleResult);
                                         return Rdr;
                                 } catch (Exception ex) {
-                                        if (this.TryToRecover(ex)) {
+                                        if (Intentos > 0 && ex.Message.IndexOf("There is already an open DataReader associated with this Connection which must be closed first", StringComparison.InvariantCulture) >= 0) {
+                                                if (Intentos > 3) {
+                                                        // Los primeros dos reintentos los hago tras esperar 1 segundo para dar oportunidad a otro thread de que termine.
+                                                        System.Threading.Thread.Sleep(1000);
+                                                } else if (this.InTransaction == false) {
+                                                        // Si lo anterior no funciona, intento hacer la consulta en otra conexión (siempre que no esté en una transacción)
+                                                        Cmd.Connection = this.Factory.GetNewConnection("Nueva conexión por ").DbConnection;
+                                                }
+                                                Intentos--;
+                                        } else if (this.TryToRecover(ex)) {
                                                 Log.Error(selectCommand, ex);
                                                 ex.Data.Add("Command", selectCommand);
                                                 throw ex;

@@ -128,7 +128,6 @@ namespace Lcc.Entrada
                         this.Label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.Label1.AutoEllipsis = true;
                         this.Label1.ContextMenu = this.MiContextMenu;
                         this.Label1.Location = new System.Drawing.Point(60, 4);
                         this.Label1.Margin = new System.Windows.Forms.Padding(3);

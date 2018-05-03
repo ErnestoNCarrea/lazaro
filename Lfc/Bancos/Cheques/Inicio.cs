@@ -35,17 +35,17 @@ namespace Lfc.Bancos.Cheques
                                 Joins = new qGen.JoinCollection() { new qGen.Join("bancos", "bancos_cheques.id_banco=bancos.id_banco") },
 
                                 Columns = new Lazaro.Pres.FieldCollection()
-			        {
-				        new Lazaro.Pres.Field("bancos_cheques.numero", "Número", Lfx.Data.InputFieldTypes.Text, 120),
-				        new Lazaro.Pres.Field("bancos_cheques.fechaemision", "Fecha Emision", Lfx.Data.InputFieldTypes.Date, 96),
-				        new Lazaro.Pres.Field("bancos_cheques.emitidopor", "Librador", Lfx.Data.InputFieldTypes.Text, 120),
-				        new Lazaro.Pres.Field("bancos_cheques.importe", "Importe", Lfx.Data.InputFieldTypes.Currency, 96),
-				        new Lazaro.Pres.Field("bancos_cheques.fechacobro", "Fecha de Cobro", Lfx.Data.InputFieldTypes.Date, 96),
-				        new Lazaro.Pres.Field("bancos_cheques.concepto", "Concepto", Lfx.Data.InputFieldTypes.Text, 160),
-				        new Lazaro.Pres.Field("bancos.nombre", "Banco", Lfx.Data.InputFieldTypes.Text, 120),
-				        new Lazaro.Pres.Field("bancos_cheques.estado", "Estado", 96, EstadosCheques),
+                    {
+                        new Lazaro.Pres.Field("bancos_cheques.numero", "Número", Lfx.Data.InputFieldTypes.Text, 120),
+                        new Lazaro.Pres.Field("bancos_cheques.fechaemision", "Fecha Emision", Lfx.Data.InputFieldTypes.Date, 96),
+                        new Lazaro.Pres.Field("bancos_cheques.emitidopor", "Librador", Lfx.Data.InputFieldTypes.Text, 120),
+                        new Lazaro.Pres.Field("bancos_cheques.importe", "Importe", Lfx.Data.InputFieldTypes.Currency, 96),
+                        new Lazaro.Pres.Field("bancos_cheques.fechacobro", "Fecha de Cobro", Lfx.Data.InputFieldTypes.Date, 96),
+                        new Lazaro.Pres.Field("bancos_cheques.concepto", "Concepto", Lfx.Data.InputFieldTypes.Text, 160),
+                        new Lazaro.Pres.Field("bancos.nombre", "Banco", Lfx.Data.InputFieldTypes.Text, 120),
+                        new Lazaro.Pres.Field("bancos_cheques.estado", "Estado", 96, EstadosCheques),
                                         new Lazaro.Pres.Field("bancos_cheques.obs", "Obs", Lfx.Data.InputFieldTypes.Memo, 320)
-			        }
+                    }
                         };
 
                         this.Limit = 20000;
@@ -259,12 +259,15 @@ namespace Lfc.Bancos.Cheques
                 private Lfx.Types.OperationResult Pagar()
                 {
                         int IdCajaOrigen = 0;
+                        int IdChequera = 0;
                         List<string> Cheques = new List<string>();
                         foreach (System.Windows.Forms.ListViewItem itm in Listado.Items) {
                                 if (itm.Checked && (itm.SubItems["bancos_cheques.estado"].Text == "A pagar")) {
                                         Cheques.Add(itm.Text);
-                                        if (IdCajaOrigen == 0)
-                                                IdCajaOrigen = this.Connection.FieldInt("SELECT id_caja FROM chequeras WHERE (SELECT numero FROM bancos_cheques WHERE id_cheque=" + itm.Text + ") BETWEEN desde AND hasta AND estado=1");
+                                        if (IdCajaOrigen == 0) {
+                                                IdChequera = this.Connection.FieldInt("SELECT id_chequera FROM bancos_cheques WHERE id_cheque=" + itm.Text);
+                                                IdCajaOrigen = this.Connection.FieldInt("SELECT id_caja FROM chequeras WHERE (SELECT numero FROM bancos_cheques WHERE id_cheque=" + itm.Text + ") BETWEEN desde AND hasta AND estado=1 AND id_chequera=" + IdChequera);
+                                        }
                                 }
                         }
 

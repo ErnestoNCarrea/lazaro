@@ -137,16 +137,21 @@ namespace Lazaro.WinMain.Principal
                                                 PersonaDomicilio.Text = Per.Domicilio;
                                                 PersonaTelefono.Text = Per.Telefono;
                                                 PersonaEmail.Text = Per.Email;
-                                                if (Per.Grupo != null)
+                                                if (Per.Grupo != null) {
                                                         PersonaGrupo.Text = Per.Grupo.ToString();
-                                                else
+                                                } else {
                                                         PersonaGrupo.Text = "-";
+                                                }
+
                                                 decimal Saldo;
+
                                                 try {
                                                         Saldo = Per.CuentaCorriente.ObtenerSaldo(false);
-                                                } catch {
+                                                } catch (Exception ex) {
+                                                        System.Console.WriteLine(ex.ToString());
                                                         Saldo = 0;
                                                 }
+
                                                 if (Saldo > 0) {
                                                         PersonaComentario.Text = "Registra saldo impago en cuenta corriente por " + Lfx.Types.Formatting.FormatCurrency(Saldo, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal);
                                                         PersonaComentario.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.SmallWarning;

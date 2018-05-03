@@ -1,0 +1,95 @@
+﻿<Component Disabled="0">
+
+  <MenuItem name="Operaciones" position="La Red" />
+  <MenuItem name="Listado" position="La Red.Operaciones" function="OperacionesInicio" />
+  <MenuItem name="Nueva Operación" position="La Red.Operaciones" function="OperacionesCrear" />
+  <MenuItem name="-" position="La Red.Operaciones" />
+  <MenuItem name="Retirar Círculo" position="La Red.Operaciones" function="OperacionesRetirarCirculo" />
+  <MenuItem name="-" position="La Red.Operaciones" />
+  <MenuItem name="Precancelar" position="La Red.Operaciones" function="OperacionesPrecancelar" />
+  <MenuItem name="Anular Precancelación" position="La Red.Operaciones" function="OperacionesAnularPrecancelacion" />
+
+  <MenuItem name="Resúmenes" position="La Red" />
+  <MenuItem name="Listado" position="La Red.Resumenes" function="ResumenesInicio" />
+
+  <MenuItem name="Tarjetas" position="La Red" />
+  <MenuItem name="Listado" position="La Red.Tarjetas" function="TarjetasInicio" />
+  <MenuItem name="Emitir" position="La Red.Tarjetas" function="TarjetasEmitir" />
+
+  <MenuItem name="-" position="La Red" />
+
+  <MenuItem name="Seguimiento" position="La Red" />
+  <MenuItem name="Listado" position="La Red.Seguimiento" function="LlamadosInicio" />
+  <MenuItem name="-" position="La Red.Seguimiento" />
+  <MenuItem name="Generar Casos" position="La Red.Seguimiento" function="LlamadosGenerar" />
+
+  <MenuItem name="Morosidad" position="La Red" />
+  <MenuItem name="Plan de Pagos" position="La Red.Morosidad" function="MorosidadPlanDePagos" />
+  <MenuItem name="Refinanciación" position="La Red.Morosidad" function="MorosidadRefinanciar" />
+  <MenuItem name="Ranking" position="La Red.Morosidad" function="MorosidadRanking" />
+  <MenuItem name="-" position="La Red.Morosidad" />
+  <MenuItem name="Bloqueos" position="La Red.Morosidad" function="MorosidadBloqueos" />
+  <MenuItem name="-" position="La Red.Morosidad" />
+  <MenuItem name="Demandas" position="La Red.Morosidad" function="DemandasInicio" />
+
+  <MenuItem name="-" position="La Red" />
+  <MenuItem name="Cierre" position="La Red" />
+  <MenuItem name="Convertir Compra en Débito de Liquidación" position="La Red.Cierre" function="CierreConvertir" />
+  <MenuItem name="Cargar Bonos" position="La Red.Cierre" function="CierreCargarBonos" />
+  <MenuItem name="Pre-Cierre" position="La Red.Cierre" function="CierresPreCierre" />
+  <MenuItem name="Cierre Mensual" position="La Red.Cierre" function="CierresCierre" />
+  <MenuItem name="Facturación" position="La Red.Cierre" function="CierresFacturacionComercios" />
+
+  <MenuItem name="Liquidación" position="La Red" />
+  <MenuItem name="Generar Archivos de Débito y Crédito" position="La Red.Liquidación" function="LiquiGenerarDebitosYCreditos" />
+  <MenuItem name="Cargar Archivos de Débitos" position="La Red.Liquidación" function="LiquiCargarDebitos" />
+  <MenuItem name="Cargar Archivos de Créditos" position="La Red.Liquidación" function="LiquiCargarCreditos" />
+
+  <MenuItem name="-" position="La Red" />
+  <MenuItem name="Información" position="La Red"/>
+  <MenuItem name="Mailing" position="La Red.Información" function="InformacionMailing" />
+  <MenuItem name="Clientes" position="La Red.Información" function="InformacionClientes" />
+  <MenuItem name="Parámetros" position="La Red.Información" function="InformacionParametros" />
+
+  <MenuItem name="Acceso Web" position="Personas" function="PersonasAccesoWeb" />
+
+  <Function name="OperacionesInicio" />
+  <Function name="OperacionesCrear" />
+  <Function name="OperacionesRetirarCirculo" />
+  <Function name="OperacionesPrecancelar" />
+  <Function name="OperacionesAnularPrecancelacion" />
+
+  <Function name="ResumenesInicio" />
+
+  <Function name="LlamadosInicio" />
+  <Function name="LlamadosGenerar" />
+
+  <Function name="TarjetasInicio" />
+  <Function name="TarjetasEmitir" />
+
+  <Function name="MorosidadPlanDePagos" />
+  <Function name="MorosidadRefinanciar" />
+  <Function name="MorosidadBloqueos" />
+  <Function name="MorosidadRanking" />
+
+  <Function name="DemandasInicio" />
+  <Function name="DemandasPagos" />
+
+  <Function name="CierreConvertir" />
+  <Function name="CierreCargarBonos" />
+  <Function name="CierresPreCierre" />
+  <Function name="CierresCierre" />
+  <Function name="CierresFacturacionComercios" />
+
+  <Function name="LiquiGenerarDebitosYCreditos" />
+  <Function name="LiquiCargarDebitos" />
+  <Function name="LiquiCargarCreditos" />
+
+  <Function name="InformacionMailing" />
+  <Function name="InformacionClientes" />
+  <Function name="InformacionMorosidad" />
+  <Function name="InformacionParametros" />
+
+  <Function name="PersonasAccesoWeb" />
+
+</Component>

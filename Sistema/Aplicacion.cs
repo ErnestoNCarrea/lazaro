@@ -647,6 +647,8 @@ Responda 'Sí' sólamente si es la primera vez que utiliza Lázaro o está resta
                                 Lfx.Workspace.Master.MainForm = new Principal.Inicio();
                                 Aplicacion.FormularioPrincipal.Show();
                                 if (FechaWhatsnew == "firsttime") {
+                                        Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Usuario." + Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString() + ".Whatsnew.Ultimo", System.DateTime.Now.ToString(Lfx.Types.Formatting.DateTime.SqlDateFormat));
+
                                         Lui.Forms.YesNoDialog Pregunta = new Lui.Forms.YesNoDialog("¡Hola! ¿Le gustaría ver una página sencilla con un poco de información sobre cómo utilizar Lázaro?", "Primeros pasos");
                                         Pregunta.DialogButtons = Lui.Forms.DialogButtons.YesNo;
                                         if (Pregunta.ShowDialog() == DialogResult.OK)

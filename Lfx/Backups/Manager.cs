@@ -150,7 +150,7 @@ namespace Lfx.Backups
                                                 Fields[i] = TablaBackup.Columns[i].ColumnName;
                                         }
                                         string FieldList = string.Join(",", Fields);
-                                        writer.Write(":TBL" + Comando.Tables.Count.ToString("0000") + Comando.Tables);
+                                        writer.Write(":TBL" + Comando.Tables[0].Name.Length.ToString("0000") + Comando.Tables[0].Name);
                                         writer.Write(":FDL" + FieldList.Length.ToString("0000") + FieldList);
                                         EmitiTabla = true;
                                 }

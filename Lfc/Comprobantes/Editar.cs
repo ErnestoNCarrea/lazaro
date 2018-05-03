@@ -351,7 +351,7 @@ namespace Lfc.Comprobantes
                         }
 
                         if(Cliente != null) {
-                                EntradaProductos.AplicaIva = Cliente.PagaIva != Lbl.Impuestos.SituacionIva.Exento;
+                                EntradaProductos.AplicaIva = Cliente.ObtenerSituacionIva() != Lbl.Impuestos.SituacionIva.Exento;
                         }
 
                         if (this.Tipo != null && this.Tipo.EsFacturaNCoND && this.Elemento.Existe == false && Cliente != null) {
