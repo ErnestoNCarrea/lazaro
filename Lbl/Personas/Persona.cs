@@ -130,6 +130,12 @@ namespace Lbl.Personas
 
                 public override Lfx.Types.OperationResult Guardar()
                 {
+                        // TODO: código específico de La Red. Migrar a sys_tags (máx/mín).
+                        decimal Coef = this.GetFieldValue<int>("coeficientecredito");
+                        if (Coef > 100 || Coef < 0) {
+                                return new Lfx.Types.FailureOperationResult("Error de coeficiente");
+                        }
+
                         qGen.IStatement Comando;
 
                         if (this.Existe == false)
@@ -226,7 +232,7 @@ namespace Lbl.Personas
                         }
 
                         this.AgregarTags(Comando);
-                        this.Connection.ExecuteNonQuery(Comando);
+                        this.Connection.ExecuteNonQuery(Comando);                        
                         return base.Guardar();
                 }
 
@@ -468,7 +474,6 @@ namespace Lbl.Personas
                                 this.Registro["tipo"] = value;
                         }
                 }
-
 
                 [Column(Name = "apellido")]
                 public string Apellido
@@ -719,7 +724,7 @@ namespace Lbl.Personas
                 }
 
 
-                [Column(Name = "id_localidad")]
+                [Column(Name = "id_ciudad")]
                 public Lbl.Entidades.Localidad Localidad
                 {
                         get

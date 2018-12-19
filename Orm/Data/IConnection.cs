@@ -29,6 +29,7 @@ namespace Lazaro.Orm.Data
 
                 System.Data.DataTable Select(string select);
                 System.Data.DataTable Select(qGen.Select select);
+                T SelectScalar<T>(string select);
 
                 int GetLastInsertId();
 

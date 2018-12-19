@@ -75,12 +75,11 @@ namespace Lfc
                         this.Listado.FieldName = null;
                         this.Listado.FullRowSelect = true;
                         this.Listado.HideSelection = false;
-                        this.Listado.Location = new System.Drawing.Point(280, 0);
-                        this.Listado.Margin = new System.Windows.Forms.Padding(4);
+                        this.Listado.Location = new System.Drawing.Point(224, 0);
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
                         this.Listado.ReadOnly = false;
-                        this.Listado.Size = new System.Drawing.Size(800, 551);
+                        this.Listado.Size = new System.Drawing.Size(640, 441);
                         this.Listado.TabIndex = 3;
                         this.Listado.UseCompatibleStateImageBehavior = false;
                         this.Listado.View = System.Windows.Forms.View.Details;
@@ -92,10 +91,9 @@ namespace Lfc
                         // 
                         this.EtiquetaContador2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaContador2.Location = new System.Drawing.Point(0, 35);
-                        this.EtiquetaContador2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaContador2.Location = new System.Drawing.Point(0, 28);
                         this.EtiquetaContador2.Name = "EtiquetaContador2";
-                        this.EtiquetaContador2.Size = new System.Drawing.Size(125, 30);
+                        this.EtiquetaContador2.Size = new System.Drawing.Size(100, 24);
                         this.EtiquetaContador2.TabIndex = 63;
                         this.EtiquetaContador2.Text = "Contador2";
                         this.EtiquetaContador2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -105,10 +103,10 @@ namespace Lfc
                         // EntradaContador2
                         // 
                         this.EntradaContador2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaContador2.Location = new System.Drawing.Point(125, 35);
+                        this.EntradaContador2.Location = new System.Drawing.Point(100, 28);
                         this.EntradaContador2.Name = "EntradaContador2";
                         this.EntradaContador2.ReadOnly = true;
-                        this.EntradaContador2.Size = new System.Drawing.Size(135, 30);
+                        this.EntradaContador2.Size = new System.Drawing.Size(108, 24);
                         this.EntradaContador2.TabIndex = 62;
                         this.EntradaContador2.TabStop = false;
                         this.EntradaContador2.Visible = false;
@@ -118,9 +116,8 @@ namespace Lfc
                         this.EtiquetaContador1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EtiquetaContador1.Location = new System.Drawing.Point(0, 0);
-                        this.EtiquetaContador1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
                         this.EtiquetaContador1.Name = "EtiquetaContador1";
-                        this.EtiquetaContador1.Size = new System.Drawing.Size(125, 30);
+                        this.EtiquetaContador1.Size = new System.Drawing.Size(100, 24);
                         this.EtiquetaContador1.TabIndex = 61;
                         this.EtiquetaContador1.Text = "Contador 1";
                         this.EtiquetaContador1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -130,23 +127,22 @@ namespace Lfc
                         // EntradaContador1
                         // 
                         this.EntradaContador1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaContador1.Location = new System.Drawing.Point(125, 0);
+                        this.EntradaContador1.Location = new System.Drawing.Point(100, 0);
                         this.EntradaContador1.Name = "EntradaContador1";
                         this.EntradaContador1.ReadOnly = true;
-                        this.EntradaContador1.Size = new System.Drawing.Size(135, 30);
+                        this.EntradaContador1.Size = new System.Drawing.Size(108, 24);
                         this.EntradaContador1.TabIndex = 60;
                         this.EntradaContador1.TabStop = false;
                         this.EntradaContador1.Visible = false;
                         // 
                         // EtiquetaCantidad
                         // 
-                        this.EtiquetaCantidad.AutoEllipsis = true;
-                        this.EtiquetaCantidad.Location = new System.Drawing.Point(40, 240);
-                        this.EtiquetaCantidad.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaCantidad.Location = new System.Drawing.Point(32, 192);
                         this.EtiquetaCantidad.Name = "EtiquetaCantidad";
-                        this.EtiquetaCantidad.Size = new System.Drawing.Size(230, 50);
+                        this.EtiquetaCantidad.Size = new System.Drawing.Size(184, 48);
                         this.EtiquetaCantidad.TabIndex = 59;
                         this.EtiquetaCantidad.Text = "Cargando...";
+                        this.EtiquetaCantidad.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         this.EtiquetaCantidad.UseMnemonic = false;
                         // 
                         // BotonImprimir
@@ -155,12 +151,12 @@ namespace Lfc
                         this.BotonImprimir.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonImprimir.Image = null;
                         this.BotonImprimir.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonImprimir.Location = new System.Drawing.Point(55, 114);
-                        this.BotonImprimir.Margin = new System.Windows.Forms.Padding(0, 7, 0, 0);
+                        this.BotonImprimir.Location = new System.Drawing.Point(44, 91);
+                        this.BotonImprimir.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
                         this.BotonImprimir.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonImprimir.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonImprimir.Name = "BotonImprimir";
-                        this.BotonImprimir.Size = new System.Drawing.Size(160, 50);
+                        this.BotonImprimir.Size = new System.Drawing.Size(136, 40);
                         this.BotonImprimir.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonImprimir.Subtext = "F8";
                         this.BotonImprimir.TabIndex = 65;
@@ -173,12 +169,12 @@ namespace Lfc
                         this.BotonFiltrar.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonFiltrar.Image = null;
                         this.BotonFiltrar.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonFiltrar.Location = new System.Drawing.Point(60, 57);
-                        this.BotonFiltrar.Margin = new System.Windows.Forms.Padding(0, 7, 0, 0);
+                        this.BotonFiltrar.Location = new System.Drawing.Point(44, 45);
+                        this.BotonFiltrar.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
                         this.BotonFiltrar.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonFiltrar.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonFiltrar.Name = "BotonFiltrar";
-                        this.BotonFiltrar.Size = new System.Drawing.Size(160, 50);
+                        this.BotonFiltrar.Size = new System.Drawing.Size(136, 40);
                         this.BotonFiltrar.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonFiltrar.Subtext = "F2";
                         this.BotonFiltrar.TabIndex = 64;
@@ -192,12 +188,12 @@ namespace Lfc
                         this.BotonCancelar.DialogResult = System.Windows.Forms.DialogResult.None;
                         this.BotonCancelar.Image = null;
                         this.BotonCancelar.ImagePos = Lui.Forms.ImagePositions.Top;
-                        this.BotonCancelar.Location = new System.Drawing.Point(60, 171);
-                        this.BotonCancelar.Margin = new System.Windows.Forms.Padding(0, 7, 0, 0);
+                        this.BotonCancelar.Location = new System.Drawing.Point(44, 137);
+                        this.BotonCancelar.Margin = new System.Windows.Forms.Padding(0, 6, 0, 0);
                         this.BotonCancelar.MaximumSize = new System.Drawing.Size(160, 64);
                         this.BotonCancelar.MinimumSize = new System.Drawing.Size(96, 32);
                         this.BotonCancelar.Name = "BotonCancelar";
-                        this.BotonCancelar.Size = new System.Drawing.Size(160, 50);
+                        this.BotonCancelar.Size = new System.Drawing.Size(136, 40);
                         this.BotonCancelar.SubLabelPos = Lui.Forms.SubLabelPositions.Bottom;
                         this.BotonCancelar.Subtext = "Esc";
                         this.BotonCancelar.TabIndex = 66;
@@ -214,19 +210,18 @@ namespace Lfc
                         this.PanelContadores.Controls.Add(this.EntradaContador2);
                         this.PanelContadores.Controls.Add(this.EtiquetaContador1);
                         this.PanelContadores.Controls.Add(this.EtiquetaContador2);
-                        this.PanelContadores.Location = new System.Drawing.Point(10, 90);
-                        this.PanelContadores.Margin = new System.Windows.Forms.Padding(4);
+                        this.PanelContadores.Location = new System.Drawing.Point(8, 72);
                         this.PanelContadores.Name = "PanelContadores";
-                        this.PanelContadores.Size = new System.Drawing.Size(260, 135);
+                        this.PanelContadores.Size = new System.Drawing.Size(208, 108);
                         this.PanelContadores.TabIndex = 67;
                         // 
                         // EntradaContador4
                         // 
                         this.EntradaContador4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaContador4.Location = new System.Drawing.Point(125, 105);
+                        this.EntradaContador4.Location = new System.Drawing.Point(100, 84);
                         this.EntradaContador4.Name = "EntradaContador4";
                         this.EntradaContador4.ReadOnly = true;
-                        this.EntradaContador4.Size = new System.Drawing.Size(135, 30);
+                        this.EntradaContador4.Size = new System.Drawing.Size(108, 24);
                         this.EntradaContador4.TabIndex = 66;
                         this.EntradaContador4.TabStop = false;
                         this.EntradaContador4.Visible = false;
@@ -235,10 +230,9 @@ namespace Lfc
                         // 
                         this.EtiquetaContador4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaContador4.Location = new System.Drawing.Point(0, 105);
-                        this.EtiquetaContador4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaContador4.Location = new System.Drawing.Point(0, 84);
                         this.EtiquetaContador4.Name = "EtiquetaContador4";
-                        this.EtiquetaContador4.Size = new System.Drawing.Size(125, 30);
+                        this.EtiquetaContador4.Size = new System.Drawing.Size(100, 24);
                         this.EtiquetaContador4.TabIndex = 67;
                         this.EtiquetaContador4.Text = "Contador2";
                         this.EtiquetaContador4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -248,10 +242,10 @@ namespace Lfc
                         // EntradaContador3
                         // 
                         this.EntradaContador3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EntradaContador3.Location = new System.Drawing.Point(125, 70);
+                        this.EntradaContador3.Location = new System.Drawing.Point(100, 56);
                         this.EntradaContador3.Name = "EntradaContador3";
                         this.EntradaContador3.ReadOnly = true;
-                        this.EntradaContador3.Size = new System.Drawing.Size(135, 30);
+                        this.EntradaContador3.Size = new System.Drawing.Size(108, 24);
                         this.EntradaContador3.TabIndex = 64;
                         this.EntradaContador3.TabStop = false;
                         this.EntradaContador3.Visible = false;
@@ -260,10 +254,9 @@ namespace Lfc
                         // 
                         this.EtiquetaContador3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-                        this.EtiquetaContador3.Location = new System.Drawing.Point(0, 70);
-                        this.EtiquetaContador3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+                        this.EtiquetaContador3.Location = new System.Drawing.Point(0, 56);
                         this.EtiquetaContador3.Name = "EtiquetaContador3";
-                        this.EtiquetaContador3.Size = new System.Drawing.Size(125, 30);
+                        this.EtiquetaContador3.Size = new System.Drawing.Size(100, 24);
                         this.EtiquetaContador3.TabIndex = 65;
                         this.EtiquetaContador3.Text = "Contador2";
                         this.EtiquetaContador3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -278,10 +271,9 @@ namespace Lfc
                         // PicEsperar
                         // 
                         this.PicEsperar.Image = global::Lfc.Properties.Resources.ajax_loader;
-                        this.PicEsperar.Location = new System.Drawing.Point(10, 245);
-                        this.PicEsperar.Margin = new System.Windows.Forms.Padding(4);
+                        this.PicEsperar.Location = new System.Drawing.Point(8, 196);
                         this.PicEsperar.Name = "PicEsperar";
-                        this.PicEsperar.Size = new System.Drawing.Size(20, 20);
+                        this.PicEsperar.Size = new System.Drawing.Size(16, 16);
                         this.PicEsperar.TabIndex = 68;
                         this.PicEsperar.TabStop = false;
                         // 
@@ -293,25 +285,24 @@ namespace Lfc
                         this.PanelAcciones.Controls.Add(this.BotonImprimir);
                         this.PanelAcciones.Controls.Add(this.BotonFiltrar);
                         this.PanelAcciones.FlowDirection = System.Windows.Forms.FlowDirection.BottomUp;
-                        this.PanelAcciones.Location = new System.Drawing.Point(0, 300);
-                        this.PanelAcciones.Margin = new System.Windows.Forms.Padding(4);
+                        this.PanelAcciones.Location = new System.Drawing.Point(0, 240);
                         this.PanelAcciones.Name = "PanelAcciones";
-                        this.PanelAcciones.Padding = new System.Windows.Forms.Padding(55, 15, 55, 15);
-                        this.PanelAcciones.Size = new System.Drawing.Size(280, 251);
+                        this.PanelAcciones.Padding = new System.Windows.Forms.Padding(44, 12, 44, 12);
+                        this.PanelAcciones.Size = new System.Drawing.Size(224, 201);
                         this.PanelAcciones.TabIndex = 4;
                         // 
                         // FormularioListadoBase
                         // 
-                        this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+                        this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-                        this.ClientSize = new System.Drawing.Size(1080, 551);
+                        this.ClientSize = new System.Drawing.Size(864, 441);
                         this.Controls.Add(this.PanelAcciones);
                         this.Controls.Add(this.PicEsperar);
                         this.Controls.Add(this.PanelContadores);
                         this.Controls.Add(this.Listado);
                         this.Controls.Add(this.EtiquetaCantidad);
-                        this.Margin = new System.Windows.Forms.Padding(6);
-                        this.MinimumSize = new System.Drawing.Size(796, 488);
+                        this.Margin = new System.Windows.Forms.Padding(5);
+                        this.MinimumSize = new System.Drawing.Size(640, 398);
                         this.Name = "FormularioListadoBase";
                         this.Text = "FormularioListadoBase";
                         this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormularioListadoBase_FormClosing);

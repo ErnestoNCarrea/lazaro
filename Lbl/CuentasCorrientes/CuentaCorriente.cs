@@ -1,3 +1,4 @@
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,13 +14,18 @@ namespace Lbl.CuentasCorrientes
         [Lbl.Atributos.Presentacion()]
         public class CuentaCorriente : ICuenta
         {
+                private static readonly ILog Log = LogManager.GetLogger(typeof(CuentaCorriente));
+
                 Lbl.Personas.Persona Persona;
                 Lazaro.Base.Controller.CuentaCorrienteController CtaCteController = null;
 
                 public CuentaCorriente(Lbl.Personas.Persona persona)
                 {
                         this.Persona = persona;
-                        CtaCteController = new Lazaro.Base.Controller.CuentaCorrienteController(this.Connection, Persona);
+                        CtaCteController = new Lazaro.Base.Controller.CuentaCorrienteController(
+                                new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory),
+                                Persona
+                                );
                 }
 
                 public string TablaDatos

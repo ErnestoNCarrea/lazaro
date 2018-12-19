@@ -335,8 +335,16 @@ namespace Lbl
                 /// </summary>
                 public void ActualizarId()
                 {
-                        if (this.Id == 0)
-                                m_ItemId = this.Connection.FieldInt("SELECT LAST_INSERT_ID()");
+                        if (this.m_ItemId == 0)
+                        {
+                                this.m_ItemId = this.Connection.FieldInt("SELECT LAST_INSERT_ID()");
+                        }
+
+                        if (this.m_ItemId /* still */ == 0)
+                        {
+                                // No tiene autonumérico, busco el máximo
+                                this.m_ItemId = this.Connection.FieldInt("SELECT MAX(" + this.CampoId + ") FROM " + this.TablaDatos);
+                        }
                 }
 
 

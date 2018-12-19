@@ -9,6 +9,7 @@ using Lazaro.Orm.Data.Drivers;
 using qGen;
 using log4net;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Lazaro.Orm.Data
 {
@@ -541,6 +542,38 @@ namespace Lazaro.Orm.Data
                         // Doy más tiempo para los comandos escritos en SQL
                         Cmd.CommandTimeout = 300;
                         return this.ExecuteNonQuery(Cmd);
+                }
+
+                public T SelectScalar<T>(string selectCommand)
+                {
+                        if (this.ReadOnly)
+                                throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");
+
+                        if (this.IsOpen() == false)
+                                this.Open();
+
+                        System.Data.IDbCommand Cmd = this.GetCommand(selectCommand);
+                        if (this.Trace) {
+                                Log.Debug(this.Handle.ToString() + ":  " + Cmd.CommandText);
+                        }
+
+                        int Intentos = 3;
+                        while (true) {
+                                try {
+                                        object Res = Cmd.ExecuteScalar();
+                                        if (Res == null) {
+                                                return default(T);
+                                        } else {
+                                                return (T)Convert.ChangeType(Res, typeof(T));
+                                        }
+                                } catch (Exception ex) {
+                                        if (this.TryToRecover(ex) || Intentos-- <= 0) {
+                                                Log.Error(selectCommand, ex);
+                                                ex.Data.Add("Command", selectCommand);
+                                                throw ex;
+                                        }
+                                }
+                        }
                 }
         }
 }

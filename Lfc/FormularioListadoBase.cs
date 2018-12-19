@@ -1115,9 +1115,9 @@ namespace Lfc
                                 }
 
                                 if (Cantidad > 0)
-                                        EtiquetaCantidad.Text = "Mostrando sólo los primeros " + m_Limit.ToString() + " de un total de " + Cantidad.ToString();
+                                        EtiquetaCantidad.Text = "Mostrando los primeros " + m_Limit.ToString() + " de un total de " + Cantidad.ToString();
                                 else
-                                        EtiquetaCantidad.Text = "Mostrando sólo los primeros " + m_Limit.ToString();
+                                        EtiquetaCantidad.Text = "Mostrando los primeros " + m_Limit.ToString();
                                 EtiquetaCantidad.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.Small;
                         } else {
                                 EtiquetaCantidad.Text = Listado.Items.Count.ToString() + " elementos";

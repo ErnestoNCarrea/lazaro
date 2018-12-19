@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Lbl.Cajas
 {
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Caja", Grupo = "Cajas")]
@@ -10,18 +11,38 @@ namespace Lbl.Cajas
         [Lbl.Atributos.Presentacion()]
 	public class Caja : ElementoDeDatos, Lbl.ICamposBaseEstandar, Lbl.ICuenta, Lbl.IEstadosEstandar
 	{
+                Lazaro.Base.Controller.CajaController CajaController = null;
+
                 private Lbl.Bancos.Banco m_Banco = null;
                 private Lbl.Entidades.Moneda m_Moneda = null;
 
 		//Heredar constructores
                 public Caja(Lfx.Data.IConnection dataBase) 
-                        : base(dataBase) { }
+                        : base(dataBase)
+                {
+                        CajaController = new Lazaro.Base.Controller.CajaController(
+                                new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory),
+                                this
+                                );
+                }
 
 		public Caja(Lfx.Data.IConnection dataBase, int itemId)
-			: base(dataBase, itemId) { }
+			: base(dataBase, itemId)
+                {
+                        CajaController = new Lazaro.Base.Controller.CajaController(
+                                new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory),
+                                this
+                                );
+                }
 
                 public Caja(Lfx.Data.IConnection dataBase, Lfx.Data.Row row)
-                        : base(dataBase, row) { }
+                        : base(dataBase, row)
+                {
+                        CajaController = new Lazaro.Base.Controller.CajaController(
+                                new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory),
+                                this
+                                );
+                }
 
 
                 /// <summary>
@@ -99,13 +120,7 @@ namespace Lbl.Cajas
                 /// <returns>El saldo en la moneda de la caja.</returns>
                 public virtual decimal ObtenerSaldo(bool forUpdate)
 		{
-                        qGen.Select SelSaldo = new qGen.Select("cajas_movim", forUpdate);
-                        SelSaldo.Columns = new qGen.SqlIdentifierCollection() { "saldo" };
-                        SelSaldo.WhereClause = new qGen.Where("id_caja", this.Id);
-                        SelSaldo.Order = "id_movim DESC";
-                        SelSaldo.Window = new qGen.Window(1);
-
-                        return this.Connection.FieldDecimal(SelSaldo);
+                        return this.CajaController.ObtenerSaldo(forUpdate);
 		}
 
 
@@ -115,13 +130,7 @@ namespace Lbl.Cajas
                 /// <returns>El último movimiento registrado en la caja.</returns>
                 public Movimiento ObtenerUltimoMovimiento()
                 {
-                        qGen.Select SelUltimoMovim = new qGen.Select("cajas_movim");
-                        SelUltimoMovim.Columns = new qGen.SqlIdentifierCollection() { "*" };
-                        SelUltimoMovim.WhereClause = new qGen.Where("id_caja", this.Id);
-                        SelUltimoMovim.Order = "id_movim DESC";
-                        SelUltimoMovim.Window = new qGen.Window(1);
-
-                        return new Movimiento(this.Connection, this.Connection.FirstRowFromSelect(SelUltimoMovim));
+                        return this.CajaController.ObtenerUltimoMovimiento();
                 }
 
 
@@ -253,40 +262,15 @@ namespace Lbl.Cajas
                         Lbl.Personas.Persona cliente, decimal importe, string obs,
                         Lbl.Comprobantes.ComprobanteConArticulos factura, Lbl.Comprobantes.Recibo recibo, string comprobantes)
                 {
-                        if (Lbl.Sys.Config.Actual.UsuarioConectado.TienePermiso(this, Lbl.Sys.Permisos.Operaciones.Mover) == false) {
-                                throw new Lfx.Types.Exceptions.AccessDeniedException("No tiene permiso para hacer movimientos en la caja solicitada");
-                        }
-
-                        decimal SaldoActual = this.ObtenerSaldo(true);
-
-                        qGen.IStatement InsertarMovimiento = new qGen.Insert("cajas_movim");
-			InsertarMovimiento.ColumnValues.AddWithValue("id_caja", this.Id);
-			InsertarMovimiento.ColumnValues.AddWithValue("auto", auto ? 1 : 0);
-                        if (concepto == null)
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_concepto", null);
-                        else
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_concepto", concepto.Id);
-                        InsertarMovimiento.ColumnValues.AddWithValue("concepto", textoConcepto);
-                        InsertarMovimiento.ColumnValues.AddWithValue("id_persona", Lbl.Sys.Config.Actual.UsuarioConectado.Id);
-                        if (cliente == null)
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_cliente", null);
-                        else
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_cliente", cliente.Id);
-			InsertarMovimiento.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
-			InsertarMovimiento.ColumnValues.AddWithValue("importe", importe);
-                        if (factura == null)
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_comprob", null);
-                        else
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_comprob", factura.Id);
-                        if (recibo == null)
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_recibo", null);
-                        else
-                                InsertarMovimiento.ColumnValues.AddWithValue("id_recibo", recibo.Id);
-			InsertarMovimiento.ColumnValues.AddWithValue("comprob", comprobantes);
-			InsertarMovimiento.ColumnValues.AddWithValue("saldo", SaldoActual + importe);
-			InsertarMovimiento.ColumnValues.AddWithValue("obs", obs);
-			this.Connection.ExecuteNonQuery(InsertarMovimiento);
-		}
+                       CajaController = new Lazaro.Base.Controller.CajaController(
+                                new Lazaro.Orm.EntityManager(this.Connection, Lfx.Workspace.Master.MetadataFactory),
+                                this
+                                );
+                        CajaController.Movimiento(auto, concepto, textoConcepto,
+                        cliente, importe, obs,
+                        factura, recibo, comprobantes);
+                     
+                }
 
 
                 /// <summary>
@@ -294,23 +278,7 @@ namespace Lbl.Cajas
                 /// </summary>
                 public void Recalcular()
                 {
-                        Lfx.Types.OperationProgress Progreso = new Lfx.Types.OperationProgress("Recalculando", "Se va a recalcular el saldo de la caja " + this.ToString());
-                        Progreso.Begin();
-
-                        System.Data.DataTable Movims = this.Connection.Select("SELECT id_movim, importe FROM cajas_movim WHERE id_caja=" + this.Id.ToString() + " ORDER BY id_movim");
-                        decimal Saldo = 0;
-                        Progreso.Max = Movims.Rows.Count;
-                        foreach (System.Data.DataRow Movim in Movims.Rows) {
-                                Saldo += System.Convert.ToDecimal(Movim["importe"]);
-
-                                qGen.Update Upd = new qGen.Update("cajas_movim");
-                                Upd.ColumnValues.AddWithValue("saldo", Saldo);
-                                Upd.WhereClause = new qGen.Where("id_movim", System.Convert.ToInt32(Movim["id_movim"]));
-                                this.Connection.ExecuteNonQuery(Upd);
-
-                                Progreso.Advance(1);
-                        }
-                        Progreso.End();
+                        CajaController.Recalcular();
                 }
 
 

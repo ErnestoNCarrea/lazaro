@@ -27,6 +27,12 @@ namespace qGen
                         this.Add(Condition);
                 }
 
+                public Where(List<ICondition> conditions)
+                        : this()
+                {
+                        this.AddRange(conditions);
+                }
+
                 public Where(string sqlWhere)
                         : this()
                 {

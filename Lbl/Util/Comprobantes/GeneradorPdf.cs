@@ -255,7 +255,7 @@ namespace Lazaro.Base.Util.Comprobantes
                                 Codigos += CodigoImprimir + "\n";
                                 Detalles += DetalleImprimir + "\n";
                                 Cantidades += Lfx.Types.Formatting.FormatNumberForPrint(Det.Cantidad, Lbl.Sys.Config.Articulos.Decimales) + "\n";
-                                Unitarios += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteUnitarioFinalAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
+                                Unitarios += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteUnitarioFinalAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesCosto) + "\n";
                                 Importes += Lfx.Types.Formatting.FormatCurrencyForPrint(Det.ImporteAImprimir, Lfx.Workspace.Master.CurrentConfig.Moneda.DecimalesFinal) + "\n";
                         }
                         Tf.DrawString(Codigos, FuenteArticulos, XBrushes.Black, CuadroArticulosCodigos);

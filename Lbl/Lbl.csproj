@@ -146,6 +146,7 @@
     <Compile Include="Consultas\Consulta.cs" />
     <Compile Include="Consultas\Parametro.cs" />
     <Compile Include="Controller\BaseController.cs" />
+    <Compile Include="Controller\CajaController.cs" />
     <Compile Include="Controller\CuentaCorrienteController.cs" />
     <Compile Include="Controller\ComprobanteController.cs" />
     <Compile Include="Controller\IConElemento.cs" />
@@ -384,6 +385,7 @@
     <Folder Include="Util\Impresion\Comprobantes\Afip\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

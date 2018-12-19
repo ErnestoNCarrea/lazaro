@@ -268,6 +268,7 @@ namespace Lfc.Comprobantes.Recibos
                                 if (FormularioEditarPago.ShowDialog() == DialogResult.OK) {
                                         Lbl.Comprobantes.Pago MiPago = FormularioEditarPago.Pago.ToPago(this.Connection);
                                         Lbl.Comprobantes.Recibo Rec = this.Elemento as Lbl.Comprobantes.Recibo;
+                                        Rec.Connection = this.Connection;
                                         Rec.Pagos.Add(MiPago);
                                         this.MostrarValores();
                                 }

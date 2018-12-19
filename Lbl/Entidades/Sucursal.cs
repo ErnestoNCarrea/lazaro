@@ -62,7 +62,10 @@ namespace Lbl.Entidades
                         }
 
                         if (this.Numero > 0)
+                        {
                                 Comando.ColumnValues.AddWithValue("id_sucursal", this.Numero);
+                                this.m_ItemId = this.Numero;
+                        }
 
                         Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
                         Comando.ColumnValues.AddWithValue("direccion", this.Direccion);

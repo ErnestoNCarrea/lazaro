@@ -1,6 +1,6 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 
@@ -8,23 +8,25 @@ namespace Lazaro.Base.Controller
 {
         public class CuentaCorrienteController : Lazaro.Base.Controller.BaseController
         {
-                protected string TablaDatos = "ctatce";
+                private static readonly ILog Log = LogManager.GetLogger(typeof(CuentaCorrienteController));
+
+                protected string TablaDatos = "ctacte";
                 protected string CampoId = "id_movim";
 
                 protected Lbl.Personas.Persona Persona { get; }
                 protected Lazaro.Orm.IEntityManager Em { get; }
-                protected Lfx.Data.IConnection Connection { get; }
+                protected Lazaro.Orm.Data.IConnection Connection { get; }
 
-                public CuentaCorrienteController(Lfx.Data.IConnection conn)
+                public CuentaCorrienteController(Lazaro.Orm.IEntityManager em)
                 {
-                        this.Connection = conn;
-                        this.Em = conn.Factory.GetEntityManager(conn.Name);
+                        this.Em = em;
+                        this.Connection = em.Connection;
                 }
 
-                public CuentaCorrienteController(Lfx.Data.IConnection conn, Lbl.Personas.Persona Persona)
+                public CuentaCorrienteController(Lazaro.Orm.IEntityManager em, Lbl.Personas.Persona Persona)
                 {
-                        this.Connection = conn;
-                        this.Em = conn.Factory.GetEntityManager(conn.Name);
+                        this.Em = em;
+                        this.Connection = em.Connection;
                         this.Persona = Persona;
                 }
 
@@ -73,7 +75,14 @@ namespace Lazaro.Base.Controller
                                 "id_movim DESC",
                                 new qGen.Window(1)
                                 );
+                        
+                        if (UltimoMovim == null) {
+                                // En el caso de que la persona sea nueva y no tenga moviemientos en la Ctacte
+                                return 0;
+                        }
 
+                        Log.Debug("ObtenerSaldo(): " + UltimoMovim.Saldo.ToString());
+                        
                         return UltimoMovim.Saldo;
 
                         /* qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, forUpdate);
@@ -87,14 +96,29 @@ namespace Lazaro.Base.Controller
 
                 public decimal ObtenerSaldoAFecha(DateTime date)
                 {
-                        qGen.Select SelSaldo = new qGen.Select(this.TablaDatos, false);
-                        SelSaldo.Columns = new qGen.SqlIdentifierCollection() { "saldo" };
-                        SelSaldo.WhereClause = new qGen.Where("id_cliente", this.Persona.Id);
-                        SelSaldo.WhereClause.AddWithValue("fecha", qGen.ComparisonOperators.LessOrEqual, date);
-                        SelSaldo.Order = this.CampoId + " DESC";
-                        SelSaldo.Window = new qGen.Window(1);
+                        var Where = new qGen.Where(
+                                new List<qGen.ICondition>()
+                                {
+                                        new qGen.ComparisonCondition("id_cliente", Persona.Id),
+                                        new qGen.ComparisonCondition("fecha", qGen.ComparisonOperators.LessOrEqual, date)
+                                }
+                                
+                                );
 
-                        return this.Connection.FieldDecimal(SelSaldo);
+                        var UltimoMovim = this.Em.FindOneBy<Lbl.CuentasCorrientes.Movimiento>(
+                                Where,
+                                "id_movim DESC",
+                                new qGen.Window(1)
+                                );
+
+                        if (UltimoMovim == null) {
+                                // En el caso de que la persona sea nueva y no tenga moviemientos en la Ctacte
+                                return 0;
+                        }
+
+                        Log.Debug("ObtenerSaldoAFecha(): " + UltimoMovim.Saldo.ToString());
+
+                        return UltimoMovim.Saldo;
                 }
 
                 /// <summary>
@@ -203,7 +227,7 @@ namespace Lazaro.Base.Controller
                                         ComandoInsertarMovimiento.ColumnValues.AddWithValue(extra.Key, extra.Value);
                                 }
                         }
-                        this.Connection.ExecuteNonQuery(ComandoInsertarMovimiento);
+                        this.Em.Connection.ExecuteNonQuery(ComandoInsertarMovimiento);
 
                         qGen.Update ComandoActualizarCliente = new qGen.Update("personas");
                         ComandoActualizarCliente.ColumnValues.AddWithValue("saldo_ctacte", NuevoSaldo);

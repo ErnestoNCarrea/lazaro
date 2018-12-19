@@ -1,3 +1,4 @@
+using Lazaro.Orm.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -6,8 +7,12 @@ namespace Lbl.Cajas
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Movimiento de caja", Grupo = "Cuentas")]
         [Lbl.Atributos.Datos(TablaDatos = "cajas_movim", CampoId = "id_movim", CampoNombre = "concepto")]
         [Lbl.Atributos.Presentacion(PanelExtendido = Lbl.Atributos.PanelExtendido.Nunca)]
+        [Entity(TableName = "cajas_movim", IdFieldName = "id_movim")]
         public class Movimiento : Lbl.ElementoDeDatos
         {
+                public Movimiento()
+                        : base() { }
+
                 //Heredar constructor
                 public Movimiento(Lfx.Data.IConnection dataBase)
                         : base(dataBase) { }
@@ -22,6 +27,7 @@ namespace Lbl.Cajas
                 /// <summary>
                 /// El importe del movimiento.
                 /// </summary>
+                [Column(Name = "importe")]
                 public decimal Importe
                 {
                         get
@@ -38,6 +44,7 @@ namespace Lbl.Cajas
                 /// <summary>
                 /// El saldo después de hacer este movimiento.
                 /// </summary>
+                [Column(Name = "saldo")]
                 public decimal Saldo
                 {
                         get

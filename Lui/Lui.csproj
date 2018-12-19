@@ -480,6 +480,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lazaro.ico" />
+    <None Include="app.config" />
     <None Include="Resources\lazaro-120-v.png" />
     <None Include="Resources\form.png" />
     <None Include="Resources\van.png" />

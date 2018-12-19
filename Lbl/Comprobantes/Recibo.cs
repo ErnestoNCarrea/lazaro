@@ -375,7 +375,7 @@ namespace Lbl.Comprobantes
                                                         return ResultadoCheque;
                                                 break;
                                         case Lbl.Pagos.TiposFormasDePago.Caja:
-                                                Pg.CajaOrigen.Connection = this.Connection;
+                                                Pg.CajaOrigen.Connection = this.Connection;                                                
                                                 Pg.CajaOrigen.Movimiento(true, Pg.Concepto, Pg.ConceptoTexto, this.Cliente, -Pg.Importe, ObsPago, null, this, string.Empty);
                                                 break;
                                         case Lbl.Pagos.TiposFormasDePago.ChequeTerceros:
