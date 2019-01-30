@@ -175,12 +175,12 @@ namespace Lazaro.WinMain.Config
                                 // Probar la conexión al servidor
                                 if (CheckEsteEquipo.Checked) {
                                         Lfx.Workspace.Master.ConnectionParameters.ServerName = "localhost";
-                                        Lfx.Workspace.Master.ConnectionParameters.UserName = "root";
-                                        Lfx.Workspace.Master.ConnectionParameters.Password = "";
+                                        Lfx.Workspace.Master.ConnectionParameters.UserName = "lazaro";
+                                        Lfx.Workspace.Master.ConnectionParameters.Password = "lazaro";
                                 } else {
                                         Lfx.Workspace.Master.ConnectionParameters.ServerName = EntradaServidor.Text;
                                         Lfx.Workspace.Master.ConnectionParameters.UserName = "lazaro";
-                                        Lfx.Workspace.Master.ConnectionParameters.Password = "";
+                                        Lfx.Workspace.Master.ConnectionParameters.Password = "lazaro";
                                 }
 
                                 Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;

@@ -21,7 +21,7 @@
     <MetadataSource Address="https://wswhomo.afip.gov.ar/wsfev1/service.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="a4b28158-9222-459c-85a9-6dcecfeb16ac" SourceId="1" SourceUrl="https://wswhomo.afip.gov.ar/wsfev1/service.asmx?wsdl" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="0a76e295-0adf-4103-9153-84e589f51358" SourceId="1" SourceUrl="http://wswhomo.afip.gov.ar/wsfev1/service.asmx?wsdl" />
     <MetadataFile FileName="service.disco" MetadataType="Disco" ID="dce0caba-fb46-4b47-a86d-b45d7a3caca3" SourceId="1" SourceUrl="https://wswhomo.afip.gov.ar/wsfev1/service.asmx?disco" />
   </Metadata>
   <Extensions>

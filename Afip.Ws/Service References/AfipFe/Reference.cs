@@ -311,6 +311,9 @@ namespace Afip.Ws.AfipFe {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Afip.Ws.AfipFe.Opcional[] OpcionalesField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Afip.Ws.AfipFe.Comprador[] CompradoresField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -594,6 +597,19 @@ namespace Afip.Ws.AfipFe {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=21)]
+        public Afip.Ws.AfipFe.Comprador[] Compradores {
+            get {
+                return this.CompradoresField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CompradoresField, value) != true)) {
+                    this.CompradoresField = value;
+                    this.RaisePropertyChanged("Compradores");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -613,6 +629,9 @@ namespace Afip.Ws.AfipFe {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CAEAField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CbteFchHsGenField;
+        
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
         public string CAEA {
             get {
@@ -622,6 +641,19 @@ namespace Afip.Ws.AfipFe {
                 if ((object.ReferenceEquals(this.CAEAField, value) != true)) {
                     this.CAEAField = value;
                     this.RaisePropertyChanged("CAEA");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
+        public string CbteFchHsGen {
+            get {
+                return this.CbteFchHsGenField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CbteFchHsGenField, value) != true)) {
+                    this.CbteFchHsGenField = value;
+                    this.RaisePropertyChanged("CbteFchHsGen");
                 }
             }
         }
@@ -775,6 +807,12 @@ namespace Afip.Ws.AfipFe {
         
         private long NroField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CbteFchField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -820,6 +858,32 @@ namespace Afip.Ws.AfipFe {
                 if ((this.NroField.Equals(value) != true)) {
                     this.NroField = value;
                     this.RaisePropertyChanged("Nro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public string Cuit {
+            get {
+                return this.CuitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuitField, value) != true)) {
+                    this.CuitField = value;
+                    this.RaisePropertyChanged("Cuit");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=4)]
+        public string CbteFch {
+            get {
+                return this.CbteFchField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CbteFchField, value) != true)) {
+                    this.CbteFchField = value;
+                    this.RaisePropertyChanged("CbteFch");
                 }
             }
         }
@@ -1060,6 +1124,80 @@ namespace Afip.Ws.AfipFe {
                 if ((object.ReferenceEquals(this.ValorField, value) != true)) {
                     this.ValorField = value;
                     this.RaisePropertyChanged("Valor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Comprador", Namespace="http://ar.gov.afip.dif.FEV1/")]
+    [System.SerializableAttribute()]
+    public partial class Comprador : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private int DocTipoField;
+        
+        private long DocNroField;
+        
+        private double PorcentajeField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int DocTipo {
+            get {
+                return this.DocTipoField;
+            }
+            set {
+                if ((this.DocTipoField.Equals(value) != true)) {
+                    this.DocTipoField = value;
+                    this.RaisePropertyChanged("DocTipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
+        public long DocNro {
+            get {
+                return this.DocNroField;
+            }
+            set {
+                if ((this.DocNroField.Equals(value) != true)) {
+                    this.DocNroField = value;
+                    this.RaisePropertyChanged("DocNro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        public double Porcentaje {
+            get {
+                return this.PorcentajeField;
+            }
+            set {
+                if ((this.PorcentajeField.Equals(value) != true)) {
+                    this.PorcentajeField = value;
+                    this.RaisePropertyChanged("Porcentaje");
                 }
             }
         }
@@ -1878,14 +2016,14 @@ namespace Afip.Ws.AfipFe {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Afip.Ws.AfipFe.Err[] ErrorsField;
-        
         private int PtoVtaField;
         
         private int CbteTipoField;
         
         private int CbteNroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Afip.Ws.AfipFe.Err[] ErrorsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Afip.Ws.AfipFe.Evt[] EventsField;
@@ -1897,19 +2035,6 @@ namespace Afip.Ws.AfipFe {
             }
             set {
                 this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false)]
-        public Afip.Ws.AfipFe.Err[] Errors {
-            get {
-                return this.ErrorsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ErrorsField, value) != true)) {
-                    this.ErrorsField = value;
-                    this.RaisePropertyChanged("Errors");
-                }
             }
         }
         
@@ -1926,7 +2051,7 @@ namespace Afip.Ws.AfipFe {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=1)]
         public int CbteTipo {
             get {
                 return this.CbteTipoField;
@@ -1939,7 +2064,7 @@ namespace Afip.Ws.AfipFe {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=3)]
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=2)]
         public int CbteNro {
             get {
                 return this.CbteNroField;
@@ -1948,6 +2073,19 @@ namespace Afip.Ws.AfipFe {
                 if ((this.CbteNroField.Equals(value) != true)) {
                     this.CbteNroField = value;
                     this.RaisePropertyChanged("CbteNro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=3)]
+        public Afip.Ws.AfipFe.Err[] Errors {
+            get {
+                return this.ErrorsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ErrorsField, value) != true)) {
+                    this.ErrorsField = value;
+                    this.RaisePropertyChanged("Errors");
                 }
             }
         }
@@ -2385,6 +2523,9 @@ namespace Afip.Ws.AfipFe {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FchProcesoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Afip.Ws.AfipFe.Obs[] ObservacionesField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -2482,6 +2623,19 @@ namespace Afip.Ws.AfipFe {
                 if ((object.ReferenceEquals(this.FchProcesoField, value) != true)) {
                     this.FchProcesoField = value;
                     this.RaisePropertyChanged("FchProceso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=7)]
+        public Afip.Ws.AfipFe.Obs[] Observaciones {
+            get {
+                return this.ObservacionesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionesField, value) != true)) {
+                    this.ObservacionesField = value;
+                    this.RaisePropertyChanged("Observaciones");
                 }
             }
         }
@@ -3792,7 +3946,7 @@ namespace Afip.Ws.AfipFe {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private short NroField;
+        private int NroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EmisionTipoField;
@@ -3814,7 +3968,7 @@ namespace Afip.Ws.AfipFe {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public short Nro {
+        public int Nro {
             get {
                 return this.NroField;
             }
