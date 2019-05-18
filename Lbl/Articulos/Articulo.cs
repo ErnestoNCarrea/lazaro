@@ -18,6 +18,7 @@ namespace Lbl.Articulos
                 private Lbl.Cajas.Caja m_Caja = null;
                 private ColeccionItem m_ListaItem = null;
                 private Receta m_Receta = null;
+                private Entidades.Moneda m_Moneda = null;
                 public decimal ExistenciasInicial { get; set; }
 
                 //Heredar constructor
@@ -92,6 +93,10 @@ namespace Lbl.Articulos
 
 
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa el tercer código de identificación interna del artículo.
+                /// </summary>
+                [Column(Name = "codigo1")]
                 public string Codigo1
                 {
                         get
@@ -104,6 +109,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa el segundo código de identificación interna del artículo.
+                /// </summary>
+                [Column(Name = "codigo2")]
                 public string Codigo2
                 {
                         get
@@ -116,6 +125,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa el tercer código de identificación interna del artículo.
+                /// </summary>
+                [Column(Name = "codigo3")]
                 public string Codigo3
                 {
                         get
@@ -128,6 +141,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa el cuarto código de identificación interna del artículo.
+                /// </summary>
+                [Column(Name = "codigo4")]
                 public string Codigo4
                 {
                         get
@@ -140,6 +157,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa el modelo del artículo.
+                /// </summary>
+                [Column(Name = "modelo")]
                 public string Modelo
                 {
                         get
@@ -152,6 +173,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa la serie del artículo.
+                /// </summary>
+                [Column(Name = "serie")]
                 public string Serie
                 {
                         get
@@ -164,6 +189,10 @@ namespace Lbl.Articulos
                         }
                 }
 
+                /// <summary>
+                /// Obtiene o establece un texto que representa la forma en la cual se contabiliza una unidad del artículo.
+                /// </summary>
+                [Column(Name = "unidad_stock")]
                 public string Unidad
                 {
                         get
@@ -197,6 +226,28 @@ namespace Lbl.Articulos
                         set
                         {
                                 Registro["rendimiento"] = value;
+                        }
+                }
+
+                /// <summary>
+                /// Obtiene o establece un el objeto Moneda con el cual se calcula el costo del articulo.
+                /// </summary>
+                [Column(Name = "id_moneda")]
+                public Entidades.Moneda Moneda
+                {
+                        get
+                        {
+                                if (m_Moneda == null && this.GetFieldValue<int>("id_moneda") != 0)
+                                {
+                                        m_Moneda = new Entidades.Moneda(this.Connection, this.GetFieldValue<int>("id_moneda"));
+                                        return m_Moneda;
+                                }
+                                return m_Moneda;
+                        }
+                        set
+                        {
+                                m_Moneda = value;
+                                this.SetFieldValue("id_moneda", value);
                         }
                 }
 
@@ -438,9 +489,12 @@ namespace Lbl.Articulos
                 {
                         if (this.TipoDeArticulo == Articulos.TiposDeArticulo.ProductoCompuesto && this.Receta != null)
                         {
+                                if (Moneda.Cotizacion > 1)
+                                        return Moneda.Cotizacion * Receta.Costo;
                                 return Receta.Costo;
                         } else
-                        {
+                        {       if (Moneda.Cotizacion > 1)
+                                        return Moneda.Cotizacion * this.Costo;
                                 return this.Costo;
                         }
                 }
@@ -859,6 +913,11 @@ namespace Lbl.Articulos
                         else
                                 Comando.ColumnValues.AddWithValue("id_caja", this.Caja.Id);
 
+                        if (this.Moneda == null)
+                                Comando.ColumnValues.AddWithValue("id_moneda", null);
+                        else
+                                Comando.ColumnValues.AddWithValue("id_moneda", this.Moneda.Id);
+
                         Comando.ColumnValues.AddWithValue("modelo", this.Modelo);
                         Comando.ColumnValues.AddWithValue("serie", this.Serie);
                         Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
@@ -871,7 +930,7 @@ namespace Lbl.Articulos
 
                         Comando.ColumnValues.AddWithValue("descripcion", this.Descripcion);
                         Comando.ColumnValues.AddWithValue("descripcion2", this.Descripcion2);
-                        Comando.ColumnValues.AddWithValue("destacado", this.Destacado);
+                        Comando.ColumnValues.AddWithValue("destacado", this.Destacado);                        
                         Comando.ColumnValues.AddWithValue("costo", this.Costo);
 
                         if (this.Margen == null)
