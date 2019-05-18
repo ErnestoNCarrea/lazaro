@@ -29,7 +29,8 @@ namespace Lfc.Articulos
                                 Columns = new Lazaro.Pres.FieldCollection()
                                 {
 				        new Lazaro.Pres.Field("articulos.nombre", "Nombre", Lfx.Data.InputFieldTypes.Text, 320),
-                                        new Lazaro.Pres.Field("articulos.costo", "Costo", Lfx.Data.InputFieldTypes.Currency, 96),
+                                        new Lazaro.Pres.Field("monedas.nombre", "Cotizacion", Lfx.Data.InputFieldTypes.Text, 120),
+                                        new Lazaro.Pres.Field("monedas.cotizacion*articulos.costo", "Costo", Lfx.Data.InputFieldTypes.Currency, 96),                                        
 				        new Lazaro.Pres.Field("articulos.pvp", "PVP", Lfx.Data.InputFieldTypes.Currency, 96),
 				        new Lazaro.Pres.Field("articulos.stock_actual", "Stock Act", Lfx.Data.InputFieldTypes.Numeric, 96),
 				        new Lazaro.Pres.Field("articulos.stock_minimo", "Stock Mín", Lfx.Data.InputFieldTypes.Numeric, 96),
@@ -102,8 +103,9 @@ namespace Lfc.Articulos
 
                 private qGen.JoinCollection FixedJoins()
                 {
-                        return new qGen.JoinCollection() { 
-                                new qGen.Join("articulos_categorias", "articulos_categorias.id_categoria=articulos.id_categoria")
+                        return new qGen.JoinCollection() {
+                                new qGen.Join("articulos_categorias", "articulos_categorias.id_categoria=articulos.id_categoria"),
+                                new qGen.Join("monedas", "monedas.id_moneda=articulos.id_moneda")
                         };
                 }
 
