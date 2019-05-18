@@ -37,6 +37,7 @@ namespace Lfc.Comprobantes
                 public override Lfx.Types.OperationResult ValidarControl()
                 {
                         Lfx.Types.OperationResult Res = base.ValidarControl();
+                        Lbl.Entidades.Pais PaisActual = new Lbl.Entidades.Pais(this.Connection, Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<int>("Sistema.Pais", 1));
 
                         if (EntradaVendedor.ValueInt == 0) {
                                 Res.Success = false;
@@ -50,7 +51,7 @@ namespace Lfc.Comprobantes
 
                         if (EntradaTotal.ValueDecimal <= 0) {
                                 Res.Success = false;
-                                Res.Message += "El comprobante debe tener un importe superior a $ 0.00." + Environment.NewLine;
+                                Res.Message += "El comprobante debe tener un importe superior a " + PaisActual.Moneda.Simbolo + " 0.00." + Environment.NewLine;
                         }
 
                         if (Lbl.Comprobantes.PuntoDeVenta.TodosPorNumero.ContainsKey(EntradaPV.ValueInt) == false)

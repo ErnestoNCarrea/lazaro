@@ -925,10 +925,11 @@ namespace Lbl.Comprobantes
                 public override Lfx.Types.OperationResult Guardar()
                 {
                         this.Articulos.ElementoPadre = this;
+                        Lbl.Entidades.Pais PaisActual = new Lbl.Entidades.Pais(this.Connection, Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<int>("Sistema.Pais", 1));
 
-			qGen.IStatement Comando;
+                        qGen.IStatement Comando;
                         if (this.Total <= 0)
-                                return new Lfx.Types.FailureOperationResult("El comprobante debe tener un importe superior a $ 0.00.");
+                                return new Lfx.Types.FailureOperationResult("El comprobante debe tener un importe superior a " + PaisActual.Moneda.Simbolo + " 0.00.");
 
 			if (this.Existe == false) {
                                 Comando = new qGen.Insert(this.TablaDatos);
