@@ -5,6 +5,8 @@ namespace Lfc.Articulos
                 private void InitializeComponent()
                 {
                         this.Frame2 = new Lui.Forms.Frame();
+                        this.label24 = new Lui.Forms.Label();
+                        this.EntradaMoneda = new Lcc.Entrada.CodigoDetalle();
                         this.EntradaPvpIva = new Lui.Forms.TextBox();
                         this.label23 = new Lui.Forms.Label();
                         this.EntradaCosto = new Lui.Forms.TextBox();
@@ -74,6 +76,8 @@ namespace Lfc.Articulos
                         // 
                         // Frame2
                         // 
+                        this.Frame2.Controls.Add(this.label24);
+                        this.Frame2.Controls.Add(this.EntradaMoneda);
                         this.Frame2.Controls.Add(this.EntradaPvpIva);
                         this.Frame2.Controls.Add(this.label23);
                         this.Frame2.Controls.Add(this.EntradaCosto);
@@ -93,6 +97,32 @@ namespace Lfc.Articulos
                         this.Frame2.Size = new System.Drawing.Size(360, 316);
                         this.Frame2.TabIndex = 0;
                         this.Frame2.Text = "Precio y costo";
+                        // 
+                        // label24
+                        // 
+                        this.label24.Location = new System.Drawing.Point(8, 64);
+                        this.label24.Name = "label24";
+                        this.label24.Size = new System.Drawing.Size(120, 24);
+                        this.label24.TabIndex = 36;
+                        this.label24.Text = "Tipo de Moneda";
+                        this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+                        // 
+                        // EntradaMoneda
+                        // 
+                        this.EntradaMoneda.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+                        this.EntradaMoneda.AutoTab = true;
+                        this.EntradaMoneda.CanCreate = true;
+                        this.EntradaMoneda.Location = new System.Drawing.Point(136, 67);
+                        this.EntradaMoneda.MaximumSize = new System.Drawing.Size(480, 32);
+                        this.EntradaMoneda.MaxLength = 0;
+                        this.EntradaMoneda.Name = "EntradaMoneda";
+                        this.EntradaMoneda.NombreTipo = "Lbl.Entidades.Monedas";
+                        this.EntradaMoneda.PlaceholderText = "Tipo de Moneda";
+                        this.EntradaMoneda.Required = false;
+                        this.EntradaMoneda.Size = new System.Drawing.Size(221, 24);
+                        this.EntradaMoneda.TabIndex = 35;
+                        this.EntradaMoneda.Text = "0";
                         // 
                         // EntradaPvpIva
                         // 
@@ -133,11 +163,11 @@ namespace Lfc.Articulos
                         // EntradaMargen
                         // 
                         this.EntradaMargen.AlwaysExpanded = true;
-                        this.EntradaMargen.Location = new System.Drawing.Point(136, 72);
+                        this.EntradaMargen.Location = new System.Drawing.Point(136, 97);
                         this.EntradaMargen.Name = "EntradaMargen";
                         this.EntradaMargen.SetData = new string[] {
         "Otro|-1"};
-                        this.EntradaMargen.Size = new System.Drawing.Size(224, 96);
+                        this.EntradaMargen.Size = new System.Drawing.Size(224, 71);
                         this.EntradaMargen.TabIndex = 4;
                         this.EntradaMargen.TextKey = "-1";
                         this.EntradaMargen.TextChanged += new System.EventHandler(this.EntradaCostoMargen_TextChanged);
@@ -196,7 +226,7 @@ namespace Lfc.Articulos
                         // 
                         // Label8
                         // 
-                        this.Label8.Location = new System.Drawing.Point(8, 72);
+                        this.Label8.Location = new System.Drawing.Point(13, 97);
                         this.Label8.Name = "Label8";
                         this.Label8.Size = new System.Drawing.Size(120, 24);
                         this.Label8.TabIndex = 3;
@@ -906,5 +936,7 @@ namespace Lfc.Articulos
                 internal Lui.Forms.Panel PanelProducto;
                 internal Lui.Forms.TextBox EntradaPvpIva;
                 internal Lui.Forms.Label label23;
+                internal Lcc.Entrada.CodigoDetalle EntradaMoneda;
+                internal Lui.Forms.Label label24;
         }
 }
