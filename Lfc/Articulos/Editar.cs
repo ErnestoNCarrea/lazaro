@@ -54,7 +54,8 @@ namespace Lfc.Articulos
                                 int i = 0;
                                 string[] ListaMargenes = new string[this.Margenes.Count + 1];
 
-                                //TODO Ordenar de forma acendente this.Margenes usando Margen.nombre como valor a ordenar.
+                                //Ordeno el listado de Margenes
+                                this.Margenes.Sort((x, y) => x.Porcentaje.CompareTo(y.Porcentaje));
 
                                 foreach (Lbl.Articulos.Margen Mg in this.Margenes) {
                                         ListaMargenes[i] = Mg.Nombre + " (" + Lfx.Types.Formatting.FormatNumber(Mg.Porcentaje, 2) + "%)|" + Mg.Id.ToString();
