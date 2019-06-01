@@ -237,12 +237,19 @@ namespace Lbl.Articulos
                 {
                         get
                         {
-                                if (m_Moneda == null && this.GetFieldValue<int>("id_moneda") != 0)
+                                if (this.GetFieldValue<int>("id_moneda") != 0)
                                 {
                                         m_Moneda = new Entidades.Moneda(this.Connection, this.GetFieldValue<int>("id_moneda"));
                                         return m_Moneda;
+                                } else {
+                                        Lbl.Entidades.Pais PaisActual = new Lbl.Entidades.Pais(this.Connection, Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<int>("Sistema.Pais", 1));
+                                        if (PaisActual != null)
+                                                m_Moneda = PaisActual.Moneda;
+                                        else
+                                                m_Moneda = new Entidades.Moneda(Lfx.Workspace.Master.MasterConnection, 3);
+                                        return m_Moneda;
                                 }
-                                return m_Moneda;
+                                
                         }
                         set
                         {
