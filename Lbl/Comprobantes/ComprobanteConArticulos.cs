@@ -1127,7 +1127,7 @@ namespace Lbl.Comprobantes
                                                 Comando.ColumnValues.AddWithValue("iva", Art.ImporteIvaUnitario);
                                                 Comando.ColumnValues.AddWithValue("recargo", Art.Recargo);
                                                 if (Art.Costo == 0 && Art.Articulo != null)
-                                                        Comando.ColumnValues.AddWithValue("costo", Art.Articulo.Costo);
+                                                        Comando.ColumnValues.AddWithValue("costo", Art.Articulo.CostoLocal);
                                                 else
                                                         Comando.ColumnValues.AddWithValue("costo", Art.Costo);
                                                 Comando.ColumnValues.AddWithValue("importe", Art.ImporteAImprimir);

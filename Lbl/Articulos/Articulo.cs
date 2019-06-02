@@ -282,6 +282,18 @@ namespace Lbl.Articulos
                         }
                 }
 
+                public decimal PvpLocal
+                {
+                        get
+                        {
+                                if (Moneda.Cotizacion > 1)
+                                        return Moneda.Cotizacion * this.Pvp;
+                                else
+                                        return this.Pvp;
+                        }
+                        
+                }
+
                 public DbDateTime FechaPrecio
                 {
                         get
@@ -489,6 +501,18 @@ namespace Lbl.Articulos
                         get
                         {
                                 return this.GetFieldValue<decimal>("pedido");
+                        }
+                }
+
+                public decimal CostoLocal
+                {
+                        get
+                        {
+
+                                if (Moneda.Cotizacion > 1)
+                                        return Moneda.Cotizacion * this.Costo;
+                                else
+                                        return this.Costo;
                         }
                 }
 
