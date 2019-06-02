@@ -59,6 +59,17 @@ namespace Lbl.Entidades
                         }
                 }
 
+                public string Nombre
+                {
+                        get
+                        {
+                                return this.GetFieldValue<string>("nombre");
+                        }
+                        set
+                        {
+                                this.Registro["nombre"] = value;
+                        }
+                }
 
                 public int Decimales
                 {
