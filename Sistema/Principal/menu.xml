@@ -149,6 +149,7 @@
       <Opcion Nombre="Planes de cobro y pago" Funcion="LISTAR Lbl.Pagos.Plan" />
       <Opcion Nombre="-" Funcion="" />
       <Opcion Nombre="&amp;Localidades" Funcion="LISTAR Lbl.Entidades.Localidad" />
+      <Opcion Nombre="&amp;Monedas" Funcion="LISTAR Lbl.Entidades.Moneda" />
     </Opcion>
   </Opcion>
 </Menu>

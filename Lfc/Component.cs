@@ -320,6 +320,13 @@ namespace Lfc
                                         new Lfx.Components.Action("edit", typeof(Lfc.Tareas.Tipos.Editar))
                                 }));
 
+                        Res.Add(new Lfx.Components.RegisteredType(
+                                typeof(Lbl.Entidades.Moneda),
+                                new Lfx.Components.ActionCollection() {
+                                        new Lfx.Components.Action("list", typeof(Lfc.Monedas.Inicio)),
+                                        new Lfx.Components.Action("edit", typeof(Lfc.Monedas.Editar))
+                                }));
+
                         return Res;
                 }
 

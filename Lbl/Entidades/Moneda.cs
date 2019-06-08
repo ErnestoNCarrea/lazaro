@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Lazaro.Orm;
+using Lazaro.Orm.Attributes;
 
 namespace Lbl.Entidades
 {
@@ -10,6 +12,8 @@ namespace Lbl.Entidades
         [Lbl.Atributos.Nomenclatura(NombreSingular = "Moneda", Grupo = "Cuentas")]
         [Lbl.Atributos.Datos(TablaDatos = "monedas", CampoId = "id_moneda")]
         [Lbl.Atributos.Presentacion()]
+
+        [Entity(TableName = "monedas", IdFieldName = "id_moneda")]
         public class Moneda : ElementoDeDatos
         {
                 //Heredar constructor
@@ -81,6 +85,22 @@ namespace Lbl.Entidades
                         {
                                 this.Registro["decimales"] = value;
                         }
+                }
+
+                public override Lfx.Types.OperationResult Guardar()
+                {
+                        qGen.IStatement Comando;
+                        
+                        Comando = new qGen.Update("monedas");
+                        Comando.WhereClause = new qGen.Where("id_moneda", m_ItemId);
+                        
+
+                        if (this.Cotizacion > 0)
+                                Comando.ColumnValues.AddWithValue("cotizacion", this.Cotizacion);                        
+
+                        Connection.ExecuteNonQuery(Comando);
+
+                        return base.Guardar();
                 }
         }
 }
