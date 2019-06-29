@@ -75,6 +75,15 @@ namespace Lbl.Entidades
                         }
                 }
 
+                [Column(Name = "fecha")]
+                public DbDateTime Fecha
+                {
+                        get
+                        {
+                                return this.GetFieldValue<DbDateTime>("fecha");
+                        }
+                }
+
                 public int Decimales
                 {
                         get
@@ -90,13 +99,27 @@ namespace Lbl.Entidades
                 public override Lfx.Types.OperationResult Guardar()
                 {
                         qGen.IStatement Comando;
-                        
-                        Comando = new qGen.Update("monedas");
-                        Comando.WhereClause = new qGen.Where("id_moneda", m_ItemId);
+                        if (this.Existe == false)
+                        {
+                                Comando = new qGen.Insert(this.TablaDatos);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
+                                Comando.ColumnValues.AddWithValue("estado", 1);
+                                Comando.ColumnValues.AddWithValue("decimales", 2);
+
+                        } else
+                        {
+                                Comando = new qGen.Update("monedas");
+                                Comando.WhereClause = new qGen.Where("id_moneda", m_ItemId);
+                                Comando.ColumnValues.AddWithValue("fecha", new qGen.SqlExpression("NOW()"));
+                        }
                         
 
+                        Comando.ColumnValues.AddWithValue("nombre", this.Nombre);
+                        Comando.ColumnValues.AddWithValue("iso", this.NomenclaturaIso);
+                        Comando.ColumnValues.AddWithValue("signo", this.Simbolo);
                         if (this.Cotizacion > 0)
-                                Comando.ColumnValues.AddWithValue("cotizacion", this.Cotizacion);                        
+                                Comando.ColumnValues.AddWithValue("cotizacion", this.Cotizacion);  
+                        
 
                         Connection.ExecuteNonQuery(Comando);
 

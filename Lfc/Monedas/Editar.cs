@@ -20,8 +20,14 @@ namespace Lfc.Monedas
                 public override void ActualizarControl()
                 {
                         Lbl.Entidades.Moneda Res = this.Elemento as Lbl.Entidades.Moneda;
-
-                        EntradaCotizacion.ValueDecimal = Res.Cotizacion;                       
+                        EntradaNombre.Text = Res.Nombre;
+                        EntradaCotizacion.ValueDecimal = Res.Cotizacion;
+                        EntradaCodigoIso.Text = Res.NomenclaturaIso;
+                        EntradaSigno.Text = Res.Simbolo;
+                        if (Res.Fecha != null)
+                                LabelFechaValor.Text = "La última fecha de modificación registrada es del: " + Res.Fecha;
+                        else
+                                LabelFechaValor.Text = "";
 
                         base.ActualizarControl();
                 }
@@ -31,8 +37,11 @@ namespace Lfc.Monedas
                       
 
                         if (EntradaCotizacion.ValueDecimal<0)
-                              return new Lfx.Types.FailureOperationResult("La catización debe ser mayor a 0");                       
-
+                              return new Lfx.Types.FailureOperationResult("La catización debe ser mayor a 0");
+                        if ((EntradaCodigoIso.Text.Length > 3) || (EntradaCodigoIso.Text.Length < 1))
+                                return new Lfx.Types.FailureOperationResult("El Código ISO debe ser de tres letras máximo");
+                        if ((EntradaSigno.Text.Length > 3) || (EntradaSigno.Text.Length < 1))
+                                return new Lfx.Types.FailureOperationResult("El símbolo de la moneda debe ser de tres caracteres máximo");
                         return base.ValidarControl();
                 }
 
@@ -41,8 +50,10 @@ namespace Lfc.Monedas
                         Lbl.Entidades.Moneda Res = this.Elemento as Lbl.Entidades.Moneda;
 
 
-                        Res.Cotizacion = EntradaCotizacion.ValueDecimal;                       
-
+                        Res.Cotizacion = EntradaCotizacion.ValueDecimal;
+                        Res.Nombre = EntradaNombre.Text;
+                        Res.NomenclaturaIso = EntradaCodigoIso.Text;
+                        Res.Simbolo = EntradaSigno.Text;
                         base.ActualizarElemento();
                 }
         }
