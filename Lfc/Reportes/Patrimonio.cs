@@ -40,7 +40,7 @@ namespace Lfc.Reportes
                         EntradaActivosCajas.Text = Lfx.Types.Formatting.FormatCurrency(ActivosCajas, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
                         EntradaPasivosCajas.Text = Lfx.Types.Formatting.FormatCurrency(PasivosCajas, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
 
-                        decimal ActivosStock = Connection.FieldDecimal("SELECT SUM(costo*stock_actual) FROM articulos WHERE costo>0 AND stock_actual>0");
+                        decimal ActivosStock = Connection.FieldDecimal("SELECT SUM(IFNULL(monedas.cotizacion, 1)*costo*stock_actual) FROM articulos JOIN monedas ON monedas.id_moneda=articulos.id_moneda WHERE costo>0 AND stock_actual>0");
                         EntradaActivosStock.Text = Lfx.Types.Formatting.FormatCurrency(ActivosStock, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
 
                         decimal Activos = ActivosCajas + ActivosStock;
@@ -63,7 +63,7 @@ namespace Lfc.Reportes
                         decimal PasivosCheques = Connection.FieldDecimal("SELECT SUM(importe) FROM bancos_cheques WHERE emitido>0 AND estado=0");
                         EntradaPasivosCheques.Text = Lfx.Types.Formatting.FormatCurrency(PasivosCheques, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
 
-                        decimal PasivosStock = Math.Abs(Connection.FieldDecimal("SELECT SUM(costo*stock_actual) FROM articulos WHERE costo>0 AND stock_actual<0"));
+                        decimal PasivosStock = Math.Abs(Connection.FieldDecimal("SELECT SUM(IFNULL(monedas.cotizacion, 1)*costo*stock_actual) FROM articulos JOIN monedas ON monedas.id_moneda=articulos.id_moneda WHERE costo>0 AND stock_actual<0"));
                         EntradaPasivosStock.Text = Lfx.Types.Formatting.FormatCurrency(PasivosStock, Lfx.Workspace.Master.CurrentConfig.Moneda.Decimales);
 
                         decimal Pasivos = PasivosCajas + PasivosCheques + PasivosStock;

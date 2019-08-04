@@ -33,6 +33,7 @@ namespace Lfc.Articulos
                         this.ColPvp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
                         this.ColPvp2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
                         this.EntradaPrecio = new Lui.Forms.ComboBox();
+                        this.ColMoneda = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
                         this.SuspendLayout();
                         // 
                         // Label2
@@ -85,7 +86,7 @@ namespace Lfc.Articulos
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.label10.Location = new System.Drawing.Point(24, 56);
                         this.label10.Name = "label10";
-                        this.label10.Size = new System.Drawing.Size(668, 33);
+                        this.label10.Size = new System.Drawing.Size(687, 33);
                         this.label10.TabIndex = 1;
                         this.label10.Text = "Va a realizar un cambio de precios para todos los artículos del listado.";
                         // 
@@ -107,7 +108,7 @@ namespace Lfc.Articulos
                         this.EntradaUnidad.Name = "EntradaUnidad";
                         this.EntradaUnidad.SetData = new string[] {
         "Porcentaje|pct",
-        "Pesos|pesos"};
+        "Valor|pesos"};
                         this.EntradaUnidad.Size = new System.Drawing.Size(117, 40);
                         this.EntradaUnidad.TabIndex = 4;
                         this.EntradaUnidad.TextKey = "pct";
@@ -121,6 +122,7 @@ namespace Lfc.Articulos
                         this.Listado.BorderStyle = System.Windows.Forms.BorderStyle.None;
                         this.Listado.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColArticulo,
+            this.ColMoneda,
             this.ColCosto,
             this.ColCosto2,
             this.ColPvp,
@@ -131,7 +133,7 @@ namespace Lfc.Articulos
                         this.Listado.MultiSelect = false;
                         this.Listado.Name = "Listado";
                         this.Listado.ReadOnly = true;
-                        this.Listado.Size = new System.Drawing.Size(673, 256);
+                        this.Listado.Size = new System.Drawing.Size(692, 256);
                         this.Listado.TabIndex = 8;
                         this.Listado.TabStop = false;
                         this.Listado.UseCompatibleStateImageBehavior = false;
@@ -181,11 +183,15 @@ namespace Lfc.Articulos
                         this.EntradaPrecio.TextKey = "pvp";
                         this.EntradaPrecio.TextChanged += new System.EventHandler(this.EntradaPrecio_TextChanged);
                         // 
+                        // ColMoneda
+                        // 
+                        this.ColMoneda.Text = "Moneda";
+                        // 
                         // CambioMasivoPrecios
                         // 
                         this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-                        this.ClientSize = new System.Drawing.Size(723, 528);
+                        this.ClientSize = new System.Drawing.Size(742, 528);
                         this.Controls.Add(this.EntradaPrecio);
                         this.Controls.Add(this.Listado);
                         this.Controls.Add(this.EntradaUnidad);
@@ -227,5 +233,6 @@ namespace Lfc.Articulos
                 private System.Windows.Forms.ColumnHeader ColCosto2;
                 private System.Windows.Forms.ColumnHeader ColPvp;
                 private System.Windows.Forms.ColumnHeader ColPvp2;
+                private System.Windows.Forms.ColumnHeader ColMoneda;
         }
 }

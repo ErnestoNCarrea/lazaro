@@ -27,7 +27,7 @@ namespace Lbl.Articulos
                 {
                         get
                         {
-                                return this.Articulo.Costo * this.Cantidad;
+                                return this.Articulo.CostoLocal * this.Cantidad;
                         }
                 }
 
@@ -35,7 +35,7 @@ namespace Lbl.Articulos
                 {
                         get
                         {
-                                return this.Articulo.Pvp * this.Cantidad;
+                                return this.Articulo.PvpLocal * this.Cantidad;
                         }
                 }
         }

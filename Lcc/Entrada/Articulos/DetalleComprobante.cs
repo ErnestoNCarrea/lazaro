@@ -293,7 +293,7 @@ namespace Lcc.Entrada.Articulos
 
                                 if (m_DiscriminarIva != AntesDiscriminaba && m_AplicarIva && m_Alicuota != null) {
                                         if (value) {
-                                                // Antes no discriminaba y ahora sí
+                                                // Antes no discriminaba y ahora sï¿½
                                                 this.EstablecerImporteUnitarioOriginal(this.ImporteUnitario / (1 + m_Alicuota.Porcentaje / 100m));
                                         } else {
                                                 // Antes discriminaba y ahora no
@@ -330,7 +330,7 @@ namespace Lcc.Entrada.Articulos
                                 if (m_AplicarIva != AntesAplicaba && m_Alicuota != null) {
                                         decimal NuevoImporteUnitarioIva = this.ImporteUnitario * (m_Alicuota.Porcentaje / 100m);
                                         if (value) {
-                                                // Antes no aplicaba y ahora sí
+                                                // Antes no aplicaba y ahora sï¿½
                                                 this.EstablecerImporteUnitarioOriginal(this.ImporteUnitario);
                                         } else {
                                                 // Antes aplicaba y ahora no
@@ -481,7 +481,7 @@ namespace Lcc.Entrada.Articulos
                 }
 
                 /// <summary>
-                /// El importe de IVA discriminado unitario (sin descuento), o 0 si el IVA no está discriminado.
+                /// El importe de IVA discriminado unitario (sin descuento), o 0 si el IVA no estï¿½ discriminado.
                 /// </summary>
                 [EditorBrowsable(EditorBrowsableState.Never), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
                 public decimal ImporteIvaDiscriminadoUnitario
@@ -925,9 +925,9 @@ namespace Lcc.Entrada.Articulos
 
                                         decimal UnitarioMostrar;
                                         if (m_Precio == Precios.Costo) {
-                                                UnitarioMostrar = Articulo.Costo;
+                                                UnitarioMostrar = Articulo.CostoLocal;
                                         } else {
-                                                UnitarioMostrar = Articulo.Pvp;
+                                                UnitarioMostrar = Articulo.PvpLocal;
                                         }
 
                                         if (this.Cantidad == 0) {
@@ -969,9 +969,9 @@ namespace Lcc.Entrada.Articulos
 
 
                 /// <summary>
-                /// Cambia el importe unitario original (sin IVA), y además recalcula el IVA y lo muestra discriminado si corresponde.
+                /// Cambia el importe unitario original (sin IVA), y ademï¿½s recalcula el IVA y lo muestra discriminado si corresponde.
                 /// </summary>
-                /// <param name="unitario">El precio unitario a mostrar y usar como base para el cálculo de IVA e importe final.</param>
+                /// <param name="unitario">El precio unitario a mostrar y usar como base para el cï¿½lculo de IVA e importe final.</param>
                 protected void EstablecerImporteUnitarioOriginal(decimal unitario)
                 {
                         if (this.AplicarIva && m_Alicuota != null) {
@@ -992,7 +992,7 @@ namespace Lcc.Entrada.Articulos
 
 
                 /// <summary>
-                /// Recalcula el importe final, según importe, IVA, cantidad y descuento.
+                /// Recalcula el importe final, segï¿½n importe, IVA, cantidad y descuento.
                 /// </summary>
                 protected void RecalcularImporteFinal()
                 {

@@ -12,11 +12,12 @@ namespace Lfc.Articulos
                 protected internal Lbl.Articulos.Rubro m_Rubro = null;
                 protected internal Lbl.Articulos.Situacion m_Situacion = null;
                 private string m_Stock = "*";
+               
 
                 public Inicio()
                 {
                         this.InitializeComponent();
-
+                        Lbl.Entidades.Moneda MonedaLocal = ObtenerMoneda;
                         this.Definicion = new Lazaro.Pres.Listings.Listing()
                         {
                                 ElementoTipo = typeof(Lbl.Articulos.Articulo),
@@ -29,8 +30,9 @@ namespace Lfc.Articulos
                                 Columns = new Lazaro.Pres.FieldCollection()
                                 {
 				        new Lazaro.Pres.Field("articulos.nombre", "Nombre", Lfx.Data.InputFieldTypes.Text, 320),
-                                        new Lazaro.Pres.Field("articulos.costo", "Costo", Lfx.Data.InputFieldTypes.Currency, 96),
-				        new Lazaro.Pres.Field("articulos.pvp", "PVP", Lfx.Data.InputFieldTypes.Currency, 96),
+                                        new Lazaro.Pres.Field("IFNULL(monedas.nombre, '"+ MonedaLocal.Nombre +"')", "Moneda", Lfx.Data.InputFieldTypes.Text, 120),                                        
+                                        new Lazaro.Pres.Field("IFNULL(monedas.cotizacion, 1)*articulos.costo", "Costo", Lfx.Data.InputFieldTypes.Currency, 96),                                        
+				        new Lazaro.Pres.Field("IFNULL(monedas.cotizacion, 1)*articulos.pvp", "PVP", Lfx.Data.InputFieldTypes.Currency, 96),
 				        new Lazaro.Pres.Field("articulos.stock_actual", "Stock Act", Lfx.Data.InputFieldTypes.Numeric, 96),
 				        new Lazaro.Pres.Field("articulos.stock_minimo", "Stock Mín", Lfx.Data.InputFieldTypes.Numeric, 96),
 				        new Lazaro.Pres.Field("articulos.pedido", "Pedidos", Lfx.Data.InputFieldTypes.Numeric, 96),
@@ -102,8 +104,9 @@ namespace Lfc.Articulos
 
                 private qGen.JoinCollection FixedJoins()
                 {
-                        return new qGen.JoinCollection() { 
-                                new qGen.Join("articulos_categorias", "articulos_categorias.id_categoria=articulos.id_categoria")
+                        return new qGen.JoinCollection() {
+                                new qGen.Join("articulos_categorias", "articulos_categorias.id_categoria=articulos.id_categoria"),
+                                new qGen.Join("monedas", "monedas.id_moneda=articulos.id_moneda")
                         };
                 }
 
@@ -119,9 +122,10 @@ namespace Lfc.Articulos
                                         item.SubItems["stock_actual"].BackColor = System.Drawing.Color.Pink;
                                         item.SubItems["stock_actual"].BackColor = System.Drawing.Color.Pink;
                                 }
-                        }
+                        }                        
 
-                        if (item.SubItems.ContainsKey("apedir")) {
+                        if (item.SubItems.ContainsKey("apedir"))
+                        {
                                 if (row.Fields["apedir"].ValueDecimal > 0)
                                         item.SubItems["apedir"].Text = "-";
                                 else
@@ -244,6 +248,18 @@ namespace Lfc.Articulos
                         m_Stock = filters["stock_actual"].Value as string;
 
                         base.OnFiltersChanged(filters);
+                }
+                public Lbl.Entidades.Moneda ObtenerMoneda
+                {
+                        get
+                        {
+                                Lbl.Entidades.Pais PaisActual = new Lbl.Entidades.Pais(this.Connection, Lfx.Workspace.Master.CurrentConfig.ReadGlobalSetting<int>("Sistema.Pais", 1));
+                                if (PaisActual != null)
+                                        return PaisActual.Moneda;
+                                else
+                                        return  new Lbl.Entidades.Moneda(Lfx.Workspace.Master.MasterConnection, 3);
+                                
+                        }
                 }
         }
 }

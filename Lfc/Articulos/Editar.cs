@@ -50,9 +50,12 @@ namespace Lfc.Articulos
                                         EtiquetaCodigo4.Text = Nombre["nombre"].ToString();
 
                                 this.Margenes = new Lbl.ColeccionGenerica<Lbl.Articulos.Margen>(this.Connection, Lfx.Workspace.Master.Tables["margenes"]);
-
+                                
                                 int i = 0;
                                 string[] ListaMargenes = new string[this.Margenes.Count + 1];
+
+                                //Ordeno el listado de Margenes
+                                this.Margenes.Sort((x, y) => x.Porcentaje.CompareTo(y.Porcentaje));
 
                                 foreach (Lbl.Articulos.Margen Mg in this.Margenes) {
                                         ListaMargenes[i] = Mg.Nombre + " (" + Lfx.Types.Formatting.FormatNumber(Mg.Porcentaje, 2) + "%)|" + Mg.Id.ToString();
@@ -252,6 +255,7 @@ namespace Lfc.Articulos
                 public override void ActualizarControl()
                 {
                         Lbl.Articulos.Articulo Art = this.Elemento as Lbl.Articulos.Articulo;
+                        
 
                         EntradaCodigo1.Text = Art.Codigo1;
                         EntradaCodigo2.Text = Art.Codigo2;
@@ -296,7 +300,8 @@ namespace Lfc.Articulos
                         Rendimiento = Art.Rendimiento;
                         UnidadRendimiento = Art.UnidadRendimiento;
                         EntradaStockMinimo.ValueDecimal = Art.PuntoDeReposicion;
-                        EntradaGarantia.ValueInt = Art.Garantia;
+                        EntradaGarantia.ValueInt = Art.Garantia;                        
+                        EntradaMoneda.Elemento = Art.Moneda;                        
                         CustomName = Art.Existe;
 
                         EntradaTipoDeArticulo_TextChanged(this, null);
@@ -340,6 +345,10 @@ namespace Lfc.Articulos
                         Art.Rendimiento = Rendimiento;
                         Art.UnidadRendimiento = UnidadRendimiento;
                         Art.Estado = 1;
+                        if (EntradaMoneda.Elemento != null)
+                                Art.Moneda = EntradaMoneda.Elemento as Lbl.Entidades.Moneda;
+                        else
+                                Art.Moneda = null;
                         Art.Garantia = EntradaGarantia.ValueInt;
                         Art.Publicacion = ((Lbl.Articulos.Publicacion)(EntradaWeb.ValueInt));
                         if (Art.Existe == false)

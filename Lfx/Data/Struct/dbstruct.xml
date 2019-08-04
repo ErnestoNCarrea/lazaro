@@ -21,6 +21,7 @@
     <Column name="codigo4" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="id_marca" inputtype="Relation" nullable="1" />
     <Column name="id_caja" inputtype="Relation" nullable="1" />
+    <Column name="id_moneda" inputtype="Relation" nullable="1"/>
     <Column name="modelo" datatype="VarChar" nullable="1" lenght="200" />
     <Column name="serie" datatype="VarChar" nullable="1" lenght="200" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -52,6 +53,7 @@
     <Index table="articulos" name="articulos_id_categoria" columns="id_categoria" unique="0" primary="0" />
     <Index table="articulos" name="articulos_id_marca" columns="id_marca" unique="0" primary="0" />
     <Index table="articulos" name="articulos_id_caja" columns="id_caja" unique="0" primary="0" />
+    <Index table="articulos" name="articulos_id_moneda" columns="id_moneda" unique="0" primary="0" />
     <Index table="articulos" name="articulos_id_margen" columns="id_margen" unique="0" primary="0" />
     <Index table="articulos" name="articulos_id_proveedor" columns="id_proveedor" unique="0" primary="0" />
     <Index table="articulos" name="PRIMARY" columns="id_articulo" unique="1" primary="1" />
@@ -61,6 +63,7 @@
   <Constraint name="fk_articulos_id_marca" table="articulos" column="id_marca" reference_table="marcas" reference_column="id_marca" />
   <Constraint name="fk_articulos_id_caja" table="articulos" column="id_caja" reference_table="cajas" reference_column="id_caja" />
   <Constraint name="fk_articulos_id_margen" table="articulos" column="id_margen" reference_table="margenes" reference_column="id_margen" />
+  <Constraint name="fk_articulos_id_moneda" table="articulos" column="id_moneda" reference_table="monedas" reference_column="id_moneda" />
 
 
   <Table name="articulos_categorias" lsdet="1" label="Categorías de Artículos">
