@@ -65,8 +65,15 @@ namespace Lazaro.WinMain.Misc
                                 EntradaContrasena.SelectionLength = EntradaContrasena.Text.Length;
 				EntradaContrasena.Focus();
 			} else {
-				OkButton.Text = "Ingresando...";
-				OkButton.Refresh();
+                                OkButton.Text = "Ingresando...";
+                                OkButton.Refresh();
+                                if (Usu.ContrasenaSal != null)
+                                {
+                                        // Si tiene una contraseña vieja (SHA256 con sal), actualizar a bcrypt
+                                        Usu.Contrasena = EntradaContrasena.Text;
+                                        Usu.ContrasenaSal = null;
+                                        Usu.Guardar();
+                                }
                                 //Lbl.Personas.Persona Usuario = new Lbl.Personas.Persona(Lfx.Workspace.Master.MasterConnection, Usu.Id);
                                 Lbl.Sys.Config.Actual.UsuarioConectado = new Lbl.Sys.Configuracion.UsuarioConectado(Usu);
                                 Lfx.Workspace.Master.CurrentConfig.WriteGlobalSetting("Sistema.Ingreso.UltimoUsuario", Lbl.Sys.Config.Actual.UsuarioConectado.Id.ToString(), Lfx.Environment.SystemInformation.UserAndMachineName);

@@ -183,7 +183,7 @@ namespace Lazaro.WinMain.Config
                                         Lfx.Workspace.Master.ConnectionParameters.Password = "lazaro";
                                 }
 
-                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MariaDB;
                                 Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
                                 Lfx.Workspace.Master.ConnectionParameters.DatabaseName = "";
 
@@ -468,7 +468,7 @@ namespace Lazaro.WinMain.Config
                         Lfx.Workspace.Master.ConnectionParameters.ServerName = "localhost";
                         Lfx.Workspace.Master.ConnectionParameters.UserName = "root";
                         Lfx.Workspace.Master.ConnectionParameters.Password = "";
-                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MariaDB;
                         Lfx.Data.DatabaseCache.DefaultCache.SlowLink = false;
                         Lfx.Workspace.Master.ConnectionParameters.DatabaseName = "";
 

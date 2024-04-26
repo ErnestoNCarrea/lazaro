@@ -35,6 +35,19 @@ namespace Lfx.Data
 
                         Log.Info(this.Handle.ToString() + ": Abriendo " + this.Name);
 
+                        string Server, Port;
+                        if (Lfx.Workspace.Master.ConnectionParameters.ServerName.IndexOf(':') >= 0)
+                        {
+                                string[] Temp = Lfx.Workspace.Master.ConnectionParameters.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                                Server = Temp[0];
+                                Port = Temp[1];
+                        }
+                        else
+                        {
+                                Server = Lfx.Workspace.Master.ConnectionParameters.ServerName;
+                                Port = null;
+                        }
+
                         System.Text.StringBuilder ConnectionString = new System.Text.StringBuilder();
 
                         switch (Lfx.Data.DatabaseCache.DefaultCache.AccessMode) {
@@ -51,40 +64,87 @@ namespace Lfx.Data
                                                 ConnectionString.Append("Pooling=false;");
                                         }
                                         ConnectionString.Append("Cache Server Properties=false;");
-                                        switch (System.Text.Encoding.Default.BodyName) {
-                                                case "utf-8":
-                                                        ConnectionString.Append("charset=utf8;");
-                                                        break;
-                                                case "iso-8859-1":
-                                                        ConnectionString.Append("charset=latin1;");
-                                                        break;
-                                        }
                                         if (Lfx.Data.DatabaseCache.DefaultCache.SlowLink) {
                                                 ConnectionString.Append("Compress=true;");
                                                 ConnectionString.Append("Use Compression=true;");
                                         }
                                         ConnectionString.Append("SslMode=none;");
                                         break;
-                                case AccessModes.Odbc:
-                                        throw new NotImplementedException("Soporte ODBC no implementado");
+                                case AccessModes.MariaDB:
+                                        ConnectionString.Append("IgnoreCommandTransaction=true;");  // https://mysqlconnector.net/troubleshooting/transaction-usage/
+                                        ConnectionString.Append("Convert Zero Datetime=true;");
+                                        ConnectionString.Append("Connection Timeout=10;");
+                                        ConnectionString.Append("Default Command Timeout=60;");
+                                        ConnectionString.Append("Allow User Variables=True;");
+
+                                        string ServerCaPemFile = null;
+                                        // Buscar el certificado de la AC del servidor con varios nombres y en varias ubicaciones
+                                        var NombresCertAc = new string[]
+                                        {
+                                                Server + ".pem",
+                                                Lfx.Workspace.Master.ConnectionParameters.DatabaseName + ".pem",
+                                                "server-ca-cert.pem",
+                                        };
+                                        var Ubicaciones = new string[]
+                                        {
+                                                Lfx.Environment.Folders.ApplicationDataFolder,
+                                                Lfx.Environment.Folders.ApplicationFolder,
+                                        };
+
+                                        // Buscar con esos nombres en 2 ubicaciones
+                                        foreach(var NombreCertAc in NombresCertAc)
+                                        {
+                                                foreach (var Ubicacion in Ubicaciones)
+                                                {
+                                                        if (System.IO.File.Exists(Ubicacion + NombreCertAc))
+                                                        {
+                                                                ServerCaPemFile = Ubicacion + NombreCertAc;
+                                                                break;
+                                                        }
+                                                }
+                                                if (ServerCaPemFile != null) break;
+                                        }
+
+                                        if (ServerCaPemFile != null)
+                                        {
+                                                /// Si se encontró un certificado, usarlo para validar al servidor
+                                                Log.Info(this.Handle.ToString() + ": Usando el certificado CA " + ServerCaPemFile + "");
+                                                ConnectionString.Append("SslCa=" + ServerCaPemFile + ";");
+                                                ConnectionString.Append("SslMode=VerifyCA;");
+                                                // Si quisieramos usar certificados de cliente
+                                                //ConnectionString.Append("SslCert=" + CertificateFileName + ".pem;");
+                                                //ConnectionString.Append("SslKey=" + CertificateFileName + "-key.pem;");
+                                                // O en formato PFX
+                                                //ConnectionString.Append("CertificateFile=" + CertificateFileName + ".pfx;");      // Para .pfx
+                                        }
+                                        else
+                                        {
+                                                ConnectionString.Append("SslMode=none;");
+                                        }
+
+                                        // ConnectionString.Append("KeepAlive=20;");     // No sirve, uso KeepAlive propio
+                                        if (Lfx.Data.DatabaseCache.DefaultCache.Pooling)
+                                        {
+                                                ConnectionString.Append("Pooling=true;");
+                                        }
+                                        else
+                                        {
+                                                ConnectionString.Append("Pooling=false;");
+                                        }
+                                        //ConnectionString.Append("CharacterSet=utf8mb4;"); //MySqlConnector usa siembre utf8mb4
+                                        if (Lfx.Data.DatabaseCache.DefaultCache.SlowLink)
+                                        {
+                                                ConnectionString.Append("Compress=true;");
+                                                ConnectionString.Append("Use Compression=true;");
+                                        }
+
+                                        break;
                                 case AccessModes.Npgsql:
                                         throw new NotImplementedException("Soporte PostgreSQL no implementado");
-                                case AccessModes.MSSql:
-                                        throw new NotImplementedException("Soporte SQL Server no implementado");
                         }
 
                         if (Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver != null)
                                 ConnectionString.Append("DRIVER={" + Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver + "};");
-
-                        string Server, Port;
-                        if (Lfx.Workspace.Master.ConnectionParameters.ServerName.IndexOf(':') >= 0) {
-                                string[] Temp = Lfx.Workspace.Master.ConnectionParameters.ServerName.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
-                                Server = Temp[0];
-                                Port = Temp[1];
-                        } else {
-                                Server = Lfx.Workspace.Master.ConnectionParameters.ServerName;
-                                Port = null;
-                        }
 
                         ConnectionString.Append("SERVER=" + Server + ";");
                         if (string.IsNullOrEmpty(Port) == false)
@@ -127,34 +187,23 @@ namespace Lfx.Data
                 }
 
 
-                
+
 
 
                 protected void SetupConnection(System.Data.IDbConnection setupConnection)
                 {
-                        if (this.AccessMode == AccessModes.Odbc) {
-                                //Detecto el tipo de servidor y asigno directamente a la variable porque la propiedad es sólo lectura
-                                System.Data.Odbc.OdbcConnection OdbcConnection = setupConnection as System.Data.Odbc.OdbcConnection;
-                                if (OdbcConnection.ServerVersion.IndexOf("PostgreSql", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.PostgreSql;
-                                else if (OdbcConnection.Driver.IndexOf("myodbc", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
-                                else if (OdbcConnection.Driver.IndexOf("SqlSRV", StringComparison.InvariantCultureIgnoreCase) >= 0)
-                                        Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.TransactSql;
-                        }
-
                         switch (this.SqlMode) {
                                 case qGen.SqlModes.MySql:
                                         // Pongo a MySql en modo ANSI
                                         this.ExecuteNonQuery(new qGen.SetCommand("sql_mode='ANSI'"));
-                                        switch (System.Text.Encoding.Default.BodyName) {
+                                        /* switch (System.Text.Encoding.Default.BodyName) {
                                                 case "utf-8":
                                                         this.ExecuteNonQuery(new qGen.SetCommand("CHARACTER SET UTF8"));
                                                         break;
                                                 case "iso-8859-1":
                                                         this.ExecuteNonQuery(new qGen.SetCommand("CHARACTER SET LATIN1"));
                                                         break;
-                                        }
+                                        } */
                                         break;
                                 case qGen.SqlModes.PostgreSql:
                                         switch (System.Text.Encoding.Default.BodyName) {
@@ -225,6 +274,7 @@ namespace Lfx.Data
                                                                         switch (NewFieldDef.FieldType) {
                                                                                 case ColumnTypes.VarChar:
                                                                                 case ColumnTypes.Text:
+                                                                                case ColumnTypes.LongText:
                                                                                         if (NewFieldDef.DefaultValue == null)
                                                                                                 Alterations.Add("ALTER COLUMN \"" + NewFieldDef.Name + "\" SET DEFAULT ''");
                                                                                         else if (NewFieldDef.DefaultValue == "NULL")
@@ -432,6 +482,10 @@ namespace Lfx.Data
                                                         if (Lfx.Types.Parsing.ParseDecimal(FieldDef.DefaultValue) == 0)
                                                                 FieldDef.DefaultValue = "0";
                                                         break;
+                                                case ColumnTypes.BigInt:
+                                                        if (Lfx.Types.Parsing.ParseLong(FieldDef.DefaultValue) == 0)
+                                                                FieldDef.DefaultValue = "0";
+                                                        break;
                                                 case ColumnTypes.DateTime:
                                                         if (FieldDef.DefaultValue == "0000-00-00 00:00:00")
                                                                 FieldDef.DefaultValue = "NULL";
@@ -455,6 +509,7 @@ namespace Lfx.Data
                                         } else {
                                                 switch (FieldDef.FieldType) {
                                                         case ColumnTypes.Text:
+                                                        case ColumnTypes.LongText:
                                                         case ColumnTypes.Blob:
                                                         case ColumnTypes.DateTime:
                                                                 // No pueden tener default value
@@ -534,6 +589,7 @@ LEFT JOIN pg_attribute
                                                 // Y marco la columna como primaria en la definición de la tabla
                                                 switch (this.AccessMode) {
                                                         case AccessModes.MySql:
+                                                        case AccessModes.MariaDB:
                                                                 if (IndexName.ToUpperInvariant() == "PRIMARY")
                                                                         TableDef.Columns[ColName].PrimaryKey = true;
                                                                 break;
@@ -550,6 +606,7 @@ LEFT JOIN pg_attribute
                                                 NewIndex.Unique = System.Convert.ToInt32(Index["NON_UNIQUE"]) == 0;
                                                 switch (this.AccessMode) {
                                                         case AccessModes.MySql:
+                                                        case AccessModes.MariaDB:
                                                                 if (IndexName.ToUpperInvariant() == "PRIMARY")
                                                                         NewIndex.Primary = true;
                                                                 break;
@@ -1007,7 +1064,7 @@ LEFT JOIN pg_attribute
                 }
 
 
-                
+
 
 
                 private bool m_ConstraintsEnabled = true;

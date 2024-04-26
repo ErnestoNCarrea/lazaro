@@ -8,6 +8,7 @@ using log4net;
 using qGen;
 using System;
 using System.Collections.Generic;
+//using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace Lfx
 {
@@ -105,26 +106,16 @@ namespace Lfx
                                 Lfx.Data.DatabaseCache.DefaultCache = new Lfx.Data.DatabaseCache(m_MasterConnection);
 
                         if (this.MasterConnection == null) {
-                                switch (this.CurrentConfig.ReadLocalSettingString(@"Data", "ConnectionType", "mysql")) {
-                                        case "odbc":
-                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
-                                                break;
-
-                                        case "myodbc":
+                                switch (this.CurrentConfig.ReadLocalSettingString("Data", "ConnectionType", "mysql")) {
                                         case "mysql":
-                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                                //Modo MySql anulado, se usa el conector nuevo para ambos
+                                                //Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                                //break;
+                                        case "mariadb":
+                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MariaDB;
                                                 break;
-
                                         case "npgsql":
                                                 Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
-                                                break;
-
-                                        case "mssql":
-                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
-                                                break;
-
-                                        case "sqlite":
-                                                Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
                                                 break;
                                 }
                         }
@@ -265,12 +256,19 @@ namespace Lfx
                                                 Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
                                         }
                                         break;
+                                case AccessModes.MariaDB:
+                                        if (this.Driver == null)
+                                        {
+                                                this.Driver = new Lazaro.Orm.Data.Drivers.MySqlConnectorDriver();
+                                                this.Formatter = new qGen.SqlFormatter();
+                                                Lfx.Data.DatabaseCache.DefaultCache.OdbcDriver = null;
+                                                Lfx.Data.DatabaseCache.DefaultCache.Mars = false;
+                                                Lfx.Data.DatabaseCache.DefaultCache.SqlMode = qGen.SqlModes.MySql;
+                                        }
+                                        break;
                                 case AccessModes.Npgsql:
                                         throw new NotImplementedException("Soporte PostgreSQL no implementado");
-                                case AccessModes.MSSql:
-                                        throw new NotImplementedException("Soporte SQL Server no implementado");
-                                case AccessModes.Odbc:
-                                        throw new NotImplementedException("Soporte ODBC no implementado");
+                                
                         }
 
                         this.ActiveConnections.Add(Res);

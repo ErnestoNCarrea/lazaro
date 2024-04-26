@@ -12,8 +12,8 @@ namespace Lbl.Test.Entity.Comprobantes
                 {
                         var Det = ObtenerDetalleEjemplo(false, true);
 
-                        Assert.AreEqual(5m, Det.Cantidad, "Cantidad debe ser 5");
-                        Assert.AreEqual(0.92m, Det.FactorDescuentoRecargo, "FactorDescuentoRecargo debe ser 0.92");
+                        Assert.Equals(5m, Det.Cantidad, "Cantidad debe ser 5");
+                        Assert.Equals(0.92m, Det.FactorDescuentoRecargo, "FactorDescuentoRecargo debe ser 0.92");
                 }
 
 
@@ -25,28 +25,28 @@ namespace Lbl.Test.Entity.Comprobantes
                         Assert.IsFalse(Det.ComprobanteDiscriminaIva(), "El comprobante no debe discriminar IVA");
 
                         // Esto debería ser igual para IVA discriminado y no discriminado
-                        Assert.AreEqual(460m, Det.ImporteSinIvaFinal, "ImporteSinIvaFinal debe ser 460");
-                        Assert.AreEqual(111.32m, Det.ImporteUnitarioConIvaFinal, "ImporteUnitarioConIvaFinal debe ser 111.32");
-                        Assert.AreEqual(19.32m, Det.ImporteIvaUnitarioFinal, "ImporteIvaUnitarioFinal debe ser 19.32");
-                        Assert.AreEqual(92m, Det.ImporteUnitarioSinIvaFinal, "ImporteUnitarioSinIvaFinal debe ser 92");
+                        Assert.Equals(460m, Det.ImporteSinIvaFinal, "ImporteSinIvaFinal debe ser 460");
+                        Assert.Equals(111.32m, Det.ImporteUnitarioConIvaFinal, "ImporteUnitarioConIvaFinal debe ser 111.32");
+                        Assert.Equals(19.32m, Det.ImporteIvaUnitarioFinal, "ImporteIvaUnitarioFinal debe ser 19.32");
+                        Assert.Equals(92m, Det.ImporteUnitarioSinIvaFinal, "ImporteUnitarioSinIvaFinal debe ser 92");
 
-                        Assert.AreEqual(556.6m, Det.ImporteConIvaFinalAlicuota(1), "ImporteConIvaFinalAlicuota(1) debe ser 556.6");
-                        Assert.AreEqual(0m, Det.ImporteConIvaFinalAlicuota(2), "ImporteConIvaFinalAlicuota(2) debe ser 0");
-                        Assert.AreEqual(96.6m, Det.ImporteIvaFinalAlicuota(1), "ImporteIvaFinalAlicuota(1) debe ser 96.6");
-                        Assert.AreEqual(0m, Det.ImporteIvaFinalAlicuota(2), "ImporteIvaFinalAlicuota(2) debe ser 0");
-                        Assert.AreEqual(460m, Det.ImporteSinIvaFinalAlicuota(1), "ImporteSinIvaFinalAlicuota(1) debe ser 460");
-                        Assert.AreEqual(0m, Det.ImporteSinIvaFinalAlicuota(2), "ImporteSinIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(556.6m, Det.ImporteConIvaFinalAlicuota(1), "ImporteConIvaFinalAlicuota(1) debe ser 556.6");
+                        Assert.Equals(0m, Det.ImporteConIvaFinalAlicuota(2), "ImporteConIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(96.6m, Det.ImporteIvaFinalAlicuota(1), "ImporteIvaFinalAlicuota(1) debe ser 96.6");
+                        Assert.Equals(0m, Det.ImporteIvaFinalAlicuota(2), "ImporteIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(460m, Det.ImporteSinIvaFinalAlicuota(1), "ImporteSinIvaFinalAlicuota(1) debe ser 460");
+                        Assert.Equals(0m, Det.ImporteSinIvaFinalAlicuota(2), "ImporteSinIvaFinalAlicuota(2) debe ser 0");
 
                         // Esto debería variar para IVA discriminado y no discriminado
-                        Assert.AreEqual(111.32m, Det.ImporteUnitarioFinal, "ImporteUnitarioFinal debe ser 111.32");
-                        Assert.AreEqual(121m, Det.ImporteUnitario, "ImporteUnitario debe ser 121");
+                        Assert.Equals(111.32m, Det.ImporteUnitarioFinal, "ImporteUnitarioFinal debe ser 111.32");
+                        Assert.Equals(121m, Det.ImporteUnitario, "ImporteUnitario debe ser 121");
 
-                        Assert.AreEqual(111.32m, Det.ImporteUnitarioFinalAImprimir, "ImporteAImprimir debe ser 112.32");
-                        Assert.AreEqual(556.6m, Det.ImporteAImprimir, "ImporteAImprimir debe ser 556.6");
+                        Assert.Equals(111.32m, Det.ImporteUnitarioFinalAImprimir, "ImporteAImprimir debe ser 112.32");
+                        Assert.Equals(556.6m, Det.ImporteAImprimir, "ImporteAImprimir debe ser 556.6");
 
-                        Assert.AreEqual(0m, Det.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
-                        Assert.AreEqual(121m, Det.ImporteUnitarioConIva, "ImporteUnitarioConIvaDiscriminado debe ser 121");
-                        Assert.AreEqual(0m, Det.ImporteUnitarioIvaDiscriminado, "ImporteUnitarioIvaDiscriminado debe ser 0");
+                        Assert.Equals(0m, Det.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
+                        Assert.Equals(121m, Det.ImporteUnitarioConIva, "ImporteUnitarioConIvaDiscriminado debe ser 121");
+                        Assert.Equals(0m, Det.ImporteUnitarioIvaDiscriminado, "ImporteUnitarioIvaDiscriminado debe ser 0");
                 }
 
 
@@ -62,28 +62,28 @@ namespace Lbl.Test.Entity.Comprobantes
                         Assert.IsTrue(Det.ComprobanteDiscriminaIva(), "El comprobante no debe discriminar IVA");
 
                         // Esto debería ser igual para IVA discriminado y no discriminado
-                        Assert.AreEqual(460m, Det.ImporteSinIvaFinal, "ImporteSinIvaFinal debe ser 460");
-                        Assert.AreEqual(111.32m, Det.ImporteUnitarioConIvaFinal, "ImporteUnitarioConIvaFinal debe ser 111.32");
-                        Assert.AreEqual(19.32m, Det.ImporteIvaUnitarioFinal, "ImporteIvaUnitarioFinal debe ser 19.32");
-                        Assert.AreEqual(92m, Det.ImporteUnitarioSinIvaFinal, "ImporteUnitarioSinIvaFinal debe ser 92");
+                        Assert.Equals(460m, Det.ImporteSinIvaFinal, "ImporteSinIvaFinal debe ser 460");
+                        Assert.Equals(111.32m, Det.ImporteUnitarioConIvaFinal, "ImporteUnitarioConIvaFinal debe ser 111.32");
+                        Assert.Equals(19.32m, Det.ImporteIvaUnitarioFinal, "ImporteIvaUnitarioFinal debe ser 19.32");
+                        Assert.Equals(92m, Det.ImporteUnitarioSinIvaFinal, "ImporteUnitarioSinIvaFinal debe ser 92");
 
-                        Assert.AreEqual(556.6m, Det.ImporteConIvaFinalAlicuota(1), "ImporteConIvaFinalAlicuota(1) debe ser 556.6");
-                        Assert.AreEqual(0m, Det.ImporteConIvaFinalAlicuota(2), "ImporteConIvaFinalAlicuota(2) debe ser 0");
-                        Assert.AreEqual(96.6m, Det.ImporteIvaFinalAlicuota(1), "ImporteIvaFinalAlicuota(1) debe ser 96.6");
-                        Assert.AreEqual(0m, Det.ImporteIvaFinalAlicuota(2), "ImporteIvaFinalAlicuota(2) debe ser 0");
-                        Assert.AreEqual(460m, Det.ImporteSinIvaFinalAlicuota(1), "ImporteSinIvaFinalAlicuota(1) debe ser 460");
-                        Assert.AreEqual(0m, Det.ImporteSinIvaFinalAlicuota(2), "ImporteSinIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(556.6m, Det.ImporteConIvaFinalAlicuota(1), "ImporteConIvaFinalAlicuota(1) debe ser 556.6");
+                        Assert.Equals(0m, Det.ImporteConIvaFinalAlicuota(2), "ImporteConIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(96.6m, Det.ImporteIvaFinalAlicuota(1), "ImporteIvaFinalAlicuota(1) debe ser 96.6");
+                        Assert.Equals(0m, Det.ImporteIvaFinalAlicuota(2), "ImporteIvaFinalAlicuota(2) debe ser 0");
+                        Assert.Equals(460m, Det.ImporteSinIvaFinalAlicuota(1), "ImporteSinIvaFinalAlicuota(1) debe ser 460");
+                        Assert.Equals(0m, Det.ImporteSinIvaFinalAlicuota(2), "ImporteSinIvaFinalAlicuota(2) debe ser 0");
 
                         // Esto debería variar para IVA discriminado y no discriminado
-                        Assert.AreEqual(92m, Det.ImporteUnitarioFinal, "ImporteUnitarioFinal debe ser 111.32");
-                        Assert.AreEqual(100m, Det.ImporteUnitario, "ImporteUnitario debe ser 100");
+                        Assert.Equals(92m, Det.ImporteUnitarioFinal, "ImporteUnitarioFinal debe ser 111.32");
+                        Assert.Equals(100m, Det.ImporteUnitario, "ImporteUnitario debe ser 100");
 
-                        Assert.AreEqual(92m, Det.ImporteUnitarioFinalAImprimir, "ImporteAImprimir debe ser 92");
-                        Assert.AreEqual(460m, Det.ImporteAImprimir, "ImporteAImprimir debe ser 460");
+                        Assert.Equals(92m, Det.ImporteUnitarioFinalAImprimir, "ImporteAImprimir debe ser 92");
+                        Assert.Equals(460m, Det.ImporteAImprimir, "ImporteAImprimir debe ser 460");
 
-                        Assert.AreEqual(96.6m, Det.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 96.6");
-                        Assert.AreEqual(121m, Det.ImporteUnitarioConIva, "ImporteUnitarioConIvaDiscriminado debe ser 121");
-                        Assert.AreEqual(21m, Det.ImporteUnitarioIvaDiscriminado, "ImporteUnitarioIvaDiscriminado debe ser 21");
+                        Assert.Equals(96.6m, Det.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 96.6");
+                        Assert.Equals(121m, Det.ImporteUnitarioConIva, "ImporteUnitarioConIvaDiscriminado debe ser 121");
+                        Assert.Equals(21m, Det.ImporteUnitarioIvaDiscriminado, "ImporteUnitarioIvaDiscriminado debe ser 21");
 
                 }
 

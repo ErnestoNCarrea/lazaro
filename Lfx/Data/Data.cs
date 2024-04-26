@@ -6,12 +6,9 @@ namespace Lfx.Data
         public enum AccessModes
         {
                 Undefined,
-                Odbc,
                 MySql,          // MySQL Connector/NET
+                MariaDB,        // MySqlConnector
                 Npgsql,
-                MSSql,
-                SQLite,
-                Oracle,
         }
 
 
@@ -29,7 +26,7 @@ namespace Lfx.Data
         {
                 public static ColumnTypes ToDbType(InputFieldTypes columnType)
                 {
-                        switch(columnType)
+                        switch (columnType)
                         {
                                 case InputFieldTypes.Currency:
                                         return ColumnTypes.Numeric;
@@ -45,7 +42,7 @@ namespace Lfx.Data
                                 case InputFieldTypes.Text:
                                         return ColumnTypes.VarChar;
                                 case InputFieldTypes.Memo:
-                                        return ColumnTypes.Text;
+                                        return ColumnTypes.LongText;
                                 case InputFieldTypes.Binary:
                                 case InputFieldTypes.Image:
                                         return ColumnTypes.Blob;
@@ -56,14 +53,15 @@ namespace Lfx.Data
                         }
                 }
 
-		public static ColumnTypes FromSqlType(string sqlType)
-		{
-			switch (sqlType.ToUpperInvariant()) {
+                public static ColumnTypes FromSqlType(string sqlType)
+                {
+                        switch (sqlType.ToUpperInvariant())
+                        {
                                 case "VARCHAR":
-				case "CHAR":
-				case "NVARCHAR":
-				case "NCHAR":
-				case "CHARACTER VARYING":
+                                case "CHAR":
+                                case "NVARCHAR":
+                                case "NCHAR":
+                                case "CHARACTER VARYING":
                                         return Lazaro.Orm.ColumnTypes.VarChar;
                                 case "SERIAL":
                                         return Lazaro.Orm.ColumnTypes.Serial;
@@ -74,11 +72,12 @@ namespace Lfx.Data
                                 case "TINYINT":
                                         return Lazaro.Orm.ColumnTypes.TinyInt;
                                 case "INTEGER":
-				case "BIGINT":
-				case "INT":
+                                case "INT":
                                         return Lazaro.Orm.ColumnTypes.Integer;
+                                case "BIGINT":
+                                        return Lazaro.Orm.ColumnTypes.BigInt;
                                 case "BOOL":
-				case "BOOLEAN":
+                                case "BOOLEAN":
                                         return Lazaro.Orm.ColumnTypes.TinyInt;
                                 case "DECIMAL":         // FIXME: DECIMAL no es lo mismo que NUMERIC, pero MySQL 5.0 los trata igual y reporta los numeric como decimal
                                 case "NUMERIC":
@@ -90,18 +89,20 @@ namespace Lfx.Data
                                 case "REAL":
                                         return Lazaro.Orm.ColumnTypes.NonExactDecimal;
                                 case "BLOB":
-				case "LONGBLOB":
-				case "BYTEA":
+                                case "LONGBLOB":
+                                case "BYTEA":
                                         return Lazaro.Orm.ColumnTypes.Blob;
                                 case "DATE":
                                         return Lazaro.Orm.ColumnTypes.Date;
                                 case "DATETIME":
-				case "TIMESTAMP":
-				case "TIMESTAMP WITHOUT TIME ZONE":
+                                case "TIMESTAMP":
+                                case "TIMESTAMP WITHOUT TIME ZONE":
                                         return Lazaro.Orm.ColumnTypes.DateTime;
+                                case "LONGTEXT":
+                                        return Lazaro.Orm.ColumnTypes.LongText;
                                 default:
                                         return Lazaro.Orm.ColumnTypes.Text;
                         }
-		}
+                }
         }
 }

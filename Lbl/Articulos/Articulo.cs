@@ -627,8 +627,8 @@ namespace Lbl.Articulos
 				Comando.ColumnValues.AddWithValue("haciasituacion", situacionDestino.Id);
 			Comando.ColumnValues.AddWithValue("saldo", Saldo);
 			Comando.ColumnValues.AddWithValue("obs", obs);
-                        Comando.ColumnValues.AddWithValue("series", seguimiento);
-                        if (comprob == null)
+                        Comando.ColumnValues.AddWithValue("series", seguimiento.ToString());
+                        if (comprob == null || comprob.Id == 0)
                                 Comando.ColumnValues.AddWithValue("id_comprob", null);
                         else
                                 Comando.ColumnValues.AddWithValue("id_comprob", comprob.Id);
@@ -636,10 +636,10 @@ namespace Lbl.Articulos
 			this.Connection.ExecuteNonQuery(Comando);
 		}
 
-                /// <summary>
-                /// Devuelve una colección de artículos de los cuales este es un ingrediente.
-                /// </summary>
-                public ColeccionGenerica<Articulo> SuperArticulos()
+        /// <summary>
+        /// Devuelve una colección de artículos de los cuales este es un ingrediente.
+        /// </summary>
+        public ColeccionGenerica<Articulo> SuperArticulos()
                 {
                         System.Data.DataTable SuperArticulos = this.Connection.Select("SELECT DISTINCT id_articulo FROM articulos_recetas WHERE id_item=" + this.Id.ToString());
                         if (SuperArticulos == null || SuperArticulos.Rows.Count == 0)

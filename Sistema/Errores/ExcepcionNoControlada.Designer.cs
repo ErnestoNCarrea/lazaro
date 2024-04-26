@@ -55,19 +55,20 @@ namespace Lazaro.WinMain.Errores
                         // 
                         // EtiquetaDescripcion
                         // 
-                        this.EtiquetaDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+                        this.EtiquetaDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
                         this.EtiquetaDescripcion.Location = new System.Drawing.Point(80, 184);
                         this.EtiquetaDescripcion.Name = "EtiquetaDescripcion";
                         this.EtiquetaDescripcion.Size = new System.Drawing.Size(424, 44);
                         this.EtiquetaDescripcion.TabIndex = 5;
                         this.EtiquetaDescripcion.Text = "Por favor aguarde mientras se genera un reporte.";
+                        this.EtiquetaDescripcion.UseMnemonic = false;
                         // 
                         // BotonCerrar
                         // 
                         this.BotonCerrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
                         this.BotonCerrar.DialogResult = System.Windows.Forms.DialogResult.None;
-                        this.BotonCerrar.Enabled = false;
                         this.BotonCerrar.Image = null;
                         this.BotonCerrar.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.BotonCerrar.Location = new System.Drawing.Point(392, 232);

@@ -72,7 +72,7 @@ namespace Lazaro.WinMain.Config
                         // EntradaSucursal
                         // 
                         this.EntradaSucursal.DataType = Lui.Forms.DataTypes.Integer;
-                        this.EntradaSucursal.Location = new System.Drawing.Point(280, 278);
+                        this.EntradaSucursal.Location = new System.Drawing.Point(280, 295);
                         this.EntradaSucursal.Name = "EntradaSucursal";
                         this.EntradaSucursal.Size = new System.Drawing.Size(60, 24);
                         this.EntradaSucursal.TabIndex = 16;
@@ -80,7 +80,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // label5
                         // 
-                        this.label5.Location = new System.Drawing.Point(64, 278);
+                        this.label5.Location = new System.Drawing.Point(64, 295);
                         this.label5.Name = "label5";
                         this.label5.Size = new System.Drawing.Size(216, 24);
                         this.label5.TabIndex = 15;
@@ -89,14 +89,14 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaBD
                         // 
-                        this.EntradaBD.Location = new System.Drawing.Point(280, 182);
+                        this.EntradaBD.Location = new System.Drawing.Point(280, 199);
                         this.EntradaBD.Name = "EntradaBD";
                         this.EntradaBD.Size = new System.Drawing.Size(172, 24);
                         this.EntradaBD.TabIndex = 7;
                         // 
                         // Label2
                         // 
-                        this.Label2.Location = new System.Drawing.Point(64, 182);
+                        this.Label2.Location = new System.Drawing.Point(64, 199);
                         this.Label2.Name = "Label2";
                         this.Label2.Size = new System.Drawing.Size(216, 24);
                         this.Label2.TabIndex = 6;
@@ -110,8 +110,9 @@ namespace Lazaro.WinMain.Config
                         this.EntradaConexion.Location = new System.Drawing.Point(280, 152);
                         this.EntradaConexion.Name = "EntradaConexion";
                         this.EntradaConexion.SetData = new string[] {
-        "MariaDB/MySQL|mysql"};
-                        this.EntradaConexion.Size = new System.Drawing.Size(196, 23);
+        "MySQL|mysql",
+        "MariaDB/MySQL|mariadb"};
+                        this.EntradaConexion.Size = new System.Drawing.Size(196, 40);
                         this.EntradaConexion.TabIndex = 5;
                         this.EntradaConexion.TextKey = "mysql";
                         this.EntradaConexion.TextChanged += new System.EventHandler(this.EntradaConexion_TextChanged);
@@ -127,7 +128,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaContrasena
                         // 
-                        this.EntradaContrasena.Location = new System.Drawing.Point(280, 246);
+                        this.EntradaContrasena.Location = new System.Drawing.Point(280, 263);
                         this.EntradaContrasena.Name = "EntradaContrasena";
                         this.EntradaContrasena.PasswordChar = '*';
                         this.EntradaContrasena.Size = new System.Drawing.Size(124, 24);
@@ -135,14 +136,14 @@ namespace Lazaro.WinMain.Config
                         // 
                         // EntradaUsuario
                         // 
-                        this.EntradaUsuario.Location = new System.Drawing.Point(280, 214);
+                        this.EntradaUsuario.Location = new System.Drawing.Point(280, 231);
                         this.EntradaUsuario.Name = "EntradaUsuario";
                         this.EntradaUsuario.Size = new System.Drawing.Size(124, 24);
                         this.EntradaUsuario.TabIndex = 9;
                         // 
                         // Label28
                         // 
-                        this.Label28.Location = new System.Drawing.Point(64, 246);
+                        this.Label28.Location = new System.Drawing.Point(64, 263);
                         this.Label28.Name = "Label28";
                         this.Label28.Size = new System.Drawing.Size(216, 24);
                         this.Label28.TabIndex = 10;
@@ -151,7 +152,7 @@ namespace Lazaro.WinMain.Config
                         // 
                         // Label29
                         // 
-                        this.Label29.Location = new System.Drawing.Point(64, 214);
+                        this.Label29.Location = new System.Drawing.Point(64, 231);
                         this.Label29.Name = "Label29";
                         this.Label29.Size = new System.Drawing.Size(216, 24);
                         this.Label29.TabIndex = 8;
@@ -178,7 +179,7 @@ namespace Lazaro.WinMain.Config
                         this.CancelCommandButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.CancelCommandButton.Location = new System.Drawing.Point(466, 12);
                         this.CancelCommandButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.CancelCommandButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.CancelCommandButton.MaximumSize = new System.Drawing.Size(160, 64);
                         this.CancelCommandButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.CancelCommandButton.Name = "CancelCommandButton";
                         this.CancelCommandButton.Size = new System.Drawing.Size(104, 36);
@@ -196,7 +197,7 @@ namespace Lazaro.WinMain.Config
                         this.OkButton.ImagePos = Lui.Forms.ImagePositions.Top;
                         this.OkButton.Location = new System.Drawing.Point(356, 12);
                         this.OkButton.Margin = new System.Windows.Forms.Padding(6, 0, 0, 0);
-                        this.OkButton.MaximumSize = new System.Drawing.Size(108, 40);
+                        this.OkButton.MaximumSize = new System.Drawing.Size(160, 64);
                         this.OkButton.MinimumSize = new System.Drawing.Size(96, 32);
                         this.OkButton.Name = "OkButton";
                         this.OkButton.Size = new System.Drawing.Size(104, 36);

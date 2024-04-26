@@ -35,19 +35,11 @@ namespace Lfc.Inicio
                         this.BotonAyudaWeb = new Lui.Forms.LinkLabel();
                         this.BotonWebComoFactura = new Lui.Forms.LinkLabel();
                         this.PanelWeb = new Lui.Forms.Panel();
-                        this.PanelActualizarAlmacen = new Lui.Forms.Panel();
-                        this.label5 = new Lui.Forms.Label();
-                        this.BotonNoActualizarAlmacen = new Lui.Forms.LinkLabel();
-                        this.label4 = new Lui.Forms.Label();
-                        this.BotonActualizarAlmacen = new Lui.Forms.LinkLabel();
-                        this.label3 = new Lui.Forms.Label();
-                        this.label2 = new Lui.Forms.Label();
                         this.PanelConsejo = new Lfc.Inicio.Consejo();
                         this.PanelComprobantes = new Lfc.Inicio.ControlComprobantes();
                         this.PanelPersonas = new Lfc.Inicio.ControlPersonas();
                         this.PanelArticulos = new Lfc.Inicio.ControlArticulos();
                         this.PanelWeb.SuspendLayout();
-                        this.PanelActualizarAlmacen.SuspendLayout();
                         this.SuspendLayout();
                         // 
                         // BotonWebInicio
@@ -150,87 +142,6 @@ namespace Lfc.Inicio
                         this.PanelWeb.Size = new System.Drawing.Size(480, 104);
                         this.PanelWeb.TabIndex = 9;
                         // 
-                        // PanelActualizarAlmacen
-                        // 
-                        this.PanelActualizarAlmacen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-                        this.PanelActualizarAlmacen.BackColor = System.Drawing.Color.Snow;
-                        this.PanelActualizarAlmacen.Controls.Add(this.label5);
-                        this.PanelActualizarAlmacen.Controls.Add(this.BotonNoActualizarAlmacen);
-                        this.PanelActualizarAlmacen.Controls.Add(this.label4);
-                        this.PanelActualizarAlmacen.Controls.Add(this.BotonActualizarAlmacen);
-                        this.PanelActualizarAlmacen.Controls.Add(this.label3);
-                        this.PanelActualizarAlmacen.Controls.Add(this.label2);
-                        this.PanelActualizarAlmacen.Location = new System.Drawing.Point(48, 48);
-                        this.PanelActualizarAlmacen.Name = "PanelActualizarAlmacen";
-                        this.PanelActualizarAlmacen.Size = new System.Drawing.Size(912, 553);
-                        this.PanelActualizarAlmacen.TabIndex = 11;
-                        this.PanelActualizarAlmacen.Visible = false;
-                        // 
-                        // label5
-                        // 
-                        this.label5.Location = new System.Drawing.Point(18, 184);
-                        this.label5.Name = "label5";
-                        this.label5.Size = new System.Drawing.Size(871, 27);
-                        this.label5.TabIndex = 7;
-                        this.label5.Text = "Si no desea actualizar el almacén de datos ahora, haga clic en el enlace:";
-                        // 
-                        // BotonNoActualizarAlmacen
-                        // 
-                        this.BotonNoActualizarAlmacen.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
-                        this.BotonNoActualizarAlmacen.AutoSize = true;
-                        this.BotonNoActualizarAlmacen.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonNoActualizarAlmacen.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonNoActualizarAlmacen.Location = new System.Drawing.Point(18, 211);
-                        this.BotonNoActualizarAlmacen.Name = "BotonNoActualizarAlmacen";
-                        this.BotonNoActualizarAlmacen.Size = new System.Drawing.Size(231, 17);
-                        this.BotonNoActualizarAlmacen.TabIndex = 6;
-                        this.BotonNoActualizarAlmacen.TabStop = true;
-                        this.BotonNoActualizarAlmacen.Text = "No, gracias. Tal vez en otro momento.";
-                        this.BotonNoActualizarAlmacen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                        this.BotonNoActualizarAlmacen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonNoActualizarAlmacen_LinkClicked);
-                        // 
-                        // label4
-                        // 
-                        this.label4.Location = new System.Drawing.Point(18, 116);
-                        this.label4.Name = "label4";
-                        this.label4.Size = new System.Drawing.Size(871, 27);
-                        this.label4.TabIndex = 5;
-                        this.label4.Text = "Para descargar la versión nueva del almacén de datos, visite la siguiente página:" +
-    "";
-                        // 
-                        // BotonActualizarAlmacen
-                        // 
-                        this.BotonActualizarAlmacen.ActiveLinkColor = System.Drawing.Color.RoyalBlue;
-                        this.BotonActualizarAlmacen.AutoSize = true;
-                        this.BotonActualizarAlmacen.Cursor = System.Windows.Forms.Cursors.Hand;
-                        this.BotonActualizarAlmacen.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-                        this.BotonActualizarAlmacen.Location = new System.Drawing.Point(18, 143);
-                        this.BotonActualizarAlmacen.Name = "BotonActualizarAlmacen";
-                        this.BotonActualizarAlmacen.Size = new System.Drawing.Size(268, 17);
-                        this.BotonActualizarAlmacen.TabIndex = 4;
-                        this.BotonActualizarAlmacen.TabStop = true;
-                        this.BotonActualizarAlmacen.Text = "http://lazarogestion.com/descargar/servidor";
-                        this.BotonActualizarAlmacen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                        this.BotonActualizarAlmacen.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.BotonActualizarAlmacen_LinkClicked);
-                        // 
-                        // label3
-                        // 
-                        this.label3.Location = new System.Drawing.Point(18, 65);
-                        this.label3.Name = "label3";
-                        this.label3.Size = new System.Drawing.Size(871, 44);
-                        this.label3.TabIndex = 2;
-                        this.label3.Text = resources.GetString("label3.Text");
-                        // 
-                        // label2
-                        // 
-                        this.label2.AutoSize = true;
-                        this.label2.Location = new System.Drawing.Point(16, 21);
-                        this.label2.Name = "label2";
-                        this.label2.Size = new System.Drawing.Size(282, 30);
-                        this.label2.TabIndex = 1;
-                        this.label2.Text = "Actualizar almacén de datos";
-                        this.label2.TextStyle = Lazaro.Pres.DisplayStyles.TextStyles.MainHeader;
-                        // 
                         // PanelConsejo
                         // 
                         this.PanelConsejo.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -258,7 +169,7 @@ namespace Lfc.Inicio
                         this.PanelComprobantes.ForeColor = System.Drawing.Color.White;
                         this.PanelComprobantes.Image = ((System.Drawing.Image)(resources.GetObject("PanelComprobantes.Image")));
                         this.PanelComprobantes.Location = new System.Drawing.Point(544, 224);
-                        this.PanelComprobantes.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+                        this.PanelComprobantes.Margin = new System.Windows.Forms.Padding(5);
                         this.PanelComprobantes.MinimumSize = new System.Drawing.Size(416, 300);
                         this.PanelComprobantes.Name = "PanelComprobantes";
                         this.PanelComprobantes.Size = new System.Drawing.Size(416, 377);
@@ -275,7 +186,7 @@ namespace Lfc.Inicio
                         this.PanelPersonas.ForeColor = System.Drawing.Color.White;
                         this.PanelPersonas.Image = ((System.Drawing.Image)(resources.GetObject("PanelPersonas.Image")));
                         this.PanelPersonas.Location = new System.Drawing.Point(48, 272);
-                        this.PanelPersonas.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+                        this.PanelPersonas.Margin = new System.Windows.Forms.Padding(5);
                         this.PanelPersonas.Name = "PanelPersonas";
                         this.PanelPersonas.Size = new System.Drawing.Size(480, 160);
                         this.PanelPersonas.TabIndex = 1;
@@ -290,7 +201,7 @@ namespace Lfc.Inicio
                         this.PanelArticulos.ForeColor = System.Drawing.Color.White;
                         this.PanelArticulos.Image = ((System.Drawing.Image)(resources.GetObject("PanelArticulos.Image")));
                         this.PanelArticulos.Location = new System.Drawing.Point(48, 48);
-                        this.PanelArticulos.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+                        this.PanelArticulos.Margin = new System.Windows.Forms.Padding(5);
                         this.PanelArticulos.Name = "PanelArticulos";
                         this.PanelArticulos.Size = new System.Drawing.Size(480, 208);
                         this.PanelArticulos.TabIndex = 0;
@@ -302,21 +213,18 @@ namespace Lfc.Inicio
                         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
                         this.BackColor = System.Drawing.Color.White;
                         this.ClientSize = new System.Drawing.Size(984, 586);
-                        this.Controls.Add(this.PanelActualizarAlmacen);
                         this.Controls.Add(this.PanelConsejo);
                         this.Controls.Add(this.PanelWeb);
                         this.Controls.Add(this.PanelComprobantes);
                         this.Controls.Add(this.PanelPersonas);
                         this.Controls.Add(this.PanelArticulos);
                         this.Controls.Add(this.BotonWebInicio);
-                        this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+                        this.Margin = new System.Windows.Forms.Padding(5);
                         this.Name = "Inicio";
-                        this.Padding = new System.Windows.Forms.Padding(32, 32, 32, 32);
+                        this.Padding = new System.Windows.Forms.Padding(32);
                         this.Text = "Inicio";
                         this.PanelWeb.ResumeLayout(false);
                         this.PanelWeb.PerformLayout();
-                        this.PanelActualizarAlmacen.ResumeLayout(false);
-                        this.PanelActualizarAlmacen.PerformLayout();
                         this.ResumeLayout(false);
                         this.PerformLayout();
 
@@ -335,13 +243,6 @@ namespace Lfc.Inicio
                 private Lui.Forms.LinkLabel BotonWebComoFactura;
                 private Lui.Forms.Panel PanelWeb;
                 private Consejo PanelConsejo;
-                private Lui.Forms.Panel PanelActualizarAlmacen;
-                private Lui.Forms.Label label5;
-                private Lui.Forms.LinkLabel BotonNoActualizarAlmacen;
-                private Lui.Forms.Label label4;
-                private Lui.Forms.LinkLabel BotonActualizarAlmacen;
-                private Lui.Forms.Label label3;
-                private Lui.Forms.Label label2;
 
         }
 }

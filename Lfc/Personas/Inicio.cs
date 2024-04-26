@@ -98,7 +98,7 @@ namespace Lfc.Personas
                         if (this.Connection != null) {
                                 Lfx.Data.TagCollection Tags = Lfx.Workspace.Master.Tables["personas"].Tags;
                                 foreach (Lfx.Data.Tag Tg in Tags) {
-                                        if (Tg.FieldType == Lazaro.Orm.ColumnTypes.Text || Tg.FieldType == Lazaro.Orm.ColumnTypes.VarChar)
+                                        if (Tg.FieldType == Lazaro.Orm.ColumnTypes.Text || Tg.FieldType == Lazaro.Orm.ColumnTypes.LongText || Tg.FieldType == Lazaro.Orm.ColumnTypes.VarChar)
                                                 this.Definicion.ExtraSearchColumns.Add(new Lazaro.Pres.Field(Tg.TableName + "." + Tg.FieldName, Tg.Label, Tg.InputFieldType));
                                 }
                         }

@@ -47,7 +47,7 @@ namespace Lbl.Componentes
                                                 }
                                         } catch (Exception ex) {
                                                 if (Lfx.Workspace.Master != null && Lfx.Workspace.Master.DebugMode == false) {
-                                                        Lfx.Workspace.Master.RunTime.Toast("No se puede registrar el componente " + Comp.Nombre + "." + ex.Message, "Error");
+                                                        Lfx.Workspace.Master.RunTime.Toast("No se puede registrar el componente " + Comp.Nombre + ". " + ex.Message, "Error");
                                                         throw;
                                                 } else {
                                                         throw;

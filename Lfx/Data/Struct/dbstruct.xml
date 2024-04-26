@@ -21,10 +21,10 @@
     <Column name="codigo4" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="id_marca" inputtype="Relation" nullable="1" />
     <Column name="id_caja" inputtype="Relation" nullable="1" />
-    <Column name="modelo" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="serie" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="modelo" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="serie" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
-    <Column name="url" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="url" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="descripcion" datatype="Text" nullable="1" />
     <Column name="descripcion2" datatype="Text" nullable="1" />
     <Column name="id_categoria" inputtype="Relation" nullable="1" />
@@ -66,7 +66,7 @@
   <Table name="articulos_categorias" lsdet="1" label="Categorías de Artículos">
     <Column name="id_categoria" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
-    <Column name="nombresing" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="nombresing" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="stock_minimo" datatype="Numeric" nullable="0" lenght="14" precision="4" default="0" />
     <Column name="imagen" datatype="Blob" nullable="1" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
@@ -199,7 +199,7 @@
     <Column name="id_serie" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_articulo" inputtype="Relation" nullable="0" />
     <Column name="id_situacion" inputtype="Relation" nullable="0" />
-    <Column name="serie" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="serie" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="cantidad" datatype="Numeric" nullable="0" lenght="14" precision="4" default="0" />
     <Index table="articulos_series" name="articulos_series_id_articulo" columns="id_articulo" unique="0" primary="0" />
     <Index table="articulos_series" name="articulos_series_id_situacion" columns="id_situacion" unique="0" primary="0" />
@@ -212,7 +212,7 @@
   <Table name="bancos" lsdet="1" label="Bancos">
     <Column name="id_banco" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="50" />
-    <Column name="url" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="url" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
@@ -224,7 +224,7 @@
     <Column name="id_cheque" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" lenght="200" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />
-    <Column name="concepto" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="concepto" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
@@ -241,7 +241,7 @@
     <Column name="importe" inputtype="Currency" default="0" />
     <Column name="fechaemision" datatype="DateTime" nullable="0" />
     <Column name="id_cliente" inputtype="Relation" nullable="1" />
-    <Column name="emitidopor" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="emitidopor" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="fechacobro" datatype="DateTime" nullable="0" />
     <Index table="bancos_cheques" name="bancos_cheques_id_concepto" columns="id_concepto" unique="0" primary="0" />
     <Index table="bancos_cheques" name="bancos_cheques_id_caja" columns="id_caja" unique="0" primary="0" />
@@ -339,14 +339,14 @@
     <Column name="id_movim" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="auto" inputtype="Bool" nullable="0" default="0" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />
-    <Column name="concepto" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="concepto" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="id_cliente" inputtype="Relation" nullable="0" default="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Column name="importe" inputtype="Currency" default="0" />
     <Column name="saldo" inputtype="Currency" default="0" />
     <Column name="id_comprob" inputtype="Relation" nullable="1" />
     <Column name="id_recibo" inputtype="Relation" nullable="1" />
-    <Column name="comprob" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="comprob" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Index table="ctacte" name="ctacte_id_cliente" columns="id_cliente" unique="0" primary="0" />
     <Index table="ctacte" name="ctacte_id_concepto" columns="id_concepto" unique="0" primary="0" />
@@ -363,9 +363,9 @@
   <Table name="cajas" lsdet="1" label="Cajas">
     <Column name="id_caja" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_banco" inputtype="Relation" nullable="1" />
-    <Column name="numero" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="numero" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
-    <Column name="titular" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="titular" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="tipo" inputtype="TinyInt" nullable="0" default="0" />
     <Column name="id_moneda" inputtype="Relation" nullable="1" />
     <Column name="cbu" datatype="VarChar" nullable="1" lenght="50" />
@@ -394,8 +394,8 @@
     <Column name="saldo" inputtype="Currency" default="0" />
     <Column name="auto" inputtype="Bool" nullable="0" default="0" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />
-    <Column name="concepto" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="comprob" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="concepto" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="comprob" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Index table="cajas_movim" name="cajas_movim_id_cliente" columns="id_cliente" unique="0" primary="0" />
     <Index table="cajas_movim" name="cajas_movim_id_concepto" columns="id_concepto" unique="0" primary="0" />
@@ -437,9 +437,9 @@
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="tabla" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="tipo" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="tipobase" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="tabla" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="tipo" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="tipobase" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="venta" datatype="TinyInt" nullable="0" default="1" />
     <Column name="compra" datatype="TinyInt" nullable="0" default="0" />
     <Column name="permitedisciva" datatype="TinyInt" nullable="0" default="0" />
@@ -592,10 +592,10 @@
   <Table name="impresoras" lsdet="1" label="Impresoras">
     <Column name="id_impresora" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
-    <Column name="estacion" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="dispositivo" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="bandeja" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="ubicacion" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="dispositivo" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="bandeja" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="ubicacion" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="tipo" inputtype="TinyInt" nullable="0" />
     <Column name="carga" inputtype="TinyInt" nullable="0" default="0" />
     <Column name="talonario" inputtype="Bool" nullable="0" default="0" />
@@ -620,7 +620,7 @@
     <Column name="id_impresora" inputtype="Relation" nullable="1" />
     <Column name="id_sucursal" inputtype="Relation" nullable="1" />
     <Column name="id_pv" inputtype="Relation" nullable="1" />
-    <Column name="estacion" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="comprob_tipo_impresoras" name="comprob_tipo_impresoras_id_tipo" columns="id_tipo" unique="0" primary="0" />
     <Index table="comprob_tipo_impresoras" name="comprob_tipo_impresoras_id_sucursal" columns="id_sucursal" unique="0" primary="0" />
@@ -637,7 +637,7 @@
   <Table name="marcas" lsdet="1" label="Marcas de Artículos">
     <Column name="id_marca" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
-    <Column name="url" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="url" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="id_proveedor" inputtype="Relation" nullable="1" />
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
@@ -715,7 +715,7 @@
     <Column name="id_recibo" inputtype="Relation" nullable="1" />
     <Column name="id_item" inputtype="Relation" nullable="1" />
     <Column name="importe" datatype="Currency" />
-    <Column name="numero" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="numero" datatype="VarChar" nullable="1" lenght="255" />
     <Index table="pagos_valores" name="PRIMARY" columns="id_valor" unique="1" primary="1" />
     <Index table="pagos_valores" name="pagos_valores_id_formapago" columns="id_formapago" unique="0" primary="0" />
     <Index table="pagos_valores" name="pagos_valores_id_sucursal" columns="id_sucursal" unique="0" primary="0" />
@@ -743,8 +743,8 @@
     <Column name="nombre_fantasia" inputtype="Text" section="Personas jurídicas" label="Nombre fantasía" nullable="1" lenght="200" />
     <Column name="razon_social" inputtype="Text" section="Personas jurídicas" label="Razón social" nullable="1" lenght="200" />
     <Column name="nombreusuario" datatype="VarChar" nullable="1" lenght="50" />
-    <Column name="contrasena" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="contrasena_sal" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
+    <Column name="contrasena" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="contrasena_sal" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
     <Column name="contrasena_fecha" datatype="DateTime" nullable="1" />
     <Column name="id_tipo_doc" inputtype="Relation" section="Personas físicas" label="Tipo de documento" nullable="1"
             relation_table="tipo_doc" relation_key="id_tipo_doc" relation_detail="nombre" />
@@ -852,7 +852,7 @@
     <Column name="cuenta_iibb" inputtype="Bool" nullable="0" default="1" />
     <Column name="prefijo" datatype="SmallInt" nullable="0" default="0" />
     <Column name="numero" datatype="SmallInt" nullable="0" default="0" />
-    <Column name="estacion" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="tipo_fac" datatype="VarChar" nullable="0" lenght="50" />
     <Column name="carga" datatype="TinyInt" nullable="0" default="0" />
     <Column name="modelo" datatype="SmallInt" nullable="0" default="0" />
@@ -879,7 +879,7 @@
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Column name="tipo_fac" datatype="VarChar" nullable="0" lenght="50" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />
-    <Column name="concepto" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="concepto" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="pv" datatype="TinyInt" nullable="0" />
     <Column name="numero" datatype="Integer" nullable="0" default="0" />
     <Column name="nombre" inputtype="Text" nullable="0" lenght="200" />
@@ -943,8 +943,8 @@
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="direccion" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="telefono" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="direccion" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="telefono" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="id_ciudad" inputtype="Relation" nullable="0" default="0" />
     <Column name="situacionorigen" inputtype="Relation" nullable="1" />
     <Column name="id_caja_diaria" inputtype="Relation" nullable="1" />
@@ -973,7 +973,7 @@
     <Column name="id_permiso" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="id_objeto" inputtype="Relation" />
     <Column name="id_persona" inputtype="Relation" />
-    <Column name="items" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="items" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="ops" datatype="Integer" nullable="0" />
     <Index table="sys_permisos" name="PRIMARY" columns="id_permiso" unique="1" primary="1" />
     <Index table="sys_permisos" name="sys_permisos_id_persona" columns="id_persona" />
@@ -986,21 +986,21 @@
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="tipo" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="clase" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="extra1_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
-    <Column name="extra2_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
-    <Column name="extra3_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
-    <Column name="extraa_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
-    <Column name="extrab_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
-    <Column name="extrac_nombre" datatype="VarChar" nullable="1" lenght="200" default="NULL" />
+    <Column name="tipo" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="clase" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="extra1_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
+    <Column name="extra2_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
+    <Column name="extra3_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
+    <Column name="extraa_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
+    <Column name="extrab_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
+    <Column name="extrac_nombre" datatype="VarChar" nullable="1" lenght="255" default="NULL" />
     <Index table="sys_permisos_objetos" name="PRIMARY" columns="id_objeto" unique="1" primary="1" />
   </Table>
 
 
   <Table name="sys_comments" label="Comentarios">
     <Column name="id_comment" datatype="Serial" nullable="0" primary_key="1" />
-    <Column name="tablas" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="tablas" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="item_id" inputtype="Relation" nullable="0" />
     <Column name="id_persona" inputtype="Relation" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
@@ -1017,19 +1017,19 @@
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="espacio" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="espacio" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="version" datatype="DateTime" nullable="0" />
     <Column name="estructura" datatype="Text" nullable="1" />
     <Column name="cif" datatype="Text" nullable="1" />
-    <Column name="url" datatype="VarChar" nullable="1" lenght="200" />
-    <Column name="url_act" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="url" datatype="VarChar" nullable="1" lenght="255" />
+    <Column name="url_act" datatype="VarChar" nullable="1" lenght="255" />
     <Index table="sys_components" name="PRIMARY" columns="id_component" unique="1" primary="1" />
   </Table>
 
 
   <Table name="sys_config" label="Configuración">
     <Column name="estacion" datatype="VarChar" nullable="0" primary_key="1" lenght="64" />
-    <Column name="grupo" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="grupo" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="id_sucursal" inputtype="Relation" nullable="0" primary_key="1" default="0" />
     <Column name="nombre" inputtype="Text" nullable="0" primary_key="1" lenght="64" />
     <Column name="valor" datatype="Memo" nullable="0" />
@@ -1043,7 +1043,7 @@
     <Column name="obs" inputtype="Memo" label="Obs" nullable="1" />
     <Column name="estado" inputtype="Integer" label="Estado" nullable="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="tablas" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="tablas" datatype="VarChar" nullable="1" lenght="255" />
     <Index table="sys_labels" name="PRIMARY" columns="id_label" unique="1" primary="1" />
   </Table>
 
@@ -1061,10 +1061,10 @@
   <Table name="sys_log" label="Registro de actividades">
     <Column name="id_log" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
-    <Column name="estacion" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="usuario" inputtype="Relation" nullable="1" />
-    <Column name="comando" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="tabla" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="comando" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="tabla" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="item_id" inputtype="Relation" nullable="1" />
     <Column name="extra1" datatype="Text" nullable="1" />
     <Index table="sys_log" name="PRIMARY" columns="id_log" unique="1" primary="1" />
@@ -1145,10 +1145,10 @@
 
   <Table name="sys_programador" label="Programador de Tareas">
     <Column name="id_evento" datatype="Serial" nullable="0" primary_key="1" />
-    <Column name="crea_estacion" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="crea_usuario" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="estacion" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="comando" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="crea_estacion" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="crea_usuario" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="estacion" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="comando" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="estado" inputtype="TinyInt" label="Estado" nullable="0" default="0" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Column name="fechaejecutar" inputtype="DateTime" label="No ejecutar antes de" nullable="1" />
@@ -1161,7 +1161,7 @@
   <Table name="sys_quickpaste" label="Pegádo Rápido">
     <Column name="id_paste" datatype="Serial" nullable="0" primary_key="1" />
     <Column name="texto" datatype="Text" nullable="0" />
-    <Column name="estacion" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="estacion" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="usuario" inputtype="Relation" nullable="1" />
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Index table="sys_quickpaste" name="PRIMARY" columns="id_paste" unique="1" primary="1" />
@@ -1170,13 +1170,13 @@
 
   <Table name="sys_tags" label="Tags">
     <Column name="id_tag" datatype="Serial" nullable="0" primary_key="1" />
-    <Column name="tablename" datatype="VarChar" nullable="0" lenght="200" />
-    <Column name="fieldname" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="tablename" datatype="VarChar" nullable="0" lenght="255" />
+    <Column name="fieldname" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="fieldtype" datatype="VarChar" nullable="0" lenght="50" default="varchar" />
     <Column name="inputtype" datatype="VarChar" nullable="1" lenght="50" />
     <Column name="fieldnullable" inputtype="Bool" nullable="0" />
     <Column name="fielddefault" datatype="Text" nullable="1" />
-    <Column name="label" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="label" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="internal" inputtype="Bool" nullable="0" />
     <Column name="access" inputtype="Integer" nullable="0" />
     <Column name="extra" datatype="Text" nullable="1" />
@@ -1203,7 +1203,7 @@
     <Column name="fecha" inputtype="DateTime" label="Fecha" nullable="1" />
     <Column name="numero" datatype="VarChar" nullable="0" lenght="30" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />
-    <Column name="concepto" datatype="VarChar" nullable="1" lenght="200" />
+    <Column name="concepto" datatype="VarChar" nullable="1" lenght="255" />
     <Column name="autorizacion" datatype="VarChar" nullable="1" lenght="30" />
     <Column name="id_tarjeta" inputtype="Relation" nullable="1" />
     <Column name="id_cliente" inputtype="Relation" nullable="1" />
@@ -1368,7 +1368,7 @@
     <Column name="fecha_inicio" datatype="DateTime" nullable="0" />
     <Column name="fecha_proxima" datatype="DateTime" nullable="1" />
     <Column name="fecha_fin" datatype="DateTime" nullable="1" />
-    <Column name="frecuencia" datatype="VarChar" nullable="0" lenght="200" />
+    <Column name="frecuencia" datatype="VarChar" nullable="0" lenght="255" />
     <Column name="repetir" inputtype="Bool" nullable="0" default="0" />
     <Column name="ocurrencia" datatype="SmallInt" nullable="0" default="0" />
     <Column name="id_concepto" inputtype="Relation" nullable="1" />

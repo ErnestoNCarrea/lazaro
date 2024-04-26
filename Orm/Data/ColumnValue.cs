@@ -30,8 +30,10 @@ namespace Lazaro.Orm.Data
                         this.Value = value;
                         if (value is double || value is decimal)
                                 this.DataType = ColumnTypes.Numeric;
-                        else if (value is int || value is long)
+                        else if (value is int)
                                 this.DataType = ColumnTypes.Integer;
+                        else if (value is long)
+                                this.DataType = ColumnTypes.BigInt;
                         else if (value is DateTime)
                                 this.DataType = ColumnTypes.DateTime;
                         else if (value is bool)
@@ -112,6 +114,14 @@ namespace Lazaro.Orm.Data
                         get
                         {
                                 return System.Convert.ToInt32(this.Value);
+                        }
+                }
+
+                public long ValueLong
+                {
+                        get
+                        {
+                                return System.Convert.ToInt64(this.Value);
                         }
                 }
 

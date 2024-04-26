@@ -29,7 +29,7 @@ namespace Lazaro.WinMain.Misc
 
                         Dir = new System.IO.DirectoryInfo(Lfx.Environment.Folders.ComponentsFolder);
                         foreach (System.IO.FileInfo DirItem in Dir.GetFiles("*.dll", System.IO.SearchOption.AllDirectories)) {
-                                ListaComponentes.Items.Add(DirItem.Name + " versión " + System.Diagnostics.FileVersionInfo.GetVersionInfo(DirItem.FullName).ProductVersion + " del " + new System.IO.FileInfo(DirItem.FullName).LastWriteTime.ToString(Lfx.Types.Formatting.DateTime.FullDateTimePattern));
+                                ListaComponentes.Items.Add(DirItem.Directory.Name + "\\" + DirItem.Name + " versión " + System.Diagnostics.FileVersionInfo.GetVersionInfo(DirItem.FullName).ProductVersion + " del " + new System.IO.FileInfo(DirItem.FullName).LastWriteTime.ToString(Lfx.Types.Formatting.DateTime.FullDateTimePattern));
                         }
 
                         EtiquetaFramework.Text = Lfx.Environment.SystemInformation.RuntimeName;

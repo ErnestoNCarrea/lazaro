@@ -37,7 +37,7 @@ namespace Lbl.Test.Entity.Comprobantes
                         Fac.Articulos.Add(Det);
                         Fac.Descuento = 5;
 
-                        Assert.AreEqual(528.77m, Fac.Total, "Total debe ser 528.77");
+                        Assert.Equals(528.77m, Fac.Total, "Total debe ser 528.77");
 
                         Fac.Guardar();
 
@@ -48,18 +48,18 @@ namespace Lbl.Test.Entity.Comprobantes
 
                         var FacGuardada = new Lbl.Comprobantes.Factura(TestSetup.Connection, Fac.Id);
 
-                        Assert.AreEqual(5m, FacGuardada.Descuento, "Descuento debe ser 5");
-                        Assert.AreEqual(528.77m, FacGuardada.Total, "Total debe ser 528.77");
-                        Assert.AreEqual(27.83m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 27.83");
-                        Assert.AreEqual(0m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 0");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 0");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
-                        Assert.AreEqual(96.6m, FacGuardada.ImporteIva, "ImporteIva debe ser 96.60");
-                        Assert.AreEqual(91.77m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 91.77");
+                        Assert.Equals(5m, FacGuardada.Descuento, "Descuento debe ser 5");
+                        Assert.Equals(528.77m, FacGuardada.Total, "Total debe ser 528.77");
+                        Assert.Equals(27.83m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 27.83");
+                        Assert.Equals(0m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 0");
+                        Assert.Equals(0m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 0");
+                        Assert.Equals(0m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
+                        Assert.Equals(96.6m, FacGuardada.ImporteIva, "ImporteIva debe ser 96.60");
+                        Assert.Equals(91.77m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 91.77");
 
                         var UltMovim = Fac.Cliente.CuentaCorriente.ObtenerUltimoMovimiento();
                         
-                        Assert.AreEqual(528.77m, UltMovim.Importe, "El movimiento en la cuenta corriente debe ser por el total de la factura.");
+                        Assert.Equals(528.77m, UltMovim.Importe, "El movimiento en la cuenta corriente debe ser por el total de la factura.");
                 }
 
 
@@ -78,7 +78,7 @@ namespace Lbl.Test.Entity.Comprobantes
                         Fac.Articulos.Add(Det);
                         Fac.Descuento = 5;
 
-                        Assert.AreEqual(437m, Fac.Total, "Total debe ser 437");
+                        Assert.Equals(437m, Fac.Total, "Total debe ser 437");
 
                         Fac.Guardar();
 
@@ -89,19 +89,19 @@ namespace Lbl.Test.Entity.Comprobantes
 
                         var FacGuardada = new Lbl.Comprobantes.Factura(TestSetup.Connection, Fac.Id);
 
-                        Assert.AreEqual(5m, FacGuardada.Descuento, "Descuento debe ser 5");
-                        Assert.AreEqual(437m, FacGuardada.Total, "Total debe ser 437");
-                        Assert.AreEqual(23m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 23");
-                        Assert.AreEqual(437m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 437");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 0");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIva, "ImporteIva debe ser 0");
-                        Assert.AreEqual(0m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 0");
+                        Assert.Equals(5m, FacGuardada.Descuento, "Descuento debe ser 5");
+                        Assert.Equals(437m, FacGuardada.Total, "Total debe ser 437");
+                        Assert.Equals(23m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 23");
+                        Assert.Equals(437m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 437");
+                        Assert.Equals(0m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 0");
+                        Assert.Equals(0m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 0");
+                        Assert.Equals(0m, FacGuardada.ImporteIva, "ImporteIva debe ser 0");
+                        Assert.Equals(0m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 0");
 
                         var CajaEfectivo = new Lbl.Cajas.Caja(TestSetup.Connection, 999);
                         var UltMovim = CajaEfectivo.ObtenerUltimoMovimiento();
 
-                        Assert.AreEqual(437m, UltMovim.Importe, "El último movimiento en efectivo debe ser 437");
+                        Assert.Equals(437m, UltMovim.Importe, "El último movimiento en efectivo debe ser 437");
                 }
 
 
@@ -120,7 +120,7 @@ namespace Lbl.Test.Entity.Comprobantes
                         Fac.Articulos.Add(Det);
                         Fac.Descuento = 5;
 
-                        Assert.AreEqual(528.77m, Fac.Total, "Total debe ser 528.77");
+                        Assert.Equals(528.77m, Fac.Total, "Total debe ser 528.77");
 
                         Fac.Guardar();
 
@@ -131,18 +131,18 @@ namespace Lbl.Test.Entity.Comprobantes
 
                         var FacGuardada = new Lbl.Comprobantes.Factura(TestSetup.Connection, Fac.Id);
 
-                        Assert.AreEqual(5m, FacGuardada.Descuento, "Descuento debe ser 5");
-                        Assert.AreEqual(528.77m, FacGuardada.Total, "Total debe ser 528.77");
-                        Assert.AreEqual(23m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 23");
-                        Assert.AreEqual(0m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 0");
-                        Assert.AreEqual(96.6m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 96.6");
-                        Assert.AreEqual(91.77m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 91.77");
-                        Assert.AreEqual(96.6m, FacGuardada.ImporteIva, "ImporteIva debe ser 96.60");
-                        Assert.AreEqual(91.77m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 91.77");
+                        Assert.Equals(5m, FacGuardada.Descuento, "Descuento debe ser 5");
+                        Assert.Equals(528.77m, FacGuardada.Total, "Total debe ser 528.77");
+                        Assert.Equals(23m, FacGuardada.ImporteDescuentos, "ImporteDescuentos debe ser 23");
+                        Assert.Equals(0m, FacGuardada.ImporteCancelado, "ImporteCancelado debe ser 0");
+                        Assert.Equals(96.6m, FacGuardada.ImporteIvaDiscriminado, "ImporteIvaDiscriminado debe ser 96.6");
+                        Assert.Equals(91.77m, FacGuardada.ImporteIvaDiscriminadoFinal, "ImporteIvaDiscriminadoFinal debe ser 91.77");
+                        Assert.Equals(96.6m, FacGuardada.ImporteIva, "ImporteIva debe ser 96.60");
+                        Assert.Equals(91.77m, FacGuardada.ImporteIvaFinal, "ImporteIvaFinal debe ser 91.77");
 
                         var UltMovim = Fac.Cliente.CuentaCorriente.ObtenerUltimoMovimiento();
 
-                        Assert.AreEqual(528.77m, UltMovim.Importe, "El movimiento en la cuenta corriente debe ser por el total de la factura.");
+                        Assert.Equals(528.77m, UltMovim.Importe, "El movimiento en la cuenta corriente debe ser por el total de la factura.");
                 }
 
 

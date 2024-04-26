@@ -100,6 +100,9 @@ namespace Lfx.Data
                                 case ColumnTypes.Text:
                                         InsertOrUpdate.ColumnValues.AddWithValue("fieldtype", "text");
                                         break;
+                                case ColumnTypes.LongText:
+                                        InsertOrUpdate.ColumnValues.AddWithValue("fieldtype", "longtext");
+                                        break;
                         }
                         InsertOrUpdate.ColumnValues.AddWithValue("fieldnullable", this.Nullable ? 1 : 0);
                         InsertOrUpdate.ColumnValues.AddWithValue("fielddefault", this.DefaultValue);

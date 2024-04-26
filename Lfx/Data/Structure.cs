@@ -196,13 +196,17 @@ namespace Lfx.Data
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
                                                                 Columna.FieldType = ColumnTypes.SmallInt;
                                                                 break;
+                                                        case "BigInt":
+                                                                Columna.InputFieldType = InputFieldTypes.Integer;
+                                                                Columna.FieldType = ColumnTypes.BigInt;
+                                                                break;
                                                         case "TinyInt":
                                                                 Columna.InputFieldType = InputFieldTypes.Integer;
                                                                 Columna.FieldType = ColumnTypes.TinyInt;
                                                                 break;
                                                         case "Memo":
                                                                 Columna.InputFieldType = InputFieldTypes.Memo;
-                                                                Columna.FieldType = ColumnTypes.Text;
+                                                                Columna.FieldType = ColumnTypes.LongText;
                                                                 break;
                                                         case "Numeric":
                                                                 Columna.InputFieldType = InputFieldTypes.Numeric;
@@ -275,6 +279,7 @@ namespace Lfx.Data
                                                                 Columna.DefaultValue = null;
                                                                 break;
                                                         case ColumnTypes.Text:
+                                                        case ColumnTypes.LongText:
                                                         case ColumnTypes.Blob:
                                                                 Columna.DefaultValue = null;
                                                                 break;
@@ -284,6 +289,7 @@ namespace Lfx.Data
                                                         case ColumnTypes.Numeric:
                                                         case ColumnTypes.Serial:
                                                         case ColumnTypes.SmallInt:
+                                                        case ColumnTypes.BigInt:
                                                         case ColumnTypes.TinyInt:
                                                         case ColumnTypes.MediumInt:
                                                                 if (Columna.Nullable)

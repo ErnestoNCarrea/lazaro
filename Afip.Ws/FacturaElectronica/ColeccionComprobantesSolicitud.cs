@@ -6,9 +6,9 @@ using System.Text;
 namespace Afip.Ws.FacturaElectronica
 {
         /// <summary>
-        /// Una lista conteniendo la descripción de uno o más comprobantes para solicitar un CAE.
+        /// Una lista conteniendo uno o más comprobantes para solicitar un CAE.
         /// </summary>
-        public class ColeccionComprobantesAsociados : List<ComprobanteAsociado>
+        public class ColeccionComprobantesSolicitud : List<ComprobanteSolicitud>
         {
                 /// <summary>
                 /// Devuelve el número de comprobante más bajo de la colección.
@@ -16,7 +16,7 @@ namespace Afip.Ws.FacturaElectronica
                 public int NumeroDesde()
                 {
                         var Res = 0;
-                        foreach (ComprobanteAsociado Comprob in this) {
+                        foreach (ComprobanteSolicitud Comprob in this) {
                                 if(Res == 0 || Comprob.Numero < Res) {
                                         Res = Comprob.Numero;
                                 }
@@ -30,7 +30,7 @@ namespace Afip.Ws.FacturaElectronica
                 public int NumeroHasta()
                 {
                         var Res = 0;
-                        foreach (ComprobanteAsociado Comprob in this) {
+                        foreach (ComprobanteSolicitud Comprob in this) {
                                 if (Comprob.Numero > Res) {
                                         Res = Comprob.Numero;
                                 }
@@ -44,7 +44,7 @@ namespace Afip.Ws.FacturaElectronica
                 public double ImporteTotal()
                 {
                         double Res = 0;
-                        foreach (ComprobanteAsociado Comprob in this) {
+                        foreach (ComprobanteSolicitud Comprob in this) {
                                 Res += decimal.ToDouble(Comprob.ImporteTotal());
                         }
                         return Res;
@@ -56,7 +56,7 @@ namespace Afip.Ws.FacturaElectronica
                 public Tablas.Conceptos Conceptos()
                 {
                         Tablas.Conceptos Res = 0;
-                        foreach (ComprobanteAsociado Comprob in this) {
+                        foreach (ComprobanteSolicitud Comprob in this) {
                                 // Ya hay un concepto definido... veo si es necesario agregar otro
                                 Res = Res | Comprob.Conceptos;
                         }

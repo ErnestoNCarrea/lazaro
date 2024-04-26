@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Text;
 
 namespace Lfx.Types
@@ -173,6 +174,19 @@ namespace Lfx.Types
                                 return 0;
                         else
                                 return System.Convert.ToInt32(Resultado);
+                }
+
+                /// <summary>
+                /// Interpreta un valor entero. Devuelve cero para cualquier valor desconocido.
+                /// </summary>
+                public static long ParseLong(string valor)
+                {
+                        if (valor == null || valor.Length == 0)
+                                return 0;
+
+                        long Resultado = 0;
+                        long.TryParse(valor, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out Resultado);
+                        return Resultado;
                 }
         }
 }

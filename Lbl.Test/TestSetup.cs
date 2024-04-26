@@ -8,6 +8,7 @@ namespace Lbl.Test
         [SetUpFixture]
         public class TestSetup
         {
+                public static Lazaro.Orm.IEntityManager EntityManager;
                 public static Lfx.Data.Connection Connection;
                 public static System.Data.IDbTransaction Trans;
 
@@ -31,6 +32,7 @@ namespace Lbl.Test
                         //Lbl.Componentes.Cargador.CargarComponentes();
 
                         Connection = Lfx.Workspace.Master.GetNewConnection("Pruebas unitarias") as Lfx.Data.Connection;
+                        EntityManager = new Lazaro.Orm.EntityManager(Connection, Lfx.Workspace.Master.MetadataFactory);
 
                         Lbl.Sys.Config.Actual.UsuarioConectado = new Sys.Configuracion.UsuarioConectado(new Personas.Usuario(Connection, 1));
                 }

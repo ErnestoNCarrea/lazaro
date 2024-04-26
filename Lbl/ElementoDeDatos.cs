@@ -541,6 +541,9 @@ namespace Lbl
                                                         case Lazaro.Orm.ColumnTypes.Numeric:
                                                                 comando.ColumnValues.AddWithValue(Tg.FieldName, System.Convert.ToInt32(Tg.DefaultValue));
                                                                 break;
+                                                        case Lazaro.Orm.ColumnTypes.BigInt:
+                                                                comando.ColumnValues.AddWithValue(Tg.FieldName, System.Convert.ToInt64(Tg.DefaultValue));
+                                                                break;
                                                         default:
                                                                 comando.ColumnValues.AddWithValue(Tg.FieldName, "");
                                                                 break;

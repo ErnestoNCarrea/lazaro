@@ -25,5 +25,19 @@ namespace Lazaro.WinMain.Errores
                 {
                         Help.ShowHelp(this, "http://www.lazarogestion.com/soporte");
                 }
+
+                private Exception exception;
+                public Exception Excepcion
+                {
+                        get
+                        {
+                                return this.exception;
+                        }
+                        set {
+                                this.exception = value;
+                                this.EtiquetaDescripcion.Text = this.exception.ToString();
+                                this.Height = Screen.FromControl(this).Bounds.Height - 128;
+                        }
+                }
         }
 }

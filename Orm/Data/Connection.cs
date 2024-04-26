@@ -491,7 +491,7 @@ namespace Lazaro.Orm.Data
                 }
 
 
-                public int ExecuteNonQuery(System.Data.IDbCommand command)
+                public int ExecuteNonQuery(System.Data.IDbCommand command               )
                 {
                         if (this.ReadOnly)
                                 throw new InvalidOperationException("No se pueden realizar cambios en la conexión de lectura");

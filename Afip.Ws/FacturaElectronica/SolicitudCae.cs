@@ -24,7 +24,7 @@ namespace Afip.Ws.FacturaElectronica
                 /// <summary>
                 /// Los comprobantes para los cuales se solicita un CAE.
                 /// </summary>
-                public ColeccionComprobantesAsociados Comprobantes { get; set; }
+                public ColeccionComprobantesSolicitud Comprobantes { get; set; }
 
                 /// <summary>
                 /// Las observaciones devueltas, en caso de devolver comprobantes observados.

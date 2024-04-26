@@ -23,7 +23,7 @@ namespace Afip.Ws.FacturaElectronica
                 /// <summary>
                 /// El comprobante al cual está asociada esta observación, o null si no corresponde
                 /// </summary>
-                public ComprobanteAsociado Comprobante = null;
+                public ComprobanteSolicitud Comprobante = null;
 
                 public Observacion()
                 {
@@ -37,7 +37,7 @@ namespace Afip.Ws.FacturaElectronica
 
                 }
 
-                public Observacion(int codigo, string mensaje, ComprobanteAsociado comprob)
+                public Observacion(int codigo, string mensaje, ComprobanteSolicitud comprob)
                         : this(codigo, mensaje)
                 {
                         this.Codigo = codigo;

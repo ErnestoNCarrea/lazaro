@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
+using BCrypt.Net;
 
 namespace Lbl.Personas
 {
@@ -65,7 +67,7 @@ namespace Lbl.Personas
                         {
                                 if (this.Contrasena != value) {
                                         CambioContrasena = true;
-                                        this.ContrasenaSal = GenerarSal();
+                                        //this.ContrasenaSal = GenerarSal();
                                 }
                                 this.Registro["contrasena"] = value;
                         }
@@ -127,18 +129,38 @@ namespace Lbl.Personas
 
                 public bool ContrasenaValida(string contrasena)
                 {
-                        if (this.ContrasenaSal == null || this.ContrasenaSal.Length == 0) {
-                                // Es una contraseña en texto plano
-                                return this.Contrasena == contrasena;
-                        } else {
+                        
+                        if (Lfx.Types.Strings.SHA256(contrasena + this.ContrasenaSal) == this.Contrasena)
+                        {
                                 // Es una contraseña encriptada
-                                if (Lfx.Types.Strings.SHA256(contrasena + this.ContrasenaSal) == this.Contrasena)
-                                        return true;
-                                else if (Lfx.Types.Strings.SHA256(contrasena + "{" + this.ContrasenaSal + "}") == this.Contrasena)
-                                        return true;
-                                else
-                                        return false;
+                                return true;
                         }
+                        else if (Lfx.Types.Strings.SHA256(contrasena + "{" + this.ContrasenaSal + "}") == this.Contrasena)
+                        {
+                                // Es una contraseña encriptada
+                                return true;
+                        }
+                        else if (contrasena == this.Contrasena)
+                        {
+                                // Es una contraseña en texto plano (solo para usuario admin, recién instalado)
+                                return true;
+                        }
+                        else
+                        {
+                                
+                                try
+                                {
+                                        // BCrypt.Net lanza una excepción si la contraseña almacenada en BD no es un hash bcrypt válido.
+                                        // Podríamos verificar que comience con "$2a", pero eso tampoco asegura que sea un hash válido.
+                                        // Por lo tanto, lo probamos en un try-catch.
+                                        var bcryptValido = BCrypt.Net.BCrypt.Verify(contrasena, this.Contrasena);
+                                        return bcryptValido;
+                                } catch
+                                {
+                                        return false;
+                                }
+                        }
+                        
                 }
 
                 public override Lfx.Types.OperationResult Guardar()
@@ -162,14 +184,17 @@ namespace Lbl.Personas
                                 if (this.Contrasena == null || this.Contrasena.Length < 6 || this.Contrasena.Length > 32)
                                         throw new InvalidOperationException("La contraseña debe tener entre 6 y 32 caracteres");
 
-                                if (this.ContrasenaSal == null || this.ContrasenaSal.Length == 0) {
+                                /* if (this.ContrasenaSal == null || this.ContrasenaSal.Length == 0) {
                                         // Guardo la contraseña en texto plano
                                         Comando.ColumnValues.AddWithValue("contrasena", Contrasena);
                                 } else {
                                         // Guardo un hash SHA256 de la contraseña
                                         Comando.ColumnValues.AddWithValue("contrasena", Lfx.Types.Strings.SHA256(Contrasena + "{" + this.ContrasenaSal + "}"));
                                 }
-                                Comando.ColumnValues.AddWithValue("contrasena_sal", this.ContrasenaSal);
+                                Comando.ColumnValues.AddWithValue("contrasena_sal", this.ContrasenaSal); */
+
+                                Comando.ColumnValues.AddWithValue("contrasena", BCrypt.Net.BCrypt.HashPassword(Contrasena));
+                                Comando.ColumnValues.AddWithValue("contrasena_sal", null);
                                 Comando.ColumnValues.AddWithValue("contrasena_fecha", new qGen.SqlExpression("NOW()"));
                         }
 
@@ -198,7 +223,7 @@ namespace Lbl.Personas
                         return base.Guardar();
                 }
 
-                public static string GenerarSal()
+                /* public static string GenerarSal()
                 {
                         StringBuilder builder = new StringBuilder();
                         Random random = new Random();
@@ -209,6 +234,6 @@ namespace Lbl.Personas
                         }
 
                         return builder.ToString();
-                }
+                } */
         }
 }

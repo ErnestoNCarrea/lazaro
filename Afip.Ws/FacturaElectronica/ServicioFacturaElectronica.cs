@@ -103,7 +103,7 @@ namespace Afip.Ws.FacturaElectronica
                                 var DetallesComprobantes = new FECAEDetRequest[solCae.Comprobantes.Count];
 
                                 var i = 0;
-                                foreach (ComprobanteAsociado Comprob in solCae.Comprobantes) {
+                                foreach (ComprobanteSolicitud Comprob in solCae.Comprobantes) {
                                         var DetalleComprobante = new FECAEDetRequest
                                         {
                                                 Concepto = (int)Comprob.Conceptos,
@@ -120,16 +120,26 @@ namespace Afip.Ws.FacturaElectronica
                                                 //ImpTrib = Comprob.TotalTributos(),
                                                 MonId = "PES",
                                                 MonCotiz = 1,
-                                                /* CbtesAsoc = new CbteAsoc[1]
-                                                {
-                                                        new CbteAsoc()
-                                                        {
-                                                                Nro = 0,
-                                                                PtoVta = 0,
-                                                                Tipo = Tablas.ComprobantesTipos.NotaDeCreditoA
-                                                        }
-                                                } */
                                         };
+
+                                        // Agregar comprobantes asociados
+                                        if(Comprob.ComprobantesAsociados != null && Comprob.ComprobantesAsociados.Count > 0)
+                                        {
+                                                var CbtesAsocList = new List<CbteAsoc>();
+                                                foreach (var ComprobAsoc in Comprob.ComprobantesAsociados) 
+                                                {
+                                                        CbtesAsocList.Add(new CbteAsoc()
+                                                        {
+                                                                Tipo = (int)ComprobAsoc.Tipo,
+                                                                PtoVta = ComprobAsoc.PuntoDeVenta,
+                                                                Nro = ComprobAsoc.Numero,
+                                                                Cuit = ComprobAsoc.Cuit,
+                                                                CbteFch = ComprobAsoc.Fecha.ToString("yyyyMMdd"),
+                                                        });
+                                                }
+
+                                                DetalleComprobante.CbtesAsoc = CbtesAsocList.ToArray();
+                                        }
 
                                         // Si es un comprobante con servicios, agregar los campos obligatorios
                                         if ((Comprob.Conceptos | Tablas.Conceptos.Servicios) == Tablas.Conceptos.Servicios) {

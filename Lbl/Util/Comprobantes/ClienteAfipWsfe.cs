@@ -17,28 +17,28 @@ namespace Lazaro.Base.Util.Comprobantes
                         };
 
                         // Crear el comprobante asociado
-                        var ComprobanteAsociado = new Afip.Ws.FacturaElectronica.ComprobanteAsociado()
+                        var ComprobanteSolCae = new Afip.Ws.FacturaElectronica.ComprobanteSolicitud()
                         {
                                 Conceptos = (Afip.Ws.FacturaElectronica.Tablas.Conceptos)comprobante.Articulos.ConceptosAfip(),
                                 Numero = numero,
                         };
 
-                        if ((ComprobanteAsociado.Conceptos | Tablas.Conceptos.Servicios) == Tablas.Conceptos.Servicios) {
+                        if ((ComprobanteSolCae.Conceptos | Tablas.Conceptos.Servicios) == Tablas.Conceptos.Servicios) {
                                 foreach (var Art in comprobante.Articulos) {
                                         if (Art.Articulo != null) {
                                                 switch (Art.Articulo.Periodicidad) {
                                                         case Lbl.Articulos.Periodicidad.PorSemana:
                                                                 DateTime SemanaPasada = DateTime.Now;
                                                                 SemanaPasada.AddDays(-7);
-                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(SemanaPasada.Year, SemanaPasada.Month, SemanaPasada.Day);
-                                                                ComprobanteAsociado.ServicioFechaHasta = DateTime.Now;
+                                                                ComprobanteSolCae.ServicioFechaDesde = new DateTime(SemanaPasada.Year, SemanaPasada.Month, SemanaPasada.Day);
+                                                                ComprobanteSolCae.ServicioFechaHasta = DateTime.Now;
                                                                 break;
 
                                                         case Lbl.Articulos.Periodicidad.PorMes:
                                                                 DateTime MesPasado = DateTime.Now;
                                                                 MesPasado.AddMonths(-1);
-                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(MesPasado.Year, MesPasado.Month, 1);
-                                                                ComprobanteAsociado.ServicioFechaHasta = new DateTime(MesPasado.Year, MesPasado.Month, DateTime.DaysInMonth(MesPasado.Year, MesPasado.Month));
+                                                                ComprobanteSolCae.ServicioFechaDesde = new DateTime(MesPasado.Year, MesPasado.Month, 1);
+                                                                ComprobanteSolCae.ServicioFechaHasta = new DateTime(MesPasado.Year, MesPasado.Month, DateTime.DaysInMonth(MesPasado.Year, MesPasado.Month));
                                                                 break;
 
                                                         case Lbl.Articulos.Periodicidad.PorBimestre:
@@ -46,8 +46,8 @@ namespace Lazaro.Base.Util.Comprobantes
                                                                 MesPasado1.AddMonths(-1);
                                                                 DateTime MesPasado2 = DateTime.Now;
                                                                 MesPasado2.AddMonths(-2);
-                                                                ComprobanteAsociado.ServicioFechaDesde = new DateTime(MesPasado2.Year, MesPasado2.Month, 1);
-                                                                ComprobanteAsociado.ServicioFechaHasta = new DateTime(MesPasado1.Year, MesPasado1.Month, DateTime.DaysInMonth(MesPasado1.Year, MesPasado1.Month));
+                                                                ComprobanteSolCae.ServicioFechaDesde = new DateTime(MesPasado2.Year, MesPasado2.Month, 1);
+                                                                ComprobanteSolCae.ServicioFechaHasta = new DateTime(MesPasado1.Year, MesPasado1.Month, DateTime.DaysInMonth(MesPasado1.Year, MesPasado1.Month));
                                                                 break;
 
                                                         case Lbl.Articulos.Periodicidad.PorOcasion:
@@ -55,27 +55,27 @@ namespace Lazaro.Base.Util.Comprobantes
                                                         case Lbl.Articulos.Periodicidad.PorHora:
                                                         case Lbl.Articulos.Periodicidad.PorDia:
                                                         default:
-                                                                ComprobanteAsociado.ServicioFechaDesde = DateTime.Now;
-                                                                ComprobanteAsociado.ServicioFechaHasta = ComprobanteAsociado.ServicioFechaDesde;
+                                                                ComprobanteSolCae.ServicioFechaDesde = DateTime.Now;
+                                                                ComprobanteSolCae.ServicioFechaHasta = ComprobanteSolCae.ServicioFechaDesde;
                                                                 break;
                                                 }
                                                 break;
                                         }
                                 }
                                 
-                                ComprobanteAsociado.FechaVencimientoPago = DateTime.Now;
+                                ComprobanteSolCae.FechaVencimientoPago = DateTime.Now;
                         }
 
                         // Asignar cliente al comprobante
                         if (comprobante.Cliente.SituacionTributaria == null || comprobante.Cliente.SituacionTributaria.EsConsumidorFinal) {
                                 if (string.IsNullOrEmpty(comprobante.Cliente.NumeroDocumento)) {
-                                        ComprobanteAsociado.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
+                                        ComprobanteSolCae.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
                                         {
                                                 DocumentoTipo = Afip.Ws.FacturaElectronica.Tablas.DocumentoTipos.SinIdentificar,
                                                 DocumentoNumero = Lfx.Types.Parsing.ParseInt(comprobante.Cliente.NumeroDocumento)
                                         };
                                 } else {
-                                        ComprobanteAsociado.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
+                                        ComprobanteSolCae.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
                                         {
                                                 DocumentoTipo = Afip.Ws.FacturaElectronica.Tablas.DocumentoTipos.Dni,
                                                 DocumentoNumero = Lfx.Types.Parsing.ParseInt(comprobante.Cliente.NumeroDocumento)
@@ -84,7 +84,7 @@ namespace Lazaro.Base.Util.Comprobantes
                         } else {
                                 long DocNro = 0;
                                 long.TryParse(comprobante.Cliente.Cuit.ToString().Replace("-", "").Replace(" ", "").Replace("/", "").Replace(".", ""), System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out DocNro);
-                                ComprobanteAsociado.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
+                                ComprobanteSolCae.Cliente = new Afip.Ws.FacturaElectronica.Cliente()
                                 {
                                         DocumentoTipo = Afip.Ws.FacturaElectronica.Tablas.DocumentoTipos.Cuit,
                                         DocumentoNumero = DocNro
@@ -95,16 +95,16 @@ namespace Lazaro.Base.Util.Comprobantes
                         // Agregar conceptos al comprobante, agrupados por alícuota
                         if(comprobante.Tipo.Letra == "C") {
                                 // El comprobante C lleva características especiales
-                                ComprobanteAsociado.ImporteNetoGravado = comprobante.Total;
+                                ComprobanteSolCae.ImporteNetoGravado = comprobante.Total;
                         } else if(comprobante.Cliente.ObtenerSituacionIva() == Lbl.Impuestos.SituacionIva.Exento) {
                                 // Cliente exento... una sóla alícuota al 0% por el total
-                                ComprobanteAsociado.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
+                                ComprobanteSolCae.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
                                 {
                                         Alicuota = Afip.Ws.FacturaElectronica.Tablas.Alicuotas.Iva0,
                                         BaseImponible = comprobante.Total,
                                         Importe = 0m
                                 });
-                                ComprobanteAsociado.ImporteNetoGravado = ComprobanteAsociado.ImportesAlicuotas.ImporteNetoGravado();
+                                ComprobanteSolCae.ImporteNetoGravado = ComprobanteSolCae.ImportesAlicuotas.ImporteNetoGravado();
                         } else {
                                 // Agregar una o más alícuotas de IVA
                                 var Alicuotas = comprobante.AlicuotasUsadas();
@@ -112,20 +112,35 @@ namespace Lazaro.Base.Util.Comprobantes
                                         decimal ImporteIva = comprobante.TotalIvaAlicuota(Alic.Id);
                                         decimal ImporteGravado = comprobante.ImporteGravadoAlicuota(Alic.Id);
 
-                                        ComprobanteAsociado.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
+                                        ComprobanteSolCae.ImportesAlicuotas.Add(new Afip.Ws.FacturaElectronica.ImporteAlicuota()
                                         {
                                                 Alicuota = (Afip.Ws.FacturaElectronica.Tablas.Alicuotas)Lbl.Archivos.Salida.CitiTablas.Alicuotas[Alic.Id],
                                                 BaseImponible = ImporteGravado,
                                                 Importe = ImporteIva
                                         });
                                 }
-                                ComprobanteAsociado.ImporteNetoGravado = ComprobanteAsociado.ImportesAlicuotas.ImporteNetoGravado();
+                                ComprobanteSolCae.ImporteNetoGravado = ComprobanteSolCae.ImportesAlicuotas.ImporteNetoGravado();
+                        }
+
+                        if (comprobante.ComprobanteOriginal != null)
+                        {
+                                ComprobanteSolCae.ComprobantesAsociados = new List<ComprobanteAsociado>()
+                                {
+                                        new ComprobanteAsociado
+                                        {
+                                                PuntoDeVenta = comprobante.ComprobanteOriginal.PV,
+                                                Tipo = Afip.Ws.FacturaElectronica.Tablas.ComprobantesTiposPorLetra[comprobante.ComprobanteOriginal.Tipo.Nomenclatura],
+                                                Cuit= comprobante.ComprobanteOriginal.Cliente.Cuit.ToString().Replace("-", "").Replace(" ", "").Replace(".", ""),
+                                                Fecha = comprobante.ComprobanteOriginal.Fecha,
+                                                Numero = comprobante.ComprobanteOriginal.Numero
+                                        }
+                                };
                         }
 
                         // Agregar el comprobante asociado a la solicitud de CAE
-                        SolCae.Comprobantes = new Afip.Ws.FacturaElectronica.ColeccionComprobantesAsociados()
+                        SolCae.Comprobantes = new Afip.Ws.FacturaElectronica.ColeccionComprobantesSolicitud()
                         {
-                                ComprobanteAsociado
+                                ComprobanteSolCae
                         };
 
                         return SolCae;

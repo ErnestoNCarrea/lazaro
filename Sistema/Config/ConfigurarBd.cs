@@ -84,21 +84,15 @@ namespace Lazaro.WinMain.Config
 
                         Lfx.Workspace.Master.ConnectionParameters.ServerName = EntradaServidor.Text;
                         switch (EntradaConexion.TextKey) {
-                                case "odbc":
-                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Odbc;
-                                        break;
-                                case "myodbc":
                                 case "mysql":
-                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                        //Modo MySql anulado, se usa el conector nuevo para ambos
+                                        //Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MySql;
+                                        //break;
+                                case "mariadb":
+                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MariaDB;
                                         break;
                                 case "npgsql":
                                         Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.Npgsql;
-                                        break;
-                                case "mssql":
-                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.MSSql;
-                                        break;
-                                case "sqlite":
-                                        Lfx.Data.DatabaseCache.DefaultCache.AccessMode = Lfx.Data.AccessModes.SQLite;
                                         break;
                         }
 

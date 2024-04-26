@@ -34,11 +34,18 @@ namespace Lazaro.Orm.Mapping
                 {
                         var Files = System.IO.Directory.EnumerateFiles(folderName, "*.dll", recursive ? System.IO.SearchOption.AllDirectories : System.IO.SearchOption.TopDirectoryOnly);
                         foreach(var File in Files) {
-                                var Assembly = System.Reflection.Assembly.LoadFrom(File);
-                                var ModelAttr = Assembly.GetCustomAttributes(typeof(Attributes.Model), false);
-                                if (ModelAttr.Length > 0) {
-                                        Log.Info("Model found on " + Assembly.Location);
-                                        this.ScanAssembly(Assembly);
+                                try
+                                {
+                                        var Assembly = System.Reflection.Assembly.LoadFrom(File);
+                                        var ModelAttr = Assembly.GetCustomAttributes(typeof(Attributes.Model), false);
+                                        if (ModelAttr.Length > 0)
+                                        {
+                                                Log.Info("Model found on " + Assembly.Location);
+                                                this.ScanAssembly(Assembly);
+                                        }
+                                }
+                                catch { 
+                                        // No se puede cargar el ensamblado, posiblemente dañado o en un DLL no ensamblado
                                 }
                         }
 
@@ -169,6 +176,8 @@ namespace Lazaro.Orm.Mapping
                                         Res.Type = ColumnTypes.SmallInt;
                                 } else if (Res.MemberType.IsInstanceOfType(typeof(int))) {
                                         Res.Type = ColumnTypes.Integer;
+                                } else if (Res.MemberType.IsInstanceOfType(typeof(long))) {
+                                        Res.Type = ColumnTypes.BigInt;
                                 } else if (Res.MemberType.IsInstanceOfType(typeof(decimal))) {
                                         Res.Type = ColumnTypes.Numeric;
                                 } else if (Res.MemberType.IsInstanceOfType(typeof(string))) {

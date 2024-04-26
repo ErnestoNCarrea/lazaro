@@ -408,20 +408,20 @@ namespace Lbl.Personas
                         }
                 }
 
-                public Comprobantes.Tipo ObtenerTipoComprobante()
+                public Comprobantes.Tipo ObtenerTipoComprobante(string factura = "F")
                 {
                         string TipoComprob;
                         if (this.FacturaPreferida != null)
                         {
-                                TipoComprob = "F" + this.FacturaPreferida;
+                                TipoComprob = factura + this.FacturaPreferida;
                         }
                         else if (this.SituacionTributaria != null)
                         {
-                                TipoComprob = "F" + this.SituacionTributaria.ObtenerLetraPredeterminada();
+                                TipoComprob = factura + this.SituacionTributaria.ObtenerLetraPredeterminada();
                         }
                         else
                         {
-                                TipoComprob = "F" + this.LetraPredeterminada();
+                                TipoComprob = factura + this.LetraPredeterminada();
                         }
 
                         if (Lbl.Comprobantes.Tipo.TodosPorLetra.ContainsKey(TipoComprob))

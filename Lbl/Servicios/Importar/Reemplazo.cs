@@ -18,6 +18,8 @@ namespace Lbl.Servicios.Importar
 
                         if(buscar is int)
                                 this.Tipo = Lazaro.Orm.ColumnTypes.Integer;
+                        else if (buscar is long)
+                                this.Tipo = Lazaro.Orm.ColumnTypes.BigInt;
                         else if (buscar is double || buscar is decimal)
                                 this.Tipo = Lazaro.Orm.ColumnTypes.Numeric;
                         else if (buscar is DateTime)
